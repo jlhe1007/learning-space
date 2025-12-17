@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Presentations - Learning & Quiz App</title>
+    <style>
+        :root {
+            --color-primary: #0066cc;
+            --color-primary-hover: #0052a3;
+            --color-success: #28a745;
+            --color-error: #dc3545;
+            --color-warning: #ff9800;
+            --color-bg: #f5f5f5;
+            --color-surface: #ffffff;
+            --color-text: #333;
+            --color-text-light: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--color-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 5px;
+            font-size: 2em;
+        }
+
+        header p {
+            font-size: 0.95em;
+            opacity: 0.95;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .menu-btn {
+            background: var(--color-surface);
+            border: 2px solid var(--color-primary);
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .quiz-container {
+            background: var(--color-surface);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .question-number {
+            color: var(--color-primary);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--color-text);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            background: var(--color-bg);
+            border: 2px solid transparent;
+            padding: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95em;
+        }
+
+        .option:hover {
+            border-color: var(--color-primary);
+            background: #f0f7ff;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .option label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: var(--color-primary-hover);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            border: 2px solid var(--color-success);
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            border: 2px solid var(--color-error);
+            color: #721c24;
+        }
+
+        .progress-bar {
+            background: var(--color-bg);
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: var(--color-primary);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .score-board {
+            background: var(--color-surface);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .score-board h2 {
+            margin-bottom: 10px;
+            color: var(--color-text);
+        }
+
+        .score-board p {
+            color: var(--color-text-light);
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+        }
+
+        .btn-secondary {
+            background: var(--color-text-light);
+        }
+
+        .learning-content {
+            background: var(--color-surface);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .learning-section {
+            margin-bottom: 25px;
+        }
+
+        .learning-section h3 {
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 10px;
+        }
+
+        .learning-section ul {
+            margin-left: 20px;
+        }
+
+        .learning-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .example-box {
+            background: #fffef0;
+            border-left: 4px solid var(--color-warning);
+            padding: 12px;
+            margin: 10px 0;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .menu {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .quiz-container,
+            .score-board,
+            .learning-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 English Presentations</h1>
+            <p>Master Presentation Techniques with Interactive Quizzes</p>
+        </header>
+
+        <!-- MENU -->
+        <div class="menu">
+            <button class="menu-btn" onclick="showSection('learning')">📚 Learn</button>
+            <button class="menu-btn" onclick="showSection('quiz')">✍️ Quiz (20 Questions)</button>
+        </div>
+
+        <!-- LEARNING SECTION -->
+        <section id="learning" class="section active">
+            <div class="learning-content">
+                <h2>📖 Lernzettel – English: Giving Presentations</h2>
+
+                <div class="learning-section">
+                    <h3>1️⃣ LINKING PHRASES (Verbindungswörter)</h3>
+                    <strong>Strukturierung der Präsentation:</strong>
+                    <ul>
+                        <li><strong>Einleitung:</strong> I'd like to begin by... / To start with... / First and foremost...</li>
+                        <li><strong>Hinzufügen:</strong> In addition... / Furthermore... / Apart from... / Last but not least...</li>
+                        <li><strong>Ergänzung:</strong> Secondly... / as far as ... is concerned</li>
+                        <li><strong>Übergang:</strong> Thirdly... / Moreover...</li>
+                        <li><strong>Schluss:</strong> To conclude... / However... / Nevertheless...</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">Kontrastive Verbindungswörter:</strong>
+                    <ul>
+                        <li><strong>However</strong> – jedoch, allerdings</li>
+                        <li><strong>Nevertheless</strong> – dennoch</li>
+                        <li><strong>On the other hand</strong> – andererseits</li>
+                        <li><strong>In contrast</strong> – im Gegensatz dazu</li>
+                        <li><strong>Unlike</strong> – im Gegensatz zu</li>
+                    </ul>
+                </div>
+
+                <div class="learning-section">
+                    <h3>2️⃣ VOCABULARY (Präsentations-Vokabeln)</h3>
+                    <strong>People:</strong>
+                    <ul>
+                        <li>Audience = Publikum</li>
+                        <li>Presenter / Moderator = Vortragender / Moderator</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">Visuals (Visuelle Darstellungsmittel):</strong>
+                    <ul>
+                        <li>Beamer = Projector / Video projector</li>
+                        <li>Liniendiagramm = Line chart</li>
+                        <li>Balkendiagramm = Bar chart</li>
+                        <li>Kreisdiagramm = Pie chart</li>
+                        <li>Tabelle = Table</li>
+                        <li>Folie (PowerPoint) = Slide</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">Miscellaneous:</strong>
+                    <ul>
+                        <li>Einführung = Introduction</li>
+                        <li>Hauptteil = Main part</li>
+                        <li>Schluss = Conclusion</li>
+                        <li>Überblick = Overview / Outline</li>
+                        <li>Stichwortzettel = Notecard / Cheatsheet / Index cards</li>
+                    </ul>
+                </div>
+
+                <div class="learning-section">
+                    <h3>3️⃣ POWERPOINT SLIDES – Die 5 Komponenten</h3>
+                    <strong>🎨 1. FONT:</strong>
+                    <ul>
+                        <li>Sans-serif fonts bevorzugt (Arial, Helvetica, Calibri)</li>
+                        <li>Minimum 30pt für normalen Text</li>
+                        <li>Title/Heading: 44pt – 50pt</li>
+                        <li>Konsistent auf allen Folien verwenden</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">📅 2. DATE:</strong>
+                    <ul>
+                        <li>Format: DD.MM.YYYY oder DD/MM/YYYY (z.B. 16.12.2025)</li>
+                        <li>Platzierung: Immer auf der Titelfolie enthalten</li>
+                        <li>Optional: Auch auf der Schlussfolie möglich</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">🔢 3. DECIMAL FRACTIONS:</strong>
+                    <ul>
+                        <li>Deutsche Schreibweise: 12,5 (Komma)</li>
+                        <li>Englische Schreibweise: 12.5 (Punkt)</li>
+                        <li>⚠️ Wichtig: Nicht mischen! Entweder ALLE Kommas oder ALLE Punkte!</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">💰 4. LARGE NUMBERS:</strong>
+                    <ul>
+                        <li>Deutsche Schreibweise: 5.000.000 (Punkte)</li>
+                        <li>Englische Schreibweise: 5,000,000 (Kommas)</li>
+                        <li>Oder als Text: five million</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">✅ 5. GENERAL RULES:</strong>
+                    <ul>
+                        <li>Maximum 5 bullet points per slide – no more!</li>
+                        <li>Each point: 1–2 lines maximum – keep it concise</li>
+                        <li>Use fragments, not complete sentences – be direct and clear</li>
+                        <li>Use visuals & diagrams for support – not just decoration!</li>
+                        <li>Leave whitespace – don't overcrowd your slides</li>
+                    </ul>
+                </div>
+
+                <div class="learning-section">
+                    <h3>4️⃣ DESCRIBING DIAGRAMS (Diagramme analysieren)</h3>
+                    <strong>Verben für verschiedene Bewegungen:</strong>
+                    <ul>
+                        <li><strong>↑ Nach oben:</strong> increase, climb, lift, rise, grow, rocket</li>
+                        <li><strong>↔ Seitwärts:</strong> stay, remain, maintain, plateau</li>
+                        <li><strong>↓ Nach unten:</strong> fall, decrease, drop, decline, plunge</li>
+                        <li><strong>→ Verlauf:</strong> remain, maintain, stay, last</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">Adverbien für Intensität & Geschwindigkeit:</strong>
+                    <ul>
+                        <li><strong>Sehr stark:</strong> rapidly, sharply, quickly, steeply, substantially, considerably, significantly</li>
+                        <li><strong>Moderat:</strong> moderately, significantly, gradually</li>
+                        <li><strong>Gering:</strong> slightly, slowly</li>
+                        <li><strong>Stabil:</strong> constant, stable, steady</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">5-Schritte-Methode zur Beschreibung:</strong>
+                    <ul>
+                        <li>1. Was wird gezeigt? "This diagram shows..." / "The chart illustrates..."</li>
+                        <li>2. Zeitraum: "Between 2020 and 2024..." / "Over the last decade..."</li>
+                        <li>3. Trend + Adverb: "The numbers increased rapidly..." / "Sales declined slightly..."</li>
+                        <li>4. Zahlen/Daten: "From 50 units to 120 units..." / "A rise of 45%..."</li>
+                        <li>5. Interpretation: "This indicates..." / "We can conclude..." / "This suggests..."</li>
+                    </ul>
+                </div>
+
+                <div class="learning-section">
+                    <h3>5️⃣ PREPOSITIONS IN PRESENTATIONS</h3>
+                    <ul>
+                        <li><strong>about / on:</strong> This is a presentation <strong>about</strong> the topic... / <strong>on</strong> the subject...</li>
+                        <li><strong>by:</strong> Let me start <strong>by</strong> saying...</li>
+                        <li><strong>on:</strong> As you can see <strong>on</strong> the screen... / I'll focus <strong>on</strong> these three aspects...</li>
+                        <li><strong>of:</strong> First I'll give you an overview <strong>of</strong>...</li>
+                        <li><strong>to:</strong> Now I'm turning <strong>to</strong> the issue...</li>
+                        <li><strong>from:</strong> As you can see <strong>from</strong> the graph...</li>
+                        <li><strong>out:</strong> Let me point <strong>out</strong>...</li>
+                    </ul>
+                </div>
+
+                <div class="learning-section">
+                    <h3>6️⃣ PRAKTISCHE BEISPIELE</h3>
+                    <strong>🎤 Introduction Phrases:</strong>
+                    <ul>
+                        <li>"I'd like to begin by highlighting some of the key features..."</li>
+                        <li>"First and foremost, it offers..."</li>
+                        <li>"Good morning/afternoon, everyone!"</li>
+                        <li>"Thank you for being here today."</li>
+                        <li>"Let me start with a quick overview..."</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">🔄 Transitions & Additions:</strong>
+                    <ul>
+                        <li>"Furthermore, ..."</li>
+                        <li>"In addition, ..."</li>
+                        <li>"As far as ... is concerned, ..."</li>
+                        <li>"Last but not least, ..."</li>
+                        <li>"Let me also mention that..."</li>
+                        <li>"Moving on to the next point..."</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">📊 Describing Diagrams – Examples:</strong>
+                    <ul>
+                        <li>"The graph shows a sharp increase in sales during 2023 and 2024."</li>
+                        <li>"Sales declined moderately between Q2 and Q3, dropping from $5 million to $3.5 million."</li>
+                        <li>"There was a slight rise in customer numbers throughout the period."</li>
+                        <li>"Revenue peaked at 5 million in Q4 2024, representing a 45% increase year-over-year."</li>
+                        <li>"As you can see from the chart, there's a clear downward trend starting in March."</li>
+                    </ul>
+                    <strong style="margin-top: 15px; display: block;">🏁 Conclusion & Outlook:</strong>
+                    <ul>
+                        <li>"To conclude, ..."</li>
+                        <li>"In summary, ..."</li>
+                        <li>"This demonstrates that..."</li>
+                        <li>"We can conclude that..."</li>
+                        <li>"Thank you for your attention. Do you have any questions?"</li>
+                    </ul>
+                </div>
+
+                <div class="learning-section" style="background: #fff3cd; padding: 15px; border-radius: 6px; border-left: 4px solid #ff9800;">
+                    <h3 style="color: #856404;">✓ WICHTIG beim Präsentieren:</h3>
+                    <ul style="color: #856404;">
+                        <li>✅ Augenkontakt mit dem Publikum halten</li>
+                        <li>✅ Deutlich und in normalem Tempo sprechen</li>
+                        <li>✅ Visuals als Unterstützung nutzen – NICHT als Lektüre vorlesen!</li>
+                        <li>✅ Zeit einhalten und nicht zu schnell durchhetzen</li>
+                        <li>✅ Pausen machen für Verständnis und Fragen</li>
+                        <li>✅ Konsistent bleiben – einheitliche Formatierung überall</li>
+                    </ul>
+                </div>
+
+                <button class="btn" onclick="showSection('quiz')">Ready? Start Quiz! →</button>
+            </div>
+        </section>
+
+        <!-- QUIZ SECTION -->
+        <section id="quiz" class="section">
+            <div class="quiz-container" id="quizContainer">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="question-number" id="questionNumber">Question 1 of 20</div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+                <button class="btn" id="submitBtn" onclick="submitAnswer()">Check Answer</button>
+                <div class="feedback" id="feedback"></div>
+            </div>
+
+            <div class="score-board" id="scoreBoard" style="display: none;">
+                <div class="score-circle" id="scoreCircle">0%</div>
+                <h2>Quiz Complete! 🎉</h2>
+                <p id="scoreMessage"></p>
+                <button class="btn" onclick="location.reload()">Start Over</button>
+                <button class="btn btn-secondary" onclick="showSection('learning'); location.reload()">Review & Learn</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Quiz Questions
+        const quizQuestions = [
+            {
+                question: "What is the MINIMUM font size for normal text on a PowerPoint slide?",
+                options: [
+                    "20pt",
+                    "30pt",
+                    "44pt",
+                    "50pt"
+                ],
+                correct: 1,
+                explanation: "The minimum font size for normal body text is 30pt to ensure readability for the audience."
+            },
+            {
+                question: "How should you write a decimal number in English presentations?",
+                options: [
+                    "3,25 (with comma)",
+                    "3.25 (with point)",
+                    "3-25 (with dash)",
+                    "Both A and B are correct"
+                ],
+                correct: 1,
+                explanation: "In English, use a POINT (3.25), not a comma. Commas are for thousands (5,000,000)."
+            },
+            {
+                question: "What is the maximum number of bullet points recommended per slide?",
+                options: [
+                    "3 bullet points",
+                    "5 bullet points",
+                    "7 bullet points",
+                    "10 bullet points"
+                ],
+                correct: 1,
+                explanation: "Maximum 5 bullet points per slide - this prevents overcrowding and helps the audience focus."
+            },
+            {
+                question: "Which linking phrase would you use to INTRODUCE your presentation?",
+                options: [
+                    "To conclude...",
+                    "Furthermore...",
+                    "I'd like to begin by...",
+                    "On the other hand..."
+                ],
+                correct: 2,
+                explanation: "'I'd like to begin by...' is an introductory phrase. 'To conclude' ends a presentation."
+            },
+            {
+                question: "How do you write 5 million in English style (for slides)?",
+                options: [
+                    "5.000.000 (with dots)",
+                    "5,000,000 (with commas)",
+                    "five million (as text)",
+                    "Both B and C are correct"
+                ],
+                correct: 3,
+                explanation: "In English, use COMMAS for thousands (5,000,000) or write it as text (five million). Both are correct!"
+            },
+            {
+                question: "Which verb describes a SHARP INCREASE in a diagram?",
+                options: [
+                    "remained stable",
+                    "declined slightly",
+                    "rocketed / skyrocketed",
+                    "plateaued"
+                ],
+                correct: 2,
+                explanation: "'Rocketed' or 'skyrocketed' describes a sharp, sudden increase. 'Remained stable' = no change."
+            },
+            {
+                question: "Complete: 'As you can see _____ the screen...'",
+                options: [
+                    "in",
+                    "at",
+                    "on",
+                    "from"
+                ],
+                correct: 2,
+                explanation: "The correct preposition is 'on': 'As you can see ON the screen...'"
+            },
+            {
+                question: "Which is NOT a proper contrast linking phrase?",
+                options: [
+                    "However...",
+                    "Nevertheless...",
+                    "Furthermore...",
+                    "On the other hand..."
+                ],
+                correct: 2,
+                explanation: "'Furthermore' ADDS information, it doesn't contrast. 'However', 'Nevertheless', 'On the other hand' show contrast."
+            },
+            {
+                question: "What does the example 'Revenue peaked at 5 million in Q4' tell you?",
+                options: [
+                    "Revenue was lowest in Q4",
+                    "Revenue reached its highest point in Q4",
+                    "Revenue remained stable in Q4",
+                    "Revenue declined in Q4"
+                ],
+                correct: 1,
+                explanation: "'Peaked' means reached the highest point. It's the TOP of the curve."
+            },
+            {
+                question: "Which of these is correct for describing a SLIGHT change?",
+                options: [
+                    "Sales rocketed sharply",
+                    "Numbers increased substantially",
+                    "There was a slight rise in customers",
+                    "Revenue plunged considerably"
+                ],
+                correct: 2,
+                explanation: "'Slight rise' correctly describes a small, gradual increase. 'Sharply', 'substantially', 'plunged' all indicate major changes."
+            },
+            {
+                question: "What should you NEVER do when presenting slides?",
+                options: [
+                    "Make eye contact with the audience",
+                    "Just read word-for-word from your slides",
+                    "Use visuals as support material",
+                    "Speak at a normal pace"
+                ],
+                correct: 1,
+                explanation: "Never just read from slides! Slides are SUPPORT material, not a script. Use them to highlight key points."
+            },
+            {
+                question: "How many lines should each bullet point be maximum?",
+                options: [
+                    "1 line maximum",
+                    "2-3 lines maximum",
+                    "1-2 lines maximum",
+                    "No limit, be detailed"
+                ],
+                correct: 2,
+                explanation: "Each bullet point should be 1-2 lines MAXIMUM to keep slides clean and readable. More text = audience gets lost."
+            },
+            {
+                question: "Which date format is CORRECT for English presentations?",
+                options: [
+                    "16/12/2025 or 16.12.2025",
+                    "12/16/2025 (American style)",
+                    "December 16, 2025 (full text)",
+                    "All formats are equally correct"
+                ],
+                correct: 0,
+                explanation: "DD/MM/YYYY or DD.MM.YYYY are standard for presentations. Always include the date on your title slide!"
+            },
+            {
+                question: "Which adverb indicates a MODERATE/GRADUAL increase?",
+                options: [
+                    "sharply",
+                    "substantially",
+                    "gradually",
+                    "steeply"
+                ],
+                correct: 2,
+                explanation: "'Gradually' means slow, step-by-step change. 'Sharply', 'substantially', 'steeply' all mean sudden/significant."
+            },
+            {
+                question: "How should you format the title on a PowerPoint slide?",
+                options: [
+                    "20pt font size",
+                    "32pt font size",
+                    "44-50pt font size",
+                    "10pt font size"
+                ],
+                correct: 2,
+                explanation: "Titles should be 44-50pt for visibility. This is much larger than body text (30pt minimum)."
+            },
+            {
+                question: "Which linking phrase is used to add MORE information?",
+                options: [
+                    "However...",
+                    "In contrast...",
+                    "Furthermore...",
+                    "On the other hand..."
+                ],
+                correct: 2,
+                explanation: "'Furthermore' ADDS information (like 'In addition'). The others show CONTRAST or contradiction."
+            },
+            {
+                question: "What does 'plateau' mean when describing a diagram?",
+                options: [
+                    "Sharp increase",
+                    "Remains flat/stable",
+                    "Sudden drop",
+                    "Fluctuates wildly"
+                ],
+                correct: 1,
+                explanation: "'Plateau' = flat, no change. Numbers stay the same. Example: 'Sales plateaued at 50,000 units.'"
+            },
+            {
+                question: "Which is the CORRECT way to write decimal numbers in English presentations?",
+                options: [
+                    "Use commas: 25,5%",
+                    "Use points: 25.5%",
+                    "Use dashes: 25-5%",
+                    "Write as text: twenty-five point five percent"
+                ],
+                correct: 1,
+                explanation: "In English, use POINTS for decimals (25.5%). Only use COMMAS for thousands (5,000,000)."
+            },
+            {
+                question: "What is the main purpose of visuals on a PowerPoint slide?",
+                options: [
+                    "To fill empty space",
+                    "To look pretty",
+                    "To SUPPORT and clarify your spoken message",
+                    "To replace your speech"
+                ],
+                correct: 2,
+                explanation: "Visuals should SUPPORT your presentation, not replace it or just decorate. They help the audience understand better."
+            },
+            {
+                question: "Complete: 'I'd like to begin _____ showing you the data.'",
+                options: [
+                    "to",
+                    "for",
+                    "by",
+                    "with"
+                ],
+                correct: 2,
+                explanation: "The correct phrase is 'I'd like to begin BY...'. 'By' shows the method or action you're starting with."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+            if (section === 'quiz' && currentQuestion === 0) {
+                loadQuestion();
+            }
+        }
+
+        function loadQuestion() {
+            const question = quizQuestions[currentQuestion];
+            answered = false;
+
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1} of ${quizQuestions.length}`;
+            document.getElementById('questionText').textContent = question.question;
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerHTML = `
+                    <label>
+                        <input type="radio" name="answer" value="${index}">
+                        ${option}
+                    </label>
+                `;
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            document.getElementById('feedback').classList.remove('show', 'correct', 'incorrect');
+            document.getElementById('submitBtn').textContent = 'Check Answer';
+            updateProgress();
+        }
+
+        function submitAnswer() {
+            if (answered) {
+                nextQuestion();
+                return;
+            }
+
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (!selectedAnswer) {
+                alert('Please select an answer!');
+                return;
+            }
+
+            answered = true;
+            const question = quizQuestions[currentQuestion];
+            const isCorrect = parseInt(selectedAnswer.value) === question.correct;
+
+            if (isCorrect) {
+                score++;
+                document.getElementById('feedback').className = 'feedback show correct';
+                document.getElementById('feedback').innerHTML = `✅ <strong>Correct!</strong> ${question.explanation}`;
+            } else {
+                document.getElementById('feedback').className = 'feedback show incorrect';
+                document.getElementById('feedback').innerHTML = `❌ <strong>Incorrect!</strong> ${question.explanation}`;
+            }
+
+            document.getElementById('submitBtn').textContent = currentQuestion === quizQuestions.length - 1 ? 'See Results' : 'Next Question →';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion) / quizQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            const percentage = Math.round((score / quizQuestions.length) * 100);
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('scoreBoard').style.display = 'block';
+            document.getElementById('scoreCircle').textContent = percentage + '%';
+
+            let message = '';
+            if (percentage === 100) {
+                message = 'Perfect! You\'re a presentation expert! 🌟';
+            } else if (percentage >= 80) {
+                message = 'Great job! You know your stuff! 💪';
+            } else if (percentage >= 60) {
+                message = 'Good effort! Review the topics and try again. 📚';
+            } else {
+                message = 'Keep learning! Review the material and take the quiz again. 📖';
+            }
+
+            document.getElementById('scoreMessage').textContent = `You got ${score} out of ${quizQuestions.length} questions correct. ${message}`;
+        }
+
+        // Load first question
+        window.addEventListener('load', () => {
+            if (document.getElementById('quiz').classList.contains('active')) {
+                loadQuestion();
+            }
+        });
+    </script>
+</body>
+</html>
