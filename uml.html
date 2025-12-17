@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lernzettel: UML Aktivitätsdiagramm (Einseitig)</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --color-primary: #0891b2;
+            --color-primary-dark: #0e7490;
+            --color-accent: #06b6d4;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-error: #ef4444;
+            --color-bg: #f8fafc;
+            --color-surface: #ffffff;
+            --color-text: #0f172a;
+            --color-text-light: #64748b;
+            --color-border: #e2e8f0;
+            --color-highlight: #fef08a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--color-text);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--color-surface);
+            border-radius: 16px;
+            padding: 30px 24px 40px 24px;
+            box-shadow: 0 12px 40px rgba(15, 23, 42, 0.35);
+        }
+
+        h1 {
+            font-size: 2.3rem;
+            color: var(--color-primary);
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            color: var(--color-text-light);
+            margin-bottom: 20px;
+        }
+
+        .meta {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            margin-bottom: 24px;
+        }
+
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--color-border);
+            background: var(--color-bg);
+            color: var(--color-text-light);
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin-top: 26px;
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid var(--color-accent);
+            color: var(--color-primary);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            color: var(--color-primary);
+        }
+
+        h4 {
+            font-size: 1rem;
+            margin-top: 14px;
+            margin-bottom: 4px;
+            color: var(--color-text);
+        }
+
+        p {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        ul, ol {
+            margin: 0 0 10px 22px;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        .info, .warn {
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin: 10px 0 14px 0;
+            font-size: 0.95rem;
+        }
+
+        .info {
+            background: #e0f2fe;
+            border-left: 4px solid #0284c7;
+            color: #0f172a;
+        }
+
+        .warn {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            color: #78350f;
+        }
+
+        .symbol {
+            display: inline-block;
+            padding: 1px 7px;
+            border-radius: 4px;
+            background: var(--color-highlight);
+            font-family: "SF Mono","Consolas","Courier New",monospace;
+            font-size: 0.9rem;
+        }
+
+        .box {
+            border-radius: 10px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            padding: 12px 14px;
+            margin: 10px 0 14px 0;
+        }
+
+        .example {
+            border-radius: 10px;
+            border: 1px solid rgba(8,145,178,0.4);
+            background: linear-gradient(135deg, #e0f2fe 0%, #ecfeff 100%);
+            padding: 12px 14px;
+            margin: 12px 0 16px 0;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .table th, .table td {
+            border: 1px solid var(--color-border);
+            padding: 7px 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background: #e0f2fe;
+            color: #0f172a;
+        }
+
+        .table tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        .tag {
+            font-size: 0.8rem;
+            padding: 2px 6px;
+            border-radius: 999px;
+            border: 1px solid var(--color-border);
+            background: white;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 10px 16px;
+        }
+
+        .checklist li::marker {
+            content: "☐ ";
+            font-size: 0.9rem;
+        }
+
+        code {
+            font-family: "SF Mono", "Consolas", "Courier New", monospace;
+            font-size: 0.9rem;
+            background: #0f172a;
+            color: #e5e7eb;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        .diagram-img {
+            display: block;
+            margin: 12px auto;
+            max-width: 100%;
+            border-radius: 10px;
+            border: 2px solid var(--color-primary);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 22px 16px 28px 16px; }
+            h1 { font-size: 1.9rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📊 Lernzettel – UML Aktivitätsdiagramm</h1>
+    <p class="subtitle">Kompakter, aber ausführlicher Überblick für deinen Test (Theorie + durchgehendes Praxisbeispiel).</p>
+    <p class="meta">Thema: UML 2.x • Fokus: Kontrollfluss, Objektfluss, Swimlanes, Entscheidungen & Parallelität</p>
+
+    <div class="badge-row">
+        <span class="badge">✔ Grundlagen</span>
+        <span class="badge">✔ Alle Knotentypen</span>
+        <span class="badge">✔ Praxisbeispiele</span>
+        <span class="badge">✔ Checkliste</span>
+        <span class="badge">✔ Definitionen</span>
+    </div>
+
+    <!-- 1. Grundlagen -->
+    <h2>1. Grundlagen und Verwendung</h2>
+    <h3>1.1 Was ist ein Aktivitätsdiagramm?</h3>
+    <p>
+        Ein <strong>UML-Aktivitätsdiagramm</strong> beschreibt <strong>Abläufe</strong>:
+        Welche Schritte werden in welcher Reihenfolge ausgeführt, welche Entscheidungen werden getroffen
+        und wo laufen Dinge parallel.
+    </p>
+    <p>
+        Es gehört zu den <em>Verhaltensdiagrammen</em> der UML und eignet sich besonders, um
+        <strong>Geschäftsprozesse</strong>, <strong>Use-Case-Abläufe</strong> oder
+        <strong>technische Workflows</strong> zu visualisieren.
+    </p>
+
+    <h3>1.2 Einsatzgebiete</h3>
+    <ul>
+        <li>Modellierung von Geschäftsprozessen (z.B. Bestellprozess, Support-Ticket-Flow).</li>
+        <li>Beschreibung des Verhaltens eines Systems (z.B. Login-Prozess, Datenerfassung).</li>
+        <li>Analyse von bestehenden Abläufen zur Optimierung (Bottlenecks erkennen).</li>
+        <li>Kommunikation zwischen Fachabteilung und Entwicklern (gemeinsames Verständnis).</li>
+    </ul>
+
+    <div class="info">
+        💡 <strong>Merksatz:</strong>
+        Aktivitätsdiagramme zeigen <strong>WAS</strong> in welcher Reihenfolge passiert – nicht, wie der Code im Detail aussieht.
+    </div>
+
+    <!-- 2. Elemente -->
+    <h2>2. Zentrale Elemente im Aktivitätsdiagramm</h2>
+
+    <h3>2.1 Ausführbare Knoten (Actions)</h3>
+    <div class="box">
+        <strong>Aktion (Action)</strong><br>
+        Symbol: <span class="symbol">[ Aktion ]</span> (Rechteck mit abgerundeten Ecken)<br>
+        Bedeutung: Eine <strong>atomare Tätigkeit</strong>, die nicht weiter zerlegt wird.
+        <ul>
+            <li>Beispiele: „Artikel durchsuchen“, „Rechnung erstellen“, „Diagnose stellen“.</li>
+            <li>Aktionen können Ein- und Ausgabedaten haben (über Objektknoten/Pins).</li>
+        </ul>
+    </div>
+
+    <h3>2.2 Kontrollknoten (Steuerlogik)</h3>
+    <div class="two-col">
+        <div class="box">
+            <strong>Startknoten (Initial Node)</strong><br>
+            Symbol: <span class="symbol">●</span><br>
+            Startet den Ablauf. Im Normalfall genau <strong>ein</strong> Startknoten im Diagramm.
+        </div>
+
+        <div class="box">
+            <strong>Endknoten (Activity Final)</strong><br>
+            Symbol: <span class="symbol">⊙</span><br>
+            Beendet die gesamte Aktivität. Es können mehrere Endknoten existieren (verschiedene Endzustände).
+        </div>
+
+        <div class="box">
+            <strong>Entscheidungsknoten (Decision)</strong><br>
+            Symbol: <span class="symbol">◇</span><br>
+            Verzweigt den Kontrollfluss abhängig von Bedingungen.
+            <ul>
+                <li>1 eingehender, mehrere ausgehende Pfeile.</li>
+                <li>Jeder ausgehende Pfeil hat <code>[Bedingung]</code>.</li>
+                <li>Genau ein Zweig ist wahr, ein Zweig sollte <code>[else]</code> sein.</li>
+            </ul>
+        </div>
+
+        <div class="box">
+            <strong>Verbindungsknoten (Merge)</strong><br>
+            Symbol: <span class="symbol">◇</span> (gleiches Symbol wie Decision, aber andere Bedeutung).<br>
+            Führt mehrere <strong>alternative</strong> Pfade wieder zusammen (kein Warten nötig).
+        </div>
+
+        <div class="box">
+            <strong>Gabelung (Fork)</strong><br>
+            Symbol: <span class="symbol">━━</span> (dicker Balken)<br>
+            Teilt den Kontrollfluss in <strong>parallele</strong> Pfade, die gleichzeitig laufen.
+        </div>
+
+        <div class="box">
+            <strong>Vereinigung (Join)</strong><br>
+            Symbol: <span class="symbol">━━</span><br>
+            Vereinigt parallele Pfade. Wartet, bis <strong>alle</strong> eingehenden Flüsse angekommen sind.
+        </div>
+    </div>
+
+    <h3>2.3 Objektknoten und Flüsse</h3>
+    <div class="box">
+        <strong>Objektknoten (Object Node)</strong><br>
+        Symbol: <span class="symbol">[Klasse]</span> oder <span class="symbol">[Klasse: Zustand]</span><br>
+        Bedeutung: stellt ein <strong>Objekt</strong> oder <strong>Daten</strong> dar, die zwischen Aktionen
+        fließen (z.B. <code>[Bestellung: offen]</code>, <code>[Krankenschein]</code>).
+    </div>
+    <div class="box">
+        <strong>Kontrollfluss vs. Objektfluss</strong>
+        <table class="table">
+            <tr>
+                <th>Aspekt</th>
+                <th>Kontrollfluss</th>
+                <th>Objektfluss</th>
+            </tr>
+            <tr>
+                <td>Symbol</td>
+                <td><span class="symbol">→</span></td>
+                <td><span class="symbol">⟶</span> mit Objektname</td>
+            </tr>
+            <tr>
+                <td>Bedeutung</td>
+                <td>Reihenfolge von Aktionen</td>
+                <td>Transport von Daten/Objekten</td>
+            </tr>
+            <tr>
+                <td>Beispiel</td>
+                <td>„Diagnose stellen“ → „Medikamente verschreiben“</td>
+                <td><code>Krankenschein</code> von Arzt zu Patient</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 3. Swimlanes -->
+    <h2>3. Swimlanes (Aktivitätsbereiche)</h2>
+    <p>
+        Swimlanes teilen das Diagramm in <strong>Bereiche für Rollen/Abteilungen</strong>, z.B.
+        „Kunde“, „System“, „Lager“, „Versand“. Alle Aktionen in einer Lane gehören zur gleichen
+        verantwortlichen Einheit.
+    </p>
+    <ul>
+        <li>Erhöhen die Lesbarkeit komplexer Geschäftsprozesse.</li>
+        <li>Machen Verantwortlichkeiten klar (wer macht was?).</li>
+        <li>Können vertikal oder horizontal angeordnet sein.</li>
+    </ul>
+    <div class="info">
+        💡 In Prüfungen wird oft verlangt, Swimlanes zu verwenden, wenn mehrere Rollen beteiligt sind.
+    </div>
+
+    <!-- 4. Entscheidungslogik & Parallelität -->
+    <h2>4. Entscheidungslogik und Parallelität</h2>
+
+    <h3>4.1 Bedingungen an Kanten</h3>
+    <p>Bedingungen werden immer in eckigen Klammern an den ausgehenden Kanten notiert:</p>
+    <p><code>[age &gt;= 18]</code>, <code>[zahlung_ok]</code>, <code>[else]</code></p>
+    <p>Alle Bedingungen zusammen müssen <strong>vollständig</strong> und <strong>gegenseitig ausschließend</strong> sein.</p>
+
+    <h3>4.2 Decision / Merge vs. Fork / Join</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Decision / Merge</th>
+            <th>Fork / Join</th>
+        </tr>
+        <tr>
+            <td>Zweck</td>
+            <td>Alternative Pfade (entweder-oder)</td>
+            <td>Parallele Pfade (gleichzeitig)</td>
+        </tr>
+        <tr>
+            <td>Aktivierung</td>
+            <td>genau ein Pfad aktiv</td>
+            <td>alle Pfade aktiv</td>
+        </tr>
+        <tr>
+            <td>Beispiele</td>
+            <td>„Kunde ist volljährig?“</td>
+            <td>„Rechnung erstellen“ &amp; „Ware kommissionieren“</td>
+        </tr>
+    </table>
+
+    <!-- 5. Durchgehendes Praxisbeispiel -->
+    <h2>5. Durchgehendes Praxisbeispiel: E‑Commerce‑Bestellprozess</h2>
+    <p>
+        Das folgende Aktivitätsdiagramm zeigt einen typischen Online‑Bestellprozess mit
+        vier Swimlanes: <strong>Kunde</strong>, <strong>System</strong>, <strong>Lager</strong>, <strong>Versand</strong>.
+    </p>
+
+    <img class="diagram-img"
+         src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/c1aa36370f6700cf6dda5144f7e1c284/f56ceacc-0a25-454a-b3bf-28a11a12bc6b/448e7c65.png"
+         alt="E‑Commerce Aktivitätsdiagramm">
+
+    <h3>5.1 Swimlane „Kunde“ – Artikelauswahl mit Schleife</h3>
+    <div class="example">
+        <h4>Schritte</h4>
+        <ol>
+            <li><span class="symbol">●</span> <strong>Startknoten</strong>: Prozess beginnt, Kunde ist auf der Shop‑Seite.</li>
+            <li><span class="symbol">[ ]</span> Aktion „Artikel ansehen“ – Kunde stöbert im Sortiment.</li>
+            <li><span class="symbol">◇</span> Decision „Artikel gefällt?“
+                <ul>
+                    <li><code>[nein]</code> → Kontrollfluss zurück zu „Artikel ansehen“ (Schleife).</li>
+                    <li><code>[ja]</code> → weiter in die Swimlane <strong>System</strong>.</li>
+                </ul>
+            </li>
+        </ol>
+        <p><strong>Lernpunkt:</strong> Schleifen werden über einen Entscheidungsknoten modelliert, der wieder auf eine frühere Aktion zurückzeigt.</p>
+    </div>
+
+    <h3>5.2 Swimlane „System“ – Warenkorb & Zahlung</h3>
+    <div class="example">
+        <ol>
+            <li><span class="symbol">[ ]</span> Aktion „Artikel in Warenkorb hinzufügen“ – System erzeugt/aktualisiert die Bestellung.</li>
+            <li><span class="symbol">[ ]</span> Aktion „Checkout starten“ – Zusammenfassung, Adress‑/Zahlungsseite.</li>
+            <li><span class="symbol">[ ]</span> Aktion „Zahlungsdaten eingeben“ – Kunde gibt Daten ein, System prüft.</li>
+            <li>Ergebnis ist ein Objektknoten, z.B. <code>[Bestellung: bezahlt]</code>, der an das Lager übergeben wird.</li>
+        </ol>
+        <p><strong>Lernpunkt:</strong> Hier laufen die Schritte nacheinander, d.h. nur Kontrollflüsse, keine Parallelität.</p>
+    </div>
+
+    <h3>5.3 Swimlane „Lager“ – Parallele Prüfungen</h3>
+    <div class="example">
+        <ol>
+            <li><span class="symbol">━━</span> <strong>Fork</strong>: Aufspaltung in zwei parallele Pfade:
+                <ul>
+                    <li>Pfad A: Aktion „Bestand prüfen“ – ist der Artikel auf Lager?</li>
+                    <li>Pfad B: Aktion „Versandadresse validieren“ – ist die Adresse vollständig/gültig?</li>
+                </ul>
+            </li>
+            <li>Beide Pfade erzeugen ggf. Objektknoten, z.B. <code>[Bestellung: reserviert]</code>, <code>[Adresse: validiert]</code>.</li>
+            <li><span class="symbol">━━</span> <strong>Join</strong>: wartet, bis <strong>beide</strong> Aktionen abgeschlossen sind.</li>
+        </ol>
+        <p><strong>Lernpunkt:</strong> Ein Join ist der Synchronisationspunkt: Erst wenn alle parallelen Aktionen fertig sind, geht es weiter zum Versand.</p>
+    </div>
+
+    <h3>5.4 Swimlane „Versand“ – Abschluss</h3>
+    <div class="example">
+        <ol>
+            <li>Aktion „Versandetikett erstellen“ – Erstellung Label inkl. Tracking‑Nummer.</li>
+            <li>Aktion „Paket verpacken“ – physische Vorbereitung.</li>
+            <li>Aktion „Versand durchführen“ – Übergabe an den Paketdienst.</li>
+            <li><span class="symbol">⊙</span> <strong>Endknoten</strong>: Prozess „Bestellung versendet“ ist abgeschlossen.</li>
+        </ol>
+        <p><strong>Lernpunkt:</strong> Das Diagramm endet erst, wenn alle logischen Schritte vollständig durchgeführt wurden.</p>
+    </div>
+
+    <!-- 6. Häufige Fehler + Checkliste -->
+    <h2>6. Häufige Fehler & Checkliste</h2>
+
+    <h3>6.1 Typische Fehler</h3>
+    <table class="table">
+        <tr>
+            <th>Fehler</th>
+            <th>❌ Falsch</th>
+            <th>✅ Richtig</th>
+        </tr>
+        <tr>
+            <td>Startknoten</td>
+            <td>2 Startknoten im Diagramm.</td>
+            <td>Genau 1 Startknoten.</td>
+        </tr>
+        <tr>
+            <td>Bedingungen</td>
+            <td>Überlappende Bedingungen, kein <code>[else]</code>.</td>
+            <td>Bedingungen sind disjunkt, ein Zweig mit <code>[else]</code>.</td>
+        </tr>
+        <tr>
+            <td>Fork ohne Join</td>
+            <td>Parallele Pfade laufen auseinander, kein gemeinsames Ende.</td>
+            <td>Nach Fork kommt irgendwann ein Join.</td>
+        </tr>
+        <tr>
+            <td>Decision vs. Fork</td>
+            <td>Fork+Join für Alternativen verwendet.</td>
+            <td>Decision/Merge für Alternativen, Fork/Join für Parallelität.</td>
+        </tr>
+        <tr>
+            <td>Verantwortung</td>
+            <td>Keine Swimlanes → unklar, wer was macht.</td>
+            <td>Swimlanes für verschiedene Rollen/Abteilungen.</td>
+        </tr>
+    </table>
+
+    <h3>6.2 Checkliste vor der Abgabe</h3>
+    <ul class="checklist">
+        <li>Genau <strong>ein</strong> Startknoten vorhanden.</li>
+        <li>Mindestens ein Endknoten, der den Prozess sinnvoll beendet.</li>
+        <li>Alle Decision‑Knoten haben vollständige und sich ausschließende Bedingungen (inkl. <code>[else]</code>).</li>
+        <li>Parallele Abläufe verwenden Fork <em>und</em> später Join.</li>
+        <li>Alle Aktionen sind über Kontrollflüsse verbunden (keine „schwebenden“ Knoten).</li>
+        <li>Bei mehreren Rollen: Swimlanes eingesetzt und korrekt beschriftet.</li>
+        <li>Objektflüsse beschriftet (welches Objekt wird wohin transportiert?).</li>
+        <li>Das Diagramm ist für eine fachfremde Person in wenigen Minuten nachvollziehbar.</li>
+    </ul>
+
+    <!-- 7. Kurzdefinitionen -->
+    <h2>7. Wichtige Definitionen (Kurzfassung)</h2>
+    <div class="two-col">
+        <div class="box">
+            <span class="tag">Begriff</span><br>
+            <strong>Aktivität / Aktion</strong><br>
+            Kleinste ausführbare Funktionalität.
+        </div>
+        <div class="box">
+            <span class="tag">Begriff</span><br>
+            <strong>Kontrollfluss</strong><br>
+            Pfeil, der die Reihenfolge von Aktionen angibt.
+        </div>
+        <div class="box">
+            <span class="tag">Begriff</span><br>
+            <strong>Objektfluss</strong><br>
+            Pfeil, der zeigt, welches Objekt von wo nach wo geht.
+        </div>
+        <div class="box">
+            <span class="tag">Begriff</span><br>
+            <strong>Decision / Merge</strong><br>
+            Verzweigung & Zusammenführung alternativer Pfade (Raute).
+        </div>
+        <div class="box">
+            <span class="tag">Begriff</span><br>
+            <strong>Fork / Join</strong><br>
+            Start & Ende paralleler Pfade (dicker Balken).
+        </div>
+        <div class="box">
+            <span class="tag">Begriff</span><br>
+            <strong>Swimlane</strong><br>
+            Bereich im Diagramm für eine Rolle/Abteilung.
+        </div>
+    </div>
+
+    <div class="info" style="margin-top: 18px;">
+        ✅ <strong>Prüfungstipp:</strong> Wenn du in der Klausur ein Aktivitätsdiagramm zeichnest,
+        benenne dein Diagramm (z.B. „Aktivitätsdiagramm: Bestellprozess“), setze Start/Ende sauber
+        und achte besonders auf klare Bedingungen und korrekte Swimlanes.
+    </div>
+</div>
+</body>
+</html>
