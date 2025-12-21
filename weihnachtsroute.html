@@ -21,11 +21,7 @@
             --color-bg: #fcfcf9;
             --color-border: #d5d5d5;
         }
-
-        * {
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--color-bg);
@@ -34,37 +30,18 @@
             padding: 20px;
             line-height: 1.5;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 10px; font-size: 28px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 20px;
         }
-
         @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
+            .grid { grid-template-columns: 1fr; }
         }
-
         .card {
             background: white;
             border: 1px solid var(--color-border);
@@ -72,25 +49,19 @@
             padding: 20px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-
         .card h2 {
             margin-top: 0;
             margin-bottom: 15px;
             font-size: 18px;
             color: var(--color-primary);
         }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
+        .form-group { margin-bottom: 15px; }
         label {
             display: block;
             font-weight: 500;
             margin-bottom: 5px;
             font-size: 14px;
         }
-
         select {
             width: 100%;
             padding: 8px 12px;
@@ -99,7 +70,6 @@
             font-size: 14px;
             background: white;
         }
-
         button {
             background: var(--color-primary);
             color: white;
@@ -112,15 +82,8 @@
             transition: background 0.2s;
             width: 100%;
         }
-
-        button:hover {
-            background: #1f5560;
-        }
-
-        button:active {
-            background: #1a4a51;
-        }
-
+        button:hover { background: #1f5560; }
+        button:active { background: #1a4a51; }
         .results {
             background: #f0f9fa;
             border-left: 4px solid var(--color-success);
@@ -129,21 +92,9 @@
             margin-top: 15px;
             display: none;
         }
-
-        .results.show {
-            display: block;
-        }
-
-        .result-item {
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .result-label {
-            font-weight: 600;
-            color: var(--color-primary);
-        }
-
+        .results.show { display: block; }
+        .result-item { margin-bottom: 10px; font-size: 14px; }
+        .result-label { font-weight: 600; color: var(--color-primary); }
         .route-list {
             background: white;
             border: 1px solid var(--color-border);
@@ -154,16 +105,8 @@
             font-size: 13px;
             margin-top: 10px;
         }
-
-        .route-item {
-            padding: 5px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .route-item:last-child {
-            border-bottom: none;
-        }
-
+        .route-item { padding: 5px 0; border-bottom: 1px solid #eee; }
+        .route-item:last-child { border-bottom: none; }
         .algorithm-info {
             background: #e8f4f8;
             padding: 12px;
@@ -172,34 +115,24 @@
             margin-bottom: 15px;
             line-height: 1.6;
         }
-
         .export-section {
             margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid var(--color-border);
         }
-
         .export-btn {
             background: #27ae60;
             font-size: 12px;
             padding: 8px 16px;
             margin-right: 10px;
         }
-
-        .export-btn:hover {
-            background: #229954;
-        }
-
+        .export-btn:hover { background: #229954; }
         .copy-btn {
             background: #3498db;
             font-size: 12px;
             padding: 8px 16px;
         }
-
-        .copy-btn:hover {
-            background: #2980b9;
-        }
-
+        .copy-btn:hover { background: #2980b9; }
         .info-box {
             background: #fff3cd;
             border: 1px solid #ffc107;
@@ -208,35 +141,78 @@
             margin-top: 10px;
             font-size: 13px;
         }
-
-        /* Leaflet-Container responsiv machen */
         #map {
             width: 100%;
             height: 600px;
             border: 1px solid var(--color-border);
             border-radius: 6px;
         }
-
         @media (max-width: 768px) {
-            #map {
-                height: 400px;
-            }
+            #map { height: 400px; }
         }
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 24px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+        input:checked + .toggle-slider { background-color: var(--color-primary); }
+        input:checked + .toggle-slider:before { transform: translateX(26px); }
+        .toggle-label { font-weight: 500; font-size: 14px; }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>🎅 Weihnachtsmann Reiseplaner</h1>
     <p class="subtitle">Travelling Salesman Problem (TSP) - Nearest Neighbor Algorithmus</p>
+    <p class="subtitle">Hilf dem Weihnachtsmann den schnellsten Weg zu finden!</p>
 
     <div class="grid">
-        <!-- Control Panel -->
         <div class="card">
             <h2>Steuerung</h2>
 
             <div class="algorithm-info">
                 <strong>Nearest Neighbor Algorithmus:</strong><br>
-                Startet in einer Stadt und wählt immer die nächstgelegene unbesuchte Stadt. Es werden immer alle Städte aus der Liste verwendet.
+                Startet in einer Stadt und wählt immer die nächstgelegene unbesuchte Stadt.
+            </div>
+
+            <div class="toggle-group">
+                <span class="toggle-label">Ruhrgebiet:</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="ruhrgebietToggle" onchange="updateCityList()">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label" id="toggleStatus">AUS (63 Städte)</span>
             </div>
 
             <div class="form-group">
@@ -272,7 +248,6 @@
             </div>
         </div>
 
-        <!-- Route List -->
         <div class="card">
             <h2>Besuchsroute</h2>
             <div class="route-list" id="routeList">
@@ -281,14 +256,12 @@
         </div>
     </div>
 
-    <!-- Interaktive Karte -->
     <div class="card">
         <h2>Interaktive Deutschlandkarte mit Route</h2>
         <div id="map"></div>
     </div>
 </div>
 
-<!-- Leaflet JS -->
 <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -296,8 +269,7 @@
 ></script>
 
 <script>
-    // Deutsche Städte >100k Einwohner OHNE RUHRGEBIET
-    const cities = {
+    const baseCities = {
         'Berlin': { lat: 52.520, lon: 13.405 },
         'Hamburg': { lat: 53.551, lon: 9.993 },
         'München': { lat: 48.135, lon: 11.582 },
@@ -330,7 +302,7 @@
         'Kassel': { lat: 51.315, lon: 9.495 },
         'Saarbrücken': { lat: 49.242, lon: 6.993 },
         'Potsdam': { lat: 52.391, lon: 13.065 },
-        'Ludwigshafen am Rhein': { lat: 49.535, lon: 8.449 },
+        'Ludwigshafen am Rhein': { lat: 49.48, lon: 8.45 },
         'Osnabrück': { lat: 52.274, lon: 8.054 },
         'Oldenburg': { lat: 53.144, lon: 8.215 },
         'Heidelberg': { lat: 49.412, lon: 8.710 },
@@ -344,7 +316,7 @@
         'Ulm': { lat: 48.398, lon: 9.993 },
         'Wolfsburg': { lat: 52.422, lon: 10.787 },
         'Offenbach am Main': { lat: 50.094, lon: 8.766 },
-        'Hamm': { lat: 51.856, lon: 7.819 },
+        'Hamm': { lat: 51.683, lon: 7.817 },
         'Regensburg': { lat: 48.999, lon: 12.095 },
         'Heilbronn': { lat: 49.140, lon: 9.220 },
         'Ludwigsburg': { lat: 48.897, lon: 9.191 },
@@ -363,17 +335,40 @@
         'Gera': { lat: 50.878, lon: 12.083 }
     };
 
+    const ruhrgebietCities = {
+        'Düsseldorf': { lat: 51.225, lon: 6.776 },
+        'Dortmund': { lat: 51.514, lon: 7.465 },
+        'Essen': { lat: 51.455, lon: 7.015 },
+        'Duisburg': { lat: 51.434, lon: 6.763 },
+        'Oberhausen': { lat: 51.463, lon: 6.857 },
+        'Gelsenkirchen': { lat: 51.455, lon: 7.086 },
+        'Mülheim an der Ruhr': { lat: 51.429, lon: 6.889 },
+        'Bochum': { lat: 51.481, lon: 7.225 },
+        'Herne': { lat: 51.539, lon: 7.224 },
+        'Wuppertal': { lat: 51.258, lon: 7.150 },
+        'Bottrop': { lat: 51.416, lon: 7.133 },
+        'Castrop-Rauxel': { lat: 51.367, lon: 7.304 },
+        'Münchengladbach': { lat: 51.165, lon: 6.360 },
+        'Rheine': { lat: 52.268, lon: 7.445 },
+        'Ibbenbüren': { lat: 52.265, lon: 7.713 },
+        'Moers': { lat: 51.450, lon: 6.633 },
+        'Xanten': { lat: 51.656, lon: 6.452 }
+    };
+
+    let cities = {};
     let currentResult = null;
     let currentCityNames = [];
 
-    // Distanz berechnen (vereinfacht)
+    let map;
+    let cityMarkers = [];
+    let routePolyline = null;
+
     function calculateDistance(lat1, lon1, lat2, lon2) {
         const dlat = (lat2 - lat1) * 111;
         const dlon = (lon2 - lon1) * 70 * Math.cos(((lat1 + lat2) / 2) * Math.PI / 180);
         return Math.sqrt(dlat * dlat + dlon * dlon);
     }
 
-    // Nearest Neighbor Algorithmus
     function nearestNeighbor(cityNames, startIndex) {
         const unvisited = new Set(cityNames.map((_, i) => i));
         const path = [startIndex];
@@ -404,41 +399,15 @@
             unvisited.delete(nearest);
             current = nearest;
         }
-
-        // KEINE Rückkehr zum Start
         return { path, distance: totalDist };
     }
 
-    // UI initialisieren
-    function initUI() {
-        const select = document.getElementById('startCity');
-        const cityNames = Object.keys(cities);
-        cityNames.forEach((city, idx) => {
-            const option = document.createElement('option');
-            option.value = idx;
-            option.textContent = city;
-            select.appendChild(option);
-        });
-    }
-
-    // Leaflet-Karte initialisieren
-    let map;
-    let cityMarkers = [];
-    let routePolyline = null;
-
-    function initMap() {
-        // Deutschland grob zentrieren
-        map = L.map('map').setView([51.2, 10.5], 6);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; OpenStreetMap-Mitwirkende'
-        }).addTo(map);
-
-        // Alle Städte als Marker (ohne Route erstmal)
-        const allCityNames = Object.keys(cities);
+    function rebuildMarkers() {
+        if (!map) return;
+        cityMarkers.forEach(m => map.removeLayer(m));
+        cityMarkers = [];
         const bounds = [];
-        allCityNames.forEach(name => {
+        Object.keys(cities).forEach(name => {
             const c = cities[name];
             const marker = L.circleMarker([c.lat, c.lon], {
                 radius: 6,
@@ -451,71 +420,60 @@
             cityMarkers.push(marker);
             bounds.push([c.lat, c.lon]);
         });
-
-        if (bounds.length > 0) {
-            map.fitBounds(bounds, { padding: [20, 20] });
-        }
+        if (bounds.length > 0) map.fitBounds(bounds, { padding: [20, 20] });
     }
 
-    // Karte basierend auf aktueller Route aktualisieren
+    function initMap() {
+        map = L.map('map').setView([51.2, 10.5], 6);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap-Mitwirkende'
+        }).addTo(map);
+        rebuildMarkers();
+    }
+
     function updateMapRoute() {
         if (!map || !currentResult || !currentCityNames.length) return;
+        if (routePolyline) map.removeLayer(routePolyline);
 
-        // Alte Route entfernen
-        if (routePolyline) {
-            map.removeLayer(routePolyline);
-        }
-
-        // Marker-Styling resetten
-        cityMarkers.forEach(m => {
-            m.setStyle({
-                radius: 6,
-                color: '#32b8c6',
-                weight: 2,
-                fillColor: '#32b8c6',
-                fillOpacity: 0.9
-            });
-        });
-
-        // Koordinaten der Route
         const latlngs = currentResult.path.map(idx => {
             const name = currentCityNames[idx];
             const c = cities[name];
             return [c.lat, c.lon];
         });
 
-        // Polyline zeichnen
-        routePolyline = L.polyline(latlngs, {
-            color: '#ff6b6b',
-            weight: 4
-        }).addTo(map);
+        routePolyline = L.polyline(latlngs, { color: '#ff6b6b', weight: 4 }).addTo(map);[web95]
 
-        // Startmarker hervorheben
-        const startIdx = currentResult.path[0];
-        const startCityName = currentCityNames[startIdx];
-        const startCity = cities[startCityName];
-
-        // Einen extra Kreis für Startstadt
-        L.circleMarker([startCity.lat, startCity.lon], {
-            radius: 8,
-            color: '#ff6b6b',
-            weight: 3,
-            fillColor: '#ff6b6b',
-            fillOpacity: 1
-        }).addTo(map).bindPopup('Start: ' + startCityName).openPopup();
-
-        // Karte auf Route zoomen
         map.fitBounds(routePolyline.getBounds(), { padding: [30, 30] });
     }
 
-    // TSP lösen
+    function updateCityList() {
+        const ruhrOn = document.getElementById('ruhrgebietToggle').checked;
+        const toggleStatus = document.getElementById('toggleStatus');
+        cities = ruhrOn ? { ...baseCities, ...ruhrgebietCities } : { ...baseCities };
+        toggleStatus.textContent = ruhrOn ? 'AN (80 Städte)' : 'AUS (63 Städte)';
+
+        const select = document.getElementById('startCity');
+        select.innerHTML = '<option value="">-- Automatisch --</option>';
+        const cityNames = Object.keys(cities);
+        cityNames.forEach((city, idx) => {
+            const option = document.createElement('option');
+            option.value = idx;
+            option.textContent = city;
+            select.appendChild(option);
+        });
+        if (cityNames.length > 0) {
+            select.value = Math.floor(Math.random() * cityNames.length);
+        }
+        rebuildMarkers();
+    }
+
     function solveTSP() {
         const allCityNames = Object.keys(cities);
-        currentCityNames = allCityNames.slice(); // komplette Liste
+        currentCityNames = allCityNames.slice();
 
         const startSelect = document.getElementById('startCity');
         let startIdx = parseInt(startSelect.value);
-
         if (isNaN(startIdx) || startIdx >= currentCityNames.length) {
             startIdx = 0;
             startSelect.value = 0;
@@ -540,12 +498,9 @@
         });
 
         document.getElementById('results').classList.add('show');
-
-        // Leaflet-Route aktualisieren
         updateMapRoute();
     }
 
-    // Route exportieren
     function exportRoute() {
         if (!currentResult) return;
         let csv = 'Schritt,Stadt,Breite,Länge\n';
@@ -554,7 +509,6 @@
             const c = cities[name];
             csv += `${step + 1},${name},${c.lat},${c.lon}\n`;
         });
-
         const blob = new Blob([csv], { type: 'text/csv' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -566,7 +520,6 @@
         document.body.removeChild(a);
     }
 
-    // Route in Zwischenablage kopieren
     function copyRouteToClipboard() {
         if (!currentResult) return;
         let text = 'Weihnachtsmann Route:\n';
@@ -574,14 +527,12 @@
             text += `${step + 1}. ${currentCityNames[idx]}\n`;
         });
         text += `\nGesamtstrecke: ${Math.round(currentResult.distance * 100) / 100} km`;
-
-        navigator.clipboard.writeText(text).then(() => {
-            alert('Route in Zwischenablage kopiert!');
-        });
+        navigator.clipboard.writeText(text);
     }
 
     // Init
-    initUI();
+    cities = { ...baseCities };
+    updateCityList();
     initMap();
 </script>
 </body>
