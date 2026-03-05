@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Prüfungsvorbereitung - Azubi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #f97316;
+            --accent-color: #06b6d4;
+            --success-color: #22c55e;
+            --warning-color: #eab308;
+            --danger-color: #ef4444;
+            --bg-light: #f8fafc;
+            --bg-dark: #1e293b;
+            --text-light: #f1f5f9;
+            --text-dark: #0f172a;
+            --border-color: #cbd5e1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--bg-dark) 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header .subtitle {
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn.active {
+            background: var(--secondary-color);
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--secondary-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title h2 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-top: 3px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card.warning {
+            border-top-color: var(--warning-color);
+        }
+
+        .card.success {
+            border-top-color: var(--success-color);
+        }
+
+        .card.danger {
+            border-top-color: var(--danger-color);
+        }
+
+        .card-content {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .code-block {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 12px 0;
+            font-size: 0.9em;
+            line-height: 1.4;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            background: white;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .table thead {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table tbody tr:hover {
+            background: var(--bg-light);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .badge.success {
+            background: var(--success-color);
+        }
+
+        .badge.warning {
+            background: var(--warning-color);
+            color: var(--text-dark);
+        }
+
+        .badge.danger {
+            background: var(--danger-color);
+        }
+
+        .badge.info {
+            background: var(--accent-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .icon {
+            font-size: 1.5em;
+        }
+
+        .highlight {
+            background: rgba(249, 115, 22, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .important {
+            background: rgba(239, 68, 68, 0.05);
+            border-left: 3px solid var(--danger-color);
+            padding: 12px 15px;
+            border-radius: 3px;
+            margin: 12px 0;
+            color: #555;
+        }
+
+        .tip {
+            background: rgba(34, 197, 94, 0.05);
+            border-left: 3px solid var(--success-color);
+            padding: 12px 15px;
+            border-radius: 3px;
+            margin: 12px 0;
+            color: #555;
+        }
+
+        .list-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 12px 0;
+        }
+
+        .comparison > div {
+            padding: 12px;
+            background: var(--bg-light);
+            border-radius: 5px;
+        }
+
+        .comparison strong {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>☕ Java Prüfungsvorbereitung</h1>
+            <p class="subtitle">Azubi-Lernleitfaden für Fachinformatiker</p>
+            <nav>
+                <button class="nav-btn active" onclick="showSection('fundamentals')">1. Grundlagen</button>
+                <button class="nav-btn" onclick="showSection('datatypes')">2. Datentypen</button>
+                <button class="nav-btn" onclick="showSection('operators')">3. Operatoren</button>
+                <button class="nav-btn" onclick="showSection('control')">4. Kontrollstrukturen</button>
+                <button class="nav-btn" onclick="showSection('arrays')">5. Arrays</button>
+                <button class="nav-btn" onclick="showSection('oop')">6. OOP</button>
+                <button class="nav-btn" onclick="showSection('methods')">7. Methoden</button>
+                <button class="nav-btn" onclick="showSection('tips')">8. Tipps</button>
+            </nav>
+        </header>
+
+        <!-- 1. Grundlagen -->
+        <section id="fundamentals" class="section active">
+            <div class="section-title">
+                <h2>1️⃣ Grundlagen der Java-Programmierung</h2>
+                <p>Die wichtigsten Konzepte zum Start</p>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📝</span> Was ist Java?</h3>
+                <div class="card-content">
+                    <p><strong>Java</strong> ist eine objektorientierte, plattformunabhängige Programmiersprache.</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Entwickelt 1995 von Sun Microsystems</li>
+                        <li>Motto: "Write Once, Run Anywhere" (WORA)</li>
+                        <li>Läuft auf der Java Virtual Machine (JVM)</li>
+                        <li>Jetzt von Oracle entwickelt</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📦</span> Struktur eines Java-Programms</h3>
+                <div class="card-content">
+                    <div class="code-block">public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello from Java!");
+    }
+}</div>
+                    <strong>Wichtig:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><span class="highlight">class</span> - Definition einer Klasse</li>
+                        <li><span class="highlight">main()</span> - Einstiegspunkt des Programms</li>
+                        <li><span class="highlight">public</span> - Zugriffsmodifikator (öffentlich)</li>
+                        <li><span class="highlight">static</span> - Gehört der Klasse, nicht der Instanz</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔄</span> Compilation und Ausführung</h3>
+                <div class="card-content">
+                    <div class="code-block">// Kompilieren
+javac HelloWorld.java
+
+// Ausführen
+java HelloWorld</div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Schritt</th>
+                                <th>Beschreibung</th>
+                                <th>Ergebnis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Quellcode</td>
+                                <td>.java Datei</td>
+                                <td>HelloWorld.java</td>
+                            </tr>
+                            <tr>
+                                <td>Kompilieren</td>
+                                <td>javac Compiler</td>
+                                <td>HelloWorld.class</td>
+                            </tr>
+                            <tr>
+                                <td>Ausführen</td>
+                                <td>JVM interpretiert</td>
+                                <td>Ausgabe</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tipp:</strong> Der Dateiname MUSS mit dem Klassennamen übereinstimmen! Wenn die Klasse "HelloWorld" heißt, muss die Datei "HelloWorld.java" sein.
+            </div>
+        </section>
+
+        <!-- 2. Datentypen -->
+        <section id="datatypes" class="section">
+            <div class="section-title">
+                <h2>2️⃣ Primitive Datentypen</h2>
+                <p>Die Bausteine von Variablen</p>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📊</span> Übersicht Primitive Datentypen</h3>
+                <div class="card-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Typ</th>
+                                <th>Größe</th>
+                                <th>Wertebereich</th>
+                                <th>Beispiel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge">byte</span></td>
+                                <td>8 Bit</td>
+                                <td>-128 bis 127</td>
+                                <td><code>byte alter = 25;</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge">short</span></td>
+                                <td>16 Bit</td>
+                                <td>-32.768 bis 32.767</td>
+                                <td><code>short zahl = 1000;</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge">int</span></td>
+                                <td>32 Bit</td>
+                                <td>-2 Mrd bis +2 Mrd</td>
+                                <td><code>int gewinn = 100000;</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge">long</span></td>
+                                <td>64 Bit</td>
+                                <td>sehr großer Bereich</td>
+                                <td><code>long zahl = 9000000000L;</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge">float</span></td>
+                                <td>32 Bit</td>
+                                <td>Dezimalzahlen</td>
+                                <td><code>float pi = 3.14f;</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge">double</span></td>
+                                <td>64 Bit</td>
+                                <td>Dezimalzahlen (präzise)</td>
+                                <td><code>double pi = 3.14159;</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge">boolean</span></td>
+                                <td>1 Bit</td>
+                                <td>true oder false</td>
+                                <td><code>boolean aktiv = true;</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge">char</span></td>
+                                <td>16 Bit</td>
+                                <td>Unicode-Zeichen</td>
+                                <td><code>char zeichen = 'A';</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔤</span> Referenzdatentypen</h3>
+                <div class="card-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Typ</th>
+                                <th>Beschreibung</th>
+                                <th>Beispiel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge success">String</span></td>
+                                <td>Text / Zeichenkette</td>
+                                <td><code>String name = "Max";</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge success">Array</span></td>
+                                <td>Feld / Sammlung</td>
+                                <td><code>int[] zahlen = {1,2,3};</code></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge success">Objekt</span></td>
+                                <td>Instanz einer Klasse</td>
+                                <td><code>Kreis k = new Kreis();</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📝</span> Variablendeklaration</h3>
+                <div class="card-content">
+                    <div class="code-block">// Syntax:
+[Zugriffsmodifikator] Datentyp Variablenname [= Wert];
+
+// Beispiele:
+private int alter = 25;
+public String name = "Max Mueller";
+double temperatur = 23.5;
+boolean istAktiv = true;</div>
+                    <div class="important">
+                        <strong>⚠️ Wichtig:</strong> Variable sollten aussagekräftig benannt sein! "alter" ist besser als "x".
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Operatoren -->
+        <section id="operators" class="section">
+            <div class="section-title">
+                <h2>3️⃣ Operatoren und Typumwandlung</h2>
+                <p>Rechnen und Vergleiche in Java</p>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">➕</span> Arithmetische Operatoren</h3>
+                <div class="card-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Operator</th>
+                                <th>Beschreibung</th>
+                                <th>Beispiel</th>
+                                <th>Ergebnis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>+</td>
+                                <td>Addition</td>
+                                <td>5 + 3</td>
+                                <td>8</td>
+                            </tr>
+                            <tr>
+                                <td>-</td>
+                                <td>Subtraktion</td>
+                                <td>5 - 3</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>*</td>
+                                <td>Multiplikation</td>
+                                <td>5 * 3</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>/</td>
+                                <td>Division</td>
+                                <td>6 / 2</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>%</td>
+                                <td>Modulo (Rest)</td>
+                                <td>7 % 3</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="important" style="margin-top: 15px;">
+                        <strong>⚠️ Division:</strong> Bei <code>7 / 2</code> mit Ganzzahlen = 3 (kein 3,5)!<br>
+                        Für Dezimalzahlen: <code>7.0 / 2</code> oder <code>7 / 2.0</code> = 3.5
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔄</span> Inkremente und Zuweisungen</h3>
+                <div class="card-content">
+                    <div class="code-block">int x = 5;
+x++;           // x wird 6
+x--;           // x wird 5
+x += 3;        // x wird 8 (x = x + 3)
+x -= 2;        // x wird 6 (x = x - 2)
+x *= 2;        // x wird 12 (x = x * 2)
+x /= 3;        // x wird 4 (x = x / 3)</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔀</span> Vergleichsoperatoren</h3>
+                <div class="card-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Operator</th>
+                                <th>Bedeutung</th>
+                                <th>Beispiel</th>
+                                <th>Ergebnis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>==</td>
+                                <td>gleich</td>
+                                <td>5 == 5</td>
+                                <td>true</td>
+                            </tr>
+                            <tr>
+                                <td>!=</td>
+                                <td>ungleich</td>
+                                <td>5 != 3</td>
+                                <td>true</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;</td>
+                                <td>kleiner</td>
+                                <td>3 &lt; 5</td>
+                                <td>true</td>
+                            </tr>
+                            <tr>
+                                <td>&gt;</td>
+                                <td>größer</td>
+                                <td>5 &gt; 3</td>
+                                <td>true</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;=</td>
+                                <td>kleiner/gleich</td>
+                                <td>5 &lt;= 5</td>
+                                <td>true</td>
+                            </tr>
+                            <tr>
+                                <td>&gt;=</td>
+                                <td>größer/gleich</td>
+                                <td>5 &gt;= 3</td>
+                                <td>true</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">⚡</span> Logische Operatoren</h3>
+                <div class="card-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Operator</th>
+                                <th>Name</th>
+                                <th>Beschreibung</th>
+                                <th>Beispiel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>&&</td>
+                                <td>UND (AND)</td>
+                                <td>Beide Bedingungen wahr</td>
+                                <td><code>a > 0 && b < 10</code></td>
+                            </tr>
+                            <tr>
+                                <td>||</td>
+                                <td>ODER (OR)</td>
+                                <td>Mindestens eine wahr</td>
+                                <td><code>a > 0 || b < 10</code></td>
+                            </tr>
+                            <tr>
+                                <td>!</td>
+                                <td>NICHT (NOT)</td>
+                                <td>Negation</td>
+                                <td><code>!aktiv</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔄</span> Typumwandlung (Casting)</h3>
+                <div class="card-content">
+                    <div class="code-block">// Implizit (automatisch) - vom kleineren zum größeren Typ
+int x = 5;
+double y = x;  // y wird 5.0
+
+// Explizit (manuell) - mit Cast
+double pi = 3.14159;
+int zahl = (int) pi;  // zahl wird 3 (Dezimalteil wird abgeschnitten)
+
+// Praktische Beispiele
+int summe = (int) (7.0 / 2);  // 3 (weil 7.0/2 = 3.5, dann zu int)
+char c = (char) 65;           // c wird 'A'</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Kontrollstrukturen -->
+        <section id="control" class="section">
+            <div class="section-title">
+                <h2>4️⃣ Kontrollstrukturen</h2>
+                <p>Verzweigungen und Schleifen</p>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">❓</span> if-else Anweisung</h3>
+                <div class="card-content">
+                    <div class="code-block">// if-else mit Alternative
+if (alter >= 18) {
+    System.out.println("Du darfst es!");
+} else {
+    System.out.println("Zu jung!");
+}
+
+// if-else if-else (mehrfache Auswahl)
+if (noten == 1) {
+    System.out.println("Sehr gut!");
+} else if (noten == 2) {
+    System.out.println("Gut!");
+} else {
+    System.out.println("Nicht bestanden");
+}</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔀</span> switch Anweisung</h3>
+                <div class="card-content">
+                    <div class="code-block">switch (wochentag) {
+    case 1:
+        System.out.println("Montag");
+        break;
+    case 2:
+        System.out.println("Dienstag");
+        break;
+    default:
+        System.out.println("Unbekannt");
+        break;
+}</div>
+                    <div class="important" style="margin-top: 15px;">
+                        <strong>⚠️ Wichtig:</strong> <code>break;</code> nicht vergessen! Sonst läuft der Code weiter (Fall-Through).
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔁</span> for-Schleife</h3>
+                <div class="card-content">
+                    <div class="code-block">// Klassische for-Schleife
+for (int i = 0; i < 5; i++) {
+    System.out.println("i = " + i);  // Gibt 0,1,2,3,4 aus
+}
+
+// Array durchlaufen
+int[] zahlen = {10, 20, 30};
+for (int i = 0; i < zahlen.length; i++) {
+    System.out.println(zahlen[i]);
+}</div>
+                    <div class="tip" style="margin-top: 15px;">
+                        <strong>💡 Tipp:</strong> <code>zahlen.length</code> gibt die Länge des Arrays zurück!
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">↩️</span> while und do-while</h3>
+                <div class="card-content">
+                    <div class="comparison">
+                        <div>
+                            <strong>while</strong><br>
+Bedingung wird VOR dem Durchlauf geprüft
+                            <div class="code-block" style="font-size: 0.85em; margin-top: 10px;">int x = 0;
+while (x < 3) {
+    System.out.println(x);
+    x++;
+}</div>
+                        </div>
+                        <div>
+                            <strong>do-while</strong><br>
+Bedingung wird NACH dem Durchlauf geprüft
+                            <div class="code-block" style="font-size: 0.85em; margin-top: 10px;">int x = 0;
+do {
+    System.out.println(x);
+    x++;
+} while (x < 3);</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Arrays -->
+        <section id="arrays" class="section">
+            <div class="section-title">
+                <h2>5️⃣ Arrays (Felder)</h2>
+                <p>Sammlungen von Variablen</p>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📋</span> 1D-Arrays (eindimensional)</h3>
+                <div class="card-content">
+                    <div class="code-block">// Deklaration und Initialisierung
+int[] zahlen = {1, 2, 3, 4, 5};
+
+// Deklaration mit Größe
+int[] noten = new int[6];
+
+// Mit Werten füllen
+noten[0] = 1;
+noten[1] = 2;
+
+// Zugriff auf Elemente
+System.out.println(zahlen[0]);     // Gibt 1 aus
+System.out.println(zahlen.length); // Gibt 5 aus</div>
+                    <div class="important" style="margin-top: 15px;">
+                        <strong>⚠️ Index:</strong> Arrays beginnen bei 0! Ein Array mit 5 Elementen hat Indizes 0-4.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📊</span> 2D-Arrays (zweidimensional)</h3>
+                <div class="card-content">
+                    <div class="code-block">// Matrix 2x3 (2 Zeilen, 3 Spalten)
+int[][] matrix = {
+    {1, 2, 3},
+    {4, 5, 6}
+};
+
+// Zugriff
+System.out.println(matrix[0][1]);  // Gibt 2 aus
+System.out.println(matrix[1][2]);  // Gibt 6 aus
+
+// Mit Schleifen durchlaufen
+for (int i = 0; i < matrix.length; i++) {
+    for (int j = 0; j < matrix[i].length; j++) {
+        System.out.print(matrix[i][j] + " ");
+    }
+}</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔍</span> Array-Operationen</h3>
+                <div class="card-content">
+                    <div class="code-block">// Maximum finden
+double max = 0;
+for (int i = 0; i < noten.length; i++) {
+    if (noten[i] > max) {
+        max = noten[i];
+    }
+}
+
+// Array ausgeben
+System.out.println(java.util.Arrays.toString(zahlen));
+
+// Array sortieren (wenn import vorhanden)
+java.util.Arrays.sort(zahlen);</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🎯</span> Enhanced for-Schleife (for-each)</h3>
+                <div class="card-content">
+                    <div class="code-block">int[] zahlen = {1, 2, 3, 4, 5};
+
+// Einfacher als normales for - kein Index nötig
+for (int zahl : zahlen) {
+    System.out.println(zahl);
+}</div>
+                    <div class="tip" style="margin-top: 15px;">
+                        <strong>💡 Tipp:</strong> Verwende for-each, wenn du keinen Index brauchst!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. OOP -->
+        <section id="oop" class="section">
+            <div class="section-title">
+                <h2>6️⃣ Objektorientierung (OOP)</h2>
+                <p>Klassen, Attribute, Konstruktoren und Vererbung</p>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🏗️</span> Klassendefinition mit Attributen</h3>
+                <div class="card-content">
+                    <p><strong>Beispiel: Adresse-Klasse</strong></p>
+                    <div class="code-block">public class Adresse {
+    // Private Attribute
+    private String strStrasse;
+    private String strHausNr;
+    private String strPLZ;
+    private String strOrt;
+    
+    // Getter
+    public String getStrStrasse() {
+        return strStrasse;
+    }
+    
+    // Setter
+    public void setStrStrasse(String strStrasse) {
+        this.strStrasse = strStrasse;
+    }
+    
+    public String getStrHausNr() {
+        return strHausNr;
+    }
+    
+    public void setStrHausNr(String strHausNr) {
+        this.strHausNr = strHausNr;
+    }
+    
+    public String getStrPLZ() {
+        return strPLZ;
+    }
+    
+    public void setStrPLZ(String strPLZ) {
+        this.strPLZ = strPLZ;
+    }
+    
+    public String getStrOrt() {
+        return strOrt;
+    }
+    
+    public void setStrOrt(String strOrt) {
+        this.strOrt = strOrt;
+    }
+}</div>
+                    <div class="important" style="margin-top: 15px;">
+                        <strong>⚠️ Wichtig:</strong> <code>this.strStrasse = strStrasse;</code> - <code>this</code> verweist auf das Attribut der Klasse, der Parameter ist die Übergabe!
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔨</span> Konstruktoren und super()</h3>
+                <div class="card-content">
+                    <p><strong>Basis-Klasse (Person):</strong></p>
+                    <div class="code-block">public class Person {
+    private static int iPAnzahl = 0;  // Static: gehört der Klasse
+    private int iPNr;
+    private String strNachName;
+    private String strVorName;
+    
+    // Komposition: Objekt von anderer Klasse
+    Adresse adresse = new Adresse();
+    
+    // Konstruktor
+    public Person() {
+        iPNr = ++iPAnzahl;  // Jede neue Person erhält eine Nummer
+    }
+    
+    // Methode zum Eingeben
+    public void erfasseDaten() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Dateneingabe:");
+        System.out.print("Nachname:\t");
+        strNachName = sc.next();
+        System.out.print("Vorname:\t");
+        strVorName = sc.next();
+        System.out.print("Strasse:\t");
+        adresse.setStrStrasse(sc.next());
+        System.out.print("Hausnr:\t\t");
+        adresse.setStrHausNr(sc.next());
+        System.out.print("PLZ:\t\t");
+        adresse.setStrPLZ(sc.next());
+        System.out.print("Ort:\t\t");
+        adresse.setStrOrt(sc.next());
+    }
+    
+    // Überladene Methode (gleicher Name, andere Parameter)
+    public void erfasseDaten(String strNachName) {
+        this.strNachName = strNachName;
+    }
+    
+    // Methode zum Ausgeben
+    public void druckeAusweis() {
+        System.out.println("Personennr.:\t" + iPNr);
+        System.out.println("Nachname:\t" + strNachName);
+        System.out.println("Vorname:\t" + strVorName);
+        System.out.println("Adresse:\t" + adresse.getStrStrasse() + 
+                          " " + adresse.getStrHausNr() + "\n\t\t" + 
+                          adresse.getStrPLZ() + " " + adresse.getStrOrt());
+    }
+}</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔄</span> Vererbung (extends) und super</h3>
+                <div class="card-content">
+                    <p><strong>Schüler-Klasse erbt von Person:</strong></p>
+                    <div class="code-block">import java.util.Scanner;
+
+public class Schueler extends Person {  // Erbt von Person
+    
+    private String strKlasse;
+    
+    // Konstruktor
+    public Schueler() {
+        // super() wird automatisch aufgerufen
+    }
+    
+    // Überschriebene Methode
+    @Override
+    public void erfasseDaten() {
+        Scanner sc = new Scanner(System.in);
+        super.erfasseDaten();  // Ruft erfasseDaten() der Person auf
+        System.out.print("Klasse:\t\t");
+        strKlasse = sc.next();
+        System.out.println();
+    }
+    
+    // Überschriebene Methode
+    @Override
+    public void druckeAusweis() {
+        System.out.println("Schülerausweis");
+        super.druckeAusweis();  // Ruft druckeAusweis() der Person auf
+        System.out.println("Klasse:\t\t" + strKlasse);
+        System.out.println();
+    }
+}</div>
+
+                    <p style="margin-top: 15px;"><strong>Lehrer-Klasse erbt ebenfalls von Person:</strong></p>
+                    <div class="code-block">import java.util.Scanner;
+
+public class Lehrer extends Person {  // Erbt von Person
+    
+    private String strFach;
+    
+    // Konstruktor
+    public Lehrer() {
+        // super() wird automatisch aufgerufen
+    }
+    
+    // Überschriebene Methode
+    @Override
+    public void erfasseDaten() {
+        Scanner sc = new Scanner(System.in);
+        super.erfasseDaten();  // Ruft erfasseDaten() der Person auf
+        System.out.print("Fach:\t\t");
+        strFach = sc.next();
+        System.out.println();
+    }
+    
+    // Überschriebene Methode
+    @Override
+    public void druckeAusweis() {
+        System.out.println("Lehrerausweis");
+        super.druckeAusweis();  // Ruft druckeAusweis() der Person auf
+        System.out.println("Fach:\t\t" + strFach);
+        System.out.println();
+    }
+}</div>
+
+                    <div class="tip" style="margin-top: 15px;">
+                        <strong>💡 super:</strong> Ruft die Methode der Basisklasse auf! Wichtig für Vererbung!
+                    </div>
+                </div>
+            </div>
+
+            <div class="card success">
+                <h3><span class="icon">✅</span> Praktisches Beispiel: SchoolApp</h3>
+                <div class="card-content">
+                    <div class="code-block">import java.util.Scanner;
+
+public class SchoolApp {
+    public static void main(String args[]) {
+        // Objekte erzeugen
+        Schueler oSchueler1 = new Schueler();
+        Schueler oSchueler2 = new Schueler();
+        Lehrer oLehrer1 = new Lehrer();
+        
+        // Daten eingeben
+        oSchueler1.erfasseDaten();
+        oSchueler2.erfasseDaten();
+        oLehrer1.erfasseDaten();
+        
+        // Ausweise drucken
+        System.out.println("\n--- AUSWEISE ---\n");
+        oSchueler1.druckeAusweis();
+        oSchueler2.druckeAusweis();
+        oLehrer1.druckeAusweis();
+    }
+}</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔐</span> Zugriffsmodifikatoren</h3>
+                <div class="card-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Modifikator</th>
+                                <th>Sichtbarkeit</th>
+                                <th>Verwendung</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge">public</span></td>
+                                <td>Überall</td>
+                                <td>Methoden, die von außen aufrufbar sein sollen</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge warning">private</span></td>
+                                <td>Nur in der Klasse</td>
+                                <td>Attribute, interne Methoden (Encapsulation)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge info">protected</span></td>
+                                <td>Klasse + Unterklassen</td>
+                                <td>Für Vererbung (extends)</td>
+                            </tr>
+                            <tr>
+                                <td>-</td>
+                                <td>Paket</td>
+                                <td>Default (keine Angabe)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📌</span> Komposition vs. Vererbung</h3>
+                <div class="card-content">
+                    <div class="comparison">
+                        <div>
+                            <strong>Komposition (HAS-A):</strong><br>
+Eine Klasse ENTHÄLT ein Objekt einer anderen Klasse
+                            <div class="code-block" style="font-size: 0.85em; margin-top: 10px;">public class Person {
+    Adresse adresse = 
+        new Adresse();
+    // Person HAT eine Adresse
+}</div>
+                        </div>
+                        <div>
+                            <strong>Vererbung (IS-A):</strong><br>
+Eine Klasse IST eine spezielle Art einer anderen Klasse
+                            <div class="code-block" style="font-size: 0.85em; margin-top: 10px;">public class Schueler 
+    extends Person {
+    // Schüler IST eine Person
+}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Methoden, return und Scanner -->
+        <section id="methods" class="section">
+            <div class="section-title">
+                <h2>7️⃣ Methoden, return und Benutzereingaben</h2>
+                <p>Funktionen mit Rückgabewerten und Scanner</p>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📝</span> Methodendefinition mit return</h3>
+                <div class="card-content">
+                    <p><strong>Syntax:</strong></p>
+                    <div class="code-block">[Zugriffsmodifikator] [static] Rückgabetyp 
+Methodenname(Parameter) {
+    // Methodenrumpf
+    return [Wert];  // Rückgabewert
+}</div>
+
+                    <p style="margin-top: 15px;"><strong>Beispiele mit unterschiedlichen Rückgabetypen:</strong></p>
+                    <div class="code-block">// Rückgabewert: int
+public int addieren(int a, int b) {
+    return a + b;  // Gibt Ergebnis zurück
+}
+
+// Rückgabewert: double
+public double berechneFlaeche(double radius) {
+    return 3.14159 * radius * radius;
+}
+
+// Rückgabewert: String
+public String getName() {
+    return strName;  // Gibt den Namen zurück
+}
+
+// Rückgabewert: boolean
+public boolean istAelter(int alter) {
+    return alter >= 18;  // true oder false
+}</div>
+                </div>
+            </div>
+
+            <div class="card warning">
+                <h3><span class="icon">❌ vs ✅</span> void vs. return</h3>
+                <div class="card-content">
+                    <div class="comparison">
+                        <div>
+                            <strong>void - Keine Rückgabe</strong>
+                            <div class="code-block" style="font-size: 0.85em; margin-top: 10px;">public void drucken() {
+    System.out.println(
+        "Hallo!");
+    // Kein return!
+}
+
+// Aufruf
+drucken();
+// Keine Zuweisung möglich!</div>
+                        </div>
+                        <div>
+                            <strong>mit return - Mit Rückgabe</strong>
+                            <div class="code-block" style="font-size: 0.85em; margin-top: 10px;">public int berechnen() {
+    int ergebnis = 5 + 3;
+    return ergebnis;
+}
+
+// Aufruf
+int x = berechnen();
+System.out.println(x);  // 8</div>
+                        </div>
+                    </div>
+                    <div class="important" style="margin-top: 15px;">
+                        <strong>⚠️ Wichtig:</strong> void-Methoden können nicht einer Variablen zugewiesen werden! <code>int x = drucken();</code> führt zu Fehler!
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📥</span> Scanner für Benutzereingaben</h3>
+                <div class="card-content">
+                    <p><strong>Scanner importieren und verwenden:</strong></p>
+                    <div class="code-block">import java.util.Scanner;
+
+public class Eingabe {
+    public static void main(String[] args) {
+        // Scanner erzeugen
+        Scanner sc = new Scanner(System.in);
+        
+        // Ganzzahl einlesen
+        System.out.print("Alter: ");
+        int alter = sc.nextInt();
+        
+        // Text einlesen (bis zur Leerzeichen)
+        System.out.print("Name: ");
+        String name = sc.next();
+        
+        // Ganze Zeile einlesen (mit Leerzeichen)
+        System.out.print("Adresse: ");
+        String adresse = sc.nextLine();
+        
+        // Dezimalzahl einlesen
+        System.out.print("Preis: ");
+        double preis = sc.nextDouble();
+        
+        // Ausgabe
+        System.out.println("Name: " + name + 
+                          ", Alter: " + alter);
+    }
+}</div>
+
+                    <div class="tip" style="margin-top: 15px;">
+                        <strong>💡 Scanner-Methoden:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><code>sc.nextInt()</code> - Ganze Zahl</li>
+                            <li><code>sc.nextDouble()</code> - Dezimalzahl</li>
+                            <li><code>sc.next()</code> - Einzelnes Wort (bis Leerzeichen)</li>
+                            <li><code>sc.nextLine()</code> - Ganze Zeile</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔄</span> Praktisches Beispiel: Daten erfassen und ausgeben</h3>
+                <div class="card-content">
+                    <div class="code-block">import java.util.Scanner;
+
+public class Schueler extends Person {
+    
+    private String strKlasse;
+    
+    @Override
+    public void erfasseDaten() {
+        Scanner sc = new Scanner(System.in);
+        
+        // Basisklasse Daten erfassen
+        super.erfasseDaten();
+        
+        // Zusätzliche Daten
+        System.out.print("Klasse:\t\t");
+        strKlasse = sc.next();
+        System.out.println();
+    }
+    
+    @Override
+    public void druckeAusweis() {
+        System.out.println("Schülerausweis");
+        super.druckeAusweis();
+        System.out.println("Klasse:\t\t" + 
+                          strKlasse);
+        System.out.println();
+    }
+    
+    // Getter mit return
+    public String getKlasse() {
+        return strKlasse;
+    }
+}</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📌</span> static vs. Instanz-Methoden</h3>
+                <div class="card-content">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Art</th>
+                                <th>Gehört</th>
+                                <th>Beispiel</th>
+                                <th>Aufruf</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge">static</span></td>
+                                <td>Der Klasse</td>
+                                <td><code>public static void main()</code></td>
+                                <td><code>Klasse.methode()</code></td>
+                            </tr>
+                            <tr>
+                                <td>Instanz</td>
+                                <td>Dem Objekt</td>
+                                <td><code>public void fahren()</code></td>
+                                <td><code>objekt.methode()</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="code-block" style="margin-top: 15px;">public class Auto {
+    private static int iPAnzahl = 0;
+    private String farbe;
+    
+    // Static Methode - gehört der Klasse
+    public static int getAnzahl() {
+        return iPAnzahl;
+    }
+    
+    // Instanz-Methode - gehört jedem Auto-Objekt
+    public void fahren() {
+        System.out.println(farbe + 
+                          " Auto fährt!");
+    }
+}
+
+// Verwendung
+int anzahl = Auto.getAnzahl();  // Static
+Auto a = new Auto();
+a.fahren();  // Instanz</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">⚡</span> Überladung (Overloading)</h3>
+                <div class="card-content">
+                    <p><strong>Gleicher Methodenname, unterschiedliche Parameter:</strong></p>
+                    <div class="code-block">public class Person {
+    private String strNachName;
+    
+    // Methode ohne Parameter
+    public void erfasseDaten() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Name: ");
+        strNachName = sc.next();
+    }
+    
+    // Überladene Methode mit Parameter
+    public void erfasseDaten(String strNachName) {
+        this.strNachName = strNachName;
+    }
+}
+
+// Aufruf
+Person p = new Person();
+p.erfasseDaten();  // Interaktive Eingabe
+p.erfasseDaten("Mueller");  // Direkte Übergabe</div>
+                    <div class="tip" style="margin-top: 15px;">
+                        <strong>💡 Java wählt automatisch die richtige Methode basierend auf den Parametern!</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Tipps und Tricks -->
+        <section id="tips" class="section">
+            <div class="section-title">
+                <h2>8️⃣ Prüfungstipps & Häufige Fehler</h2>
+                <p>Was ihr beachten müsst!</p>
+            </div>
+
+            <div class="card success">
+                <h3><span class="icon">✅</span> Das solltet ihr können</h3>
+                <div class="card-content">
+                    <ul style="margin-left: 20px;">
+                        <li>✔️ Einfache Programme schreiben (mit main-Methode)</li>
+                        <li>✔️ Variablen deklarieren und initialisieren</li>
+                        <li>✔️ Unterschied zwischen primitiven und Referenztypen</li>
+                        <li>✔️ if-else und switch Anweisungen verwenden</li>
+                        <li>✔️ for, while und do-while Schleifen nutzen</li>
+                        <li>✔️ Arrays erstellen und durchlaufen</li>
+                        <li>✔️ Klassen mit Attributen und Methoden definieren</li>
+                        <li>✔️ Objekte mit new erzeugen</li>
+                        <li>✔️ Methoden mit Parametern und Rückgabewert schreiben</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card danger">
+                <h3><span class="icon">❌</span> Häufige Fehler</h3>
+                <div class="card-content">
+                    <ul style="margin-left: 20px;">
+                        <li>❌ <span class="highlight">Array Index</span> - Vergessen, dass Arrays bei 0 beginnen!</li>
+                        <li>❌ <span class="highlight">Division durch Null</span> - 5 / 0 führt zu ArithmeticException</li>
+                        <li>❌ <span class="highlight">break in switch</span> - Ohne break läuft der Code weiter!</li>
+                        <li>❌ <span class="highlight">Semikolon</span> - Jede Anweisung muss mit ; enden</li>
+                        <li>❌ <span class="highlight">Klammern</span> - { } und ( ) müssen paarweise vorkommen</li>
+                        <li>❌ <span class="highlight">== vs .equals()</span> - Für Strings .equals() verwenden!</li>
+                        <li>❌ <span class="highlight">NullPointerException</span> - Auf null prüfen vor Zugriff</li>
+                        <li>❌ <span class="highlight">return in void</span> - void-Methoden können keine Werte zurückgeben!</li>
+                        <li>❌ <span class="highlight">Scanner ohne import</span> - Immer <code>import java.util.Scanner;</code> schreiben!</li>
+                        <li>❌ <span class="highlight">super.methode() vergessen</span> - In Unterklassen die Basisklasse aufrufen!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card warning">
+                <h3><span class="icon">⚡</span> Code-Qualität</h3>
+                <div class="card-content">
+                    <div class="code-block">// ❌ FALSCH - Schlechte Variablennamen
+int x = 25;
+int y = 100;
+
+// ✅ RICHTIG - Aussagekräftige Namen
+int alter = 25;
+int gehalt = 100;
+
+// ❌ FALSCH - Keine Kommentare
+for (int i = 0; i < 5; i++) {
+    System.out.println(i);
+}
+
+// ✅ RICHTIG - Mit Kommentar
+// Gebe Zahlen von 0-4 aus
+for (int i = 0; i < 5; i++) {
+    System.out.println(i);
+}</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">📚</span> String-Operationen (wichtig!)</h3>
+                <div class="card-content">
+                    <div class="code-block">String text = "Hallo";
+
+// Länge
+System.out.println(text.length()); // 5
+
+// Verbinden (Konkatenation)
+String name = "Max";
+String gruß = "Hallo " + name; // "Hallo Max"
+
+// Vergleichen
+String a = "Hallo";
+String b = "Hallo";
+System.out.println(a.equals(b)); // true
+System.out.println(a == b);      // Kann false sein!
+
+// Zu Großbuchstaben
+System.out.println(text.toUpperCase()); // "HALLO"
+
+// Zu Kleinbuchstaben
+System.out.println(text.toLowerCase()); // "hallo"
+
+// Teilstring
+System.out.println(text.substring(1, 4)); // "all"</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🎓</span> Prüfungsvorbereitung</h3>
+                <div class="card-content">
+                    <div class="important" style="margin-bottom: 15px;">
+                        <strong>📖 Lerntipps:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Code selbst tippen - nicht nur lesen!</li>
+                            <li>Programme kompilieren und ausführen</li>
+                            <li>Mit verschiedenen Eingaben testen</li>
+                            <li>Fehlerausgaben lesen und verstehen</li>
+                            <li>Alte Übungen und Aufgaben wiederholen</li>
+                        </ul>
+                    </div>
+                    <div class="tip">
+                        <strong>💪 Erfolgsformel:</strong> Verstehen + Üben + Wiederholen = Bestanden!
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🎓</span> Zusammenfassung - Das Wichtigste</h3>
+                <div class="card-content">
+                    <div style="background: rgba(249,115,22,0.1); padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                        <p style="margin: 0;"><strong>Diese Konzepte musst du UNBEDINGT verstehen:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>✅ <span class="highlight">Klassen</span> - Bauplan für Objekte</li>
+                            <li>✅ <span class="highlight">Attribute</span> - Daten in einer Klasse (private!)</li>
+                            <li>✅ <span class="highlight">Getter/Setter</span> - Zugriff auf private Attribute</li>
+                            <li>✅ <span class="highlight">Konstruktor</span> - wird beim "new" aufgerufen</li>
+                            <li>✅ <span class="highlight">Vererbung (extends)</span> - Unterklassen erben von Oberklasse</li>
+                            <li>✅ <span class="highlight">super</span> - Ruft Basisklasse-Methoden auf</li>
+                            <li>✅ <span class="highlight">return</span> - Gibt Wert aus Methode zurück</li>
+                            <li>✅ <span class="highlight">Scanner</span> - Liest Benutzereingaben ein</li>
+                            <li>✅ <span class="highlight">@Override</span> - Zeigt, dass Methode überschrieben wird</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🔗</span> Wichtige Links & Ressourcen</h3>
+                <div class="card-content">
+                    <ul style="margin-left: 20px;">
+                        <li><a href="https://www.oracle.com/java/" style="color: var(--secondary-color);">Oracle Java Official</a> - Offizielle Java-Dokumentation</li>
+                        <li><a href="https://de.wikipedia.org/wiki/Java_(Programmiersprache)" style="color: var(--secondary-color);">Wikipedia Java</a> - Java-Übersicht</li>
+                        <li>Deine Schulunterlagen - Das ist deine primäre Ressource!</li>
+                        <li>Compilerfehler googlen - Meist findet man schnell die Lösung</li>
+                        <li>Code selbst tippen und testen - Das ist die beste Lernmethode!</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>🚀 Java Prüfungsvorbereitung für Azubis | Basierend auf deinem Lehrplan</p>
+            <p>Erfolg beim Test! 💪</p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Alle Sections ausblenden
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Alle Buttons deaktivieren
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Gewählte Section anzeigen
+            document.getElementById(sectionId).classList.add('active');
+
+            // Entsprechenden Button aktivieren
+            event.target.classList.add('active');
+
+            // Nach oben scrollen
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
