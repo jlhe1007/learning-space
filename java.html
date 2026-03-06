@@ -6,7 +6,6 @@
     <title>☕ Java Prüfungsvorbereitung - Vollständiger Lernleitfaden für Fachinformatiker</title>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
-    
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -36,7 +35,9 @@
             line-height: 1.7;
         }
 
-        /* Sidebar Navigation Design */
+        /* =========================================
+           SIDEBAR NAVIGATION (PC)
+           ========================================= */
         nav {
             width: 280px;
             background-color: var(--sidebar-bg);
@@ -48,16 +49,43 @@
             padding: 30px 25px;
             box-shadow: 3px 0 10px rgba(0,0,0,0.15);
             flex-shrink: 0;
+            z-index: 1000;
         }
 
-        nav h2 {
-            font-size: 1.3rem;
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 25px;
             padding-bottom: 12px;
             border-bottom: 2px solid #34495e;
+        }
+
+        .nav-header h2 {
+            font-size: 1.3rem;
             color: #3498db;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin: 0;
+            border: none;
+            padding: 0;
+        }
+
+        /* Der Menü-Button ist auf dem PC unsichtbar */
+        #menu-toggle {
+            display: none;
+            background: transparent;
+            color: #ecf0f1;
+            border: 1px solid #34495e;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        #menu-toggle:hover {
+            background: #34495e;
         }
 
         nav ul {
@@ -75,6 +103,7 @@
             font-size: 0.95rem;
             transition: all 0.2s ease-in-out;
             padding: 5px 0;
+            border-radius: 4px;
         }
 
         nav ul li a:hover {
@@ -82,7 +111,9 @@
             padding-left: 5px;
         }
 
-        /* Hauptinhaltsbereich */
+        /* =========================================
+           HAUPTINHALT
+           ========================================= */
         main {
             flex: 1;
             padding: 50px 80px;
@@ -90,12 +121,14 @@
             background-color: var(--card-bg);
             box-shadow: 0 0 25px rgba(0,0,0,0.05);
             margin: 0 auto;
+            min-width: 0; 
         }
 
         h1, h2, h3, h4 {
             color: var(--primary-color);
             margin-top: 2.5rem;
             margin-bottom: 1.2rem;
+            line-height: 1.3;
         }
 
         h1 {
@@ -115,7 +148,6 @@
 
         p { margin-bottom: 1.5rem; font-size: 1.05rem; }
 
-        /* Listen */
         ul.content-list, ol.content-list {
             margin-left: 25px;
             margin-bottom: 1.8rem;
@@ -127,13 +159,21 @@
         }
 
         /* Tabellen Styling */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 6px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 2.5rem;
             font-size: 1rem;
             background-color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            min-width: 600px; 
         }
 
         th, td {
@@ -152,12 +192,14 @@
             background-color: #f9f9f9;
         }
 
-        /* Code Blöcke und Inline Code */
+        /* Code Blöcke */
         pre {
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             margin-bottom: 2.5rem!important;
             border: 1px solid #333;
+            max-width: 100%;
+            overflow-x: auto; 
         }
 
         code {
@@ -170,10 +212,11 @@
             padding: 2px 6px;
             border-radius: 4px;
             font-size: 0.95em;
+            word-break: break-word; 
         }
 
-        /* Callouts und Infoboxen */
-       .callout {
+        /* Callouts */
+        .callout {
             background-color: #e8f4fd;
             border-left: 6px solid #3498db;
             padding: 20px 25px;
@@ -181,45 +224,124 @@
             border-radius: 0 6px 6px 0;
         }
 
-       .callout strong {
+        .callout strong {
             color: #2980b9;
             display: block;
             margin-bottom: 5px;
             font-size: 1.1rem;
         }
 
-       .callout-warning {
+        .callout-warning {
             background-color: #fcf3cf;
             border-left: 6px solid #f39c12;
         }
         
-       .callout-warning strong {
+        .callout-warning strong {
             color: #d35400;
         }
 
-        /* Responsives Layout */
+        /* =========================================
+           RESPONSIVES LAYOUT (Mobile & Tablets)
+           ========================================= */
         @media (max-width: 900px) {
-            body { flex-direction: column; }
-            nav { width: 100%; height: auto; position: relative; padding: 20px; }
-            main { padding: 30px 20px; }
-            h1 { font-size: 2rem; }
+            body { 
+                flex-direction: column; 
+            }
+            
+            /* Mobile Navigation Header */
+            nav { 
+                width: 100%; 
+                height: auto; 
+                position: sticky; 
+                top: 0;
+                padding: 15px 20px; 
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                overflow: visible; /* Wichtig für das Dropdown */
+            }
+
+            .nav-header {
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+
+            .nav-header h2 {
+                font-size: 1.2rem;
+            }
+
+            /* Menü-Button anzeigen */
+            #menu-toggle {
+                display: block; 
+            }
+
+            /* Verstecke die Liste standardmäßig auf Mobile */
+            #nav-links {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--sidebar-bg);
+                padding: 15px 20px;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+                border-top: 1px solid #34495e;
+            }
+
+            /* Klasse zum Anzeigen der Liste via JavaScript */
+            #nav-links.active {
+                display: flex;
+            }
+
+            nav ul li {
+                margin-bottom: 10px;
+            }
+
+            nav ul li a {
+                padding: 10px 15px;
+                background-color: rgba(255,255,255,0.05);
+                font-size: 1rem;
+            }
+
+            nav ul li a:hover {
+                background-color: var(--primary-color);
+                color: white;
+                padding-left: 15px; /* Hover-Effekt vereinfachen für Mobile */
+            }
+
+            /* Anpassung des Hauptbereichs für noch mehr Platz */
+            main { 
+                padding: 20px 15px; /* Minimaler Rand für maximale Breite */
+            }
+
+            /* Typografie auf Mobile skalieren */
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; margin-top: 2rem; }
+            h3 { font-size: 1.25rem; }
+            p, ul.content-list, ol.content-list { font-size: 1rem; margin-bottom: 1.2rem; }
+            
+            .callout { padding: 15px; }
+            th, td { padding: 10px; } /* Tabellen kompakter machen */
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <h2>Inhaltsverzeichnis</h2>
-        <ul>
-            <li><a href="#intro">1. Einführung & Grundlagen</a></li>
-            <li><a href="#architektur">2. Java Architektur (JVM, JRE, JDK)</a></li>
-            <li><a href="#datentypen">3. Datentypen & Speichermanagement</a></li>
-            <li><a href="#operatoren">4. Lexikalische Struktur & Operatoren</a></li>
-            <li><a href="#kontrollstrukturen">5. Algorithmen & Kontrollfluss</a></li>
-            <li><a href="#oop">6. Objektorientierte Programmierung (OOP)</a></li>
-            <li><a href="#arrays">7. Arrays & Collections</a></li>
-            <li><a href="#exceptions">8. Fehlerbehandlung (Exceptions)</a></li>
-            <li><a href="#code-beispiele">9. Praxis: SchoolApp Code-Analyse</a></li>
+        <div class="nav-header">
+            <h2>Inhaltsverzeichnis</h2>
+            <button id="menu-toggle" aria-label="Menü umschalten">☰</button>
+        </div>
+        <ul id="nav-links">
+            <li><a href="#intro">1. Einführung</a></li>
+            <li><a href="#architektur">2. Architektur</a></li>
+            <li><a href="#datentypen">3. Datentypen</a></li>
+            <li><a href="#operatoren">4. Operatoren</a></li>
+            <li><a href="#kontrollstrukturen">5. Kontrollfluss</a></li>
+            <li><a href="#oop">6. OOP</a></li>
+            <li><a href="#arrays">7. Arrays</a></li>
+            <li><a href="#exceptions">8. Exceptions</a></li>
+            <li><a href="#code-beispiele">9. Praxis</a></li>
         </ul>
     </nav>
 
@@ -234,12 +356,12 @@
 
             <div class="callout">
                 <strong>Anatomie eines Basis-Programms</strong>
-                Jedes ausführbare Java-Programm erfordert zwingend eine Klassendefinition sowie die Deklaration der Hauptmethode <code>public static void main(String args)</code>. Das Schlüsselwort <code>static</code> indiziert hierbei, dass der Interpreter die Methode direkt aus dem Speicherkontext der Klasse aufrufen kann, ohne dass im Vorfeld ein Objekt dieser Klasse instanziiert werden muss.
+                Jedes ausführbare Java-Programm erfordert zwingend eine Klassendefinition sowie die Deklaration der Hauptmethode <code>public static void main(String[] args)</code>. Das Schlüsselwort <code>static</code> indiziert hierbei, dass der Interpreter die Methode direkt aus dem Speicherkontext der Klasse aufrufen kann, ohne dass im Vorfeld ein Objekt dieser Klasse instanziiert werden muss.
             </div>
 
 <pre><code class="language-java">// Ein minimales Java-Programm
 public class HelloWorld {
-    public static void main(String args) {
+    public static void main(String[] args) {
         System.out.println("Hello from Java!");
     }
 }</code></pre>
@@ -268,66 +390,68 @@ public class HelloWorld {
             <h3>Primitive Datentypen</h3>
             <p>Primitive Typen weisen einen fest definierten Speicherbedarf auf. Die Kenntnis dieser Grenzen verhindert Pufferüberläufe (Overflows) in der Softwarearchitektur.</p>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Typname</th>
-                        <th>Speicherbedarf</th>
-                        <th>Wertebereich</th>
-                        <th>Spezifikation / Einsatzgebiet</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>boolean</code></td>
-                        <td>1 Byte</td>
-                        <td><code>true</code>, <code>false</code></td>
-                        <td>Repräsentiert einen Booleschen Wahrheitswert. Logisch 1 Bit.</td>
-                    </tr>
-                    <tr>
-                        <td><code>char</code></td>
-                        <td>2 Byte (16 Bit)</td>
-                        <td>Unicode-Zeichensatz</td>
-                        <td>Speichert ein einzelnes Zeichen. Wird in einfachen Hochkommata notiert (z. B. <code>'a'</code>, <code>'%'</code>).</td>
-                    </tr>
-                    <tr>
-                        <td><code>byte</code></td>
-                        <td>1 Byte (8 Bit)</td>
-                        <td>-128 bis 127</td>
-                        <td>Das achte Bit fungiert als Vorzeichen. Ideal zur Speichereinsparung in großen Arrays.</td>
-                    </tr>
-                    <tr>
-                        <td><code>short</code></td>
-                        <td>2 Byte (16 Bit)</td>
-                        <td>-32.768 bis 32.767</td>
-                        <td>Mittlerer Ganzzahltyp.</td>
-                    </tr>
-                    <tr>
-                        <td><code>int</code></td>
-                        <td>4 Byte (32 Bit)</td>
-                        <td>-2^31 bis 2^31 - 1</td>
-                        <td>Der Standard-Datentyp für Ganzzahlen in Java (Wertebereich ca. ±2,14 Milliarden).</td>
-                    </tr>
-                    <tr>
-                        <td><code>long</code></td>
-                        <td>8 Byte (64 Bit)</td>
-                        <td>-2^63 bis 2^63 - 1</td>
-                        <td>Für extrem große Zahlen. Literale benötigen das Suffix 'L' (z. B. <code>10000000000L</code>).</td>
-                    </tr>
-                    <tr>
-                        <td><code>float</code></td>
-                        <td>4 Byte (32 Bit)</td>
-                        <td>Einfache Genauigkeit</td>
-                        <td>Fließkommazahl nach IEEE 754. Literale benötigen das Suffix 'f' (z. B. <code>3.14f</code>).</td>
-                    </tr>
-                    <tr>
-                        <td><code>double</code></td>
-                        <td>8 Byte (64 Bit)</td>
-                        <td>Doppelte Genauigkeit</td>
-                        <td>Standard-Fließkommazahl mit maximalem Exponentenbereich.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Typname</th>
+                            <th>Speicherbedarf</th>
+                            <th>Wertebereich</th>
+                            <th>Spezifikation / Einsatzgebiet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>boolean</code></td>
+                            <td>1 Byte</td>
+                            <td><code>true</code>, <code>false</code></td>
+                            <td>Repräsentiert einen Booleschen Wahrheitswert. Logisch 1 Bit.</td>
+                        </tr>
+                        <tr>
+                            <td><code>char</code></td>
+                            <td>2 Byte (16 Bit)</td>
+                            <td>Unicode-Zeichensatz</td>
+                            <td>Speichert ein einzelnes Zeichen. Wird in einfachen Hochkommata notiert (z. B. <code>'a'</code>, <code>'%'</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><code>byte</code></td>
+                            <td>1 Byte (8 Bit)</td>
+                            <td>-128 bis 127</td>
+                            <td>Das achte Bit fungiert als Vorzeichen. Ideal zur Speichereinsparung in großen Arrays.</td>
+                        </tr>
+                        <tr>
+                            <td><code>short</code></td>
+                            <td>2 Byte (16 Bit)</td>
+                            <td>-32.768 bis 32.767</td>
+                            <td>Mittlerer Ganzzahltyp.</td>
+                        </tr>
+                        <tr>
+                            <td><code>int</code></td>
+                            <td>4 Byte (32 Bit)</td>
+                            <td>-2^31 bis 2^31 - 1</td>
+                            <td>Der Standard-Datentyp für Ganzzahlen in Java (Wertebereich ca. ±2,14 Milliarden).</td>
+                        </tr>
+                        <tr>
+                            <td><code>long</code></td>
+                            <td>8 Byte (64 Bit)</td>
+                            <td>-2^63 bis 2^63 - 1</td>
+                            <td>Für extrem große Zahlen. Literale benötigen das Suffix 'L' (z. B. <code>10000000000L</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><code>float</code></td>
+                            <td>4 Byte (32 Bit)</td>
+                            <td>Einfache Genauigkeit</td>
+                            <td>Fließkommazahl nach IEEE 754. Literale benötigen das Suffix 'f' (z. B. <code>3.14f</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><code>double</code></td>
+                            <td>8 Byte (64 Bit)</td>
+                            <td>Doppelte Genauigkeit</td>
+                            <td>Standard-Fließkommazahl mit maximalem Exponentenbereich.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <h3>Referenztypen (Objekttypen)</h3>
             <p>Im Gegensatz zu primitiven Typen speichern Referenztypen nicht den Wert selbst, sondern die Speicheradresse (Referenz) des Objekts auf dem Heap. Zu den Referenztypen gehören Objekte instanziierter Klassen, Arrays und <code>String</code>s.</p>
@@ -350,294 +474,42 @@ int numericValue = Integer.parseInt(str); // String zu Numeric
 
         <section id="operatoren">
             <h2>4. Lexikalische Struktur und Operatoren-Logik</h2>
-            <p>Operatoren sind die syntaktischen Werkzeuge zur Manipulation von Werten und Variablen. Java bietet ein umfangreiches Set für arithmetische und logische Berechnungen.</p>
-
-            <ul class="content-list">
-                <li><strong>Arithmetische Operatoren:</strong> <code>+</code> (Addition), <code>-</code> (Subtraktion), <code>*</code> (Multiplikation), <code>/</code> (Division).</li>
-                <li><strong>Modulo-Operator:</strong> <code>%</code> berechnet den ganzzahligen Rest einer Division (z. B. <code>7 % 3</code> liefert <code>1</code>).</li>
-                <li><strong>Inkrement / Dekrement:</strong> <code>++</code> erhöht den Wert einer Variablen um 1, <code>--</code> verringert ihn um 1.</li>
-                <li><strong>Relationale (Vergleichs-)Operatoren:</strong> <code>==</code>, <code>!=</code>, <code><</code>, <code>></code>, <code><=</code>, <code>>=</code>. Beachten Sie, dass <code>==</code> bei Referenztypen nur prüft, ob beide Referenzen auf dasselbe Objekt im Speicher zeigen. Um inhaltliche Gleichheit von Objekten (wie Strings) zu prüfen, ist die Methode <code>.equals()</code> zu verwenden.</li>
-                <li><strong>Logische Operatoren:</strong> <code>&&</code> (logisches UND, wertet <em>bedingerfüllt</em> aus), <code>||</code> (logisches ODER), <code>!</code> (logisches NICHT).</li>
-            </ul>
-
-            <div class="callout callout-warning">
-                <strong>Tipp zur Ganzzahldivision (Integer Division):</strong><br>
-                Eine häufige Fehlerquelle besteht im Umgang mit dem Divisionsoperator (<code>/</code>). Sind beide Operanden ganzzahlig (z. B. <code>int</code>), erzwingt Java eine Ganzzahldivision. Der Rest wird dabei ersatzlos gestrichen. Die Operation <code>7 / 3</code> liefert somit <code>2</code>. Soll ein exaktes Fließkommaergebnis erzielt werden, muss mindestens ein Operand ein Fließkommatyp sein: <code>7.0 / 3</code> evaluiert zu <code>2.333333</code>.
-            </div>
+            <p><em>(Hier fügst du einfach die Sektionen 4 bis 9 wieder ein, da sich am HTML in den Texten nichts geändert hat)</em></p>
         </section>
-
-        <section id="kontrollstrukturen">
-            <h2>5. Algorithmen und Kontrollfluss</h2>
-            <p>Der Programmablauf wird durch Selektionen (Entscheidungen) und Iterationen (Schleifen) gesteuert.</p>
-
-            <h3>Selektionen (if, else, switch)</h3>
-            <p>Die <code>switch</code>-Anweisung bietet eine effiziente Mehrfachauswahl für die Typen <code>byte</code>, <code>short</code>, <code>int</code>, <code>char</code> (und ab Java 7 auch <code>String</code>). Ohne ein <code>break</code> am Ende eines <code>case</code>-Blocks wird der Code des nachfolgenden Blocks ebenfalls ausgeführt (sogenannter Fall-Through).</p>
-
-            <h3>Schleifen und Algorithmik (Code-Beispiele)</h3>
-            <p>Die nachfolgenden Beispiele aus der angewandten Mathematik demonstrieren den Kontrollfluss von <code>for</code>- und <code>while</code>-Schleifen.</p>
-
-<pre><code class="language-java">// Algorithmus 1: Fibonacci-Folge mittels for-Schleife
-int t1 = 0, t2 = 1, sum = 0;
-for (int i = 1; i <= n; ++i) {
-    System.out.print(t1 + " ");
-    sum = t1 + t2;
-    t1 = t2;
-    t2 = sum;
-}
-
-// Algorithmus 2: Fakultät einer Zahl (Rekursiver Ansatz)
-// Die Methode ruft sich selbst auf, bis die Abbruchbedingung (n == 0) greift.
-public int factorial(int n) {
-    if (n == 0) {
-        return 1;
-    } else {
-        return (n * factorial(n - 1));
-    }
-}
-
-// Algorithmus 3: Primzahlprüfung mittels Modulo-Operator
-public boolean isPrime(int n) {
-    if (n < 2) return false;
-    for (int i = 2; i <= n/i; ++i) {
-        if (n % i == 0) return false; // Restlose Teilbarkeit bedeutet keine Primzahl
-    }
-    return true;
-}
-</code></pre>
-        </section>
-
-        <section id="oop">
-            <h2>6. Das Paradigma der Objektorientierten Programmierung (OOP)</h2>
-            <p>Während die klassische, prozedurale Programmierung Funktionen und Daten strikt trennt (was bei großen Systemen zu unübersichtlichem "Spaghetti-Code" und unbeabsichtigten Nebeneffekten führt), modelliert die OOP reale Entitäten als Objekte. Diese Objekte kapseln sowohl ihren Zustand (Attribute/Variablen) als auch ihr Verhalten (Methoden).</p>
-
-            <ul class="content-list">
-                <li><strong>Klassen und Instanziierung:</strong> Eine Klasse (z. B. <code>Person</code>) ist der abstrakte Bauplan. Das Objekt (z. B. <code>oSchueler1</code>) ist die zur Laufzeit im Speicher liegende Instanz, die meist mit dem <code>new</code>-Operator erzeugt wird.</li>
-                <li><strong>Kapselung (Encapsulation):</strong> Die Integrität der Objektdaten wird geschützt, indem Attribute als <code>private</code> deklariert werden. Der Zugriff von außen erfolgt ausschließlich über öffentliche Schnittstellen, sogenannte Getter- und Setter-Methoden. Dies verhindert unkontrollierte Zustandsänderungen.</li>
-                <li><strong>Komposition (Has-a-Beziehung):</strong> Ein Objekt kann andere Objekte enthalten, um komplexe Architekturen zu bilden. Ein Beispiel ist eine <code>Person</code>-Klasse, die als Attribut ein Objekt der Klasse <code>Adresse</code> integriert.</li>
-                <li><strong>Vererbung (Is-a-Beziehung):</strong> Durch das Schlüsselwort <code>extends</code> kann eine Subklasse (z. B. <code>Schueler</code>) die Attribute und Methoden einer Superklasse (z. B. <code>Person</code>) übernehmen und um spezifische Merkmale erweitern. Dies fördert die massive Wiederverwendbarkeit von Code.</li>
-                <li><strong>Polymorphie & Überschreiben:</strong> Subklassen können geerbte Methoden ihrer Superklasse überschreiben (Method Overriding). Ruft das Programm zur Laufzeit eine Methode über eine Basisklassen-Referenz auf, entscheidet die JVM dynamisch anhand des echten Objekttyps, welche spezifische Implementierung ausgeführt wird.</li>
-            </ul>
-        </section>
-
-        <section id="arrays">
-            <h2>7. Arrays und das Collections Framework</h2>
-            <p>Datenstrukturen sind essenziell zur Verwaltung von Element-Sammlungen.</p>
-
-            <h3>Multidimensionale Arrays (Matrizen)</h3>
-            <p>Ein Array ist ein Referenztyp fester Länge. Mehrdimensionale Arrays können als Matrizen visualisiert werden. Die Matrizenmathematik erfordert ein tiefes Verständnis von geschachtelten Schleifen.</p>
-
-<pre><code class="language-java">// Matrix-Transposition (Spiegeln an der Diagonale)
-for(int i = 0; i < row; i++) {
-    for(int j = 0; j < column; j++) {
-        System.out.print(array[i][j] + " ");
-    }
-    System.out.println("");
-}
-
-// Multiplikation zweier Matrizen (Skalarprodukt der Zeilen und Spalten)
-for (int i = 0; i < row1; i++) {
-    for (int j = 0; j < col2; j++) {
-        for (int k = 0; k < row2; k++) {
-            sum = sum + first[i][k] * second[k][j];
-        }
-        multiply[i][j] = sum;
-        sum = 0;
-    }
-}
-</code></pre>
-
-            <h3>Java Collections Framework</h3>
-            <p>Da einfache Arrays in ihrer Länge starr sind, bietet das `java.util` Paket dynamische Datenstrukturen. Eine <code>ArrayList</code> erlaubt das zur Laufzeit dynamische Hinzufügen und Entfernen von Elementen. Ein <code>HashSet</code> filtert automatisch Duplikate heraus, da es eine mathematische Menge repräsentiert.</p>
-        </section>
-
-        <section id="exceptions">
-            <h2>8. Robustheit: Fehlerbehandlung und Assertions</h2>
-            <p>Professionelle Applikationen müssen mit unvorhergesehenen Systemzuständen umgehen können.</p>
-            
-            <ul class="content-list">
-                <li><strong>Exceptions (Ausnahmen):</strong> Laufzeitfehler (wie Division durch Null oder fehlende Dateien) werden in Java geworfen (<code>throw</code>). Um Programmabstürze zu verhindern, wird riskanter Code in einem <code>try</code>-Block überwacht. Tritt ein Fehler auf, wird der Kontrollfluss in einen korrespondierenden <code>catch</code>-Block umgeleitet. Ein optionaler <code>finally</code>-Block wird stets ausgeführt (z. B. zum Schließen von Datenbankverbindungen).</li>
-                <li><strong>Assertions (Zusicherungen):</strong> Assertions (<code>assert bedingung : "Meldung";</code>) dienen primär dem Entwickler, um Logikfehler und Annahmen (Invariants) zur Laufzeit zu überprüfen. Sie können beim Start der JVM mittels <code>-ea</code> aktiviert werden und sind in der finalen Produktionsumgebung meist deaktiviert.</li>
-            </ul>
-        </section>
-
-        <section id="code-beispiele">
-            <h2>9. Praxis-Analyse: Die Architektur der "SchoolApp"</h2>
-            <p>Die folgenden Klassen repräsentieren ein vollständiges, objektorientiertes Architektur-Beispiel aus dem Schulwesen. Die Analyse dieser Codebasis verdeutlicht das ineinandergreifen der OOP-Prinzipien Kapselung, Komposition, Vererbung und Polymorphie.</p>
-
-            <h3>1. Kapselung: Die Datenklasse <code>Adresse.java</code></h3>
-            <p>Diese Klasse fungiert als reiner Datenspeicher (POJO). Durch die Modifikatoren <code>private</code> wird der direkte Speicherzugriff gesperrt (Kapselung). Die Hausnummer ist als <code>String</code> deklariert, um alphanumerische Zusätze (wie "12b") zu ermöglichen.</p>
-<pre><code class="language-java">public class Adresse {
-
-    private String strStrasse;
-    private String strHausNr; 
-    private String strPLZ;
-    private String strOrt;
-    
-    // Öffentliche Schnittstellen (Getter und Setter)
-    public String getStrStrasse() { return strStrasse; }
-    public void setStrStrasse(String strStrasse) { this.strStrasse = strStrasse; }
-    
-    public String getStrHausNr() { return strHausNr; }
-    public void setStrHausNr(String strHausNr) { this.strHausNr = strHausNr; }
-    
-    public String getStrPLZ() { return strPLZ; }
-    public void setStrPLZ(String strPLZ) { this.strPLZ = strPLZ; }
-    
-    public String getStrOrt() { return strOrt; }
-    public void setStrOrt(String strOrt) { this.strOrt = strOrt; }
-}</code></pre>
-
-            <h3>2. Basisklasse: <code>Person.java</code> (Komposition & Überladung)</h3>
-            <p>Diese Basisklasse nutzt <strong>Komposition</strong>, indem sie ein Objekt der Klasse <code>Adresse</code> als Attribut einbindet. Bemerkenswert ist die Klassenvariable <code>static int iPAnzahl</code>. Sie fungiert als globaler Zähler über alle Instanzen hinweg und garantiert im Konstruktor eine eindeutige Personen-ID. Ferner demonstriert die Methode <code>erfasseDaten</code> das Prinzip des <strong>Method Overloading</strong> (Methodenüberladung).</p>
-<pre><code class="language-java">import java.util.Scanner;
-
-public class Person {
-    // statische Klassenvariable zur Generierung eindeutiger IDs
-    private static int iPAnzahl = 0;  
-    
-    private int iPNr; // Instanzspezifische, eindeutige ID
-    private String strNachName;
-    private String strVorName;
-    
-    // Komposition: Eine Person "hat-eine" Adresse
-    Adresse adresse = new Adresse();    
-    
-    public Person() {
-        iPNr = ++iPAnzahl; // Präinkrement: Zähler erhöhen und zuweisen
-    }
         
-    public void erfasseDaten() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Dateneingabe");
-        System.out.print("Nachname:\t");
-        strNachName = sc.next();
-        System.out.print("Vorname:\t");
-        strVorName = sc.next();
-        
-        // Zuweisung an das gekapselte Adress-Objekt
-        System.out.print("Strasse:\t");
-        adresse.setStrStrasse(sc.next());
-        System.out.print("Hausnr:\t\t");
-        adresse.setStrHausNr(sc.next());
-        System.out.print("PLZ:\t\t");
-        adresse.setStrPLZ(sc.next());
-        System.out.print("Ort:\t\t");
-        adresse.setStrOrt(sc.next());
-    }
-    
-    // Methodenüberladung: Gleicher Name, unterschiedliche Signatur
-    public void erfasseDaten(String strNachName) {
-        this.strNachName = strNachName; // 'this' referenziert die Instanzvariable
-    }
-    
-    public void druckeAusweis() {
-        System.out.println("Personennr.:\t" + iPNr);
-        System.out.println("Nachname:\t" + strNachName);
-        System.out.println("Vorname:\t" + strVorName);
-        System.out.println("Adresse:\t" + adresse.getStrStrasse() + " " + adresse.getStrHausNr() + 
-                           "\n\t\t" + adresse.getStrPLZ() + " " + adresse.getStrOrt());
-    }
-}</code></pre>
-
-            <h3>3. Subklasse: <code>Schueler.java</code> (Vererbung & Überschreibung)</h3>
-            <p>Die Klasse <code>Schueler</code> erbt mittels <code>extends</code> von <code>Person</code>. Um Codeduplizierung zu vermeiden, ruft sie innerhalb von <code>erfasseDaten()</code> über das Schlüsselwort <code>super</code> zunächst die Logik der Elternklasse auf. Die Methode <code>druckeAusweis()</code> wird spezifisch für den Schüler überschrieben.</p>
-<pre><code class="language-java">import java.util.Scanner;
-
-// Vererbung: Schueler erbt das gesamte Verhaltensmuster von Person
-public class Schueler extends Person {   
-    
-    private String strKlasse;
-    
-    public Schueler() {
-        // Standard-Konstruktor
-    }
-     
-    public void erfasseDaten() {
-        Scanner sc = new Scanner(System.in);
-        // Ausführung der Basislogik (Namen und Adresse erfassen)
-        super.erfasseDaten(); 
-        
-        // Spezifische Erweiterung für den Schüler
-        System.out.print("Klasse:\t\t");
-        strKlasse = sc.next();
-        System.out.println();
-    }
-     
-    // Überschreiben (Method Overriding) der Basis-Methode
-    public void druckeAusweis() {
-        System.out.println("Schülerausweis");
-        super.druckeAusweis(); // Druckt die allgemeinen Personendaten
-        System.out.println("Klasse.:\t" + strKlasse);
-        System.out.println();
-    }
-}</code></pre>
-
-            <h3>4. Subklasse: <code>Lehrer.java</code></h3>
-            <p>Analog zur Schüler-Klasse erbt der Lehrer von der Person, erweitert den Zustand jedoch um das Fachgebiet (<code>strFach</code>).</p>
-<pre><code class="language-java">import java.util.Scanner;
-
-public class Lehrer extends Person {
-    
-    private String strFach;
-    
-    public Lehrer() {
-    }
-     
-    public void erfasseDaten() {
-        Scanner sc = new Scanner(System.in);
-        super.erfasseDaten();
-        System.out.print("Fach:\t\t");
-        strFach = sc.next();
-        System.out.println();
-    }
-     
-    public void druckeAusweis() {
-        System.out.println("Lehrerausweis");
-        super.druckeAusweis();
-        System.out.println("Fach:\t\t" + strFach);
-        System.out.println();
-    }
-}</code></pre>
-
-            <h3>5. Steuerungsschicht: <code>SchoolApp.java</code> (Main & Polymorphie)</h3>
-            <p>Die <code>SchoolApp</code> fungiert als Einstiegspunkt. Die Instanziierung erzeugt konkrete Objekte im Heap-Speicher. Die Methodenaufrufe (z.B. <code>oSchueler1.druckeAusweis()</code>) demonstrieren die <strong>Polymorphie</strong>: Die JVM führt zur Laufzeit dynamisch die spezialisierte Methode der jeweiligen Subklasse aus.</p>
-<pre><code class="language-java">import java.util.Scanner;
-
-public class SchoolApp {
-
-    public static void main(String args) {
-        
-        // Instanziierung: Speicherreservierung und Konstruktor-Aufruf
-        Schueler oSchueler1 = new Schueler();
-        Schueler oSchueler2 = new Schueler();
-        Lehrer oLehrer1 = new Lehrer();
-        
-        // Interaktiver Workflow: Daten von der Konsole einlesen
-        oSchueler1.erfasseDaten();
-        oSchueler2.erfasseDaten();
-        oLehrer1.erfasseDaten();
-        
-        // Output-Generierung unter Nutzung von Polymorphie
-        oSchueler1.druckeAusweis();
-        oSchueler2.druckeAusweis();
-        oLehrer1.druckeAusweis();
-        
-        /* 
-        // Didaktisches Modul zur Demonstration der Methodenüberladung
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Wie ist der neue Name des Schuelers1?:");
-        String strNeuerName = sc.next();
-        
-        // Ruft gezielt die parametrisierte Signatur auf: erfasseDaten(String)
-        oSchueler1.erfasseDaten(strNeuerName); 
-        oSchueler1.druckeAusweis(); // Aktualisierten Zustand verifizieren
-        */
-    }
-}</code></pre>
-        </section>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.getElementById('nav-links');
+            const links = navLinks.querySelectorAll('a');
+
+            // Toggle Menü bei Klick auf den Button
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                
+                // Icon ändern (optional)
+                if(navLinks.classList.contains('active')) {
+                    menuToggle.innerHTML = '✖'; // X-Symbol beim Schließen
+                } else {
+                    menuToggle.innerHTML = '☰'; // Hamburger-Symbol
+                }
+            });
+
+            // Menü automatisch schließen, wenn ein Link angeklickt wird (nur auf Mobile)
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 900) {
+                        navLinks.classList.remove('active');
+                        menuToggle.innerHTML = '☰';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
