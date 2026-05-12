@@ -134,27 +134,23 @@
         <article class="hero-card">
           <span class="eyebrow">Datenbanken · Struktur · Konsistenz</span>
           <h2>Normalisierung bringt Ordnung in relationale Datenmodelle.</h2>
-          <p>Diese Lernseite erklärt die wichtigsten Begriffe, funktionale Abhängigkeiten, die 1. bis 3. Normalform und typische Prüfungsaufgaben. Die Inhalte orientieren sich an deiner Präsentationsquelle und werden fachlich ergänzt, damit Zusammenhänge klarer und prüfungssicherer werden.</p>
+          <p>Diese Lernseite erklärt die wichtigsten Regeln, um Anomalien in relationalen Datenbanken zu vermeiden. Dabei reicht es, sich die starren Regeln der Normalisierung einzuprägen und Schritt für Schritt anzuwenden. Die Inhalte orientieren sich an Best Practices der Datenbankentwicklung.</p>
           <div class="hero-grid">
-            <div class="mini"><strong>Ziel</strong><span>Redundanzen und Anomalien vermeiden.</span></div>
-            <div class="mini"><strong>Wichtig</strong><span>Jede Normalform baut auf der vorherigen auf.</span></div>
-            <div class="mini"><strong>Merksatz</strong><span>1NF: atomar · 2NF: voll abhängig · 3NF: nicht transitiv.</span></div>
-            <div class="mini"><strong>Praxis</strong><span>Saubere Tabellen erleichtern Pflege, SQL und Erweiterungen.</span></div>
+            <div class="mini"><strong>Ziel</strong><span>Redundanzen und Anomalien verhindern.</span></div>
+            <div class="mini"><strong>Wichtig</strong><span>Jede Normalform baut zwingend auf der vorherigen auf.</span></div>
+            <div class="mini"><strong>Merksatz</strong><span>1NF: atomar · 2NF: voll funktional abhängig · 3NF: nicht transitiv.</span></div>
+            <div class="mini"><strong>Praxis</strong><span>Saubere Tabellen erleichtern Pflege, Abfragen und Erweiterungen.</span></div>
           </div>
         </article>
         <aside class="hero-card hero-aside">
           <h3>Lernziele</h3>
           <ol class="checklist">
-            <li>Grundbegriffe sicher unterscheiden.</li>
-            <li>Funktionale, partielle und transitive Abhängigkeiten erkennen.</li>
-            <li>Tabellen bis zur 3NF sinnvoll zerlegen.</li>
-            <li>Anomalien mit Beispielen erklären.</li>
+            <li>Grundbegriffe (Primärschlüssel, Fremdschlüssel) sicher unterscheiden.</li>
+            <li>Funktionale, voll funktionale und transitive Abhängigkeiten erkennen.</li>
+            <li>Die Regeln der 1., 2. und 3. Normalform verstehen und anwenden.</li>
+            <li>Tabellen von der 0. Normalform bis zur 3NF sinnvoll zerlegen.</li>
             <li>Das eigene Wissen im Quiz testen.</li>
           </ol>
-          <div class="panel">
-            <span class="badge">Prüfungsrelevant</span>
-            <p>In Schule und Ausbildung stehen meistens 1NF, 2NF und 3NF im Vordergrund.</p>
-          </div>
         </aside>
       </section>
 
@@ -167,16 +163,15 @@
             <ul>
               <li><strong>Relation:</strong> Eine Tabelle als Menge von Tupeln mit Attributen.</li>
               <li><strong>Attribut:</strong> Eine Spalte mit einem eindeutigen Namen innerhalb der Relation.</li>
-              <li><strong>Attributwert:</strong> Der konkrete Inhalt einer Zelle.</li>
+              <li><strong>Attributwert:</strong> Der konkrete Inhalt einer Zelle (muss in der 1NF atomar sein).</li>
               <li><strong>Tupel:</strong> Eine Zeile, also ein einzelner Datensatz.</li>
             </ul>
           </article>
           <article class="panel">
             <h4>Schlüssel</h4>
             <ul>
-              <li><strong>Primärschlüssel (PK):</strong> Identifiziert jeden Datensatz eindeutig; er ist eindeutig und nicht leer.</li>
-              <li><strong>Fremdschlüssel (FK):</strong> Verweist auf einen Primärschlüssel einer anderen oder derselben Tabelle.</li>
-              <li><strong>Schlüsselkandidat:</strong> Attribut oder Attributkombination, die einen Datensatz eindeutig identifizieren kann.</li>
+              <li><strong>Primärschlüssel (PK):</strong> Identifiziert jeden Datensatz (Tupel) in einer Relation zweifelsfrei (z.B. <code>KundenNr</code> oder <code>BestellNr</code>). Wird oft unterstrichen dargestellt. Kann auch zusammengesetzt sein.</li>
+              <li><strong>Fremdschlüssel (FK):</strong> Ein Attribut, das auf den Primärschlüssel einer anderen Tabelle verweist (z.B. um eine 1:n-Beziehung aufzulösen).</li>
             </ul>
           </article>
         </div>
@@ -189,45 +184,38 @@
           <article class="panel">
             <h4>Funktionale Abhängigkeit</h4>
             <p>Ein Attribut <code>Y</code> ist funktional abhängig von <code>X</code>, wenn zu jedem Wert von <code>X</code> genau ein Wert von <code>Y</code> gehört.</p>
-            <p><strong>Beispiel:</strong> <code>Kundennummer → Kundenname</code></p>
+            <p><strong>Beispiel:</strong> <code>KundenNr → Vorname</code></p>
           </article>
           <article class="panel">
-            <h4>Partielle Abhängigkeit</h4>
-            <p>Bei einem zusammengesetzten Schlüssel hängt ein Nichtschlüsselattribut nur von einem Teil des Schlüssels ab, nicht vom ganzen Schlüssel.</p>
-            <p><strong>Beispiel:</strong> In <code>(BestellNr, ArtikelNr) → Artikelname</code> hängt <code>Artikelname</code> nur von <code>ArtikelNr</code> ab.</p>
+            <h4>Voll funktionale Abhängigkeit</h4>
+            <p>Relevant bei zusammengesetzten Schlüsseln. Ein Attribut muss vom <em>gesamten</em> Schlüssel abhängen, nicht nur von einem Teil.</p>
+            <p><strong>Beispiel:</strong> In <code>(BestellNr, ArtikelNr) → Anzahl</code> wird für die Anzahl zwingend beides benötigt.</p>
           </article>
           <article class="panel">
             <h4>Transitive Abhängigkeit</h4>
-            <p>Ein Nichtschlüsselattribut hängt von einem anderen Nichtschlüsselattribut ab.</p>
-            <p><strong>Beispiel:</strong> <code>MitarbeiterID → Abteilung → Standort</code></p>
+            <p>Ein Nichtschlüsselattribut hängt von einem anderen Nichtschlüsselattribut ab (Aus A folgt B, aus B folgt C → A folgt C).</p>
+            <p><strong>Beispiel:</strong> <code>KundenNr → PLZ → Ort</code></p>
           </article>
-        </div>
-        <div class="panel" style="margin-top:1rem">
-          <h4>So prüfst du Abhängigkeiten</h4>
-          <div class="flow">
-            <div class="step">1. Bestimme zuerst den Primärschlüssel oder Schlüsselkandidaten.</div>
-            <div class="step">2. Prüfe für jedes Nichtschlüsselattribut: Von welchem Attribut wird es wirklich bestimmt?</div>
-            <div class="step">3. Frage dich, ob die Abhängigkeit vom ganzen Schlüssel, nur von einem Teil oder indirekt über ein anderes Attribut besteht.</div>
-          </div>
         </div>
       </section>
 
       <section class="section" id="normalformen">
-        <h3>Normalformen</h3>
-        <p>Die klassische Reihenfolge ist: unnormalisierte Form, 1NF, 2NF, 3NF. Jede Stufe beseitigt eine bestimmte Art von Problem.</p>
+        <h3>Normalformen (Schritt für Schritt)</h3>
+        <p>Wir starten oft bei der 0. Normalform (0NF), bei der alle Daten völlig unstrukturiert in einer einzigen Tabelle liegen (z.B. die Kundendatenbank der Firma "hyperEDV").</p>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>Stufe</th>
                 <th>Kernregel</th>
-                <th>Beseitigt vor allem</th>
+                <th>Beseitigt</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td><strong>1NF</strong></td><td>Nur atomare Werte, keine Listen oder zusammengesetzten Inhalte in einem Feld.</td><td>Wiederholungsgruppen, Listen in Zellen.</td></tr>
-              <tr><td><strong>2NF</strong></td><td>Alle Nichtschlüsselattribute sind voll funktional vom gesamten Schlüssel abhängig.</td><td>Partielle Abhängigkeiten.</td></tr>
-              <tr><td><strong>3NF</strong></td><td>Keine transitiven Abhängigkeiten zwischen Nichtschlüsselattributen.</td><td>Indirekte Abhängigkeiten, weitere Redundanzen.</td></tr>
+              <tr><td><strong>0NF</strong></td><td>Keine Regeln.</td><td>-</td></tr>
+              <tr><td><strong>1NF</strong></td><td>Alle Attributwerte müssen atomar sein.</td><td>Mehrfachwerte und unteilbare Zeichenketten in einer Zelle.</td></tr>
+              <tr><td><strong>2NF</strong></td><td>1NF + Jedes Nichtschlüsselattribut ist voll funktional vom Primärschlüssel abhängig.</td><td>Partielle Abhängigkeiten (nur bei zusammengesetzten Schlüsseln).</td></tr>
+              <tr><td><strong>3NF</strong></td><td>2NF + Kein Nichtschlüsselattribut hängt transitiv von einem Schlüsselkandidaten ab.</td><td>Indirekte Abhängigkeiten zwischen Nichtschlüsselattributen.</td></tr>
             </tbody>
           </table>
         </div>
@@ -235,55 +223,54 @@
         <div class="example-block" style="margin-top:1rem">
           <article class="panel">
             <h4>1. Normalform (1NF)</h4>
-            <p>Jedes Feld darf nur einen einzelnen, unteilbaren Wert enthalten. Mehrwertige Attribute oder zusammengesetzte Inhalte müssen aufgespalten werden.</p>
+            <p>Die Regel lautet: <strong>Alle Attributwerte müssen atomar sein.</strong> Wir müssen Attribute so weit aufgliedern, wie es möglich und sinnvoll ist. Nur so kann der Computer später korrekt sortieren oder filtern.</p>
             <div class="split-example">
               <div class="panel">
-                <span class="badge">Vorher</span>
-                <p><code>CD_ID | Album | Titelliste</code></p>
-                <p><code>4711 | Not That Kind | {1. Not That Kind, 2. I'm Outta Love}</code></p>
+                <span class="badge">Problem (0NF)</span>
+                <p>Tabelle mit Spalten: <code>BestellNr, Name, Adresse</code></p>
+                <p>Der Computer weiß bei "Ludger Sievert" in einer Zelle nicht, wo der Vor- und Nachname beginnt.</p>
               </div>
               <div class="arrow">→</div>
               <div class="panel">
-                <span class="badge">Nach 1NF</span>
-                <p><code>CD_ID | Albumtitel | Track | Titel</code></p>
-                <p><code>4711 | Not That Kind | 1 | Not That Kind</code></p>
-                <p><code>4711 | Not That Kind | 2 | I'm Outta Love</code></p>
+                <span class="badge">Lösung (1NF)</span>
+                <p>Die Spalten aufteilen: <code>BestellNr, Vorname, Nachname, Straße, PLZ, Ort</code></p>
+                <p><em>(Eine Hausnummer aus der Straße zu trennen wäre theoretisch richtig, oft aber nicht sinnvoll, wenn nicht danach sortiert wird).</em></p>
               </div>
             </div>
           </article>
 
           <article class="panel">
             <h4>2. Normalform (2NF)</h4>
-            <p>Die 2NF setzt die 1NF voraus. Sie ist nur relevant, wenn ein zusammengesetzter Schlüssel existiert. Dann dürfen Nichtschlüsselattribute nicht nur von einem Teil des Schlüssels abhängen.</p>
+            <p>Voraussetzung ist die 1NF. Die Regel lautet: <strong>Jedes Nichtschlüsselattribut ist von jedem Schlüsselkandidaten voll funktional abhängig.</strong> Dies ist besonders bei n:m-Beziehungen wichtig, wenn wir Zwischentabellen mit zusammengesetzten Schlüsseln erstellen.</p>
             <div class="split-example">
               <div class="panel">
                 <span class="badge">Problem</span>
-                <p>Schlüssel: <code>(CD_ID, Track)</code></p>
-                <p><code>Albumtitel</code> hängt aber nur von <code>CD_ID</code> ab.</p>
+                <p>Tabelle <code>BestellungArtikel</code> mit dem zusammengesetzten Schlüssel <code>(BestellNr, ArtikelNr)</code> sowie den Feldern <code>Artikelname</code> und <code>Anzahl</code>.</p>
+                <p>Der <code>Artikelname</code> hängt nur von der <code>ArtikelNr</code> ab (partiell).</p>
               </div>
               <div class="arrow">→</div>
               <div class="panel">
-                <span class="badge">Lösung</span>
-                <p>Tabelle <code>CD(CD_ID, Albumtitel, Interpret, Erscheinungsjahr)</code></p>
-                <p>Tabelle <code>Lied(CD_ID, Track, Titel)</code></p>
+                <span class="badge">Lösung (2NF)</span>
+                <p>Tabelle <code>Artikel(ArtikelNr, Artikelname)</code></p>
+                <p>Tabelle <code>BestellungArtikel(BestellNr, ArtikelNr, Anzahl)</code><br><em>Die "Anzahl" ist voll funktional abhängig, da wir zwingend BestellNr UND ArtikelNr brauchen.</em></p>
               </div>
             </div>
           </article>
 
           <article class="panel">
             <h4>3. Normalform (3NF)</h4>
-            <p>Die 3NF setzt die 2NF voraus. Nun dürfen Nichtschlüsselattribute nicht mehr voneinander abhängen.</p>
+            <p>Voraussetzung ist die 2NF. Die Regel lautet: <strong>Kein Nichtschlüsselattribut darf transitiv von einem Schlüsselkandidaten abhängen.</strong> Nichtschlüsselattribute dürfen also nicht voneinander abhängig sein.</p>
             <div class="split-example">
               <div class="panel">
                 <span class="badge">Problem</span>
-                <p><code>CD_ID → Interpret</code> und <code>Interpret → Gründungsjahr</code></p>
-                <p>Das Gründungsjahr ist also nur indirekt von <code>CD_ID</code> abhängig.</p>
+                <p>In der Kundentabelle stehen <code>PLZ</code> und <code>Ort</code>.</p>
+                <p>Das Attribut <code>Ort</code> hängt direkt von der <code>PLZ</code> ab und erst danach (indirekt) vom Primärschlüssel (KundenNr).</p>
               </div>
               <div class="arrow">→</div>
               <div class="panel">
-                <span class="badge">Lösung</span>
-                <p><code>CD(CD_ID, Albumtitel, Interpret, Erscheinungsjahr)</code></p>
-                <p><code>Interpret(Interpret, Gründungsjahr)</code></p>
+                <span class="badge">Lösung (3NF)</span>
+                <p>Tabelle <code>Kunde(KundenNr, Vorname, Nachname, Straße, PLZ)</code></p>
+                <p>Tabelle <code>Postleitzahl(PLZ, Ort)</code><br><em>Die transitiv abhängige Spalte "Ort" wurde in eine neue Tabelle ausgelagert.</em></p>
               </div>
             </div>
           </article>
@@ -292,50 +279,23 @@
 
       <section class="section" id="anomalien">
         <h3>Redundanzen und Anomalien</h3>
-        <p>Wenn Daten schlecht strukturiert sind, entstehen Mehrfachspeicherungen und dadurch typische Fehlerbilder.</p>
+        <p>Das Hauptziel der Normalisierung ist das Verhindern von Anomalien, die durch mehrfache, unstrukturierte Daten (Redundanzen) entstehen.</p>
         <div class="grid-2">
           <article class="panel anomaly">
             <h4>Einfügeanomalie</h4>
             <p>Eine Information kann nicht gespeichert werden, ohne gleichzeitig eine andere, eigentlich noch unbekannte Information mit anzugeben.</p>
-            <p><strong>Beispiel:</strong> Ein neuer Interpret kann nicht erfasst werden, solange noch kein Album vorhanden ist.</p>
           </article>
           <article class="panel anomaly">
             <h4>Löschanomalie</h4>
-            <p>Beim Löschen eines Datensatzes gehen unbeabsichtigt weitere Informationen verloren.</p>
-            <p><strong>Beispiel:</strong> Wird das letzte Album eines Interpreten gelöscht, verschwindet auch dessen Gründungsjahr.</p>
+            <p>Beim Löschen eines Datensatzes gehen unbeabsichtigt weitere, eigentlich unabhängige Informationen verloren.</p>
           </article>
           <article class="panel anomaly">
             <h4>Änderungsanomalie</h4>
-            <p>Eine Änderung muss an mehreren Stellen durchgeführt werden. Bleibt eine Stelle unverändert, entstehen Inkonsistenzen.</p>
-            <p><strong>Beispiel:</strong> Ein Albumtitel steht in mehreren Zeilen und wird nur in einer Zeile korrigiert.</p>
+            <p>Dieselbe Information muss an mehreren Stellen geändert werden. Vergisst man eine Stelle, widersprechen sich die Daten (Inkonsistenz).</p>
           </article>
           <article class="panel anomaly">
             <h4>Mutationsanomalie</h4>
-            <p>Oft als Oberbegriff für Probleme bei Einfügen, Löschen und Ändern verwendet; je nach Unterricht wird der Begriff auch gleichbedeutend genutzt.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="vorteile-nachteile">
-        <h3>Vor- und Nachteile</h3>
-        <p>Normalisierung verbessert die Qualität eines Modells, ist aber kein Selbstzweck. In realen Anwendungen muss man manchmal zwischen Datenkonsistenz und Abfrageaufwand abwägen.</p>
-        <div class="grid-2">
-          <article class="panel pros">
-            <h4>Vorteile</h4>
-            <ul>
-              <li>Bessere Datenkonsistenz, weil Informationen nur an einer Stelle gepflegt werden.</li>
-              <li>Weniger Redundanz und dadurch geringere Fehlerwahrscheinlichkeit.</li>
-              <li>Klarere fachliche Struktur, weil jede Tabelle einen Sachverhalt modelliert.</li>
-              <li>Einfüge-, Lösch- und Änderungsanomalien werden reduziert.</li>
-            </ul>
-          </article>
-          <article class="panel cons">
-            <h4>Nachteile</h4>
-            <ul>
-              <li>Mehr Tabellen und Beziehungen erhöhen die Komplexität.</li>
-              <li>Abfragen können durch zusätzliche Joins aufwendiger werden.</li>
-              <li>Für sehr leselastige Systeme wird manchmal bewusst teilweise denormalisiert.</li>
-            </ul>
+            <p>Wird oft als Oberbegriff für diese drei Probleme beim Ändern, Einfügen und Löschen des Datenbestandes verwendet.</p>
           </article>
         </div>
       </section>
@@ -360,46 +320,46 @@
               </div>
             </div>
             <div class="question" data-question="1">
-              <h4>2. Welche Aussage beschreibt die 1NF am besten?</h4>
+              <h4>2. Welche Regel beschreibt die 1NF?</h4>
               <div class="options">
-                <label class="option"><input type="radio" name="q1" value="1"> Jedes Feld enthält genau einen atomaren Wert</label>
+                <label class="option"><input type="radio" name="q1" value="1"> Alle Attributwerte müssen atomar sein</label>
                 <label class="option"><input type="radio" name="q1" value="0"> Jedes Feld enthält mindestens zwei Werte</label>
                 <label class="option"><input type="radio" name="q1" value="0"> Es gibt keine Fremdschlüssel</label>
                 <label class="option"><input type="radio" name="q1" value="0"> Alle Tabellen müssen drei Spalten haben</label>
               </div>
             </div>
             <div class="question" data-question="2">
-              <h4>3. Wann ist die 2NF relevant?</h4>
+              <h4>3. Bei welcher Art von Schlüsseln ist die 2NF besonders relevant?</h4>
               <div class="options">
-                <label class="option"><input type="radio" name="q2" value="0"> Nur bei Tabellen ohne Schlüssel</label>
-                <label class="option"><input type="radio" name="q2" value="1"> Vor allem bei zusammengesetzten Schlüsseln</label>
+                <label class="option"><input type="radio" name="q2" value="0"> Bei einfachen, künstlichen Schlüsseln (IDs)</label>
+                <label class="option"><input type="radio" name="q2" value="1"> Bei zusammengesetzten Primärschlüsseln</label>
                 <label class="option"><input type="radio" name="q2" value="0"> Nur bei numerischen Attributen</label>
                 <label class="option"><input type="radio" name="q2" value="0"> Nur bei NoSQL-Datenbanken</label>
               </div>
             </div>
             <div class="question" data-question="3">
-              <h4>4. Welche Abhängigkeit verhindert die 3NF?</h4>
+              <h4>4. Welche Abhängigkeit verbietet die 3NF?</h4>
               <div class="options">
                 <label class="option"><input type="radio" name="q3" value="0"> Zyklische Abhängigkeit</label>
-                <label class="option"><input type="radio" name="q3" value="0"> Mehrwertige Abhängigkeit</label>
+                <label class="option"><input type="radio" name="q3" value="0"> Voll funktionale Abhängigkeit</label>
                 <label class="option"><input type="radio" name="q3" value="1"> Transitive Abhängigkeit</label>
                 <label class="option"><input type="radio" name="q3" value="0"> Physische Abhängigkeit</label>
               </div>
             </div>
             <div class="question" data-question="4">
-              <h4>5. Was ist eine funktionale Abhängigkeit?</h4>
+              <h4>5. Wenn in einer Tabelle der "Ort" nur über die "PLZ" bestimmt wird, spricht man von...</h4>
               <div class="options">
-                <label class="option"><input type="radio" name="q4" value="0"> Zwei Tabellen haben gleich viele Zeilen</label>
-                <label class="option"><input type="radio" name="q4" value="1"> Ein Attribut bestimmt eindeutig den Wert eines anderen Attributs</label>
-                <label class="option"><input type="radio" name="q4" value="0"> Ein Fremdschlüssel darf leer sein</label>
-                <label class="option"><input type="radio" name="q4" value="0"> Eine Tabelle hat keinen Primärschlüssel</label>
+                <label class="option"><input type="radio" name="q4" value="0"> Einer Löschanomalie</label>
+                <label class="option"><input type="radio" name="q4" value="1"> Einer transitiven Abhängigkeit</label>
+                <label class="option"><input type="radio" name="q4" value="0"> Einer atomaren Spalte</label>
+                <label class="option"><input type="radio" name="q4" value="0"> Einem zusammengesetzten Schlüssel</label>
               </div>
             </div>
             <div class="question" data-question="5">
               <h4>6. Welche Situation beschreibt eine Änderungsanomalie?</h4>
               <div class="options">
                 <label class="option"><input type="radio" name="q5" value="0"> Ein Datensatz ist zu kurz</label>
-                <label class="option"><input type="radio" name="q5" value="1"> Dieselbe Information muss an mehreren Stellen geändert werden</label>
+                <label class="option"><input type="radio" name="q5" value="1"> Dieselbe Information (z.B. ein Ort) muss an mehreren Stellen fehlerfrei geändert werden</label>
                 <label class="option"><input type="radio" name="q5" value="0"> Eine Tabelle enthält nur Zahlen</label>
                 <label class="option"><input type="radio" name="q5" value="0"> Ein Index fehlt</label>
               </div>
@@ -414,21 +374,21 @@
               </div>
             </div>
             <div class="question" data-question="7">
-              <h4>8. Welche Zerlegung passt zur 2NF bei <code>(BestellNr, ArtikelNr, Kundenname, Artikelname)</code>?</h4>
+              <h4>8. Welche Bedingung muss erfüllt sein, bevor eine Tabelle in die 3. Normalform überführt werden kann?</h4>
               <div class="options">
-                <label class="option"><input type="radio" name="q7" value="0"> Alles in einer Tabelle lassen</label>
-                <label class="option"><input type="radio" name="q7" value="1"> Bestellkopf und Artikelinformationen in getrennte Tabellen aufteilen</label>
-                <label class="option"><input type="radio" name="q7" value="0"> Nur die Primärschlüssel entfernen</label>
-                <label class="option"><input type="radio" name="q7" value="0"> Alle Spalten alphabetisch sortieren</label>
+                <label class="option"><input type="radio" name="q7" value="0"> Es dürfen keine Daten mehr eingetragen werden</label>
+                <label class="option"><input type="radio" name="q7" value="1"> Die Tabelle muss sich bereits in der 2. Normalform befinden</label>
+                <label class="option"><input type="radio" name="q7" value="0"> Die Tabelle darf nur einen Fremdschlüssel haben</label>
+                <label class="option"><input type="radio" name="q7" value="0"> Alle Attribute müssen alphabetisch sortiert sein</label>
               </div>
             </div>
             <div class="question" data-question="8">
-              <h4>9. Welche Aussage ist korrekt?</h4>
+              <h4>9. Ist die Hausnummer zwingend immer in eine eigene Spalte zu trennen (1NF)?</h4>
               <div class="options">
-                <label class="option"><input type="radio" name="q8" value="0"> 3NF kann ohne 2NF vorliegen</label>
-                <label class="option"><input type="radio" name="q8" value="0"> 1NF beseitigt transitive Abhängigkeiten</label>
-                <label class="option"><input type="radio" name="q8" value="1"> Jede 3NF-Relation erfüllt auch die 2NF</label>
-                <label class="option"><input type="radio" name="q8" value="0"> 2NF verbietet Fremdschlüssel</label>
+                <label class="option"><input type="radio" name="q8" value="0"> Ja, in jedem Fall, sonst stürzt die Datenbank ab</label>
+                <label class="option"><input type="radio" name="q8" value="0"> Nein, man darf niemals Straßen und Hausnummern trennen</label>
+                <label class="option"><input type="radio" name="q8" value="1"> Theoretisch ja, aber praktisch wägt man ab, ob es sinnvoll ist (z.B. wenn man danach sortieren will)</label>
+                <label class="option"><input type="radio" name="q8" value="0"> Nur, wenn die Hausnummer Buchstaben enthält</label>
               </div>
             </div>
           </form>
@@ -443,7 +403,7 @@
       </section>
 
       <footer class="footer">
-        <p><strong>Quellenhinweis:</strong> Die Struktur und zentrale Inhalte wurden aus deiner bereitgestellten Präsentation übernommen und didaktisch erweitert. Ergänzt wurden fachliche Einordnungen zu funktionalen Abhängigkeiten anhand zusätzlicher Fachquellen aus dem Web.</p>
+        <p><strong>Quellenhinweis:</strong> Die Beispiele und Erklärungen auf dieser Lernseite basieren auf dem Video "Normalisierung in Datenbanken (1. bis 3. Normalform)" von Patrick Boekhoven.</p>
       </footer>
     </main>
   </div>
