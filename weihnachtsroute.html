@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weihnachtsmann Problem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            margin: var(--space-4) 0;
+            z-index: 10;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .stat-box {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            #map { height: 350px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: .9rem;">
+                        <div class="logo" aria-hidden="true">🎅</div>
+                        <div>
+                            <h1>Logistik</h1>
+                            <p>Weihnachtsmann</p>
+                        </div>
+                    </a>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html" style="margin-bottom: 10px; border-bottom: 1px solid var(--color-border); padding-bottom: 10px;">← Zurück zur Übersicht</a>
+                <a href="#problem">Das Problem</a>
+                <a href="#interaktiv">Interaktive Route</a>
+                <a href="#loesung">Die Lösung (TSP)</a>
+            </nav>
+            
+            <button class="theme-toggle">
+                <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
+
+        <main class="content">
+            <h1 class="page-title">Das Weihnachtsmann Problem</h1>
+            <p class="page-subtitle">Routenoptimierung und das Traveling Salesperson Problem (TSP)</p>
+
+            <section id="problem" class="card">
+                <h2>Das Problem</h2>
+                <p>Der Weihnachtsmann muss an Heiligabend Milliarden von Kindern auf der ganzen Welt Geschenke bringen. Die logistische Herausforderung ist gigantisch. Um Zeit zu sparen, muss er die kürzeste Route finden, die alle Häuser genau einmal besucht und am Ende zum Nordpol zurückkehrt.</p>
+                <div class="callout">
+                    <strong>Wusstest du schon?</strong>
+                    Das Problem ist in der Informatik als <em>Traveling Salesperson Problem (TSP)</em> bekannt. Es gehört zu den NP-schweren Problemen, was bedeutet, dass es sehr rechenintensiv ist, die absolut beste Route für viele Städte zu finden.
+                </div>
+            </section>
+
+            <section id="interaktiv" class="card">
+                <h2>Interaktive Routenplanung</h2>
+                <p>Klicke auf die Karte, um "Städte" (Kinder) hinzuzufügen. Das Skript berechnet automatisch eine Route.</p>
+                
+                <div id="map"></div>
+                
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value" id="cityCount">0</div>
+                        <div class="stat-label">Städte</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="routeDistance">0 km</div>
+                        <div class="stat-label">Routenlänge</div>
+                    </div>
+                    <div class="stat-box">
+                        <button class="btn-primary" onclick="resetMap()" style="width: 100%; margin-top: 5px;">Zurücksetzen</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="loesung" class="card">
+                <h2>Lösungsansätze für das TSP</h2>
+                <div class="grid-2">
+                    <div class="panel">
+                        <h3>Brute Force (Ausprobieren)</h3>
+                        <p>Alle möglichen Routen berechnen und vergleichen. Findet immer die beste Lösung, dauert bei vielen Städten aber Jahre.</p>
+                        <code>O(n!) Komplexität</code>
+                    </div>
+                    <div class="panel">
+                        <h3>Nearest Neighbor (Greedy)</h3>
+                        <p>Gehe immer zur nächstgelegenen, noch unbesuchten Stadt. Sehr schnell, liefert aber oft nicht die kürzeste Gesamtroute.</p>
+                        <code>O(n²) Komplexität</code>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="script.js"></script>
+    <script>
+        // Init Map
+        const map = L.map('map').setView([51.165691, 10.451526], 5); // Center on Germany
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Nordpol Marker
+        const northPole = L.latLng(90, 0);
+        let markers = [];
+        let routeLine = null;
+
+        // Custom Santa Icon
+        const santaIcon = L.divIcon({
+            html: '🎅',
+            className: 'santa-icon',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        });
+
+        // Custom House Icon
+        const houseIcon = L.divIcon({
+            html: '🏠',
+            className: 'house-icon',
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+        });
+
+        L.marker(northPole, {icon: santaIcon}).addTo(map).bindPopup("Nordpol");
+
+        map.on('click', function(e) {
+            addCity(e.latlng);
+        });
+
+        function addCity(latlng) {
+            const marker = L.marker(latlng, {icon: houseIcon}).addTo(map);
+            markers.push(marker);
+            updateRoute();
+        }
+
+        function calculateDistance(latlng1, latlng2) {
+            return latlng1.distanceTo(latlng2);
+        }
+
+        function nearestNeighbor() {
+            if (markers.length === 0) return [];
+
+            let unvisited = [...markers];
+            let currentPoint = northPole;
+            let route = [northPole];
+            let totalDist = 0;
+
+            while (unvisited.length > 0) {
+                let nearest = null;
+                let minDist = Infinity;
+                let nearestIndex = -1;
+
+                for (let i = 0; i < unvisited.length; i++) {
+                    let dist = calculateDistance(currentPoint, unvisited[i].getLatLng());
+                    if (dist < minDist) {
+                        minDist = dist;
+                        nearest = unvisited[i];
+                        nearestIndex = i;
+                    }
+                }
+
+                route.push(nearest.getLatLng());
+                totalDist += minDist;
+                currentPoint = nearest.getLatLng();
+                unvisited.splice(nearestIndex, 1);
+            }
+
+            // Return to North Pole
+            totalDist += calculateDistance(currentPoint, northPole);
+            route.push(northPole);
+
+            return { path: route, distance: totalDist };
+        }
+
+        function updateRoute() {
+            if (routeLine) {
+                map.removeLayer(routeLine);
+            }
+
+            if (markers.length === 0) return;
+
+            const result = nearestNeighbor();
+            
+            routeLine = L.polyline(result.path, {
+                color: 'var(--color-primary)',
+                weight: 3,
+                opacity: 0.7,
+                dashArray: '10, 10'
+            }).addTo(map);
+
+            // Update Stats
+            document.getElementById('cityCount').textContent = markers.length;
+            document.getElementById('routeDistance').textContent = (result.distance / 1000).toFixed(0) + ' km';
+        }
+
+        window.resetMap = function() {
+            markers.forEach(m => map.removeLayer(m));
+            markers = [];
+            if (routeLine) {
+                map.removeLayer(routeLine);
+                routeLine = null;
+            }
+            document.getElementById('cityCount').textContent = '0';
+            document.getElementById('routeDistance').textContent = '0 km';
+            map.setView([51.165691, 10.451526], 5);
+        };
+    </script>
+</body>
+</html>

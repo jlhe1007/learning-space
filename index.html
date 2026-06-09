@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meine Lernseiten</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="shell">
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="logo" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>Lern-Hub</h1>
+                        <p>Übersicht</p>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html">🏠 Home</a>
+                <a href="uml.html">🎯 UML-Aktivitätsdiagramm</a>
+                <a href="englisch.html">🎤 Englisch Präsentation</a>
+                <a href="weihnachtsroute.html">🎅 Weihnachtsmann Problem</a>
+                <a href="wirtschaft.html">💼 Wirtschaftskunde</a>
+                <a href="Normalisierung.html">🔡 Normalisierung</a>
+                <a href="java.html">☕ Java</a>
+                <a href="it-begriffe.html">🔤 IT-Begriffe</a>
+                <a href="Marktformen.html">📊 Marktformen</a>
+
+            </nav>
+
+            <button class="theme-toggle">
+                <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
+
+        <main class="content">
+            <h1 class="page-title">📚 Meine Lernseiten</h1>
+            <p class="page-subtitle">Willkommen in deinem persönlichen Lernbereich. Wähle ein Thema aus, um zu starten.
+            </p>
+
+            <div class="grid-auto">
+                <a href="uml.html" class="card card-hover index-card">
+                    <div class="emoji">🎯</div>
+                    <h2>UML-Aktivitätsdiagramm</h2>
+                    <p>Grundlagen, Elemente, Beispiele & Checkliste für deine Prüfung</p>
+                </a>
+
+                <a href="englisch.html" class="card card-hover index-card">
+                    <div class="emoji">🎤</div>
+                    <h2>Englisch Präsentation</h2>
+                    <p>Tipps zu Folien, Linking Phrases & Vokabeln</p>
+                </a>
+
+                <a href="weihnachtsroute.html" class="card card-hover index-card">
+                    <div class="emoji">🎅</div>
+                    <h2>Weihnachtsmann Problem</h2>
+                    <p>Logistik, Mathematik & optimale Lösung</p>
+                </a>
+
+                <a href="wirtschaft.html" class="card card-hover index-card">
+                    <div class="emoji">💼</div>
+                    <h2>Wirtschaftskunde</h2>
+                    <p>Wirtschaftssysteme, Märkte & grundlegende Konzepte</p>
+                </a>
+
+                <a href="Normalisierung.html" class="card card-hover index-card">
+                    <div class="emoji">🔡</div>
+                    <h2>Normalisierung</h2>
+                    <p>Tabellen Normalisieren können</p>
+                </a>
+
+                <a href="java.html" class="card card-hover index-card">
+                    <div class="emoji">☕</div>
+                    <h2>Java</h2>
+                    <p>Java Programmierung</p>
+                </a>
+                <a href="it-begriffe.html" class="card card-hover index-card">
+                    <div class="emoji">🔤</div>
+                    <h2>IT-Begriffe</h2>
+                    <p>Rechtschreibung, Bindestriche & Duden-Regeln</p>
+                </a>
+
+                <a href="Marktformen.html" class="card card-hover index-card">
+                    <div class="emoji">📊</div>
+                    <h2>Marktformen</h2>
+                    <p>Polypol, Monopol, Oligopol, Preisbildung &amp; Share-/Stakeholder</p>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marktformen, Preisbildung & Shareholder - Lern-Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .solution {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: color-mix(in srgb, var(--color-success) 10%, var(--color-surface));
+            border-left: 4px solid var(--color-success);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            animation: fadeIn 0.3s ease;
+        }
+        .solution.show {
+            display: block;
+        }
+        .exercise-card {
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .exercise-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .matrix-table th, .matrix-table td {
+            text-align: center;
+        }
+        .matrix-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+        .eval-table th {
+            background-color: var(--color-surface-alt);
+        }
+        .pos { color: var(--color-success); font-weight: bold; }
+        .neg { color: var(--color-error); font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="logo" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>Lern-Hub</h1>
+                        <p>Übersicht</p>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html">🏠 Home</a>
+                <a href="uml.html">🎯 UML-Aktivitätsdiagramm</a>
+                <a href="englisch.html">🎤 Englisch Präsentation</a>
+                <a href="weihnachtsroute.html">🎅 Weihnachtsmann Problem</a>
+                <a href="wirtschaft.html">💼 Wirtschaftskunde</a>
+                <a href="Normalisierung.html">🔡 Normalisierung</a>
+                <a href="java.html">☕ Java</a>
+                <a href="it-begriffe.html">📝 IT-Begriffe (Rechtschreibung)</a>
+                <a href="marktformen.html" style="background: var(--color-primary-highlight); font-weight: bold;">📊 Marktformen & Unternehmen</a>
+            </nav>
+            
+            <button class="theme-toggle">
+                <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
+
+        <main class="content">
+            <div class="eyebrow">Wirtschaft & Soziales (WiSo)</div>
+            <h1 class="page-title">📊 Marktformen, Preisbildung & Shareholder</h1>
+            <p class="page-subtitle">Umfassende Übersicht über Märkte, Elastizität und Interessengruppen im Unternehmen.</p>
+
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-tab="markt">🏢 Marktformen & Grundlagen</button>
+                    <button class="tab-btn" data-tab="preis">📈 Preisbildung & Elastizität</button>
+                    <button class="tab-btn" data-tab="stakeholder">🤝 Share- & Stakeholder</button>
+                    <button class="tab-btn" data-tab="test">🎯 Der große Übungstest</button>
+                </div>
+
+                <div id="markt" class="tab-pane active">
+                    
+                    <div class="panel">
+                        <h2>1. Der vollkommene Markt & Güterarten</h2>
+                        <p>Das Modell von Angebot und Nachfrage geht theoretisch von einem <strong>vollkommenen Markt</strong> aus. Er hat folgende Prämissen:</p>
+                        <ul>
+                            <li>Viele Anbieter und Nachfrager (Polypol).</li>
+                            <li><strong>Homogene Güter:</strong> Es gibt keine Unterschiede zwischen den Produkten.</li>
+                            <li>Vollständige Markttransparenz.</li>
+                            <li>Keine Präferenzen (weder persönlich, räumlich noch zeitlich).</li>
+                            <li>Unendliche Reaktionsgeschwindigkeit & Rationales Verhalten.</li>
+                            <li>Keine Zutrittsbeschränkungen zum Markt.</li>
+                        </ul>
+                        
+                        <h3 style="margin-top: 1.5rem;">Arten von Gütern</h3>
+                        <div class="grid-2">
+                            <div class="card">
+                                <strong>Substitutionsgüter</strong><br>
+                                Güter, die durch andere ersetzt werden können (z.B. Döner und Burger).
+                            </div>
+                            <div class="card">
+                                <strong>Komplementärgüter</strong><br>
+                                Güter, die sich gegenseitig zwingend ergänzen (z.B. Burger und Pommes).
+                            </div>
+                            <div class="card">
+                                <strong>Superiore Güter</strong><br>
+                                Güter, bei denen die Nachfrage steigt, wenn das Einkommen steigt (z.B. Bio-Produkte).
+                            </div>
+                            <div class="card">
+                                <strong>Inferiore Güter</strong><br>
+                                Güter, bei denen die Nachfrage sinkt, wenn das Einkommen steigt (z.B. "ja!"-Eigenmarken).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h2>2. Bestimmungsfaktoren für Angebot und Nachfrage</h2>
+                        <div class="grid-2">
+                            <div>
+                                <h3>Wovon hängt das Angebot ab?</h3>
+                                <ul>
+                                    <li>Zielgruppe</li>
+                                    <li>Verfügbarkeit der Ressourcen</li>
+                                    <li>Standort</li>
+                                    <li>Nachfrage der Kunden</li>
+                                    <li>Erzielbare Preise & eigene Kosten</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3>Wovon hängt die Nachfrage ab?</h3>
+                                <ul>
+                                    <li>Einkommen des Konsumenten</li>
+                                    <li>Verwendungszweck</li>
+                                    <li>Qualität des Guts</li>
+                                    <li>Kosten / Preis</li>
+                                    <li>Verfügbarkeit</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h2>3. Die Marktformen</h2>
+                        <p>Märkte unterscheiden sich durch die Anzahl der Anbieter und Nachfrager. Daraus ergibt sich die Preisbestimmungsmacht und die Wettbewerbssituation.</p>
+                        
+                        <div class="table-wrap">
+                            <table>
+                                <tr>
+                                    <th>Fachbegriff</th>
+                                    <th>Anbieter</th>
+                                    <th>Nachfrager</th>
+                                    <th>Eigenschaften & Marktmerkmale</th>
+                                    <th>Beispiele</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Polypol</strong></td>
+                                    <td>Viele</td>
+                                    <td>Viele</td>
+                                    <td>Kein einzelner kann den Preis bestimmen. Preis muss als gegeben hingenommen werden.</td>
+                                    <td>Eisverkauf, Gemüsehändler</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Oligopol</strong></td>
+                                    <td>Wenige</td>
+                                    <td>Viele</td>
+                                    <td>Gegenseitige Abhängigkeit. <strong>Gefahr der Kartellbildung</strong> (Preisabsprachen). Hoher Preiskampf.</td>
+                                    <td>Automobilindustrie, Mobilfunkanbieter</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Monopol</strong></td>
+                                    <td>Einer</td>
+                                    <td>Viele</td>
+                                    <td>Keine Konkurrenz. Volle Preisbestimmungsmacht. Hohe Gewinne möglich.</td>
+                                    <td>Deutsche Post (Briefe bis 2007), Microsoft (früher)</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="preis" class="tab-pane">
+                    
+                    <div class="grid-2">
+                        <div class="panel">
+                            <h2>Marktgleichgewicht & Kennzahlen</h2>
+                            <p>Der Preis bildet sich im Schnittpunkt von Angebots- und Nachfragekurve (Gleichgewichtspreis).</p>
+                            <ul>
+                                <li><strong>Prohibitivpreis:</strong> Der Preis, bei dem die nachgefragte Menge exakt $0$ ist (zu teuer, niemand kauft es).</li>
+                                <li><strong>Sättigungsmenge:</strong> Gibt die Menge bei einem Preis von $p = 0$ an. Der Bedarf ist komplett gedeckt.</li>
+                            </ul>
+                        </div>
+
+                        <div class="panel">
+                            <h2>Marktungleichgewicht</h2>
+                            <ul>
+                                <li><strong>Angebotsüberhang ($A > N$):</strong> Es wird mehr angeboten als gekauft. Käufer haben die Macht $\rightarrow$ <strong>Käufermarkt</strong>. Der Preis muss sinken.</li>
+                                <li><strong>Nachfrageüberhang ($N > A$):</strong> Mehr Leute wollen kaufen, als Produkte da sind. Verkäufer haben die Macht $\rightarrow$ <strong>Verkäufermarkt</strong>. Der Preis muss steigen.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h2>Verschiebung der Angebotskurve</h2>
+                        <div class="grid-2">
+                            <div class="card">
+                                <h3>Verschiebung nach Rechts $\rightarrow$</h3>
+                                <p><strong>Ursache:</strong> Gesunkene Kosten (Rohstoffe billiger), höhere Produktion.<br>
+                                <strong>Folge:</strong> Menge steigt, Gleichgewichtspreis <strong>sinkt</strong>.</p>
+                            </div>
+                            <div class="card">
+                                <h3>Verschiebung nach Links $\leftarrow$</h3>
+                                <p><strong>Ursache:</strong> Gestiegene Kosten, Produktionsausfälle, Krisen.<br>
+                                <strong>Folge:</strong> Menge sinkt, Gleichgewichtspreis <strong>steigt</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h2>Preiselastizität der Nachfrage & Umsatz</h2>
+                        <p>Die Elastizität beschreibt, wie stark sich die nachgefragte Menge ändert, wenn sich der Preis ändert.</p>
+                        <div class="grid-2">
+                            <div class="callout">
+                                <strong>Elastische Nachfrage (flache Kurve)</strong>
+                                <p>Kleine Preisänderung = <em>große</em> Mengenänderung.<br>
+                                - <strong>Merkmale:</strong> Nicht lebensnotwendig, viele Alternativen (Streaming).<br>
+                                - <strong>Effekt bei Preiserhöhung:</strong> Kunden springen sofort ab. Der <strong>Gesamtumsatz sinkt</strong> massiv.</p>
+                            </div>
+                            <div class="callout warning">
+                                <strong>Unelastische Nachfrage (steile Kurve)</strong>
+                                <p>Große Preisänderung = <em>kaum eine</em> Mengenänderung.<br>
+                                - <strong>Merkmale:</strong> Notwendige Güter, kaum Alternativen (Medikamente, IT-Security).<br>
+                                - <strong>Effekt bei Preiserhöhung:</strong> Kunden müssen trotzdem kaufen. Der <strong>Gesamtumsatz steigt</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="stakeholder" class="tab-pane">
+                    <div class="panel">
+                        <div class="eyebrow">Grundlagen</div>
+                        <h2>Shareholder geben Kapital — Stakeholder haben Interessen!</h2>
+                        
+                        <div class="grid-2">
+                            <div class="card">
+                                <h3>💼 Shareholder</h3>
+                                <p>Personen, die Kapital investieren und am Unternehmen beteiligt sind.</p>
+                                <ul>
+                                    <li><strong>Wer?</strong> Eigentümer, Aktionäre, Gesellschafter.</li>
+                                    <li><strong>Ziele:</strong> Hoher Gewinn, Rendite, Kosten minimieren, Aktienkurs steigern.</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="card">
+                                <h3>🌍 Stakeholder</h3>
+                                <p>Alle Gruppen, die ein Interesse am Unternehmen haben oder davon betroffen sind.</p>
+                                <ul>
+                                    <li><strong>Wer?</strong> Mitarbeitende, Kunden, Lieferanten, Staat.</li>
+                                    <li><strong>Ziele (Bsp):</strong> Sichere Jobs, gute Bezahlung, hohe Qualität, Steuergelder, Umweltschutz.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h2>🎯 Unternehmensmaßnahmen bewerten (Zielkonflikte)</h2>
+                        <p>In Prüfungen musst du oft eine betriebliche Entscheidung aus beiden Perspektiven betrachten. Was für die Shareholder gut ist (Gewinn), ist oft für bestimmte Stakeholder (Mitarbeiter/Umwelt) schlecht – und umgekehrt. Das nennt man <strong>Interessen- oder Zielkonflikt</strong>.</p>
+                        
+                        <div class="table-wrap">
+                            <table class="eval-table">
+                                <tr>
+                                    <th>Maßnahme der Geschäftsführung</th>
+                                    <th>Sicht der Shareholder (Eigentümer)</th>
+                                    <th>Sicht der betroffenen Stakeholder</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>1. Stellenabbau / Streichen von Überstundenvergütung</strong></td>
+                                    <td><span class="pos">Positiv:</span> Personalkosten sinken deutlich. Der Gewinn des Unternehmens steigt, was zu höheren Dividenden führt.</td>
+                                    <td><span class="neg">Negativ (Mitarbeiter):</span> Arbeitsplatzverlust, Existenzängste, unbezahlte Mehrarbeit, schlechtes Betriebsklima.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2. Investition in extrem teure, umweltfreundliche Filteranlagen</strong></td>
+                                    <td><span class="neg">Negativ:</span> Sehr hohe Anschaffungskosten belasten den Gewinn kurzfristig stark. Rendite sinkt.</td>
+                                    <td><span class="pos">Positiv (Gesellschaft & Staat):</span> Weniger Emissionen, Schutz der Umwelt, Einhaltung von Gesetzen.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>3. Verwendung von billigeren, minderwertigeren Rohstoffen</strong></td>
+                                    <td><span class="pos">Positiv:</span> Materialkosten sinken, die Gewinnmarge pro Stück erhöht sich.</td>
+                                    <td><span class="neg">Negativ (Kunden):</span> Die Qualität der Produkte leidet, Gefahr von Defekten steigt.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>4. Verlagerung der Produktion ins Ausland (Offshoring)</strong></td>
+                                    <td><span class="pos">Positiv:</span> Lohnkosten und Steuern im Ausland sind niedriger, Wettbewerbsfähigkeit und Gewinn steigen.</td>
+                                    <td><span class="neg">Negativ (Staat & Mitarbeiter in DE):</span> Verlust von Steuereinnahmen, Verlust von Arbeitsplätzen im Heimatland.</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="test" class="tab-pane">
+                    <div class="panel">
+                        <h2>Prüfe dein Wissen (Der große Klausur-Test)</h2>
+                        <p>Dieser Test deckt alle klausurrelevanten Themen (Marktformen, Elastizität, Maßnahmenbewertung) ab.</p>
+
+                        <div class="exercise-card">
+                            <h3>Aufgabe 1: Angebots- und Nachfrageüberhang</h3>
+                            <p><strong>Situation:</strong> Ein Händler verkauft Orangensaft. Das Marktgleichgewicht liegt bei 1,90€. Er senkt den Preis nun auf 1,70€ ab. Welcher Überhang entsteht und wer hat nun die stärkere Marktposition?</p>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <strong>Lösung:</strong> Da der Preis (1,70€) unter dem Marktpreis liegt, wollen viel mehr Leute den Saft kaufen als auf Lager ist. Es entsteht ein <strong>Nachfrageüberhang</strong> ($Nachfrage > Angebot$). Die Verkäufer haben nun die stärkere Macht (<strong>Verkäufermarkt</strong>) und können die Preise wieder anheben.
+                            </div>
+                        </div>
+
+                        <div class="exercise-card">
+                            <h3>Aufgabe 2: Preiselastizität & Umsatz</h3>
+                            <p>Ein Unternehmen, das ein Monopol auf lebensrettende Medikamente hat, erhöht seine Preise drastisch. Wie nennt sich diese Elastizitätsform der Nachfrage und was passiert mit dem Gesamtumsatz des Unternehmens?</p>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <strong>Lösung:</strong> Es handelt sich um eine <strong>unelastische Nachfrage</strong> (steile Kurve), da die Menschen das Gut zum Überleben brauchen. Obwohl der Preis stark steigt, sinkt die abgesetzte Menge kaum. Dadurch <strong>steigt der Gesamtumsatz</strong> des Unternehmens deutlich an.
+                            </div>
+                        </div>
+
+                        <div class="exercise-card" style="border-left: 4px solid var(--color-primary); padding-left: 1rem;">
+                            <h3>Aufgabe 3: Maßnahmen bewerten (Klausurtypisch!)</h3>
+                            <p>Ein mittelständisches IT-Systemhaus kündigt an, einen Großteil seines First-Level-Supports nach Indien auszulagern ("Offshoring"). Dadurch sollen 30% der Personalkosten eingespart werden.</p>
+                            <p><strong>Arbeitsauftrag:</strong> Bewerte diese Maßnahme ausführlich aus Sicht der Shareholder, aus Sicht der Belegschaft (Mitarbeiter in Deutschland) und aus Sicht der Kunden.</p>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <strong>Lösung / Bewertung der Maßnahme:</strong>
+                                <ul>
+                                    <li><strong>Sicht der Shareholder (Eigentümer):</strong> Sie bewerten die Maßnahme sehr <strong>positiv</strong>. Durch die massiven Einsparungen bei den Personalkosten steigt der Gewinn des IT-Systemhauses. Dies führt zu höheren Renditen/Dividenden.</li>
+                                    <li><strong>Sicht der Belegschaft (Stakeholder):</strong> Sie bewerten die Maßnahme <strong>negativ</strong>. Die deutschen Support-Mitarbeiter müssen um ihre Arbeitsplätze fürchten, es drohen Kündigungen und das Betriebsklima verschlechtert sich aus Angst.</li>
+                                    <li><strong>Sicht der Kunden (Stakeholder):</strong> Sie bewerten die Maßnahme oft ebenfalls <strong>negativ</strong>. Sie könnten Sprachbarrieren, Qualitätsverluste im Support oder schlechtere Erreichbarkeiten durch Zeitverschiebungen befürchten.</li>
+                                </ul>
+                                <em>Fazit: Es liegt ein klassischer Zielkonflikt vor.</em>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card">
+                            <h3>Aufgabe 4: Rechenaufgabe Marktgleichgewicht</h3>
+                            <p>Gegeben: $x_N = 120 - 4p$ und $x_A = 20 + 2p$.<br> Berechne das Marktgleichgewicht (Preis $p$ und Menge $x$).</p>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <strong>Lösung:</strong><br>
+                                Angebot und Nachfrage gleichsetzen ($x_N = x_A$):<br>
+                                $120 - 4p = 20 + 2p \quad | +4p$<br>
+                                $120 = 20 + 6p \quad | -20$<br>
+                                $100 = 6p \quad | :6$<br>
+                                <strong>$p = 16,67$ (Gleichgewichtspreis)</strong><br><br>
+                                Einsetzen in $x_A$:<br>
+                                $x_A = 20 + 2 \cdot 16,67$<br>
+                                <strong>$x = 53,34$ (Gleichgewichtsmenge)</strong>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

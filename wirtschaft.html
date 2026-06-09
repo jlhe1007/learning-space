@@ -1,0 +1,1086 @@
+﻿<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wirtschaftskunde</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* specific styles for wirtschaft */
+        .info-box { background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)); border-left: 4px solid var(--color-primary); padding: var(--space-4); margin: var(--space-4) 0; border-radius: var(--radius-sm); }
+        .warning-box { background: color-mix(in srgb, var(--color-warning) 10%, var(--color-surface)); border-left: 4px solid var(--color-warning); padding: var(--space-4); margin: var(--space-4) 0; border-radius: var(--radius-sm); }
+        .formula { background: var(--color-surface); border: 1px solid var(--color-border); padding: var(--space-4); font-family: var(--font-mono); font-size: var(--text-sm); border-radius: var(--radius-md); overflow-x: auto; white-space: pre; margin: var(--space-4) 0; }
+        .definition { background: var(--color-surface-2); border-left: 4px solid var(--color-success); padding: var(--space-4); margin: var(--space-4) 0; border-radius: var(--radius-sm); box-shadow: var(--shadow-sm); }
+        .example-box { border: 2px solid var(--color-primary-highlight); border-radius: var(--radius-lg); padding: var(--space-5); margin: var(--space-6) 0; }
+        .exercise { background: var(--color-surface); border: 2px solid color-mix(in srgb, var(--color-success) 30%, transparent); border-radius: var(--radius-lg); padding: var(--space-5); margin: var(--space-6) 0; }
+        .solution { background: var(--color-surface-offset); border-left: 3px solid var(--color-success); padding: var(--space-4); margin-top: var(--space-4); display: none; }
+        .solution.show { display: block; }
+        .exercise-number { background: var(--color-primary-highlight); color: var(--color-primary); padding: .2rem .6rem; border-radius: 999px; font-size: var(--text-xs); font-weight: 700; margin-right: .5rem; }
+        .comparison-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin: var(--space-4) 0; }
+        .comparison-col { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); }
+        @media (max-width: 768px) { .comparison-row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: .9rem;">
+                        <div class="logo" aria-hidden="true">ðŸ’¼</div>
+                        <div>
+                            <h1>Wirtschaft</h1>
+                            <p>Lernzettel BW7</p>
+                        </div>
+                    </a>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="MenÃ¼ Ã¶ffnen" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html" style="margin-bottom: 10px; border-bottom: 1px solid var(--color-border); padding-bottom: 10px;">â† ZurÃ¼ck zur Ãœbersicht</a>
+                <a href="#theorie" onclick="document.querySelector('[data-tab=\'theorie\']').click();">ðŸ“š Theorie</a>
+                <a href="#definitionen" onclick="document.querySelector('[data-tab=\'definitionen\']').click();">ðŸ“– Definitionen</a>
+                <a href="#beispiele" onclick="document.querySelector('[data-tab=\'beispiele\']').click();">ðŸ’¡ Beispiele</a>
+                <a href="#uebungen" onclick="document.querySelector('[data-tab=\'uebungen\']').click();">âœï¸ Ãœbungsaufgaben</a>
+            </nav>
+            
+            <button class="theme-toggle">
+                <span aria-hidden="true">â—</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
+
+        <main class="content tabs-container">
+            <h1 class="page-title">Kosten- & Leistungsrechnung</h1>
+            <p class="page-subtitle">Kompletter Ãœberblick mit Definitionen, ErklÃ¤rungen & Ãœbungsaufgaben (BW7)</p>
+            
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-tab="theorie">ðŸ“š Theorie</button>
+                <button class="tab-btn" data-tab="definitionen">ðŸ“– Definitionen</button>
+                <button class="tab-btn" data-tab="beispiele">ðŸ’¡ Beispiele</button>
+                <button class="tab-btn" data-tab="uebungen">âœï¸ Ãœbungsaufgaben</button>
+            </div>
+            
+            <!-- TAB 1: THEORIE -->
+
+    <div id="theorie" class="tab-pane active">
+        <h2>1. Grundlagen der Kosten- und Leistungsrechnung</h2>
+
+        <h3>1.1 Was ist Kosten- und Leistungsrechnung?</h3>
+        <p>
+            Die <strong>Kosten- und Leistungsrechnung (KLR)</strong> ist ein integriertes Rechnungssystem,
+            das der betriebswirtschaftlichen Planung, Kontrolle und Entscheidungsvorbereitung dient.
+            Sie erfasst, welche Kosten in einem Unternehmen entstehen und welche Leistungen erbracht werden.
+        </p>
+
+        <div class="info-box">
+            <strong>ðŸ’¡ Merksatz:</strong> KLR beantwortet die Frage: Welche Kosten fallen fÃ¼r welche Produkte/Dienstleistungen an?
+        </div>
+
+        <!-- Kostenarten -->
+        <h3>1.2 Kostenarten: Fixe und Variable Kosten</h3>
+        
+        <div class="comparison-row">
+            <div class="comparison-col">
+                <h4>â„ï¸ Fixe Kosten</h4>
+                <ul>
+                    <li>UnabhÃ¤ngig von der Produktionsmenge</li>
+                    <li>Bleiben konstant, auch wenn nichts produziert wird</li>
+                    <li>Beispiele: Miete, GehÃ¤lter, Versicherung, Abschreibungen</li>
+                </ul>
+            </div>
+            <div class="comparison-col">
+                <h4>ðŸ“ˆ Variable Kosten</h4>
+                <ul>
+                    <li>AbhÃ¤ngig von der Produktionsmenge</li>
+                    <li>Steigen mit jeder produzierten Einheit</li>
+                    <li>Beispiele: Rohstoffe, LÃ¶hne (Akkord), Verbrauchsmaterialien</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <strong>Gesamtkosten-Formel:</strong><br>
+            K (Gesamtkosten) = K_f (fixe Kosten) + K_v (variable Kosten)<br>
+            K = K_f + (k_v Ã— X)<br>
+            <small>X = Produktionsmenge, k_v = variable Kosten pro StÃ¼ck</small>
+        </div>
+
+        <!-- StÃ¼ckkosten -->
+        <h3>1.3 StÃ¼ckkosten und Fixkostendegression</h3>
+        <p>
+            Die <strong>StÃ¼ckkosten</strong> sind die Gesamtkosten pro produziertes StÃ¼ck.
+            Mit steigender Produktionsmenge sinken die StÃ¼ckkosten, weil sich die fixen Kosten
+            auf mehr Einheiten verteilen.
+        </p>
+
+        <div class="card">
+            <strong>StÃ¼ckkosten-Formeln:</strong><br>
+            k (StÃ¼ckkosten) = K / X = K_f/X + k_v<br>
+            k_f (fixe StÃ¼ckkosten) = K_f / X<br>
+            k_v (variable StÃ¼ckkosten) = K_v / X
+        </div>
+
+        <div class="example-box">
+            <h4>Fixkostendegression verstehen</h4>
+            <p>Ein Unternehmen hat fixe Kosten von 10.000 â‚¬.</p>
+            <ul>
+                <li>Bei 100 StÃ¼ck: k_f = 10.000 / 100 = <strong>100 â‚¬ pro StÃ¼ck</strong></li>
+                <li>Bei 1.000 StÃ¼ck: k_f = 10.000 / 1.000 = <strong>10 â‚¬ pro StÃ¼ck</strong></li>
+                <li>Bei 10.000 StÃ¼ck: k_f = 10.000 / 10.000 = <strong>1 â‚¬ pro StÃ¼ck</strong></li>
+            </ul>
+            <p><strong>â†’ Je mehr produziert, desto niedriger die fixen StÃ¼ckkosten!</strong></p>
+        </div>
+
+        <!-- Make-or-Buy -->
+        <h2>2. Make-or-Buy-Entscheidungen</h2>
+
+        <p>
+            Ein Unternehmen muss entscheiden: Sollen Teile <strong>selbst hergestellt</strong> (Make)
+            oder <strong>zugekauft</strong> (Buy) werden? Diese Entscheidung ist oft kostenabhÃ¤ngig.
+        </p>
+
+        <h3>2.1 Kostenfunktionen vergleichen</h3>
+
+        <div class="card">
+            <strong>Eigenfertigung:</strong> K_eigen = K_f + (k_v Ã— X)<br>
+            <strong>Fremdbezug:</strong> K_fremd = Bezugspreis Ã— X<br>
+            <br>
+            Die <strong>kritische Menge</strong> ist der Punkt, ab dem Eigenfertigung gÃ¼nstiger ist:
+            <br>K_f + (k_v Ã— X) = Bezugspreis Ã— X
+        </div>
+
+        <div class="formula">
+Kritische Menge X = K_f / (Bezugspreis - k_v)
+
+Beispiel:
+- Fixkosten: 300.000 â‚¬
+- Variable Kosten pro StÃ¼ck: 30 â‚¬
+- Bezugspreis: 80 â‚¬
+
+X = 300.000 / (80 - 30) = 300.000 / 50 = 6.000 StÃ¼ck
+
+â†’ Ab 6.000 StÃ¼ck ist Eigenfertigung gÃ¼nstiger!
+        </div>
+
+        <!-- Break-Even -->
+        <h2>3. Break-Even-Analyse (Gewinnschwelle)</h2>
+
+        <p>
+            Die <strong>Gewinnschwelle (Break-Even-Point)</strong> ist die Produktionsmenge,
+            bei der die ErlÃ¶se gerade die Gesamtkosten decken. Hier entsteht weder Gewinn noch Verlust.
+        </p>
+
+        <div class="comparison-row">
+            <div class="comparison-col">
+                <h4>âŒ Unter BEP</h4>
+                <p><strong>Verlustzone</strong><br>
+                ErlÃ¶se < Kosten<br>
+                Das Unternehmen macht Verluste.</p>
+            </div>
+            <div class="comparison-col">
+                <h4>âœ… Ãœber BEP</h4>
+                <p><strong>Gewinnzone</strong><br>
+                ErlÃ¶se > Kosten<br>
+                Das Unternehmen macht Gewinne.</p>
+            </div>
+        </div>
+
+        <div class="formula">
+Break-Even-Point Menge (BEP_x):
+BEP_x = K_f / (p - k_v)
+
+BEP_erlÃ¶se = BEP_x Ã— p
+
+Wobei:
+- K_f = Fixkosten
+- p = Verkaufspreis pro StÃ¼ck
+- k_v = variable Kosten pro StÃ¼ck
+        </div>
+
+        <!-- Deckungsbeitrag -->
+        <h2>4. Deckungsbeitrag und Teilkostenrechnung</h2>
+
+        <p>
+            Der <strong>Deckungsbeitrag (DB)</strong> ist der Betrag, den jede verkaufte Einheit
+            zur Deckung der fixen Kosten beitrÃ¤gt. Er zeigt, welche Produkte am rentabelsten sind.
+        </p>
+
+        <div class="card">
+            <strong>Deckungsbeitrag-Formeln:</strong><br>
+            StÃ¼ck-DB = Verkaufspreis - variable Kosten<br>
+            Gesamt-DB = StÃ¼ck-DB Ã— Menge<br>
+            <br>
+            Betriebsergebnis = Gesamt-DB - Fixkosten
+        </div>
+
+        <h3>4.1 Vollkostenrechnung vs. Teilkostenrechnung</h3>
+
+        <table class="table">
+            <tr>
+                <th>Aspekt</th>
+                <th>Vollkostenrechnung</th>
+                <th>Teilkostenrechnung</th>
+            </tr>
+            <tr>
+                <td><strong>Kostenverteilung</strong></td>
+                <td>Alle Kosten auf Produkte verteilt</td>
+                <td>Nur variable Kosten auf Produkte</td>
+            </tr>
+            <tr>
+                <td><strong>Fixkosten</strong></td>
+                <td>Mit ZuschlagssÃ¤tzen verrechnet</td>
+                <td>Pauschal abgezogen (en bloc)</td>
+            </tr>
+            <tr>
+                <td><strong>Einsatz</strong></td>
+                <td>Langfristige Entscheidungen, Angebotskalkulation</td>
+                <td>Kurzfristige Entscheidungen, SonderauftrÃ¤ge</td>
+            </tr>
+            <tr>
+                <td><strong>Vorteil</strong></td>
+                <td>Gerecht, verursachungsgerecht</td>
+                <td>Flexibel, entscheidungsrelevant</td>
+            </tr>
+            <tr>
+                <td><strong>Nachteil</strong></td>
+                <td>Ignores BeschÃ¤ftigungsschwankungen</td>
+                <td>Nicht fÃ¼r langfristige Planung geeignet</td>
+            </tr>
+        </table>
+
+        <h3>4.2 Kurzfristige Preisuntergrenzen</h3>
+
+        <div class="info-box">
+            <strong>ðŸ“Œ Bei SonderauftrÃ¤gen:</strong> Preis mindestens = variable Kosten pro StÃ¼ck
+            (Deckungsbeitrag > 0). Dies ist die kurzfristige Preisuntergrenze.
+        </div>
+
+        <div class="warning-box">
+            <strong>âš ï¸ Achtung:</strong> Langfristig muss der Preis auch fixe Kosten decken,
+            sonst macht das Unternehmen Verluste!
+        </div>
+    </div>
+
+    <!-- TAB 2: DEFINITIONEN -->
+    <div id="definitionen" class="tab-pane">
+        <h2>Alle Wichtigen Definitionen</h2>
+
+        <div class="definition">
+            <strong>Fixkosten (K_f)</strong>
+            Kosten, die unabhÃ¤ngig von der Produktionsmenge entstehen. Sie fallen auch an,
+            wenn nichts produziert wird. Beispiele: Miete (1.500 â‚¬ monatlich), ManagementgehÃ¤lter,
+            Versicherungen, kalkulatorische Abschreibungen.
+        </div>
+
+        <div class="definition">
+            <strong>Variable Kosten (K_v)</strong>
+            Kosten, die mit jeder produzierten Einheit steigen. Proportional variable Kosten
+            bedeuten: doppelte Menge = doppelte Kosten. Beispiele: Rohstoffe, AkkordlÃ¶hne,
+            Verpackungsmaterial (z.B. 50 â‚¬ pro StÃ¼ck).
+        </div>
+
+        <div class="definition">
+            <strong>Gesamtkosten (K)</strong>
+            Die Summe aller anfallenden Kosten: K = K_f + K_v = K_f + (k_v Ã— X).
+            Ein Unternehmen mit 5.000 â‚¬ Fixkosten und 20 â‚¬ variablen Kosten pro StÃ¼ck
+            hat bei 100 StÃ¼ck: K = 5.000 + (20 Ã— 100) = 7.000 â‚¬.
+        </div>
+
+        <div class="definition">
+            <strong>StÃ¼ckkosten (k)</strong>
+            Durchschnittliche Kosten pro produzierter Einheit: k = K / X.
+            Bei Gesamtkosten von 7.000 â‚¬ und 100 StÃ¼ck: k = 7.000 / 100 = 70 â‚¬ pro StÃ¼ck.
+        </div>
+
+        <div class="definition">
+            <strong>Fixkostendegression</strong>
+            Die Erscheinung, dass fixe StÃ¼ckkosten mit zunehmender Produktionmenge sinken,
+            weil sich die fixen Kosten auf mehr Einheiten verteilen. Je mehr man produziert,
+            desto weniger Fixkosten pro StÃ¼ck.
+        </div>
+
+        <div class="definition">
+            <strong>Kritische Menge (Make-or-Buy)</strong>
+            Die Produktionsmenge, ab der Eigenfertigung gÃ¼nstiger ist als Fremdbezug.
+            Unterhalb dieser Menge: besser kaufen. DarÃ¼ber: besser selbst herstellen.
+        </div>
+
+        <div class="definition">
+            <strong>Break-Even-Point (BEP)</strong>
+            Die Produktionsmenge oder der ErlÃ¶s, bei dem Gesamtkosten = GesamterlÃ¶se.
+            An diesem Punkt: Gewinn = 0. Unterhalb: Verlust. DarÃ¼ber: Gewinn.
+        </div>
+
+        <div class="definition">
+            <strong>Deckungsbeitrag (DB)</strong>
+            Der Betrag, der nach Abzug der variablen Kosten vom Verkaufspreis Ã¼brigbleibt.
+            DB = Verkaufspreis - variable Kosten. Dieser Beitrag deckt fixe Kosten ab.
+        </div>
+
+        <div class="definition">
+            <strong>StÃ¼ck-Deckungsbeitrag (db)</strong>
+            Der Deckungsbeitrag pro StÃ¼ck: db = p - k_v.
+            Bei Verkaufspreis 100 â‚¬ und variablen Kosten 40 â‚¬ pro StÃ¼ck: db = 60 â‚¬.
+            Jedes verkaufte StÃ¼ck trÃ¤gt 60 â‚¬ zur Deckung der Fixkosten bei.
+        </div>
+
+        <div class="definition">
+            <strong>Betriebsergebnis (BE)</strong>
+            Das Ergebnis nach Abzug aller Kosten von den ErlÃ¶sen.
+            BE = GesamterlÃ¶se - Gesamtkosten = Gesamt-DB - Fixkosten.
+            Positiv = Gewinn, Negativ = Verlust.
+        </div>
+
+        <div class="definition">
+            <strong>Vollkostenrechnung</strong>
+            Ein Rechnungssystem, bei dem ALLE Kosten (fix und variabel) verursachungsgerecht
+            auf die KostentrÃ¤ger verteilt werden. Einsatz: Langfristige Planung, Kalkulation.
+        </div>
+
+        <div class="definition">
+            <strong>Teilkostenrechnung</strong>
+            Ein Rechnungssystem, bei dem nur VARIABLE Kosten auf die KostentrÃ¤ger verteilt werden.
+            Fixkosten werden pauschal abgezogen. Einsatz: Kurzfristige Entscheidungen, SonderauftrÃ¤ge.
+        </div>
+
+        <div class="definition">
+            <strong>Deckungsbeitrag II (DB II)</strong>
+            In der Teilkostenrechnung: Gesamter DB nach Abzug der erzeugnisfixen Kosten.
+            DB II = DB I - erzeugnisfixe Kosten. Dies zeigt, welche Produkte wirklich rentabel sind.
+        </div>
+
+        <div class="definition">
+            <strong>Kurzfristige Preisuntergrenze</strong>
+            Der Mindestpreis fÃ¼r SonderauftrÃ¤ge in der Teilkostenrechnung = variable Kosten.
+            Damit der Deckungsbeitrag > 0 bleibt (etwas zur Fixkostendeckung beitrÃ¤gt).
+        </div>
+
+        <div class="definition">
+            <strong>Langfristige Preisuntergrenze</strong>
+            Der Mindestpreis fÃ¼r dauerhafte VerkÃ¤ufe = Vollkosten (fixe + variable Kosten pro StÃ¼ck).
+            Langfristig muss jedes StÃ¼ck alle Kosten decken, sonst macht das Unternehmen Verluste.
+        </div>
+
+        <div class="definition">
+            <strong>Kostenstelle</strong>
+            Ein organisatorischer Bereich, in dem Kosten anfallen. Beispiele: Produktion,
+            Verwaltung, Vertrieb. Die Kostenrechnung erfasst Kosten pro Kostenstelle.
+        </div>
+
+        <div class="definition">
+            <strong>KostentrÃ¤ger</strong>
+            Das Produkt oder die Dienstleistung, auf das/die Kosten verrechnet werden.
+            Beispiel: Ein Smartphone, ein beratungstag, eine Reparatur.
+        </div>
+    </div>
+
+    <!-- TAB 3: BEISPIELE -->
+    <div id="beispiele" class="tab-pane">
+        <h2>Praktische Beispiele mit LÃ¶sungen</h2>
+
+        <!-- Beispiel 1 -->
+        <div class="example-box">
+            <h3>Beispiel 1: Fixkostendegression berechnen</h3>
+            <p><strong>Szenario:</strong> Ein USB-Stick-Hersteller hat folgende Daten:</p>
+            <ul>
+                <li>Fixkosten pro Monat: 8.700 â‚¬</li>
+                <li>Variable Kosten pro StÃ¼ck: 32,50 â‚¬</li>
+                <li>Verkaufspreis: 89,00 â‚¬</li>
+            </ul>
+            <p><strong>Aufgabe:</strong> Berechne die Gesamtkosten und StÃ¼ckkosten bei einer Produktion von 50, 100, 150 und 200 StÃ¼ck.</p>
+
+            <p><strong style="color: var(--color-accent);">LÃ¶sung:</strong></p>
+            <table class="table">
+                <tr>
+                    <th>Menge (X)</th>
+                    <th>Fixkosten</th>
+                    <th>Variable Kosten (k_v Ã— X)</th>
+                    <th>Gesamtkosten</th>
+                    <th>StÃ¼ckkosten</th>
+                </tr>
+                <tr>
+                    <td>50 StÃ¼ck</td>
+                    <td>8.700 â‚¬</td>
+                    <td>1.625 â‚¬</td>
+                    <td>10.325 â‚¬</td>
+                    <td>206,50 â‚¬</td>
+                </tr>
+                <tr>
+                    <td>100 StÃ¼ck</td>
+                    <td>8.700 â‚¬</td>
+                    <td>3.250 â‚¬</td>
+                    <td>11.950 â‚¬</td>
+                    <td>119,50 â‚¬</td>
+                </tr>
+                <tr>
+                    <td>150 StÃ¼ck</td>
+                    <td>8.700 â‚¬</td>
+                    <td>4.875 â‚¬</td>
+                    <td>13.575 â‚¬</td>
+                    <td>90,50 â‚¬</td>
+                </tr>
+                <tr>
+                    <td>200 StÃ¼ck</td>
+                    <td>8.700 â‚¬</td>
+                    <td>6.500 â‚¬</td>
+                    <td>15.200 â‚¬</td>
+                    <td>76,00 â‚¬</td>
+                </tr>
+            </table>
+
+            <p><strong>Erkenntnis:</strong> Die StÃ¼ckkosten fallen von 206,50 â‚¬ auf 76,00 â‚¬ â€“
+            das ist die <strong>Fixkostendegression</strong> in Aktion!</p>
+        </div>
+
+        <!-- Beispiel 2 -->
+        <div class="example-box">
+            <h3>Beispiel 2: Make-or-Buy entscheiden</h3>
+            <p><strong>Szenario:</strong> Ein Smartphone-Hersteller muss sich entscheiden, ob er
+            Smartphone-Beamer selbst herstellt oder zukauft.</p>
+
+            <ul>
+                <li><strong>Fremdbezug:</strong> 80 â‚¬ pro StÃ¼ck</li>
+                <li><strong>Eigenfertigung:</strong>
+                    <ul>
+                        <li>Maschinenkosten (Abschreibung): 30.000 â‚¬ pro Jahr</li>
+                        <li>Fixkosten (Wartung, Versicherung): 14.000 â‚¬ pro Jahr</li>
+                        <li>Variable Kosten: 20 â‚¬ (Material) + 10 â‚¬ (Lohn) = 30 â‚¬ pro StÃ¼ck</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p><strong>Aufgabe:</strong> Ab welcher Jahresmenge ist Eigenfertigung gÃ¼nstiger?</p>
+
+            <p><strong style="color: var(--color-accent);">LÃ¶sung:</strong></p>
+            <div class="formula">
+Fixkosten Eigenfertigung = 30.000 + 14.000 = 44.000 â‚¬
+Variable Kosten = 30 â‚¬ pro StÃ¼ck
+Bezugspreis = 80 â‚¬ pro StÃ¼ck
+
+Kritische Menge = 44.000 / (80 - 30)
+                = 44.000 / 50
+                = 880 StÃ¼ck pro Jahr
+
+â†’ Ab 880 StÃ¼ck pro Jahr ist Eigenfertigung gÃ¼nstiger!
+            </div>
+
+            <p><strong>Kosten-Vergleich bei 1.000 StÃ¼ck:</strong></p>
+            <ul>
+                <li>Eigenfertigung: 44.000 + (30 Ã— 1.000) = 74.000 â‚¬</li>
+                <li>Fremdbezug: 80 Ã— 1.000 = 80.000 â‚¬</li>
+                <li><strong>Ersparnis: 6.000 â‚¬</strong> â†’ Eigenfertigung gewinnt!</li>
+            </ul>
+        </div>
+
+        <!-- Beispiel 3 -->
+        <div class="example-box">
+            <h3>Beispiel 3: Break-Even-Point berechnen</h3>
+            <p><strong>Szenario:</strong> Ein Pizza-Service verkauft Pizzas.</p>
+
+            <ul>
+                <li>Verkaufspreis: 5,00 â‚¬ pro Pizza</li>
+                <li>Variable Kosten: 2,00 â‚¬ pro Pizza</li>
+                <li>Fixkosten: 600 â‚¬ pro Monat</li>
+            </ul>
+
+            <p><strong>Aufgabe:</strong> Wie viele Pizzas muss der Service pro Monat verkaufen,
+            um die Gewinnschwelle zu erreichen?</p>
+
+            <p><strong style="color: var(--color-accent);">LÃ¶sung:</strong></p>
+            <div class="formula">
+Deckungsbeitrag pro Pizza = 5,00 - 2,00 = 3,00 â‚¬
+
+BEP_Menge = Fixkosten / Deckungsbeitrag
+          = 600 / 3,00
+          = 200 Pizzas
+
+BEP_ErlÃ¶s = 200 Ã— 5,00 = 1.000 â‚¬
+
+â†’ Bei 200 verkauften Pizzas macht der Service Break-Even (weder Gewinn noch Verlust).
+            </div>
+
+            <p><strong>Gewinn-/Verlustrechnung:</strong></p>
+            <ul>
+                <li>Bei 150 Pizzas: (150 Ã— 3,00) - 600 = -150 â‚¬ (Verlust)</li>
+                <li>Bei 200 Pizzas: (200 Ã— 3,00) - 600 = 0 â‚¬ (Break-Even)</li>
+                <li>Bei 250 Pizzas: (250 Ã— 3,00) - 600 = +150 â‚¬ (Gewinn)</li>
+            </ul>
+        </div>
+
+        <!-- Beispiel 4 -->
+        <div class="example-box">
+            <h3>Beispiel 4: Deckungsbeitrag und Betriebsergebnis</h3>
+            <p><strong>Szenario:</strong> Ein Unternehmen produziert und verkauft SchreibtischstÃ¼hle.</p>
+
+            <ul>
+                <li>Verkaufspreis: 150 â‚¬ pro Stuhl</li>
+                <li>Variable Kosten: 60 â‚¬ pro Stuhl</li>
+                <li>Monatliche Fixkosten: 5.000 â‚¬</li>
+                <li>Verkaufte Menge: 100 StÃ¼hle pro Monat</li>
+            </ul>
+
+            <p><strong>Aufgabe:</strong> Berechne den Deckungsbeitrag und das Betriebsergebnis.</p>
+
+            <p><strong style="color: var(--color-accent);">LÃ¶sung:</strong></p>
+            <div class="formula">
+StÃ¼ck-Deckungsbeitrag = 150 - 60 = 90 â‚¬ pro Stuhl
+
+Gesamter Deckungsbeitrag = 90 Ã— 100 = 9.000 â‚¬
+
+Betriebsergebnis = 9.000 - 5.000 = 4.000 â‚¬ Gewinn
+
+Alternative Berechnung:
+GesamterlÃ¶s: 150 Ã— 100 = 15.000 â‚¬
+Gesamtkosten: 5.000 + (60 Ã— 100) = 11.000 â‚¬
+Gewinn: 15.000 - 11.000 = 4.000 â‚¬
+            </div>
+
+            <p><strong>Interpretation:</strong> Das Unternehmen macht 4.000 â‚¬ Gewinn pro Monat.
+            Jeder verkaufte Stuhl trÃ¤gt 90 â‚¬ zur Fixkostendeckung und darÃ¼ber hinaus zum Gewinn bei.</p>
+        </div>
+
+        <!-- Beispiel 5 -->
+        <div class="example-box">
+            <h3>Beispiel 5: Sonderauftrag mit Teilkostenrechnung</h3>
+            <p><strong>Szenario:</strong> Ein Pizzaservice wird kurz vor Ladenschluss gefragt,
+            ob er eine Pizza zum <strong>halben Preis</strong> (2,50 â‚¬ statt 5,00 â‚¬) verkauft.</p>
+
+            <p><strong>Produktionsdaten:</strong></p>
+            <ul>
+                <li>Normalpreis: 5,00 â‚¬ pro Pizza</li>
+                <li>Variable Kosten: 2,00 â‚¬ pro Pizza</li>
+                <li>Fixkosten: 600 â‚¬ pro Monat (sind bereits gedeckt)</li>
+                <li>Sonderangebot: 2,50 â‚¬ pro Pizza</li>
+            </ul>
+
+            <p><strong>Frage:</strong> Soll der Service die Pizza zum Sonderpreis verkaufen?</p>
+
+            <p><strong style="color: var(--color-accent);">Analyse mit Teilkostenrechnung:</strong></p>
+            <div class="formula">
+Bei Annahme des Angebots:
+ErlÃ¶s: 2,50 â‚¬
+Variable Kosten: -2,00 â‚¬
+Deckungsbeitrag: +0,50 â‚¬
+
+â†’ Der Deckungsbeitrag ist positiv! (> 0)
+
+Die Pizza trÃ¤gt noch 50 Cent zur Deckung der bereits vorhandenen Fixkosten bei.
+Die Fixkosten sind bereits gedeckt (die Pizza ist eine Zusatzbestellung!).
+
+ENTSCHEIDUNG: JA, den Sonderauftrag annehmen!
+Zumindest kurzfristig bringt die Pizza Zusatzgewinn.
+            </div>
+
+            <div class="warning-box">
+                <strong>âš ï¸ Aber Vorsicht:</strong> Diese Strategie ist nur langfristig untragbar.
+                Wenn regulÃ¤re Kunden von dem Sonderpreis erfahren, kÃ¶nnte der normale Absatz leiden.
+            </div>
+        </div>
+
+        <!-- Beispiel 6 -->
+        <div class="example-box">
+            <h3>Beispiel 6: Vollkosten vs. Teilkosten im Vergleich</h3>
+            <p><strong>Szenario:</strong> Ein Unternehmen produziert zwei Produkte.</p>
+
+            <table class="table">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Produkt A</th>
+                    <th>Produkt B</th>
+                </tr>
+                <tr>
+                    <td>Verkaufspreis</td>
+                    <td>100 â‚¬</td>
+                    <td>80 â‚¬</td>
+                </tr>
+                <tr>
+                    <td>Variable Kosten</td>
+                    <td>40 â‚¬</td>
+                    <td>50 â‚¬</td>
+                </tr>
+                <tr>
+                    <td>StÃ¼ck-DB</td>
+                    <td>60 â‚¬</td>
+                    <td>30 â‚¬</td>
+                </tr>
+                <tr>
+                    <td>Menge/Monat</td>
+                    <td>100 StÃ¼ck</td>
+                    <td>100 StÃ¼ck</td>
+                </tr>
+                <tr>
+                    <td>Gesamt-DB</td>
+                    <td>6.000 â‚¬</td>
+                    <td>3.000 â‚¬</td>
+                </tr>
+            </table>
+
+            <p><strong>Gesamtfixkosten: 6.000 â‚¬ pro Monat</strong></p>
+
+            <p><strong style="color: var(--color-accent);">Analyse mit Teilkostenrechnung:</strong></p>
+            <div class="formula">
+Produkt A: DB = 6.000 â‚¬ (deckt 100% der Fixkosten + 0 â‚¬ Gewinn)
+Produkt B: DB = 3.000 â‚¬ (deckt 50% der Fixkosten)
+
+Gesamt: 6.000 + 3.000 = 9.000 â‚¬ DB
+        9.000 - 6.000 = 3.000 â‚¬ Betriebsergebnis/Gewinn
+
+ENTSCHEIDUNG: Produkt A ist rentabler!
+Der Fokus sollte auf Produkt A liegen (hÃ¶herer Deckungsbeitrag).
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: ÃœBUNGSAUFGABEN -->
+    <div id="uebungen" class="tab-pane">
+        <h2>âœï¸ Ãœbungsaufgaben zum Trainieren</h2>
+
+        <div class="info-box">
+            <strong>ðŸ’¡ Tipp:</strong> Versuche zuerst, die Aufgaben selbst zu lÃ¶sen.
+            Nutze dann die "LÃ¶sung anzeigen" Buttons, um deine Antworten zu Ã¼berprÃ¼fen.
+        </div>
+
+        <!-- Aufgabe 1 -->
+        <div class="exercise">
+            <h4><span class="exercise-number">Aufgabe 1</span> Fixkosten und variable Kosten berechnen</h4>
+            <p>
+                In einem Industrieunternehmen fallen monatlich folgende Kosten an:
+                Miete: 10.000 â‚¬, GehÃ¤lter: 25.000 â‚¬, Rohstoffe: 50 â‚¬ pro StÃ¼ck,
+                LÃ¶hne (Akkord): 25 â‚¬ pro StÃ¼ck, Versicherung: 1.500 â‚¬.
+            </p>
+            <p><strong>a)</strong> Berechne die monatlichen Fixkosten.</p>
+            <p><strong>b)</strong> Berechne die variablen Kosten pro StÃ¼ck.</p>
+            <p><strong>c)</strong> Berechne Gesamtkosten und StÃ¼ckkosten bei einer Produktion von 500 StÃ¼ck.</p>
+
+            <button class="toggle-solution" onclick="toggleSolution(this)">ðŸ“– LÃ¶sung anzeigen</button>
+            <div class="solution">
+                <h5>LÃ¶sung:</h5>
+                <p><strong>a) Fixkosten (monatlich):</strong></p>
+                <ul>
+                    <li>Miete: 10.000 â‚¬</li>
+                    <li>GehÃ¤lter: 25.000 â‚¬</li>
+                    <li>Versicherung: 1.500 â‚¬</li>
+                    <li><strong>Gesamt K_f = 36.500 â‚¬</strong></li>
+                </ul>
+                <p><strong>b) Variable Kosten pro StÃ¼ck:</strong></p>
+                <ul>
+                    <li>Rohstoffe: 50 â‚¬</li>
+                    <li>LÃ¶hne: 25 â‚¬</li>
+                    <li><strong>Gesamt k_v = 75 â‚¬ pro StÃ¼ck</strong></li>
+                </ul>
+                <p><strong>c) Bei 500 StÃ¼ck Produktion:</strong></p>
+                <ul>
+                    <li>K_v = 75 Ã— 500 = 37.500 â‚¬</li>
+                    <li>K = 36.500 + 37.500 = 74.000 â‚¬</li>
+                    <li>k = 74.000 / 500 = <strong>148 â‚¬ pro StÃ¼ck</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Aufgabe 2 -->
+        <div class="exercise">
+            <h4><span class="exercise-number">Aufgabe 2</span> StÃ¼ckkosten bei verschiedenen Produktionsmengen</h4>
+            <p>
+                Ein Unternehmen hat Fixkosten von 20.000 â‚¬ pro Monat.
+                Variable Kosten: 30 â‚¬ pro StÃ¼ck.
+            </p>
+            <p><strong>a)</strong> Berechne die StÃ¼ckkosten bei 100, 200, 500 und 1.000 StÃ¼ck.</p>
+            <p><strong>b)</strong> Beschreibe die Fixkostendegression.</p>
+
+            <button class="toggle-solution" onclick="toggleSolution(this)">ðŸ“– LÃ¶sung anzeigen</button>
+            <div class="solution">
+                <h5>LÃ¶sung:</h5>
+                <p><strong>a) StÃ¼ckkosten:</strong></p>
+                <table class="table">
+                    <tr>
+                        <th>Menge</th>
+                        <th>Fixkosten</th>
+                        <th>Variable Kosten</th>
+                        <th>Gesamtkosten</th>
+                        <th>StÃ¼ckkosten</th>
+                    </tr>
+                    <tr>
+                        <td>100 St.</td>
+                        <td>20.000 â‚¬</td>
+                        <td>3.000 â‚¬</td>
+                        <td>23.000 â‚¬</td>
+                        <td>230 â‚¬</td>
+                    </tr>
+                    <tr>
+                        <td>200 St.</td>
+                        <td>20.000 â‚¬</td>
+                        <td>6.000 â‚¬</td>
+                        <td>26.000 â‚¬</td>
+                        <td>130 â‚¬</td>
+                    </tr>
+                    <tr>
+                        <td>500 St.</td>
+                        <td>20.000 â‚¬</td>
+                        <td>15.000 â‚¬</td>
+                        <td>35.000 â‚¬</td>
+                        <td>70 â‚¬</td>
+                    </tr>
+                    <tr>
+                        <td>1.000 St.</td>
+                        <td>20.000 â‚¬</td>
+                        <td>30.000 â‚¬</td>
+                        <td>50.000 â‚¬</td>
+                        <td>50 â‚¬</td>
+                    </tr>
+                </table>
+
+                <p><strong>b) Fixkostendegression:</strong></p>
+                <p>
+                    Die StÃ¼ckkosten sinken von 230 â‚¬ auf 50 â‚¬ â€“ obwohl die variablen Kosten
+                    pro StÃ¼ck konstant bei 30 â‚¬ bleiben! Das liegt daran, dass sich die fixen
+                    Kosten (20.000 â‚¬) auf mehr StÃ¼cke verteilen. Bei 100 StÃ¼ck: 20.000/100 = 200 â‚¬.
+                    Bei 1.000 StÃ¼ck: 20.000/1.000 = 20 â‚¬. Das ist das Gesetz der Massenproduktion!
+                </p>
+            </div>
+        </div>
+
+        <!-- Aufgabe 3 -->
+        <div class="exercise">
+            <h4><span class="exercise-number">Aufgabe 3</span> Make-or-Buy: Kritische Menge berechnen</h4>
+            <p>
+                Ein MÃ¶belhersteller benÃ¶tigt Befestigungswinkel. Er kann zwischen zwei Optionen wÃ¤hlen:
+            </p>
+            <ul>
+                <li><strong>Option 1 (Fremdbezug):</strong> 2,95 â‚¬ pro StÃ¼ck</li>
+                <li><strong>Option 2 (Eigenfertigung):</strong>
+                    <ul>
+                        <li>Sprungfixe Kosten: 3.500 â‚¬ pro Woche</li>
+                        <li>Variable Kosten: 0,85 â‚¬ (Material) + 1,25 â‚¬ (Lohn) + 0,15 â‚¬ (sonstige) = 2,25 â‚¬ pro StÃ¼ck</li>
+                    </ul>
+                </li>
+            </ul>
+            <p><strong>a)</strong> Berechne die kritische Menge pro Woche.</p>
+            <p><strong>b)</strong> Der wÃ¶chentliche Bedarf liegt bei 4.000 StÃ¼ck. Welche Option ist gÃ¼nstiger?</p>
+
+            <button class="toggle-solution" onclick="toggleSolution(this)">ðŸ“– LÃ¶sung anzeigen</button>
+            <div class="solution">
+                <h5>LÃ¶sung:</h5>
+                <p><strong>a) Kritische Menge:</strong></p>
+                <div class="formula">
+X_kritisch = K_f / (Fremdbezug - k_v)
+           = 3.500 / (2,95 - 2,25)
+           = 3.500 / 0,70
+           = 5.000 StÃ¼ck pro Woche
+                </div>
+
+                <p><strong>b) Entscheidung bei 4.000 StÃ¼ck pro Woche:</strong></p>
+                <ul>
+                    <li>Fremdbezug: 4.000 Ã— 2,95 = 11.800 â‚¬</li>
+                    <li>Eigenfertigung: 3.500 + (4.000 Ã— 2,25) = 3.500 + 9.000 = 12.500 â‚¬</li>
+                    <li><strong>â†’ Fremdbezug ist gÃ¼nstiger! (11.800 â‚¬ &lt; 12.500 â‚¬)</strong></li>
+                </ul>
+                <p>
+                    Erst ab 5.000 StÃ¼ck pro Woche wÃ¤re Eigenfertigung billiger.
+                    Bei nur 4.000 StÃ¼ck sollte das Unternehmen die Winkel zukaufen.
+                </p>
+            </div>
+        </div>
+
+        <!-- Aufgabe 4 -->
+        <div class="exercise">
+            <h4><span class="exercise-number">Aufgabe 4</span> Break-Even-Point berechnen</h4>
+            <p>
+                Ein USB-Stick-Hersteller hat folgende Daten:
+                Fixkosten: 8.700 â‚¬ pro Monat,
+                Variable Kosten: 32,50 â‚¬ pro StÃ¼ck,
+                Verkaufspreis: 89,00 â‚¬ pro StÃ¼ck.
+            </p>
+            <p><strong>a)</strong> Berechne den Break-Even-Point (Menge und ErlÃ¶s).</p>
+            <p><strong>b)</strong> Wie hoch ist der Gewinn/Verlust bei 100 verkauften StÃ¼ck?</p>
+            <p><strong>c)</strong> Wie hoch ist der Gewinn bei 200 verkauften StÃ¼ck?</p>
+
+            <button class="toggle-solution" onclick="toggleSolution(this)">ðŸ“– LÃ¶sung anzeigen</button>
+            <div class="solution">
+                <h5>LÃ¶sung:</h5>
+                <p><strong>a) Break-Even-Point:</strong></p>
+                <div class="formula">
+Deckungsbeitrag pro StÃ¼ck = 89,00 - 32,50 = 56,50 â‚¬
+
+BEP_Menge = 8.700 / 56,50 â‰ˆ 154 StÃ¼ck
+
+BEP_ErlÃ¶s = 154 Ã— 89,00 â‰ˆ 13.706 â‚¬
+
+Oder: BEP_ErlÃ¶s = 8.700 / ((89,00 - 32,50) / 89,00) = 8.700 / 0,6348 â‰ˆ 13.710 â‚¬
+                </div>
+
+                <p><strong>b) Bei 100 verkauften StÃ¼ck:</strong></p>
+                <ul>
+                    <li>ErlÃ¶s: 100 Ã— 89 = 8.900 â‚¬</li>
+                    <li>Gesamtkosten: 8.700 + (100 Ã— 32,50) = 12.950 â‚¬</li>
+                    <li>Gewinn/Verlust: 8.900 - 12.950 = <strong>-4.050 â‚¬ (Verlust!)</strong></li>
+                    <li>Oder via DB: (100 Ã— 56,50) - 8.700 = 5.650 - 8.700 = -3.050 â‚¬</li>
+                </ul>
+
+                <p><strong>c) Bei 200 verkauften StÃ¼ck:</strong></p>
+                <ul>
+                    <li>ErlÃ¶s: 200 Ã— 89 = 17.800 â‚¬</li>
+                    <li>Gesamtkosten: 8.700 + (200 Ã— 32,50) = 15.200 â‚¬</li>
+                    <li>Gewinn: 17.800 - 15.200 = <strong>2.600 â‚¬ Gewinn!</strong></li>
+                    <li>Oder via DB: (200 Ã— 56,50) - 8.700 = 11.300 - 8.700 = 2.600 â‚¬</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Aufgabe 5 -->
+        <div class="exercise">
+            <h4><span class="exercise-number">Aufgabe 5</span> Deckungsbeitrag und Betriebsergebnis</h4>
+            <p>
+                Die TSM AG produziert 500 SchreibtischstÃ¼hle pro Monat mit folgenden Kosten:
+            </p>
+            <ul>
+                <li>Kalkulatorische Abschreibung: 12.250 â‚¬</li>
+                <li>Kalkulatorische Zinsen: 7.200 â‚¬</li>
+                <li>Gehaltskosten Produktionsleiter: 1.000 â‚¬</li>
+                <li>Sonstige fixe Kosten: 600 â‚¬</li>
+                <li>Materialkosten pro StÃ¼ck: 59,00 â‚¬</li>
+                <li>Lohnkosten pro StÃ¼ck: 21,00 â‚¬</li>
+                <li>Sonstige variable Kosten pro StÃ¼ck: 2,80 â‚¬</li>
+                <li>Verkaufspreis pro Stuhl: 180 â‚¬</li>
+            </ul>
+            <p><strong>a)</strong> Berechne Fixkosten und variable Kosten pro StÃ¼ck.</p>
+            <p><strong>b)</strong> Berechne den Deckungsbeitrag pro Stuhl.</p>
+            <p><strong>c)</strong> Berechne den Gesamtdeckungsbeitrag und das Betriebsergebnis.</p>
+
+            <button class="toggle-solution" onclick="toggleSolution(this)">ðŸ“– LÃ¶sung anzeigen</button>
+            <div class="solution">
+                <h5>LÃ¶sung:</h5>
+                <p><strong>a) Fixkosten und variable Kosten pro StÃ¼ck:</strong></p>
+                <ul>
+                    <li>K_f = 12.250 + 7.200 + 1.000 + 600 = 21.050 â‚¬</li>
+                    <li>k_v = 59 + 21 + 2,80 = 82,80 â‚¬ pro StÃ¼ck</li>
+                </ul>
+
+                <p><strong>b) Deckungsbeitrag pro Stuhl:</strong></p>
+                <ul>
+                    <li>db = 180 - 82,80 = 97,20 â‚¬ pro Stuhl</li>
+                </ul>
+
+                <p><strong>c) Gesamtdeckungsbeitrag und Betriebsergebnis:</strong></p>
+                <ul>
+                    <li>DB_gesamt = 97,20 Ã— 500 = 48.600 â‚¬</li>
+                    <li>Betriebsergebnis = 48.600 - 21.050 = <strong>27.550 â‚¬ Gewinn!</strong></li>
+                </ul>
+
+                <p>Verifizierung:</p>
+                <ul>
+                    <li>ErlÃ¶s: 180 Ã— 500 = 90.000 â‚¬</li>
+                    <li>Gesamtkosten: 21.050 + (82,80 Ã— 500) = 62.450 â‚¬</li>
+                    <li>Gewinn: 90.000 - 62.450 = 27.550 â‚¬ âœ“</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Aufgabe 6 -->
+        <div class="exercise">
+            <h4><span class="exercise-number">Aufgabe 6</span> Sonderauftrag mit Teilkostenrechnung</h4>
+            <p>
+                Ein Pizzaservice hat folgende regulÃ¤re Kostenstruktur:
+                Verkaufspreis: 5,00 â‚¬, Variable Kosten: 2,00 â‚¬, Fixkosten: 600 â‚¬/Monat.
+                Die Fixkosten sind bereits durch regulÃ¤re VerkÃ¤ufe gedeckt.
+            </p>
+            <p>
+                Ein GroÃŸkunde fragt an: "KÃ¶nnt ihr mir 100 Pizzas zum Sonderpreis von 2,50 â‚¬ verkaufen?"
+            </p>
+            <p><strong>a)</strong> Berechne den StÃ¼ck-Deckungsbeitrag fÃ¼r den Sonderpreis.</p>
+            <p><strong>b)</strong> Sollte der Service den Auftrag annehmen? BegrÃ¼nde.</p>
+            <p><strong>c)</strong> Was ist das langfristige Problem dieser Strategie?</p>
+
+            <button class="toggle-solution" onclick="toggleSolution(this)">ðŸ“– LÃ¶sung anzeigen</button>
+            <div class="solution">
+                <h5>LÃ¶sung:</h5>
+                <p><strong>a) Deckungsbeitrag fÃ¼r Sonderauftrag:</strong></p>
+                <ul>
+                    <li>db = 2,50 - 2,00 = 0,50 â‚¬ pro Pizza</li>
+                    <li>DB_gesamt = 0,50 Ã— 100 = 50 â‚¬ Zusatzgewinn</li>
+                </ul>
+
+                <p><strong>b) Sollte der Service annehmen?</strong></p>
+                <p><strong>JA, kurzfristig!</strong> BegrÃ¼ndung:</p>
+                <ul>
+                    <li>Der Deckungsbeitrag ist positiv (0,50 â‚¬ > 0).</li>
+                    <li>Die Fixkosten sind bereits gedeckt (regulÃ¤re GeschÃ¤ft lÃ¤uft).</li>
+                    <li>Die Sonderbestellung trÃ¤gt noch 50 â‚¬ zum Gewinn bei.</li>
+                    <li>Gewinn ohne Auftrag: X â‚¬</li>
+                    <li>Gewinn mit Auftrag: (X + 50 â‚¬) â‚¬</li>
+                </ul>
+
+                <p><strong>c) Langfristige Probleme:</strong></p>
+                <ul>
+                    <li>Wenn regulÃ¤re Kunden vom Sonderpreis erfahren, fordern sie auch Rabatt.</li>
+                    <li>Das GeschÃ¤ft wird unrentabel, wenn zu viele Kunden zum niedrigen Preis kaufen.</li>
+                    <li>Preisimage leidet ("Warum kosten bei euch die Pizzas nur 2,50 â‚¬ statt 5 â‚¬?").</li>
+                    <li><strong>LÃ¶sung:</strong> SonderauftrÃ¤ge sind nur temporÃ¤r akzeptabel!</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Aufgabe 7 -->
+        <div class="exercise">
+            <h4><span class="exercise-number">Aufgabe 7</span> Kosten-Vergleich: Voll- vs. Teilkostenrechnung</h4>
+            <p>
+                Ein Unternehmen produziert zwei Produkte:
+            </p>
+            <table class="table">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Laptop</th>
+                    <th>Tablet</th>
+                </tr>
+                <tr>
+                    <td>Verkaufspreis</td>
+                    <td>1.500 â‚¬</td>
+                    <td>600 â‚¬</td>
+                </tr>
+                <tr>
+                    <td>Variable Kosten</td>
+                    <td>800 â‚¬</td>
+                    <td>350 â‚¬</td>
+                </tr>
+                <tr>
+                    <td>Absatz pro Monat</td>
+                    <td>50 StÃ¼ck</td>
+                    <td>100 StÃ¼ck</td>
+                </tr>
+                <tr>
+                    <td>Erzeugnisfixkosten</td>
+                    <td>15.000 â‚¬</td>
+                    <td>5.000 â‚¬</td>
+                </tr>
+            </table>
+
+            <p><strong>a)</strong> Berechne fÃ¼r beide Produkte: StÃ¼ck-DB, Gesamt-DB, DB II (= DB I - erzeugnisfixe Kosten).</p>
+            <p><strong>b)</strong> Welches Produkt ist rentabler? BegrÃ¼nde mit Teilkostenrechnung.</p>
+
+            <button class="toggle-solution" onclick="toggleSolution(this)">ðŸ“– LÃ¶sung anzeigen</button>
+            <div class="solution">
+                <h5>LÃ¶sung:</h5>
+                <p><strong>a) DeckungsbeitrÃ¤ge:</strong></p>
+                <table class="table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Laptop</th>
+                        <th>Tablet</th>
+                    </tr>
+                    <tr>
+                        <td>StÃ¼ck-DB</td>
+                        <td>1.500 - 800 = 700 â‚¬</td>
+                        <td>600 - 350 = 250 â‚¬</td>
+                    </tr>
+                    <tr>
+                        <td>Gesamt-DB I</td>
+                        <td>700 Ã— 50 = 35.000 â‚¬</td>
+                        <td>250 Ã— 100 = 25.000 â‚¬</td>
+                    </tr>
+                    <tr>
+                        <td>DB II</td>
+                        <td>35.000 - 15.000 = 20.000 â‚¬</td>
+                        <td>25.000 - 5.000 = 20.000 â‚¬</td>
+                    </tr>
+                </table>
+
+                <p><strong>b) RentabilitÃ¤tsanalyse:</strong></p>
+                <p>
+                    Interessant: DB II ist gleich (beide 20.000 â‚¬)! Aber:
+                </p>
+                <ul>
+                    <li><strong>Laptop:</strong> HÃ¶herer StÃ¼ck-DB (700 â‚¬), aber auch hÃ¶here Fixkosten (15.000 â‚¬).</li>
+                    <li><strong>Tablet:</strong> Niedrigerer StÃ¼ck-DB (250 â‚¬), aber auch niedrigere Fixkosten (5.000 â‚¬).</li>
+                </ul>
+                <p>
+                    Beiden tragen gleich zum Betriebsergebnis bei. Welches ist "besser"?
+                    Das hÃ¤ngt von der Strategie ab:
+                </p>
+                <ul>
+                    <li><strong>Wenn KapazitÃ¤t begrenzt:</strong> Laptop bevorzugen (hÃ¶herer StÃ¼ck-DB, bessere Auslastung).</li>
+                    <li><strong>Wenn Risiko minimieren:</strong> Tablet bevorzugen (niedrigere Fixkosten = weniger Risiko).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Aufgabe 8 -->
+        <div class="exercise">
+            <h4><span class="exercise-number">Aufgabe 8</span> KLR-Gesamtaufgabe: Alle Konzepte kombiniert</h4>
+            <p>
+                Ein Unternehmen produziert innovative Smartwatches. Folgende Daten sind bekannt:
+            </p>
+            <ul>
+                <li>Verkaufspreis: 250 â‚¬ pro StÃ¼ck</li>
+                <li>Fixkosten pro Monat: 50.000 â‚¬</li>
+                <li>Variable Kosten pro StÃ¼ck: 100 â‚¬</li>
+                <li>Aktuelle Produktion: 300 StÃ¼ck pro Monat</li>
+                <li>KapazitÃ¤t: 500 StÃ¼ck pro Monat</li>
+            </ul>
+
+            <p><strong>a)</strong> Berechne den Break-Even-Point.</p>
+            <p><strong>b)</strong> Berechne das aktuelle Betriebsergebnis (300 StÃ¼ck).</p>
+            <p><strong>c)</strong> Wie viele StÃ¼ck mÃ¼ssen produziert werden, um 30.000 â‚¬ Gewinn zu machen?</p>
+            <p><strong>d)</strong> Der StÃ¼ckpreis soll auf 200 â‚¬ gesenkt werden. Wie viele StÃ¼ck mÃ¼ssen dann verkauft werden, um Break-Even zu erreichen?</p>
+
+            <button class="toggle-solution" onclick="toggleSolution(this)">ðŸ“– LÃ¶sung anzeigen</button>
+            <div class="solution">
+                <h5>LÃ¶sung:</h5>
+                <p><strong>a) Break-Even-Point:</strong></p>
+                <div class="formula">
+db = 250 - 100 = 150 â‚¬ pro StÃ¼ck
+BEP = 50.000 / 150 â‰ˆ 334 StÃ¼ck pro Monat
+                </div>
+
+                <p><strong>b) Betriebsergebnis bei 300 StÃ¼ck:</strong></p>
+                <ul>
+                    <li>DB_gesamt = 150 Ã— 300 = 45.000 â‚¬</li>
+                    <li>Betriebsergebnis = 45.000 - 50.000 = -5.000 â‚¬ (Verlust!)</li>
+                </ul>
+                <p>
+                    Das Unternehmen produziert zu wenig! Mit 300 StÃ¼ck liegt es unter dem
+                    Break-Even-Point von 334 StÃ¼ck. Es macht Verluste!
+                </p>
+
+                <p><strong>c) FÃ¼r 30.000 â‚¬ Gewinn:</strong></p>
+                <div class="formula">
+Betriebsergebnis = DB - K_f
+30.000 = 150 Ã— X - 50.000
+80.000 = 150 Ã— X
+X = 80.000 / 150 â‰ˆ 534 StÃ¼ck
+
+Aber KapazitÃ¤t = 500 StÃ¼ck!
+â†’ 30.000 â‚¬ Gewinn ist mit dieser KapazitÃ¤t nicht erreichbar!
+
+Maximum Gewinn = 150 Ã— 500 - 50.000 = 25.000 â‚¬
+                </div>
+
+                <p><strong>d) Bei Preissenkung auf 200 â‚¬:</strong></p>
+                <ul>
+                    <li>db_neu = 200 - 100 = 100 â‚¬ pro StÃ¼ck</li>
+                    <li>BEP_neu = 50.000 / 100 = 500 StÃ¼ck</li>
+                </ul>
+                <p>
+                    Mit dem niedrigeren Preis (200 â‚¬ statt 250 â‚¬) muss das Unternehmen
+                    500 StÃ¼ck produzieren, um Break-Even zu erreichen â€“ das ist die maximale KapazitÃ¤t!
+                    Bei weniger als 500 StÃ¼ck macht es Verluste.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+            <footer style="margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1rem; color: var(--color-text-muted); font-size: 0.9em; text-align: center;">
+                <p>ðŸŽ“ <strong>Viel Erfolg bei deiner PrÃ¼fung!</strong> Du packst das! ðŸ’ª</p>
+                <p>Lernzettel: Kosten- & Leistungsrechnung (BW7) â€“ Alle Themen, alle Aufgaben, komplette LÃ¶sungen</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

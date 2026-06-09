@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Englisch Präsentation & Vokabeln</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: .9rem;">
+                        <div class="logo" aria-hidden="true">🎤</div>
+                        <div>
+                            <h1>Englisch</h1>
+                            <p>Präsentation</p>
+                        </div>
+                    </a>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html" style="margin-bottom: 10px; border-bottom: 1px solid var(--color-border); padding-bottom: 10px;">← Zurück zur Übersicht</a>
+                <a href="#theorie" onclick="document.querySelector('[data-tab=\'theorie\']').click();">📚 Theorie & Tipps</a>
+                <a href="#vokabeln" onclick="document.querySelector('[data-tab=\'vokabeln\']').click();">📝 Vokabel-Quiz</a>
+                <a href="#pres-quiz" onclick="document.querySelector('[data-tab=\'pres-quiz\']').click();">🎯 Präsentations-Quiz</a>
+            </nav>
+            
+            <button class="theme-toggle">
+                <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
+
+        <main class="content tabs-container">
+            <h1 class="page-title">Englisch Präsentation</h1>
+            <p class="page-subtitle">Tipps, Vokabeln und Linking Phrases für erfolgreiche IT-Präsentationen.</p>
+            
+            <!-- Tabs Navigation -->
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-tab="theorie">📚 Theorie</button>
+                <button class="tab-btn" data-tab="vokabeln">📝 Vokabel-Quiz</button>
+                <button class="tab-btn" data-tab="pres-quiz">🎯 Präsentations-Quiz</button>
+            </div>
+
+            <!-- Tab 1: Theorie -->
+            <div id="theorie" class="tab-pane active">
+                <section class="card">
+                    <h2>1. Struktur einer Präsentation</h2>
+                    <div class="grid-3">
+                        <div class="panel">
+                            <h3>1. Introduction (Einleitung)</h3>
+                            <ul>
+                                <li>Welcome the audience</li>
+                                <li>Introduce yourself</li>
+                                <li>State the topic</li>
+                                <li>Give an overview (Agenda)</li>
+                            </ul>
+                        </div>
+                        <div class="panel">
+                            <h3>2. Main Body (Hauptteil)</h3>
+                            <ul>
+                                <li>Present points clearly</li>
+                                <li>Use linking words</li>
+                                <li>Refer to visual aids</li>
+                                <li>Keep eye contact</li>
+                            </ul>
+                        </div>
+                        <div class="panel">
+                            <h3>3. Conclusion (Schluss)</h3>
+                            <ul>
+                                <li>Summarize main points</li>
+                                <li>Final statement / Call to action</li>
+                                <li>Thank the audience</li>
+                                <li>Q&A session</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>2. Linking Words (Verbindungswörter)</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <tr>
+                                <th>Kategorie</th>
+                                <th>Beispiele</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Adding info</strong> (Hinzufügen)</td>
+                                <td>furthermore, moreover, in addition, besides</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Contrast</strong> (Gegensatz)</td>
+                                <td>however, nevertheless, on the other hand, although</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cause/Effect</strong> (Ursache/Wirkung)</td>
+                                <td>therefore, consequently, as a result, because of</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sequence</strong> (Reihenfolge)</td>
+                                <td>firstly, subsequently, finally, to begin with</td>
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>3. Describing Charts & Trends</h2>
+                    <div class="grid-2">
+                        <div class="panel">
+                            <h3>Upward Trend (Aufwärts)</h3>
+                            <ul>
+                                <li>to increase / an increase</li>
+                                <li>to rise / a rise</li>
+                                <li>to grow / a growth</li>
+                                <li>to peak (Höhepunkt erreichen)</li>
+                                <li>to skyrocket (stark ansteigen)</li>
+                            </ul>
+                        </div>
+                        <div class="panel">
+                            <h3>Downward Trend (Abwärts)</h3>
+                            <ul>
+                                <li>to decrease / a decrease</li>
+                                <li>to fall / a fall</li>
+                                <li>to drop / a drop</li>
+                                <li>to decline / a decline</li>
+                                <li>to hit a low (Tiefpunkt erreichen)</li>
+                            </ul>
+                        </div>
+                        <div class="panel">
+                            <h3>Adjectives / Adverbs</h3>
+                            <ul>
+                                <li>slight / slightly (leicht)</li>
+                                <li>gradual / gradually (allmählich)</li>
+                                <li>sharp / sharply (scharf/stark)</li>
+                                <li>significant / significantly (bedeutend)</li>
+                            </ul>
+                        </div>
+                        <div class="panel">
+                            <h3>Stability</h3>
+                            <ul>
+                                <li>to remain stable</li>
+                                <li>to stay constant</li>
+                                <li>to plateau (auf hohem Niveau stagnieren)</li>
+                                <li>to fluctuate (schwanken)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Tab 2: Vokabel-Quiz -->
+            <div id="vokabeln" class="tab-pane">
+                <div class="card" id="modeSelector">
+                    <h2>Wähle deinen Quiz-Modus</h2>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <button class="btn-primary" onclick="startQuiz('multiple-choice')">Multiple Choice (Leicht)</button>
+                        <button class="btn-secondary" onclick="startQuiz('translate')">Freie Eingabe (Schwer)</button>
+                    </div>
+                </div>
+
+                <div class="card" id="quizContent" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <span class="eyebrow" id="questionCounter">Frage 1/20</span>
+                        <div style="width: 200px; height: 8px; background: var(--color-surface); border-radius: 4px; overflow: hidden;">
+                            <div id="progressBar" style="width: 0%; height: 100%; background: var(--color-primary); transition: width 0.3s;"></div>
+                        </div>
+                    </div>
+
+                    <h3 id="questionText" style="margin-bottom: 1.5rem;"></h3>
+                    
+                    <div id="optionsContainer" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+                    
+                    <input type="text" id="answerInput" style="display: none; width: 100%; padding: 0.8rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); font-size: 1rem; font-family: var(--font-body); margin-bottom: 1rem;">
+                    
+                    <div id="resultMessage" class="callout" style="display: none; margin: 1rem 0;"></div>
+                    
+                    <button class="btn-primary" id="nextBtn" style="margin-top: 1rem; display: none;" onclick="nextQuestion()">Nächste Frage</button>
+                </div>
+
+                <div class="card" id="quizSummary" style="display: none; text-align: center;">
+                    <h2>Quiz Beendet!</h2>
+                    <div style="font-size: 3rem; color: var(--color-primary); margin: 1rem 0;" id="scorePercentage">100%</div>
+                    <p id="scoreDisplay" style="font-size: 1.2rem; color: var(--color-text-muted);">20/20 richtig</p>
+                    <button class="btn-primary" onclick="resetQuiz()" style="margin-top: 1rem;">Nochmal spielen</button>
+                </div>
+            </div>
+
+            <!-- Tab 3: Präsentations-Quiz -->
+            <div id="pres-quiz" class="tab-pane">
+                <div class="card" id="presQuizContent">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <span class="eyebrow" id="presQuestionNumber">Frage 1/15</span>
+                        <div style="width: 200px; height: 8px; background: var(--color-surface); border-radius: 4px; overflow: hidden;">
+                            <div id="presProgressFill" style="width: 0%; height: 100%; background: var(--color-primary); transition: width 0.3s;"></div>
+                        </div>
+                    </div>
+
+                    <h3 id="presQuestionText" style="margin-bottom: 1.5rem;"></h3>
+                    
+                    <div id="presOptionsContainer" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+                    
+                    <div id="presFeedback" class="callout" style="display: none; margin: 1rem 0;"></div>
+                    
+                    <button class="btn-primary" id="presSubmitBtn" style="margin-top: 1rem;" onclick="submitPresAnswer()">Antwort überprüfen</button>
+                </div>
+
+                <div class="card" id="presSummary" style="display: none; text-align: center;">
+                    <h2>Quiz Beendet!</h2>
+                    <div style="font-size: 3rem; color: var(--color-primary); margin: 1rem 0;" id="presScoreCircle">100%</div>
+                    <p id="presScoreMessage" style="font-size: 1.2rem; color: var(--color-text-muted);"></p>
+                    <button class="btn-primary" onclick="resetPresQuiz()" style="margin-top: 1rem;">Nochmal spielen</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Vocabulary Quiz Logic
+        const allVocab = [
+            { en: "to increase", de: "steigen / zunehmen" },
+            { en: "to decrease", de: "sinken / abnehmen" },
+            { en: "to remain stable", de: "stabil bleiben" },
+            { en: "to fluctuate", de: "schwanken" },
+            { en: "to peak", de: "den Höhepunkt erreichen" },
+            { en: "to hit a low", de: "den Tiefpunkt erreichen" },
+            { en: "significant", de: "bedeutend / signifikant" },
+            { en: "slight", de: "leicht / geringfügig" },
+            { en: "sharp", de: "scharf / steil" },
+            { en: "gradual", de: "allmählich" },
+            { en: "furthermore", de: "außerdem / des Weiteren" },
+            { en: "however", de: "jedoch" },
+            { en: "therefore", de: "deshalb / daher" },
+            { en: "consequently", de: "infolgedessen / folglich" },
+            { en: "to summarize", de: "zusammenfassen" },
+            { en: "agenda", de: "Tagesordnung / Programm" },
+            { en: "chart", de: "Diagramm" },
+            { en: "bar chart", de: "Säulendiagramm" },
+            { en: "pie chart", de: "Kreisdiagramm" },
+            { en: "line graph", de: "Liniendiagramm" }
+        ];
+
+        let currentMode = '';
+        let quizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        function startQuiz(mode) {
+            currentMode = mode;
+            document.getElementById('modeSelector').style.display = 'none';
+            document.getElementById('quizContent').style.display = 'block';
+            
+            // Randomize questions
+            quizQuestions = [...allVocab].sort(() => Math.random() - 0.5).slice(0, 10); // Take 10 questions
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                endQuiz();
+                return;
+            }
+
+            answered = false;
+            const question = quizQuestions[currentQuestionIndex];
+            
+            document.getElementById('questionCounter').textContent = `Frage ${currentQuestionIndex + 1} / ${quizQuestions.length}`;
+            document.getElementById('progressBar').style.width = `${(currentQuestionIndex / quizQuestions.length) * 100}%`;
+            
+            document.getElementById('resultMessage').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            
+            if (currentMode === 'multiple-choice') {
+                loadMultipleChoice(question);
+            } else {
+                loadTranslateMode(question);
+            }
+        }
+
+        function loadMultipleChoice(question) {
+            document.getElementById('questionText').textContent = `Was bedeutet "${question.en}"?`;
+            document.getElementById('answerInput').style.display = 'none';
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            // Generate options
+            let options = [question.de];
+            let otherOptions = allVocab.filter(v => v.en !== question.en).map(v => v.de);
+            otherOptions.sort(() => Math.random() - 0.5);
+            options.push(otherOptions[0], otherOptions[1], otherOptions[2]);
+            options.sort(() => Math.random() - 0.5);
+            
+            options.forEach(opt => {
+                const btn = document.createElement('div');
+                btn.className = 'quiz-option';
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer(opt, question.de, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function loadTranslateMode(question) {
+            document.getElementById('questionText').textContent = `Übersetze ins Englische: "${question.de}"`;
+            document.getElementById('optionsContainer').innerHTML = '';
+            
+            const input = document.getElementById('answerInput');
+            input.style.display = 'block';
+            input.value = '';
+            input.placeholder = 'Tippe die englische Übersetzung ein...';
+            input.onkeypress = (e) => {
+                if (e.key === 'Enter') {
+                    checkAnswer(input.value, question.en, null);
+                }
+            };
+            input.focus();
+        }
+
+        function checkAnswer(selected, correct, element) {
+            if (answered) return;
+            answered = true;
+            
+            const isCorrect = selected.toLowerCase().trim() === correct.toLowerCase().trim();
+            const resultMsg = document.getElementById('resultMessage');
+            resultMsg.style.display = 'block';
+            
+            if (isCorrect) {
+                score++;
+                resultMsg.className = 'callout success';
+                resultMsg.innerHTML = '<strong>✓ Richtig!</strong> Gut gemacht!';
+                if(element) element.classList.add('correct');
+            } else {
+                resultMsg.className = 'callout warning';
+                resultMsg.innerHTML = `<strong>✗ Falsch!</strong> Die richtige Antwort ist: ${correct}`;
+                if(element) element.classList.add('incorrect');
+            }
+            
+            document.getElementById('nextBtn').style.display = 'inline-flex';
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function endQuiz() {
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('quizSummary').style.display = 'block';
+            
+            const percentage = Math.round((score / quizQuestions.length) * 100);
+            document.getElementById('scorePercentage').textContent = `${percentage}%`;
+            document.getElementById('scoreDisplay').textContent = `${score}/${quizQuestions.length} richtig`;
+        }
+
+        function resetQuiz() {
+            document.getElementById('quizSummary').style.display = 'none';
+            document.getElementById('modeSelector').style.display = 'block';
+        }
+
+        // Presentations Quiz Logic
+        const presentationsQuestions = [
+            {
+                question: "What is the MINIMUM font size for normal text on a PowerPoint slide?",
+                options: ["20pt", "30pt", "44pt", "50pt"],
+                correct: 1,
+                explanation: "The minimum font size for normal body text is 30pt to ensure readability for the audience."
+            },
+            {
+                question: "How should you write a decimal number in English presentations?",
+                options: ["3,25 (with comma)", "3.25 (with point)", "3-25 (with dash)", "Both A and B are correct"],
+                correct: 1,
+                explanation: "In English, use a POINT (3.25), not a comma. Commas are for thousands (5,000,000)."
+            },
+            {
+                question: "Which linking phrase would you use to INTRODUCE your presentation?",
+                options: ["To conclude...", "Furthermore...", "I'd like to begin by...", "On the other hand..."],
+                correct: 2,
+                explanation: "'I'd like to begin by...' is an introductory phrase. 'To conclude' ends a presentation."
+            },
+            {
+                question: "Which verb describes a SHARP INCREASE in a diagram?",
+                options: ["remained stable", "declined slightly", "rocketed / skyrocketed", "plateaued"],
+                correct: 2,
+                explanation: "'Rocketed' or 'skyrocketed' describes a sharp, sudden increase."
+            },
+            {
+                question: "What does 'plateau' mean when describing a diagram?",
+                options: ["Sharp increase", "Remains flat/stable", "Sudden drop", "Fluctuates wildly"],
+                correct: 1,
+                explanation: "'Plateau' = flat, no change. Numbers stay the same. Example: 'Sales plateaued at 50,000 units.'"
+            }
+        ];
+
+        let presCurrentQuestion = 0;
+        let presScore = 0;
+        let presAnswered = false;
+        let presSelectedAnswer = null;
+
+        function loadPresQuestion() {
+            if (presCurrentQuestion >= presentationsQuestions.length) {
+                showPresSummary();
+                return;
+            }
+
+            const question = presentationsQuestions[presCurrentQuestion];
+            presAnswered = false;
+            presSelectedAnswer = null;
+
+            document.getElementById('presQuestionNumber').textContent = `Frage ${presCurrentQuestion + 1}/${presentationsQuestions.length}`;
+            document.getElementById('presQuestionText').textContent = question.question;
+            document.getElementById('presFeedback').style.display = 'none';
+            document.getElementById('presSubmitBtn').textContent = 'Antwort überprüfen';
+
+            const optionsContainer = document.getElementById('presOptionsContainer');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => {
+                    if(presAnswered) return;
+                    presSelectedAnswer = index;
+                    document.querySelectorAll('#presOptionsContainer .quiz-option').forEach(opt => opt.classList.remove('selected'));
+                    optionDiv.classList.add('selected');
+                };
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            const progress = ((presCurrentQuestion) / presentationsQuestions.length) * 100;
+            document.getElementById('presProgressFill').style.width = progress + '%';
+        }
+
+        function submitPresAnswer() {
+            if (presAnswered) {
+                presCurrentQuestion++;
+                loadPresQuestion();
+                return;
+            }
+
+            if (presSelectedAnswer === null) {
+                alert('Bitte wähle eine Antwort aus!');
+                return;
+            }
+
+            presAnswered = true;
+            const question = presentationsQuestions[presCurrentQuestion];
+            const isCorrect = presSelectedAnswer === question.correct;
+            const feedbackBox = document.getElementById('presFeedback');
+            feedbackBox.style.display = 'block';
+
+            // mark correct and incorrect in UI
+            const options = document.querySelectorAll('#presOptionsContainer .quiz-option');
+            options[presSelectedAnswer].classList.add(isCorrect ? 'correct' : 'incorrect');
+            if(!isCorrect) options[question.correct].classList.add('correct');
+
+            if (isCorrect) {
+                presScore++;
+                feedbackBox.className = 'callout success';
+                feedbackBox.innerHTML = `<strong>✓ Richtig!</strong> ${question.explanation}`;
+            } else {
+                feedbackBox.className = 'callout warning';
+                feedbackBox.innerHTML = `<strong>✗ Falsch!</strong> ${question.explanation}`;
+            }
+
+            document.getElementById('presSubmitBtn').textContent = presCurrentQuestion === presentationsQuestions.length - 1 ? 'Ergebnisse anzeigen' : 'Nächste Frage';
+        }
+
+        function showPresSummary() {
+            document.getElementById('presQuizContent').style.display = 'none';
+            document.getElementById('presSummary').style.display = 'block';
+
+            const percentage = Math.round((presScore / presentationsQuestions.length) * 100);
+            document.getElementById('presScoreCircle').textContent = percentage + '%';
+
+            let message = '';
+            if (percentage === 100) message = 'Perfekt! Du bist ein Präsentations-Experte! 🌟';
+            else if (percentage >= 80) message = 'Großartig! Du weißt Bescheid! 💪';
+            else message = 'Weiter lernen! Wiederhole das Material. 📖';
+
+            document.getElementById('presScoreMessage').textContent = `Du hast ${presScore} von ${presentationsQuestions.length} Fragen richtig beantwortet. ${message}`;
+        }
+
+        function resetPresQuiz() {
+            presCurrentQuestion = 0;
+            presScore = 0;
+            document.getElementById('presQuizContent').style.display = 'block';
+            document.getElementById('presSummary').style.display = 'none';
+            loadPresQuestion();
+        }
+
+        // Init Pres Quiz
+        loadPresQuestion();
+
+    </script>
+</body>
+</html>

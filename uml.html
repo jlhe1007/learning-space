@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UML - Aktivitätsdiagramm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: .9rem;">
+                        <div class="logo" aria-hidden="true">🎯</div>
+                        <div>
+                            <h1>UML</h1>
+                            <p>Aktivitätsdiagramm</p>
+                        </div>
+                    </a>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html" style="margin-bottom: 10px; border-bottom: 1px solid var(--color-border); padding-bottom: 10px;">← Zurück zur Übersicht</a>
+                <a href="#was-ist">Was ist das?</a>
+                <a href="#elemente">Basiselemente</a>
+                <a href="#kontrollstrukturen">Kontrollstrukturen</a>
+                <a href="#beispiele">Beispiele</a>
+            </nav>
+            
+            <button class="theme-toggle">
+                <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
+
+        <main class="content">
+            <h1 class="page-title">UML-Aktivitätsdiagramm</h1>
+            <p class="page-subtitle">Modellierung von Arbeitsabläufen und Prozessen</p>
+
+            <section id="was-ist" class="card">
+                <h2>Was ist ein Aktivitätsdiagramm?</h2>
+                <p>Ein Aktivitätsdiagramm (Activity Diagram) ist ein Verhaltensdiagramm der Unified Modeling Language (UML). Es zeigt den Ablauf (Kontrollfluss) von Aktivitäten und Aktionen in einem System oder Geschäftsprozess.</p>
+                <div class="callout">
+                    <strong>Hauptzweck</strong>
+                    Aktivitätsdiagramme eignen sich hervorragend, um Algorithmen, Geschäftsabläufe (Workflows) oder parallele Prozesse grafisch darzustellen.
+                </div>
+            </section>
+
+            <section id="elemente" class="card">
+                <h2>Wichtige Basiselemente</h2>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>Element</th>
+                            <th>Symbol / Beschreibung</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Aktion (Action)</strong></td>
+                            <td>Rechteck mit abgerundeten Ecken. Repräsentiert einen einzelnen atomaren Arbeitsschritt.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Startknoten (Initial Node)</strong></td>
+                            <td>Ausgefüllter schwarzer Kreis. Markiert den Beginn des Workflows.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Endknoten (Activity Final)</strong></td>
+                            <td>Schwarzer Kreis mit Rand (Bullseye). Beendet den gesamten Ablauf.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ablaufende (Flow Final)</strong></td>
+                            <td>Kreis mit einem 'X'. Beendet nur einen speziellen Pfad, nicht die ganze Aktivität.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kontrollfluss (Control Flow)</strong></td>
+                            <td>Durchgezogener Pfeil. Zeigt die Übergänge von einer Aktion zur nächsten.</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <section id="kontrollstrukturen" class="card">
+                <h2>Kontrollstrukturen und Verzweigungen</h2>
+                <div class="grid-2">
+                    <div class="panel">
+                        <h3>Verzweigung (Decision)</h3>
+                        <p>Dargestellt durch eine <strong>Raute</strong>. Hier teilt sich der Ablauf basierend auf einer Bedingung (Guard) auf.</p>
+                        <p>Beispiel: <code>[ist angemeldet]</code> → Gehe zu Dashboard, <code>[nicht angemeldet]</code> → Gehe zu Login.</p>
+                    </div>
+                    <div class="panel">
+                        <h3>Zusammenführung (Merge)</h3>
+                        <p>Ebenfalls eine <strong>Raute</strong>. Führt verschiedene alternative Pfade wieder zusammen. Es wird nicht auf den anderen Pfad gewartet.</p>
+                    </div>
+                    <div class="panel">
+                        <h3>Parallelisierung (Fork)</h3>
+                        <p>Ein <strong>dicker schwarzer Balken</strong>. Ein eingehender Pfeil wird in mehrere ausgehende Pfeile aufgeteilt, die zeitgleich ausgeführt werden.</p>
+                    </div>
+                    <div class="panel">
+                        <h3>Synchronisation (Join)</h3>
+                        <p>Ein <strong>dicker schwarzer Balken</strong>. Wartet, bis alle eingehenden parallelen Pfade abgeschlossen sind, bevor es weitergeht.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="beispiele" class="card">
+                <h2>Häufige Fehler & Checkliste</h2>
+                <div class="callout warning">
+                    <strong>Typische Fehler in der Prüfung:</strong>
+                    <ul>
+                        <li>Kein Start- oder Endknoten vorhanden.</li>
+                        <li>Vergessene Bedingungen (Guards) an den Ausgängen einer Raute.</li>
+                        <li>Verwechseln von Join/Fork (Parallele Prozesse) mit Decision/Merge (Entweder/Oder).</li>
+                        <li>Verzweigungen ohne zusammenführende Merge-Raute später im Diagramm.</li>
+                    </ul>
+                </div>
+                
+                <h3>Prüfungs-Checkliste</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li>✅ Habe ich genau einen Startknoten?</li>
+                    <li>✅ Ist jeder Guard in eckige Klammern <code>[Bedingung]</code> gesetzt?</li>
+                    <li>✅ Führt jeder Pfad irgendwann zu einem Endknoten oder Ablaufende?</li>
+                    <li>✅ Gibt es offene Pfeile, die nirgendwo enden? (Verboten!)</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lernseite Normalisierung</title>
+  <meta name="description" content="Interaktive Lernseite zur Datenbank-Normalisierung mit 1NF, 2NF, 3NF und Quiz.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Specific styles for Normalisierung page that aren't global */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.25fr .95fr;
+      gap: var(--space-8);
+      align-items: stretch;
+      margin-bottom: var(--space-10);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    .mini {
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+    }
+    .mini strong { display: block; font-size: var(--text-sm); margin-bottom: .25rem; }
+    .hero-aside {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--color-primary-highlight) 55%, var(--color-surface-2)), var(--color-surface-2));
+    }
+    .checklist { padding-left: 1.2rem; margin: 0; display: grid; gap: .6rem; }
+    
+    .example-block { display: grid; gap: var(--space-4); margin-top: 1rem; }
+    .split-example { display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-4); align-items: start; }
+    .arrow { align-self: center; font-size: 2rem; color: var(--color-primary); font-weight: 700; }
+    
+    .anomaly { border-top: 4px solid var(--color-warning); }
+    
+    .quiz-header { display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin-bottom: var(--space-4); }
+    .progress { font-size: var(--text-sm); color: var(--color-text-muted); }
+    .question { display: none; }
+    .question.active { display: block; }
+    .quiz-actions { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: var(--space-5); }
+    
+    @media (max-width: 1040px) {
+      .hero { grid-template-columns: 1fr; }
+      .split-example { grid-template-columns: 1fr; }
+      .arrow { display: none; }
+    }
+    @media (max-width: 720px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .quiz-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Seitennavigation">
+      <div class="sidebar-header">
+        <div class="brand">
+            <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: .9rem;">
+                <div class="logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M6 5h12"></path><path d="M6 12h8"></path><path d="M6 19h4"></path><path d="M17 4v16"></path>
+                </svg>
+                </div>
+                <div>
+                <h1>Normalisierung</h1>
+                <p>Lernfeld 8</p>
+                </div>
+            </a>
+        </div>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+      <nav class="nav" id="sidebar-nav">
+        <a href="index.html" style="margin-bottom: 10px; border-bottom: 1px solid var(--color-border); padding-bottom: 10px;">← Zurück zur Übersicht</a>
+        <a href="#einstieg">Einstieg</a>
+        <a href="#grundlagen">Grundbegriffe</a>
+        <a href="#abhaengigkeiten">Abhängigkeiten</a>
+        <a href="#normalformen">Normalformen</a>
+        <a href="#anomalien">Anomalien</a>
+        <a href="#quiz">Quiz</a>
+      </nav>
+      <button class="theme-toggle">
+        <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+      </button>
+    </aside>
+    
+    <main class="content" id="main">
+      <section class="hero" id="einstieg">
+        <article class="card">
+          <span class="eyebrow">Datenbanken · Struktur · Konsistenz</span>
+          <h2>Normalisierung bringt Ordnung in relationale Datenmodelle.</h2>
+          <p>Diese Lernseite erklärt die wichtigsten Regeln, um Anomalien in relationalen Datenbanken zu vermeiden. Dabei reicht es, sich die starren Regeln der Normalisierung einzuprägen und Schritt für Schritt anzuwenden. Die Inhalte orientieren sich an Best Practices der Datenbankentwicklung.</p>
+          <div class="hero-grid">
+            <div class="mini"><strong>Ziel</strong><span>Redundanzen und Anomalien verhindern.</span></div>
+            <div class="mini"><strong>Wichtig</strong><span>Jede Normalform baut zwingend auf der vorherigen auf.</span></div>
+            <div class="mini"><strong>Merksatz</strong><span>1NF: atomar · 2NF: voll funktional abhängig · 3NF: nicht transitiv.</span></div>
+            <div class="mini"><strong>Praxis</strong><span>Saubere Tabellen erleichtern Pflege, Abfragen und Erweiterungen.</span></div>
+          </div>
+        </article>
+        <aside class="card hero-aside">
+          <h3>Lernziele</h3>
+          <ol class="checklist">
+            <li>Grundbegriffe (Primärschlüssel, Fremdschlüssel) sicher unterscheiden.</li>
+            <li>Funktionale, voll funktionale und transitive Abhängigkeiten erkennen.</li>
+            <li>Die Regeln der 1., 2. und 3. Normalform verstehen und anwenden.</li>
+            <li>Tabellen von der 0. Normalform bis zur 3NF sinnvoll zerlegen.</li>
+            <li>Das eigene Wissen im Quiz testen.</li>
+          </ol>
+        </aside>
+      </section>
+
+      <section id="grundlagen">
+        <h3>Grundbegriffe</h3>
+        <p>Bevor man normalisiert, muss klar sein, wie Tabellen im Relationenmodell aufgebaut sind und welche Rolle Schlüssel spielen.</p>
+        <div class="grid-2">
+          <article class="panel">
+            <h4>Begriffe im Relationenmodell</h4>
+            <ul>
+              <li><strong>Relation:</strong> Eine Tabelle als Menge von Tupeln mit Attributen.</li>
+              <li><strong>Attribut:</strong> Eine Spalte mit einem eindeutigen Namen innerhalb der Relation.</li>
+              <li><strong>Attributwert:</strong> Der konkrete Inhalt einer Zelle (muss in der 1NF atomar sein).</li>
+              <li><strong>Tupel:</strong> Eine Zeile, also ein einzelner Datensatz.</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h4>Schlüssel</h4>
+            <ul>
+              <li><strong>Primärschlüssel (PK):</strong> Identifiziert jeden Datensatz (Tupel) in einer Relation zweifelsfrei (z.B. <code>KundenNr</code> oder <code>BestellNr</code>). Wird oft unterstrichen dargestellt. Kann auch zusammengesetzt sein.</li>
+              <li><strong>Fremdschlüssel (FK):</strong> Ein Attribut, das auf den Primärschlüssel einer anderen Tabelle verweist (z.B. um eine 1:n-Beziehung aufzulösen).</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="abhaengigkeiten">
+        <h3>Abhängigkeiten von Attributen</h3>
+        <p>Normalisierung basiert auf der Frage, welche Attribute andere Attribute eindeutig bestimmen.</p>
+        <div class="grid-3">
+          <article class="panel">
+            <h4>Funktionale Abhängigkeit</h4>
+            <p>Ein Attribut <code>Y</code> ist funktional abhängig von <code>X</code>, wenn zu jedem Wert von <code>X</code> genau ein Wert von <code>Y</code> gehört.</p>
+            <p><strong>Beispiel:</strong> <code>KundenNr → Vorname</code></p>
+          </article>
+          <article class="panel">
+            <h4>Voll funktionale Abhängigkeit</h4>
+            <p>Relevant bei zusammengesetzten Schlüsseln. Ein Attribut muss vom <em>gesamten</em> Schlüssel abhängen, nicht nur von einem Teil.</p>
+            <p><strong>Beispiel:</strong> In <code>(BestellNr, ArtikelNr) → Anzahl</code> wird für die Anzahl zwingend beides benötigt.</p>
+          </article>
+          <article class="panel">
+            <h4>Transitive Abhängigkeit</h4>
+            <p>Ein Nichtschlüsselattribut hängt von einem anderen Nichtschlüsselattribut ab (Aus A folgt B, aus B folgt C → A folgt C).</p>
+            <p><strong>Beispiel:</strong> <code>KundenNr → PLZ → Ort</code></p>
+          </article>
+        </div>
+      </section>
+
+      <section id="normalformen">
+        <h3>Normalformen (Schritt für Schritt)</h3>
+        <p>Wir starten oft bei der 0. Normalform (0NF), bei der alle Daten völlig unstrukturiert in einer einzigen Tabelle liegen.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Stufe</th>
+                <th>Kernregel</th>
+                <th>Beseitigt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>0NF</strong></td><td>Keine Regeln.</td><td>-</td></tr>
+              <tr><td><strong>1NF</strong></td><td>Alle Attributwerte müssen atomar sein.</td><td>Mehrfachwerte und unteilbare Zeichenketten in einer Zelle.</td></tr>
+              <tr><td><strong>2NF</strong></td><td>1NF + Jedes Nichtschlüsselattribut ist voll funktional vom Primärschlüssel abhängig.</td><td>Partielle Abhängigkeiten (nur bei zusammengesetzten Schlüsseln).</td></tr>
+              <tr><td><strong>3NF</strong></td><td>2NF + Kein Nichtschlüsselattribut hängt transitiv von einem Schlüsselkandidaten ab.</td><td>Indirekte Abhängigkeiten zwischen Nichtschlüsselattributen.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="example-block">
+          <article class="panel">
+            <h4>1. Normalform (1NF)</h4>
+            <p>Die Regel lautet: <strong>Alle Attributwerte müssen atomar sein.</strong> Wir müssen Attribute so weit aufgliedern, wie es möglich und sinnvoll ist. Nur so kann der Computer später korrekt sortieren oder filtern.</p>
+            <div class="split-example">
+              <div class="panel">
+                <span class="badge" style="margin-bottom:10px">Problem (0NF)</span>
+                <p>Tabelle mit Spalten: <code>BestellNr, Name, Adresse</code></p>
+                <p>Der Computer weiß bei "Ludger Sievert" in einer Zelle nicht, wo der Vor- und Nachname beginnt.</p>
+              </div>
+              <div class="arrow">→</div>
+              <div class="panel">
+                <span class="badge" style="margin-bottom:10px">Lösung (1NF)</span>
+                <p>Die Spalten aufteilen: <code>BestellNr, Vorname, Nachname, Straße, PLZ, Ort</code></p>
+                <p><em>(Eine Hausnummer aus der Straße zu trennen wäre theoretisch richtig, oft aber nicht sinnvoll, wenn nicht danach sortiert wird).</em></p>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h4>2. Normalform (2NF)</h4>
+            <p>Voraussetzung ist die 1NF. Die Regel lautet: <strong>Jedes Nichtschlüsselattribut ist von jedem Schlüsselkandidaten voll funktional abhängig.</strong> Dies ist besonders bei n:m-Beziehungen wichtig, wenn wir Zwischentabellen mit zusammengesetzten Schlüsseln erstellen.</p>
+            <div class="split-example">
+              <div class="panel">
+                <span class="badge" style="margin-bottom:10px">Problem</span>
+                <p>Tabelle <code>BestellungArtikel</code> mit dem zusammengesetzten Schlüssel <code>(BestellNr, ArtikelNr)</code> sowie den Feldern <code>Artikelname</code> und <code>Anzahl</code>.</p>
+                <p>Der <code>Artikelname</code> hängt nur von der <code>ArtikelNr</code> ab (partiell).</p>
+              </div>
+              <div class="arrow">→</div>
+              <div class="panel">
+                <span class="badge" style="margin-bottom:10px">Lösung (2NF)</span>
+                <p>Tabelle <code>Artikel(ArtikelNr, Artikelname)</code></p>
+                <p>Tabelle <code>BestellungArtikel(BestellNr, ArtikelNr, Anzahl)</code><br><em>Die "Anzahl" ist voll funktional abhängig, da wir zwingend BestellNr UND ArtikelNr brauchen.</em></p>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h4>3. Normalform (3NF)</h4>
+            <p>Voraussetzung ist die 2NF. Die Regel lautet: <strong>Kein Nichtschlüsselattribut darf transitiv von einem Schlüsselkandidaten abhängen.</strong> Nichtschlüsselattribute dürfen also nicht voneinander abhängig sein.</p>
+            <div class="split-example">
+              <div class="panel">
+                <span class="badge" style="margin-bottom:10px">Problem</span>
+                <p>In der Kundentabelle stehen <code>PLZ</code> und <code>Ort</code>.</p>
+                <p>Das Attribut <code>Ort</code> hängt direkt von der <code>PLZ</code> ab und erst danach (indirekt) vom Primärschlüssel (KundenNr).</p>
+              </div>
+              <div class="arrow">→</div>
+              <div class="panel">
+                <span class="badge" style="margin-bottom:10px">Lösung (3NF)</span>
+                <p>Tabelle <code>Kunde(KundenNr, Vorname, Nachname, Straße, PLZ)</code></p>
+                <p>Tabelle <code>Postleitzahl(PLZ, Ort)</code><br><em>Die transitiv abhängige Spalte "Ort" wurde in eine neue Tabelle ausgelagert.</em></p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="anomalien" style="margin-top: var(--space-8);">
+        <h3>Redundanzen und Anomalien</h3>
+        <p>Das Hauptziel der Normalisierung ist das Verhindern von Anomalien, die durch mehrfache, unstrukturierte Daten (Redundanzen) entstehen.</p>
+        <div class="grid-2">
+          <article class="panel anomaly">
+            <h4>Einfügeanomalie</h4>
+            <p>Eine Information kann nicht gespeichert werden, ohne gleichzeitig eine andere, eigentlich noch unbekannte Information mit anzugeben.</p>
+          </article>
+          <article class="panel anomaly">
+            <h4>Löschanomalie</h4>
+            <p>Beim Löschen eines Datensatzes gehen unbeabsichtigt weitere, eigentlich unabhängige Informationen verloren.</p>
+          </article>
+          <article class="panel anomaly">
+            <h4>Änderungsanomalie</h4>
+            <p>Dieselbe Information muss an mehreren Stellen geändert werden. Vergisst man eine Stelle, widersprechen sich die Daten (Inkonsistenz).</p>
+          </article>
+          <article class="panel anomaly">
+            <h4>Mutationsanomalie</h4>
+            <p>Wird oft als Oberbegriff für diese drei Probleme beim Ändern, Einfügen und Löschen des Datenbestandes verwendet.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="quiz" style="margin-top: var(--space-8);">
+        <div class="quiz-header">
+          <div>
+            <h3>Quiz</h3>
+            <p>Teste dein Wissen mit 9 Fragen. Pro Frage ist genau eine Antwort richtig.</p>
+          </div>
+          <div class="progress" id="quizProgress">Frage 1 von 9</div>
+        </div>
+        <div class="card">
+          <form id="quizForm">
+            <!-- Questions... -->
+            <div class="question active" data-question="0">
+              <h4>1. Was ist das Hauptziel der Normalisierung?</h4>
+              <div class="options">
+                <label class="quiz-option"><input type="radio" name="q0" value="1"> Datenredundanz und Anomalien verringern</label>
+                <label class="quiz-option"><input type="radio" name="q0" value="0"> Nur die Anzahl der Datensätze erhöhen</label>
+                <label class="quiz-option"><input type="radio" name="q0" value="0"> SQL komplett ersetzen</label>
+                <label class="quiz-option"><input type="radio" name="q0" value="0"> Tabellen optisch schöner machen</label>
+              </div>
+            </div>
+            <div class="question" data-question="1">
+              <h4>2. Welche Regel beschreibt die 1NF?</h4>
+              <div class="options">
+                <label class="quiz-option"><input type="radio" name="q1" value="1"> Alle Attributwerte müssen atomar sein</label>
+                <label class="quiz-option"><input type="radio" name="q1" value="0"> Jedes Feld enthält mindestens zwei Werte</label>
+                <label class="quiz-option"><input type="radio" name="q1" value="0"> Es gibt keine Fremdschlüssel</label>
+                <label class="quiz-option"><input type="radio" name="q1" value="0"> Alle Tabellen müssen drei Spalten haben</label>
+              </div>
+            </div>
+            <div class="question" data-question="2">
+              <h4>3. Bei welcher Art von Schlüsseln ist die 2NF besonders relevant?</h4>
+              <div class="options">
+                <label class="quiz-option"><input type="radio" name="q2" value="0"> Bei einfachen, künstlichen Schlüsseln (IDs)</label>
+                <label class="quiz-option"><input type="radio" name="q2" value="1"> Bei zusammengesetzten Primärschlüsseln</label>
+                <label class="quiz-option"><input type="radio" name="q2" value="0"> Nur bei numerischen Attributen</label>
+                <label class="quiz-option"><input type="radio" name="q2" value="0"> Nur bei NoSQL-Datenbanken</label>
+              </div>
+            </div>
+            <div class="question" data-question="3">
+              <h4>4. Welche Abhängigkeit verbietet die 3NF?</h4>
+              <div class="options">
+                <label class="quiz-option"><input type="radio" name="q3" value="0"> Zyklische Abhängigkeit</label>
+                <label class="quiz-option"><input type="radio" name="q3" value="0"> Voll funktionale Abhängigkeit</label>
+                <label class="quiz-option"><input type="radio" name="q3" value="1"> Transitive Abhängigkeit</label>
+                <label class="quiz-option"><input type="radio" name="q3" value="0"> Physische Abhängigkeit</label>
+              </div>
+            </div>
+            <div class="question" data-question="4">
+              <h4>5. Wenn in einer Tabelle der "Ort" nur über die "PLZ" bestimmt wird, spricht man von...</h4>
+              <div class="options">
+                <label class="quiz-option"><input type="radio" name="q4" value="0"> Einer Löschanomalie</label>
+                <label class="quiz-option"><input type="radio" name="q4" value="1"> Einer transitiven Abhängigkeit</label>
+                <label class="quiz-option"><input type="radio" name="q4" value="0"> Einer atomaren Spalte</label>
+                <label class="quiz-option"><input type="radio" name="q4" value="0"> Einem zusammengesetzten Schlüssel</label>
+              </div>
+            </div>
+            <div class="question" data-question="5">
+              <h4>6. Welche Situation beschreibt eine Änderungsanomalie?</h4>
+              <div class="options">
+                <label class="quiz-option"><input type="radio" name="q5" value="0"> Ein Datensatz ist zu kurz</label>
+                <label class="quiz-option"><input type="radio" name="q5" value="1"> Dieselbe Information (z.B. ein Ort) muss an mehreren Stellen fehlerfrei geändert werden</label>
+                <label class="quiz-option"><input type="radio" name="q5" value="0"> Eine Tabelle enthält nur Zahlen</label>
+                <label class="quiz-option"><input type="radio" name="q5" value="0"> Ein Index fehlt</label>
+              </div>
+            </div>
+            <div class="question" data-question="6">
+              <h4>7. Was ist ein Fremdschlüssel?</h4>
+              <div class="options">
+                <label class="quiz-option"><input type="radio" name="q6" value="1"> Ein Attribut, das auf den Primärschlüssel einer anderen Tabelle verweist</label>
+                <label class="quiz-option"><input type="radio" name="q6" value="0"> Der längste Text in einer Tabelle</label>
+                <label class="quiz-option"><input type="radio" name="q6" value="0"> Eine Tabelle ohne Daten</label>
+                <label class="quiz-option"><input type="radio" name="q6" value="0"> Eine Alternative zu SQL</label>
+              </div>
+            </div>
+            <div class="question" data-question="7">
+              <h4>8. Welche Bedingung muss erfüllt sein, bevor eine Tabelle in die 3. Normalform überführt werden kann?</h4>
+              <div class="options">
+                <label class="quiz-option"><input type="radio" name="q7" value="0"> Es dürfen keine Daten mehr eingetragen werden</label>
+                <label class="quiz-option"><input type="radio" name="q7" value="1"> Die Tabelle muss sich bereits in der 2. Normalform befinden</label>
+                <label class="quiz-option"><input type="radio" name="q7" value="0"> Die Tabelle darf nur einen Fremdschlüssel haben</label>
+                <label class="quiz-option"><input type="radio" name="q7" value="0"> Alle Attribute müssen alphabetisch sortiert sein</label>
+              </div>
+            </div>
+            <div class="question" data-question="8">
+              <h4>9. Ist die Hausnummer zwingend immer in eine eigene Spalte zu trennen (1NF)?</h4>
+              <div class="options">
+                <label class="quiz-option"><input type="radio" name="q8" value="0"> Ja, in jedem Fall, sonst stürzt die Datenbank ab</label>
+                <label class="quiz-option"><input type="radio" name="q8" value="0"> Nein, man darf niemals Straßen und Hausnummern trennen</label>
+                <label class="quiz-option"><input type="radio" name="q8" value="1"> Theoretisch ja, aber praktisch wägt man ab, ob es sinnvoll ist</label>
+                <label class="quiz-option"><input type="radio" name="q8" value="0"> Nur, wenn die Hausnummer Buchstaben enthält</label>
+              </div>
+            </div>
+          </form>
+          <div class="quiz-actions">
+            <button type="button" class="btn-secondary" id="prevBtn">Zurück</button>
+            <button type="button" class="btn-secondary" id="nextBtn">Weiter</button>
+            <button type="button" class="btn-primary" id="submitBtn">Quiz auswerten</button>
+            <button type="button" class="btn-secondary" id="resetBtn">Neu starten</button>
+          </div>
+          <div class="callout" id="resultBox" aria-live="polite" style="display: none; margin-top: 1rem;"></div>
+        </div>
+      </section>
+      
+      <footer style="margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1rem; color: var(--color-text-muted); font-size: 0.9em;">
+        <p><strong>Quellenhinweis:</strong> Die Beispiele und Erklärungen auf dieser Lernseite basieren auf dem Video "Normalisierung in Datenbanken (1. bis 3. Normalform)" von Patrick Boekhoven.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    (() => {
+      // Quiz Logic for Normalisierung
+      const questions = [...document.querySelectorAll('.question')];
+      const progress = document.getElementById('quizProgress');
+      const resultBox = document.getElementById('resultBox');
+      const nextBtn = document.getElementById('nextBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      let current = 0;
+
+      function renderQuestion() {
+        questions.forEach((q, i) => q.classList.toggle('active', i === current));
+        progress.textContent = `Frage ${current + 1} von ${questions.length}`;
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === questions.length - 1;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (current < questions.length - 1) { current++; renderQuestion(); }
+      });
+      prevBtn.addEventListener('click', () => {
+        if (current > 0) { current--; renderQuestion(); }
+      });
+      submitBtn.addEventListener('click', () => {
+        let score = 0;
+        questions.forEach((_, i) => {
+          const checked = document.querySelector(`input[name="q${i}"]:checked`);
+          if (checked) score += Number(checked.value);
+        });
+        const percent = Math.round((score / questions.length) * 100);
+        let text = '';
+        if (percent >= 90) text = 'Sehr stark! Du beherrschst die Normalisierung bereits sehr sicher.';
+        else if (percent >= 70) text = 'Gute Leistung. Wiederhole vor allem die Unterscheidung von 2NF und 3NF.';
+        else if (percent >= 50) text = 'Solide Basis. Schau dir die Beispiele zu Abhängigkeiten und Anomalien noch einmal an.';
+        else text = 'Noch ausbaufähig. Gehe die Lernseite Abschnitt für Abschnitt durch und starte das Quiz erneut.';
+        
+        resultBox.className = 'callout ' + (percent >= 50 ? 'success' : 'warning');
+        resultBox.style.display = 'block';
+        resultBox.innerHTML = `<strong>Ergebnis: ${score} von ${questions.length} Punkten (${percent}%)</strong>${text}`;
+      });
+      resetBtn.addEventListener('click', () => {
+        document.getElementById('quizForm').reset();
+        current = 0;
+        renderQuestion();
+        resultBox.style.display = 'none';
+        resultBox.textContent = '';
+      });
+      renderQuestion();
+    })();
+  </script>
+</body>
+</html>

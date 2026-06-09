@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT-Begriffe & Rechtschreibung - Lern-Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Zusätzliches CSS für die Lösungs-Toggles im Test */
+        .solution {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: color-mix(in srgb, var(--color-success) 10%, var(--color-surface));
+            border-left: 4px solid var(--color-success);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            animation: fadeIn 0.3s ease;
+        }
+        .solution.show {
+            display: block;
+        }
+        .exercise-card {
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .exercise-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="logo" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>Lern-Hub</h1>
+                        <p>Übersicht</p>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html">🏠 Home</a>
+                <a href="uml.html">🎯 UML-Aktivitätsdiagramm</a>
+                <a href="englisch.html">🎤 Englisch Präsentation</a>
+                <a href="weihnachtsroute.html">🎅 Weihnachtsmann Problem</a>
+                <a href="wirtschaft.html">💼 Wirtschaftskunde</a>
+                <a href="Normalisierung.html">🔡 Normalisierung</a>
+                <a href="java.html">☕ Java</a>
+                <a href="it-begriffe.html" class="nav-active">🔤 IT-Begriffe</a>
+                <a href="Marktformen.html">📊 Marktformen</a>
+            </nav>
+            
+            <button class="theme-toggle">
+                <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
+
+        <main class="content">
+            <div class="eyebrow">Deutsch & Kommunikation</div>
+            <h1 class="page-title">📝 Rechtschreibung von IT-Begriffen</h1>
+            <p class="page-subtitle">Die wichtigsten Duden-Regeln für Anglizismen und Fachbegriffe in der IT.</p>
+
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-tab="regeln">📚 Theorie & Regeln</button>
+                    <button class="tab-btn" data-tab="test">🎯 Übungstest</button>
+                </div>
+
+                <div id="regeln" class="tab-pane active">
+                    
+                    <div class="grid-2">
+                        <div class="panel">
+                            <h2>1. Zwei Substantive</h2>
+                            <p>Verbindungen aus zwei Substantiven aus dem Englischen werden im Deutschen grundsätzlich <strong>zusammengeschrieben</strong>.</p>
+                            <ul>
+                                <li>Cloudcomputing</li>
+                                <li>Mailserver</li>
+                                <li>Cybersecurity</li>
+                            </ul>
+                            <div class="callout success">
+                                <strong>Tipp für die Lesbarkeit</strong>
+                                <p>Um die Wörter besser lesbar zu machen, ist auch die Schreibweise mit <strong>Bindestrich</strong> erlaubt. Zum Beispiel: <em>Cloud-Computing</em>, <em>Desktop-Publishing</em>.</p>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <h2>2. Adjektiv + Substantiv</h2>
+                            <p>Hier entscheidet die Betonung:</p>
+                            <ul>
+                                <li><strong>Betonung auf dem 1. Teil (Adjektiv):</strong> Zusammenschreibung wird empfohlen. (z.B. <em>Hotspot</em>, <em>Blacklist</em>). Oft ist optional auch Getrenntschreibung erlaubt (z.B. <em>Hot Spot</em>).</li>
+                                <li><strong>Betonung auf dem 2. Teil (Substantiv):</strong> Getrenntschreibung. (z.B. <em>Social Media</em>, <em>Public Viewing</em>, <em>High Fidelity</em>).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h2>3. Die Durchkopplung</h2>
+                        <p>Bei Aneinanderreihungen und Zusammensetzungen aus ganzen Wortgruppen muss mit Bindestrichen <strong>durchgekoppelt</strong> werden. Das gilt besonders, wenn deutsche und englische Wörter gemischt werden.</p>
+                        <div class="grid-3">
+                            <div class="card">
+                                <strong>Falsch ❌</strong><br>
+                                <span style="color: var(--color-error)">Social Media Strategie</span>
+                            </div>
+                            <div class="card">
+                                <strong>Richtig ✅</strong><br>
+                                <span style="color: var(--color-success)">Social-Media-Strategie</span>
+                            </div>
+                            <div class="card">
+                                <strong>Richtig ✅</strong><br>
+                                <span style="color: var(--color-success)">E-Mail-Archivierung</span>
+                            </div>
+                        </div>
+                        <p>Weitere Beispiele: <em>Multiple-Choice-Aufgabe</em>, <em>First-Level-Support</em>, <em>Business-to-Consumer-Plattform</em>.</p>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="panel">
+                            <h2>4. Abkürzungen & Ziffern</h2>
+                            <p>Treffen Einzelbuchstaben, Abkürzungen oder Ziffern auf ein Substantiv, wird <strong>immer ein Bindestrich</strong> gesetzt.</p>
+                            <ul>
+                                <li>USB-Stick</li>
+                                <li>PoE-Switch</li>
+                                <li>2-Faktor-Authentifizierung</li>
+                                <li>IT-Infrastruktur</li>
+                            </ul>
+                        </div>
+
+                        <div class="panel">
+                            <h2>5. Eigennamen & Ergänzungsstrich</h2>
+                            <p><strong>Eigennamen:</strong> Es gilt die amtliche Schreibweise der Hersteller (z.B. <em>Microsoft Edge</em>, <em>eBay</em>). Werden diese jedoch Teil eines neuen Wortes, wird wieder durchgekoppelt: <em>Microsoft-Edge-Download</em>.</p>
+                            <p><strong>Ergänzungsstrich:</strong> Werden Wortteile eingespart, markiert das ein Strich. Beispiel: <em>Up- und Download</em>, <em>Hard- und Software</em>.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="test" class="tab-pane">
+                    <div class="panel">
+                        <h2>Prüfe dein Wissen</h2>
+                        <p>Wende die Rechtschreibregeln für IT-Fachbegriffe an. Klicke auf die richtige(n) Antwort(en) und prüfe dein Ergebnis.</p>
+
+                        <div class="exercise-card quiz-card" data-correct="0,1" data-multi="true">
+                            <h3>Frage 1: Zusammensetzungen</h3>
+                            <p>Welche Schreibweisen für den Fachbegriff "Datenbank Management System" sind korrekt? (Wähle zwei)</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option" onclick="toggleOption(this)">Datenbankmanagementsystem</div>
+                                <div class="quiz-option" onclick="toggleOption(this)">Datenbank-Management-System</div>
+                                <div class="quiz-option" onclick="toggleOption(this)">Datenbank Management System</div>
+                                <div class="quiz-option" onclick="toggleOption(this)">Datenbank-managementsystem</div>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <button class="btn-secondary" onclick="checkQuiz(this)">Antwort prüfen</button>
+                            </div>
+                            <div class="solution">
+                                <strong>Lösung:</strong> Datenbankmanagementsystem <em>oder</em> Datenbank-Management-System.<br>
+                                <em>Erklärung:</em> Substantive werden im Deutschen zusammengeschrieben. Zur besseren Lesbarkeit darf gekoppelt werden.
+                            </div>
+                        </div>
+
+                        <div class="exercise-card quiz-card" data-correct="2" data-multi="false">
+                            <h3>Frage 2: Durchkopplung</h3>
+                            <p>Du schreibst ein Konzept über eine Strategie für Social Media. Wie lautet das korrekte Kompositum?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option" onclick="toggleOption(this)">Social Media Strategie</div>
+                                <div class="quiz-option" onclick="toggleOption(this)">Social Media-Strategie</div>
+                                <div class="quiz-option" onclick="toggleOption(this)">Social-Media-Strategie</div>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <button class="btn-secondary" onclick="checkQuiz(this)">Antwort prüfen</button>
+                            </div>
+                            <div class="solution">
+                                <strong>Lösung:</strong> Social-Media-Strategie.<br>
+                                <em>Erklärung:</em> Bei Zusammensetzungen aus Wortgruppen (hier: Englisch + Deutsch) muss durchgekoppelt werden. ("Social Media" allein schreibt man getrennt).
+                            </div>
+                        </div>
+
+                        <div class="exercise-card quiz-card" data-correct="1" data-multi="false">
+                            <h3>Frage 3: Ergänzungsstrich</h3>
+                            <p>Wie schreibt man die Verkettung der Wörter "Hard" und "Software" richtig?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option" onclick="toggleOption(this)">Hard und Software</div>
+                                <div class="quiz-option" onclick="toggleOption(this)">Hard- und Software</div>
+                                <div class="quiz-option" onclick="toggleOption(this)">Hard-und-Software</div>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <button class="btn-secondary" onclick="checkQuiz(this)">Antwort prüfen</button>
+                            </div>
+                            <div class="solution">
+                                <strong>Lösung:</strong> Hard- und Software.<br>
+                                <em>Erklärung:</em> Da das Wortteil "ware" bei "Hardware" eingespart wird, muss ein Ergänzungsstrich gesetzt werden. (Analog zu <em>Up- und Download</em>).
+                            </div>
+                        </div>
+
+                        <div class="exercise-card quiz-card" data-correct="1" data-multi="false">
+                            <h3>Frage 4: Anglizismen-Paare</h3>
+                            <p>Wie schreibst du "Plug and Play" als Eigenschaft vor einem Substantiv (z.B. Gerät)?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option" onclick="toggleOption(this)">Plug and Play-Gerät</div>
+                                <div class="quiz-option" onclick="toggleOption(this)">Plug-and-Play-Gerät</div>
+                                <div class="quiz-option" onclick="toggleOption(this)">Plug and Play Gerät</div>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <button class="btn-secondary" onclick="checkQuiz(this)">Antwort prüfen</button>
+                            </div>
+                            <div class="solution">
+                                <strong>Lösung:</strong> Plug-and-Play-Gerät.<br>
+                                <em>Erklärung:</em> Auch hier greift die Regel der Durchkopplung bei Aneinanderreihungen.
+                            </div>
+                        </div>
+
+                        <div class="exercise-card quiz-card" data-correct="2" data-multi="false">
+                            <h3>Frage 5: Abkürzungen</h3>
+                            <p>Welche Schreibweise ist richtig: PHP Programmierer, PHPProgrammierer oder PHP-Programmierer?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option" onclick="toggleOption(this)">PHP Programmierer</div>
+                                <div class="quiz-option" onclick="toggleOption(this)">PHPProgrammierer</div>
+                                <div class="quiz-option" onclick="toggleOption(this)">PHP-Programmierer</div>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <button class="btn-secondary" onclick="checkQuiz(this)">Antwort prüfen</button>
+                            </div>
+                            <div class="solution">
+                                <strong>Lösung:</strong> PHP-Programmierer.<br>
+                                <em>Erklärung:</em> Wenn Abkürzungen mit Wörtern verbunden werden, muss zwingend ein Bindestrich gesetzt werden.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
