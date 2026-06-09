@@ -649,3 +649,20 @@ pre code {
     html { scroll-behavior: auto; }
     * { transition: none !important; animation: none !important; }
 }
+
+/* --- Responsive Tabellen (Scrollbar auf Mobile) --- */
+.table-wrap {
+    width: 100%;
+    overflow-x: auto; /* Aktiviert horizontales Scrollen, wenn nötig */
+    -webkit-overflow-scrolling: touch; /* Sorgt für flüssiges Wischen auf iPhones/iPads */
+    margin-bottom: var(--space-6);
+    border-radius: var(--radius-md);
+}
+
+.table-wrap table {
+    width: 100%;
+    /* Diese Mindestbreite zwingt die Tabelle, breit genug zu bleiben. 
+       Auf dem Handy muss man dann wischen, auf dem PC passt sie komplett rein: */
+    min-width: 650px; 
+    border-collapse: collapse;
+}
