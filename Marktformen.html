@@ -296,24 +296,40 @@
                     </div>
                     <div class="panel">
                         <h2>🧮 Formeln & Berechnungen (Schritt-für-Schritt)</h2>
-                        <p>In der Klausur sind meist zwei Funktionen gegeben. Beispiel: $x_N = 120 - 4p$ und $x_A = 20 + 2p$.</p>
+                        <p>Beispiel: Nachfragefunktion: $x_N = 120 - 4p$ und Angebotsfunktion $x_A = 20 + 2p$.</p>
                         
-                        <div class="grid-2">
-                            <div class="card">
-                                <h3>1. Prohibitivpreis ($x_N = 0$)</h3>
-                                <p>$0 = 120 - 4p \rightarrow 4p = 120 \rightarrow p = 30$</p>
-                        </div>
-                        <div class="card">
-                            <h3>2. Sättigungsmenge ($p = 0$)</h3>
-                            <p>$x_N = 120 - 4 \cdot 0 \rightarrow x_N = 120$</p>
-                        </div>
-                        <div class="card">
-                            <h3>3. Gleichgewichtspreis ($x_N = x_A$)</h3>
-                            <p>$120 - 4p = 20 + 2p \rightarrow 100 = 6p \rightarrow p = 16,67$</p>
-                        </div>
-                        <div class="card">
-                            <h3>4. Gleichgewichtsmenge</h3>
-                            <p>$x_A = 20 + 2 \cdot 16,67 \rightarrow x = 53,34$</p>
+                        <div class="table-wrap">
+                             <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                                <thead>
+                                    <tr style="background-color: var(--color-surface-alt);">
+                                        <th style="padding: 10px;">Berechnung</th>
+                                        <th style="padding: 10px;">Formel / Ansatz</th>
+                                        <th style="padding: 10px;">Ergebnis</th>
+                                    </tr>
+                                 </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 10px; border-bottom: 1px solid var(--color-border);"><b>Prohibitivpreis</b></td>
+                                        <td style="padding: 10px; border-bottom: 1px solid var(--color-border);">Setze $x_N = 0$</td>
+                                        <td style="padding: 10px; border-bottom: 1px solid var(--color-border);"><b style="color:var(--color-primary)">$p = 30$</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border-bottom: 1px solid var(--color-border);"><b>Sättigungsmenge</b></td>
+                                        <td style="padding: 10px; border-bottom: 1px solid var(--color-border);">Setze $p = 0$</td>
+                                        <td style="padding: 10px; border-bottom: 1px solid var(--color-border);"><b style="color:var(--color-primary)">$x = 120$</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border-bottom: 1px solid var(--color-border);"><b>Gleichgewichtspreis</b></td>
+                                        <td style="padding: 10px; border-bottom: 1px solid var(--color-border);">Setze $x_N = x_A$</td>
+                                        <td style="padding: 10px; border-bottom: 1px solid var(--color-border);"><b style="color:var(--color-primary)">$p = 16,67$</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px;"><b>Gleichgewichtsmenge</b></td>
+                                        <td style="padding: 10px;">$p$ in $x_A$ einsetzen</td>
+                                        <td style="padding: 10px;"><b style="color:var(--color-primary)">$x = 53,34$</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
