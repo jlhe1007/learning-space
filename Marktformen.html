@@ -291,6 +291,54 @@
                                     <li><b>Merkmale:</b> Notwendige Güter, kaum Alternativen (Medikamente, IT-Security).</li>
                                     <li><b>Effekt bei Preiserhöhung:</b> Kunden müssen kaufen. Der <b>Gesamtumsatz steigt</b>.</li>
                                 </ul>
+                            <h2>🧮 Formeln & Berechnungen (Schritt-für-Schritt)</h2>
+                        <p>In der Klausur sind meist zwei Funktionen gegeben. Aus diesen lassen sich alle wichtigen Kennzahlen berechnen. Zum Beispiel:</p>
+                        <ul style="margin-top: 0; margin-bottom: 1.5rem; padding-left: 1.2rem;">
+                            <li><b>Nachfragefunktion (x_N):</b> Zeigt das Kaufverhalten. Z.B. <code>x_N = 120 - 4p</code></li>
+                            <li><b>Angebotsfunktion (x_A):</b> Zeigt das Verkaufsverhalten. Z.B. <code>x_A = 20 + 2p</code></li>
+                        </ul>
+                        
+                        <div class="grid-2">
+                            <div class="card">
+                                <h3>1. Prohibitivpreis berechnen</h3>
+                                <p>Der Preis, bei dem das Produkt so teuer ist, dass niemand mehr kauft. Die Nachfragemenge wird auf 0 gesetzt.</p>
+                                <div style="background: var(--color-surface); padding: 12px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.9em;">
+                                    Bedingung: x_N = 0<br><br>
+                                    0 = 120 - 4p &nbsp;&nbsp;&nbsp;&nbsp;| +4p<br>
+                                    4p = 120 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| :4<br>
+                                    <b style="color: var(--color-primary);">p = 30</b>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <h3>2. Sättigungsmenge berechnen</h3>
+                                <p>Die Menge, die nachgefragt wird, wenn das Produkt kostenlos wäre. Der Preis wird auf 0 gesetzt.</p>
+                                <div style="background: var(--color-surface); padding: 12px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.9em;">
+                                    Bedingung: p = 0<br><br>
+                                    x_N = 120 - 4 * 0<br>
+                                    <b style="color: var(--color-primary);">x_N = 120</b>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3>3. Gleichgewichtspreis berechnen</h3>
+                                <p>Dort, wo Angebot und Nachfrage exakt gleich groß sind. Beide Funktionen werden gleichgesetzt.</p>
+                                <div style="background: var(--color-surface); padding: 12px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.9em;">
+                                    Bedingung: x_N = x_A<br><br>
+                                    120 - 4p = 20 + 2p &nbsp;&nbsp;| +4p<br>
+                                    120 = 20 + 6p &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -20<br>
+                                    100 = 6p &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| :6<br>
+                                    <b style="color: var(--color-primary);">p = 16,67</b>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <h3>4. Gleichgewichtsmenge berechnen</h3>
+                                <p>Den eben ausgerechneten Gleichgewichtspreis (p) in eine der beiden Funktionen einsetzen.</p>
+                                <div style="background: var(--color-surface); padding: 12px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.9em;">
+                                    Bedingung: p in x_A (oder x_N) einsetzen<br><br>
+                                    x_A = 20 + 2 * 16,67<br>
+                                    <b style="color: var(--color-primary);">x_A = 53,34</b>
                             </div>
                         </div>
                     </div>
