@@ -1,195 +1,203 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lernübersicht: Unterbrechungsfreie Stromversorgung (USV)</title>
+    <title>USV & Berechnungen - Lern-Hub</title>
+    <!-- Google Fonts aus deinem Projekt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <!-- Verknüpfung zu deiner CSS-Datei -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <header>
-        <h1>Prüfungsvorbereitung: Unterbrechungsfreie Stromversorgung (USV)</h1>
-        <p>Zusammenfassung der Berechnungen, USV-Klassen (Blockschaltbilder) und Netzstörungen.</p>
-    </header>
-
-    <section id="berechnungen">
-        <h2>1. Berechnungen (aus "Übung USV.pdf")</h2>
-        
-        <article>
-            <h3>Wichtige Grundlagenformeln</h3>
-            <ul>
-                <li><strong>Leistung (P):</strong> P = U * I (Einheit: Watt, W oder VA)</li>
-                <li><strong>Energie/Arbeit (E oder W):</strong> E = P * t = U * I * t (Einheit: Wattstunden, Wh)</li>
-                <li><strong>Ladung/Kapazität (Q):</strong> Q = I * t = E / U (Einheit: Amperestunden, Ah)</li>
-                <li><strong>Wirkungsgrad (η - Eta):</strong> η = Nutzen / Aufwand (bzw. P_ab / P_zu)</li>
-            </ul>
-        </article>
-
-        <article>
-            <h3>Aufgabe 2: Benötigte Energie berechnen</h3>
-            <p><em>Gegeben:</em> P = 500 W (Server), t = 0,5 h (30 Minuten)<br>
-            <em>Gesucht:</em> Mindestens benötigte Energie (E) im Akku.</p>
-            <p><strong>Rechnung:</strong><br>
-            E = P * t<br>
-            E = 500 W * 0,5 h = <strong>250 Wh</strong></p>
-            <p><em>Achtung (Korrektur zu deinen Notizen):</em> 250 Wh entsprechen <strong>0,25 kWh</strong> (nicht 2,5 kWh!).</p>
-        </article>
-
-        <article>
-            <h3>Aufgabe 3: Ladungsmenge mit Wirkungsgrad berechnen</h3>
-            <p><em>Gegeben:</em> E_Nutzen = 250 Wh (aus Aufgabe 2), U_Akku = 48 V, Wirkungsgrad (η) = 80 % = 0,8<br>
-            <em>Gesucht:</em> Ladungsmenge (Q) in Ah.</p>
-            <p><strong>Rechnung:</strong><br>
-            1. Da beim Wandeln 20% verloren gehen, muss der Akku mehr Energie bereitstellen, als der Server am Ende nutzt:<br>
-            E_Akku = E_Nutzen / Wirkungsgrad = 250 Wh / 0,8 = <strong>312,5 Wh</strong></p>
-            <p>2. Ladungsmenge berechnen:<br>
-            Q = E_Akku / U_Akku = 312,5 Wh / 48 V &approx; <strong>6,51 Ah</strong></p>
-            <p><em>Antwort:</em> Es müssen mindestens 6,51 Ah im Akku gespeichert sein.</p>
-        </article>
-
-        <article>
-            <h3>Aufgabe 4: Akkustand und Laufzeit</h3>
-            <p><em>Gegeben:</em> Gesamtkapazität = 750 Wh, Aktueller Stand = 20 %, Neue Laufzeit t = 0,75 h (45 Min), P = 500 W.<br>
-            <em>Gesucht:</em> Ziel-Akkustand in % und die Differenz (um wie viel % muss geladen werden).</p>
-            <p><strong>Rechnung:</strong><br>
-            1. Benötigte Nutz-Energie für 45 Minuten:<br>
-            E_Nutzen = 500 W * 0,75 h = 375 Wh</p>
+    <div class="shell">
+        <!-- SEITENLEISTE (Navigation) -->
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: .9rem;">
+                        <div class="logo" aria-hidden="true">🔋</div>
+                        <div>
+                            <h1>Hardware</h1>
+                            <p>Lernfeld</p>
+                        </div>
+                    </a>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
             
-            <p><em>Wichtig für die Prüfung:</em> Je nachdem, ob dein Lehrer hier den Wirkungsgrad aus Aufgabe 3 weiterhin voraussetzt, gibt es zwei Lösungswege. Der Weg <strong>mit</strong> Wirkungsgrad ist technisch korrekter, wenn sich die Aufgaben aufeinander beziehen.</p>
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html" style="margin-bottom: 10px; border-bottom: 1px solid var(--color-border); padding-bottom: 10px;">← Zurück zur Übersicht</a>
+                <a href="#berechnungen">📐 1. Berechnungen</a>
+                <a href="#usv-arten">⚡ 2. USV-Arten</a>
+                <a href="#stoerungen">🔌 3. Netzstörungen</a>
+            </nav>
             
-            <h4>Weg A (mit 80% Wirkungsgrad aus Aufg. 3)</h4>
-            <ul>
-                <li>Benötigte Energie aus dem Akku: E_Akku = 375 Wh / 0,8 = 468,75 Wh</li>
-                <li>Ziel-Akkustand in Prozent: (468,75 Wh / 750 Wh) * 100 = <strong>62,5 %</strong></li>
-                <li>Muss aufgeladen werden um: 62,5 % - 20 % = <strong>42,5 %</strong></li>
-            </ul>
+            <button class="theme-toggle">
+                <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
 
-            <h4>Weg B (ohne Wirkungsgrad - falls dieser nur für Aufg. 3 galt)</h4>
-            <ul>
-                <li>Ziel-Akkustand in Prozent: (375 Wh / 750 Wh) * 100 = <strong>50 %</strong></li>
-                <li>Muss aufgeladen werden um: 50 % - 20 % = <strong>30 %</strong></li>
-            </ul>
-        </article>
-    </section>
+        <!-- HAUPTINHALT -->
+        <main class="content">
+            <div class="eyebrow">Prüfungsvorbereitung</div>
+            <h1 class="page-title">Unterbrechungsfreie Stromversorgung (USV)</h1>
+            <p class="page-subtitle">Zusammenfassung der Berechnungen, Blockschaltbilder und Netzstörungen.</p>
 
-    <section id="usv-arten">
-        <h2>2. USV-Arten, Blockschaltpläne und Funktion</h2>
-        <p>In der Prüfung musst du die Schaltpläne den folgenden drei Kategorien zuordnen können:</p>
+            <!-- 1. BERECHNUNGEN -->
+            <section id="berechnungen">
+                <div class="card">
+                    <h2>1. Berechnungen (aus "Übung USV.pdf")</h2>
+                    
+                    <div class="callout">
+                        <strong>Wichtige Grundlagenformeln</strong>
+                        <ul style="margin-bottom: 0;">
+                            <li><strong>Leistung (P):</strong> P = U * I <em>(Einheit: Watt, W oder VA)</em></li>
+                            <li><strong>Energie/Arbeit (E oder W):</strong> E = P * t = U * I * t <em>(Einheit: Wattstunden, Wh)</em></li>
+                            <li><strong>Ladung/Kapazität (Q):</strong> Q = I * t = E / U <em>(Einheit: Amperestunden, Ah)</em></li>
+                            <li><strong>Wirkungsgrad (η):</strong> η = Nutzen / Aufwand</li>
+                        </ul>
+                    </div>
 
-        <article>
-            <h3>1. VFD (Voltage and Frequency Dependent) - Offline / Standby USV</h3>
-            <p>Das ist die USV von deinem Übungsblatt.</p>
-            
-            <!-- PLATZHALTER FÜR DEIN BILD: VFD Blockschaltbild -->
-            <figure>
-                <img src="platzhalter_vfd_bild.jpg" alt="Hier das Blockschaltbild der VFD (Offline) USV einfügen">
-                <figcaption>Abbildung 1: Blockschaltbild VFD (Offline)</figcaption>
-            </figure>
+                    <div class="grid-2" style="margin-top: var(--space-4);">
+                        <div class="panel">
+                            <h3>Aufgabe 2: Benötigte Energie</h3>
+                            <p><strong>Gegeben:</strong><br>P = 500 W (Server)<br>t = 0,5 h (30 Minuten)<br>
+                            <strong>Gesucht:</strong><br>Mindestens benötigte Energie (E).</p>
+                            <p><strong>Rechnung:</strong><br>
+                            E = P * t<br>
+                            E = 500 W * 0,5 h = <strong>250 Wh</strong></p>
+                            <div class="callout warning">
+                                <strong>Korrektur zum Notizzettel:</strong>
+                                250 Wh entsprechen <strong>0,25 kWh</strong> (nicht 2,5 kWh!).
+                            </div>
+                        </div>
 
-            <h4>Komponenten und Funktion (Lösung zu Aufgabe 1):</h4>
-            <ul>
-                <li><strong>Filter:</strong> Glättet kleine Spannungsspitzen aus dem Stromnetz im Normalbetrieb.</li>
-                <li><strong>1. Gleichrichter:</strong> Wandelt den Wechselstrom aus dem Netz in Gleichstrom um, um die Batterie zu laden.</li>
-                <li><strong>2. Batterie (Akku):</strong> Speichert die elektrische Energie als Gleichstrom.</li>
-                <li><strong>3. Wechselrichter:</strong> Wandelt im autonomen Betrieb den Gleichstrom der Batterie wieder in 230V Wechselstrom für den Verbraucher um.</li>
-                <li><strong>Umschalter:</strong> Wechselt bei einem Stromausfall die Stromquelle vom direkten Netz (Normalbetrieb) auf den Wechselrichter (Autonomer Betrieb). Dies dauert wenige Millisekunden.</li>
-            </ul>
-            <p><strong>Normalbetrieb:</strong> Der Strom fließt über den Filter direkt zum Umschalter und weiter zum Verbraucher. Parallel zweigt Strom ab, wird vom Gleichrichter umgewandelt und lädt die Batterie.<br>
-            <strong>Autonomer Betrieb:</strong> Das Netz fällt aus. Der Umschalter klappt um. Die Batterie liefert Gleichstrom, der vom Wechselrichter in Wechselstrom gewandelt und an den Verbraucher geleitet wird.</p>
-        </article>
+                        <div class="panel">
+                            <h3>Aufgabe 3: Ladung mit Wirkungsgrad</h3>
+                            <p><strong>Gegeben:</strong><br>E_Nutzen = 250 Wh (Aufg. 2)<br>U = 48 V<br>Wirkungsgrad = 80 % = 0,8</p>
+                            <p><strong>Rechnung:</strong><br>
+                            1. Energiebedarf inkl. 20% Verlust:<br>
+                            E_Akku = 250 Wh / 0,8 = <strong>312,5 Wh</strong></p>
+                            <p>2. Ladungsmenge:<br>
+                            Q = E_Akku / U = 312,5 Wh / 48 V &approx; <strong>6,51 Ah</strong></p>
+                        </div>
+                    </div>
 
-        <article>
-            <h3>2. VI (Voltage Independent) - Netzinteraktive USV (Line-Interactive)</h3>
-            
-            <!-- PLATZHALTER FÜR DEIN BILD: VI Blockschaltbild -->
-            <figure>
-                <img src="platzhalter_vi_bild.jpg" alt="Hier das Blockschaltbild der VI (Line-Interactive) USV einfügen">
-                <figcaption>Abbildung 2: Blockschaltbild VI (Line-Interactive)</figcaption>
-            </figure>
-            
-            <p><strong>Erkennungsmerkmal im Schaltplan:</strong> Besitzt einen <em>AVR (Automatic Voltage Regulator / Spannungsregler)</em> oder Trafo, der im Normalbetrieb Spannungsschwankungen ausgleicht, ohne auf die Batterie zurückgreifen zu müssen. Ein Umschalter ist weiterhin vorhanden.</p>
-        </article>
+                    <div class="panel">
+                        <h3>Aufgabe 4: Akkustand und Laufzeit</h3>
+                        <p><strong>Gegeben:</strong> Gesamtkapazität = 750 Wh, Aktuell = 20 %, Neue Laufzeit t = 0,75 h (45 Min), P = 500 W.</p>
+                        <p><strong>Rechnung (mit 80% Wirkungsgrad aus Aufg. 3):</strong><br>
+                        1. Benötigte Nutz-Energie: E = 500 W * 0,75 h = 375 Wh<br>
+                        2. Energie aus Akku (Verlust berechnet): 375 Wh / 0,8 = 468,75 Wh<br>
+                        3. Ziel-Akkustand in %: (468,75 Wh / 750 Wh) * 100 = <strong>62,5 %</strong><br>
+                        4. Es muss aufgeladen werden um: 62,5 % - 20 % = <strong>42,5 %</strong></p>
+                    </div>
+                </div>
+            </section>
 
-        <article>
-            <h3>3. VFI (Voltage and Frequency Independent) - Online USV (Dauerwandler)</h3>
-            
-            <!-- PLATZHALTER FÜR DEIN BILD: VFI Blockschaltbild -->
-            <figure>
-                <img src="platzhalter_vfi_bild.jpg" alt="Hier das Blockschaltbild der VFI (Online) USV einfügen">
-                <figcaption>Abbildung 3: Blockschaltbild VFI (Online)</figcaption>
-            </figure>
+            <!-- 2. USV-ARTEN -->
+            <section id="usv-arten">
+                <h2 style="margin-top: var(--space-8);">2. USV-Arten & Blockschaltpläne</h2>
+                <p>Ordne die Schaltpläne den folgenden drei Kategorien zu:</p>
 
-            <p><strong>Erkennungsmerkmal im Schaltplan:</strong> Der Normalbetrieb fließt <strong>immer</strong> komplett durch den Gleichrichter, die Batterie/Gleichstromschiene und den Wechselrichter (Doppelwandlung). Es gibt keinen Umschalter für den Stromausfall (nur einen Bypass-Schalter für Wartungen). Umschaltzeit bei Stromausfall: 0 Millisekunden.</p>
-        </article>
-    </section>
+                <div class="card">
+                    <h3>1. VFD (Offline / Standby USV)</h3>
+                    <span class="badge" style="margin-bottom: var(--space-4);">Auf dem Übungsblatt abgebildet</span>
+                    
+                    <img src="platzhalter_vfd_bild.jpg" alt="Hier das Blockschaltbild der VFD USV einfügen" style="margin-bottom: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                    
+                    <h4>Komponenten (Aufgabe 1):</h4>
+                    <ul>
+                        <li><strong>Filter:</strong> Glättet kleine Spannungsspitzen im Normalbetrieb.</li>
+                        <li><strong>1. Gleichrichter:</strong> Wandelt Wechselstrom in Gleichstrom, um Batterie zu laden.</li>
+                        <li><strong>2. Batterie:</strong> Speichert Energie als Gleichstrom.</li>
+                        <li><strong>3. Wechselrichter:</strong> Wandelt Gleichstrom der Batterie in 230V Wechselstrom.</li>
+                        <li><strong>Umschalter:</strong> Wechselt bei Stromausfall auf den Wechselrichter (wenige Millisekunden Dauer).</li>
+                    </ul>
+                </div>
 
-    <section id="stoerungen">
-        <h2>3. Netzstörungen und Abdeckung durch USV-Arten</h2>
-        <p>Hier siehst du, welche der 3 USV-Klassen bei welchen Netzstörungen schützt. Je besser die USV (VFD &rarr; VI &rarr; VFI), desto mehr Störungsarten werden gefiltert.</p>
+                <div class="grid-2">
+                    <div class="panel">
+                        <h3>2. VI (Line-Interactive USV)</h3>
+                        <img src="platzhalter_vi_bild.jpg" alt="Hier das Blockschaltbild der VI USV einfügen" style="margin-bottom: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                        <p><strong>Erkennungsmerkmal:</strong> Besitzt einen <em>AVR (Spannungsregler / Trafo)</em>, der Spannungsschwankungen ausgleicht, ohne auf die Batterie zurückzugreifen. Ein Umschalter ist vorhanden.</p>
+                    </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Art der Netzstörung</th>
-                    <th>VFD (Offline)</th>
-                    <th>VI (Line-Interactive)</th>
-                    <th>VFI (Online / Dauerwandler)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1. Stromausfall (Blackout)</td>
-                    <td>Geschützt</td>
-                    <td>Geschützt</td>
-                    <td>Geschützt (0 ms Umschaltzeit)</td>
-                </tr>
-                <tr>
-                    <td>2. Spannungseinbruch (Sag)</td>
-                    <td>Geschützt (schaltet auf Akku)</td>
-                    <td>Geschützt (gleicht aus)</td>
-                    <td>Geschützt</td>
-                </tr>
-                <tr>
-                    <td>3. Spannungsspitzen (Surge/Spike)</td>
-                    <td>Geschützt (durch Filter)</td>
-                    <td>Geschützt</td>
-                    <td>Geschützt</td>
-                </tr>
-                <tr>
-                    <td>4. Unterspannung (Brownout)</td>
-                    <td>Nicht geschützt / schaltet auf Akku</td>
-                    <td>Geschützt (wird hochgeregelt)</td>
-                    <td>Geschützt</td>
-                </tr>
-                <tr>
-                    <td>5. Überspannung (Overvoltage)</td>
-                    <td>Nicht geschützt / schaltet auf Akku</td>
-                    <td>Geschützt (wird runtergeregelt)</td>
-                    <td>Geschützt</td>
-                </tr>
-                <tr>
-                    <td>6. Frequenzschwankungen</td>
-                    <td>Nicht geschützt</td>
-                    <td>Nicht geschützt</td>
-                    <td>Geschützt (Frequenz wird neu erzeugt)</td>
-                </tr>
-                <tr>
-                    <td>7. Spannungsverzerrungen / Oberwellen</td>
-                    <td>Nicht geschützt</td>
-                    <td>Nicht geschützt</td>
-                    <td>Geschützt (sauberer Sinus wird neu erzeugt)</td>
-                </tr>
-            </tbody>
-        </table>
-        <p><strong>Merkregel für die Prüfung:</strong> <br>
-        - <strong>VFD</strong> schützt nur vor totalem Ausfall und ganz kurzen Spitzen.<br>
-        - <strong>VI</strong> schützt zusätzlich vor zu hoher oder zu niedriger Spannung (ohne den Akku zu leeren).<br>
-        - <strong>VFI</strong> schützt vor <em>allem</em>, da der Strom quasi permanent aus dem Akku "neu gemischt" wird (Doppelwandlung).</p>
-    </section>
+                    <div class="panel">
+                        <h3>3. VFI (Online / Dauerwandler)</h3>
+                        <img src="platzhalter_vfi_bild.jpg" alt="Hier das Blockschaltbild der VFI USV einfügen" style="margin-bottom: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                        <p><strong>Erkennungsmerkmal:</strong> Der Strom fließt <strong>immer</strong> durch Gleichrichter, Batterie und Wechselrichter (Doppelwandlung). Kein Umschalter! Umschaltzeit bei Ausfall: 0 ms.</p>
+                    </div>
+                </div>
+            </section>
 
+            <!-- 3. STÖRUNGEN -->
+            <section id="stoerungen">
+                <div class="card" style="margin-top: var(--space-8);">
+                    <h2>3. Netzstörungen und Abdeckung</h2>
+                    <p>Je besser die USV-Klasse, desto mehr Störungsarten werden gefiltert.</p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Art der Netzstörung</th>
+                                    <th>VFD (Offline)</th>
+                                    <th>VI (Line-Interactive)</th>
+                                    <th>VFI (Online)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Stromausfall (Blackout)</td>
+                                    <td>✅ Geschützt</td>
+                                    <td>✅ Geschützt</td>
+                                    <td>✅ Geschützt (0ms)</td>
+                                </tr>
+                                <tr>
+                                    <td>Spannungseinbruch (Sag)</td>
+                                    <td>⚠️ Schaltet auf Akku</td>
+                                    <td>✅ Gleicht aus</td>
+                                    <td>✅ Geschützt</td>
+                                </tr>
+                                <tr>
+                                    <td>Spannungsspitzen (Surge)</td>
+                                    <td>✅ Geschützt (Filter)</td>
+                                    <td>✅ Geschützt</td>
+                                    <td>✅ Geschützt</td>
+                                </tr>
+                                <tr>
+                                    <td>Unter- / Überspannung</td>
+                                    <td>❌ Schaltet auf Akku</td>
+                                    <td>✅ Wird geregelt</td>
+                                    <td>✅ Geschützt</td>
+                                </tr>
+                                <tr>
+                                    <td>Frequenzschwankungen & Oberwellen</td>
+                                    <td>❌ Nicht geschützt</td>
+                                    <td>❌ Nicht geschützt</td>
+                                    <td>✅ Geschützt (Sinus wird neu erzeugt)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="callout success">
+                        <strong>Merkregel für die Prüfung</strong>
+                        <p style="margin-bottom: 0;"><strong>VFD:</strong> Schützt nur vor totalem Ausfall.<br><strong>VI:</strong> Schützt zusätzlich vor Spannungsschwankungen.<br><strong>VFI:</strong> Schützt vor <em>allem</em> (Doppelwandlung).</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Dein Script für Darkmode und Sidebar -->
+    <script src="script.js"></script>
 </body>
 </html>
