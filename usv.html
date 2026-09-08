@@ -102,93 +102,144 @@
 
             <!-- 2. USV-ARTEN -->
             <section id="usv-arten">
-                <h2 style="margin-top: var(--space-8);">2. USV-Arten & Blockschaltpläne</h2>
-                <p>Ordne die Schaltpläne den folgenden drei Kategorien zu:</p>
+                <h2 style="margin-top: var(--space-8);">2. USV-Arten & Einsatzgebiete</h2>
+                <p>Ordne die Schaltpläne den folgenden drei Kategorien zu und merke dir die typischen Anwendungsfälle:</p>
 
                 <div class="card">
                     <h3>1. VFD (Offline / Standby USV)</h3>
                     <span class="badge" style="margin-bottom: var(--space-4);">Auf dem Übungsblatt abgebildet</span>
                     
-                    <img src="vfd.png" alt="Hier das Blockschaltbild der VFD USV einfügen" style="margin-bottom: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                    <img src="platzhalter_vfd_bild.jpg" alt="Hier das Blockschaltbild der VFD USV einfügen" style="margin-bottom: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
                     
                     <h4>Komponenten (Aufgabe 1):</h4>
-                    <ul>
+                    <ul style="margin-bottom: var(--space-4);">
                         <li><strong>Filter:</strong> Glättet kleine Spannungsspitzen im Normalbetrieb.</li>
                         <li><strong>1. Gleichrichter:</strong> Wandelt Wechselstrom in Gleichstrom, um Batterie zu laden.</li>
                         <li><strong>2. Batterie:</strong> Speichert Energie als Gleichstrom.</li>
                         <li><strong>3. Wechselrichter:</strong> Wandelt Gleichstrom der Batterie in 230V Wechselstrom.</li>
                         <li><strong>Umschalter:</strong> Wechselt bei Stromausfall auf den Wechselrichter (wenige Millisekunden Dauer).</li>
                     </ul>
+                    <div class="callout" style="margin-bottom: 0;">
+                        <strong>Einsatzgebiet:</strong> Büro, Zuhause, geregeltes Herunterfahren.
+                    </div>
                 </div>
 
-                <div class="card">
+                <div class="grid-2">
+                    <div class="panel">
                         <h3>2. VI (Line-Interactive USV)</h3>
-                        <img src="vi.png" alt="Hier das Blockschaltbild der VI USV einfügen" style="margin-bottom: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
-                        <p><strong>Erkennungsmerkmal:</strong> Besitzt einen <em>AVR (Spannungsregler / Trafo)</em>, der Spannungsschwankungen ausgleicht, ohne auf die Batterie zurückzugreifen. Ein Umschalter ist vorhanden.</p>
-                </div>
+                        <img src="platzhalter_vi_bild.jpg" alt="Hier das Blockschaltbild der VI USV einfügen" style="margin-bottom: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                        <p><strong>Erkennungsmerkmal:</strong> Besitzt einen <em>AVR (Spannungsregler / Trafo)</em>, der Spannungsschwankungen ausgleicht, ohne auf die Batterie zurückzugreifen.</p>
+                        <div class="callout" style="margin-bottom: 0;">
+                            <strong>Einsatzgebiet:</strong> Netzwerkinfrastruktur, Workstations.
+                        </div>
+                    </div>
 
-                <div class="card">
+                    <div class="panel">
                         <h3>3. VFI (Online / Dauerwandler)</h3>
-                        <img src="vfi.png" alt="Hier das Blockschaltbild der VFI USV einfügen" style="margin-bottom: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                        <img src="platzhalter_vfi_bild.jpg" alt="Hier das Blockschaltbild der VFI USV einfügen" style="margin-bottom: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
                         <p><strong>Erkennungsmerkmal:</strong> Der Strom fließt <strong>immer</strong> durch Gleichrichter, Batterie und Wechselrichter (Doppelwandlung). Kein Umschalter! Umschaltzeit bei Ausfall: 0 ms.</p>
-                </div>
+                        <div class="callout" style="margin-bottom: 0;">
+                            <strong>Einsatzgebiet:</strong> Kritische Infrastruktur.
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- 3. STÖRUNGEN -->
             <section id="stoerungen">
                 <div class="card" style="margin-top: var(--space-8);">
-                    <h2>3. Netzstörungen und Abdeckung</h2>
-                    <p>Je besser die USV-Klasse, desto mehr Störungsarten werden gefiltert.</p>
+                    <h2>3. Die 10 Netzstörungen und USV-Abdeckung</h2>
+                    <p>Hier siehst du, welche der 3 USV-Klassen bei welchen Netzstörungen schützt, basierend auf deinen Unterrichtsnotizen.</p>
 
                     <div class="table-wrap">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Art der Netzstörung</th>
-                                    <th>VFD (Offline)</th>
-                                    <th>VI (Line-Interactive)</th>
-                                    <th>VFI (Online)</th>
+                                    <th>Art der Störung</th>
+                                    <th>Dauer / Auftreten</th>
+                                    <th>VFD</th>
+                                    <th>VI</th>
+                                    <th>VFI</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Stromausfall (Blackout)</td>
-                                    <td>✅ Geschützt</td>
-                                    <td>✅ Geschützt</td>
-                                    <td>✅ Geschützt (0ms)</td>
+                                    <td>1. Netzausfälle</td>
+                                    <td>&gt; 10 ms</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
                                 </tr>
                                 <tr>
-                                    <td>Spannungseinbruch (Sag)</td>
-                                    <td>⚠️ Schaltet auf Akku</td>
-                                    <td>✅ Gleicht aus</td>
-                                    <td>✅ Geschützt</td>
+                                    <td>2. Spannungseinbrüche</td>
+                                    <td>&lt; 16 ms</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
                                 </tr>
                                 <tr>
-                                    <td>Spannungsspitzen (Surge)</td>
-                                    <td>✅ Geschützt (Filter)</td>
-                                    <td>✅ Geschützt</td>
-                                    <td>✅ Geschützt</td>
+                                    <td>3. Spannungsstöße</td>
+                                    <td>&lt; 16 ms</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
                                 </tr>
                                 <tr>
-                                    <td>Unter- / Überspannung</td>
-                                    <td>❌ Schaltet auf Akku</td>
-                                    <td>✅ Wird geregelt</td>
-                                    <td>✅ Geschützt</td>
+                                    <td>4. Unterspannung</td>
+                                    <td>kontinuierlich</td>
+                                    <td>❌</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
                                 </tr>
                                 <tr>
-                                    <td>Frequenzschwankungen & Oberwellen</td>
-                                    <td>❌ Nicht geschützt</td>
-                                    <td>❌ Nicht geschützt</td>
-                                    <td>✅ Geschützt (Sinus wird neu erzeugt)</td>
+                                    <td>5. Überspannung</td>
+                                    <td>kontinuierlich</td>
+                                    <td>❌</td>
+                                    <td>✅</td>
+                                    <td>✅</td>
+                                </tr>
+                                <tr>
+                                    <td>6. Blitzeinwirkung</td>
+                                    <td>sporadisch</td>
+                                    <td>❌</td>
+                                    <td>❌</td>
+                                    <td>✅</td>
+                                </tr>
+                                <tr>
+                                    <td>7. Spannungsspitzen</td>
+                                    <td>&lt; 4 ms</td>
+                                    <td>❌</td>
+                                    <td>❌</td>
+                                    <td>✅</td>
+                                </tr>
+                                <tr>
+                                    <td>8. Frequenzschwankungen</td>
+                                    <td>sporadisch</td>
+                                    <td>❌</td>
+                                    <td>❌</td>
+                                    <td>✅</td>
+                                </tr>
+                                <tr>
+                                    <td>9. Spannungsverzerrungen</td>
+                                    <td>periodisch</td>
+                                    <td>❌</td>
+                                    <td>❌</td>
+                                    <td>✅</td>
+                                </tr>
+                                <tr>
+                                    <td>10. Oberschwingungen</td>
+                                    <td>kontinuierlich</td>
+                                    <td>❌</td>
+                                    <td>❌</td>
+                                    <td>✅</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     
                     <div class="callout success">
-                        <strong>Merkregel für die Prüfung</strong>
-                        <p style="margin-bottom: 0;"><strong>VFD:</strong> Schützt nur vor totalem Ausfall.<br><strong>VI:</strong> Schützt zusätzlich vor Spannungsschwankungen.<br><strong>VFI:</strong> Schützt vor <em>allem</em> (Doppelwandlung).</p>
+                        <strong>Zusammenfassung der Abdeckung:</strong>
+                        <p style="margin-bottom: 0;"><strong>VFD:</strong> Deckt nur Störung 1 bis 3 ab.<br><strong>VI:</strong> Deckt Störung 1 bis 5 ab.<br><strong>VFI:</strong> Deckt als einzige alle Störungen (1 bis 10) ab.</p>
                     </div>
                 </div>
             </section>
