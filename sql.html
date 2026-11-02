@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="de" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SQL & Datenbanken - Lern-Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
         .solution {
@@ -18,28 +21,35 @@
             border-radius: 0 var(--radius-md) var(--radius-md) 0;
             animation: fadeIn 0.3s ease;
         }
+
         .solution.show {
             display: block;
         }
-        .exercise-card, .quiz-card {
+
+        .exercise-card,
+        .quiz-card {
             margin-bottom: var(--space-6);
             padding-bottom: var(--space-4);
             border-bottom: 1px solid var(--color-border);
         }
-        .exercise-card:last-child, .quiz-card:last-child {
+
+        .exercise-card:last-child,
+        .quiz-card:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
         }
     </style>
 </head>
+
 <body>
     <div class="shell">
         <aside class="sidebar" aria-label="Seitennavigation">
             <div class="sidebar-header">
                 <div class="brand">
                     <div class="logo" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
                         </svg>
                     </div>
@@ -49,10 +59,15 @@
                     </div>
                 </div>
                 <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
                 </button>
             </div>
-            
+
             <nav class="nav" id="sidebar-nav">
                 <a href="index.html">🏠 Home</a>
                 <a href="uml.html">🎯 UML-Aktivitätsdiagramm</a>
@@ -63,9 +78,10 @@
                 <a href="java.html">☕ Java</a>
                 <a href="it-begriffe.html">📝 IT-Begriffe (Rechtschreibung)</a>
                 <a href="marktformen.html">📊 Marktformen & Unternehmen</a>
-                <a href="sql-terra.html" style="background: var(--color-primary-highlight); font-weight: bold;">💾 SQL (terra-Datenbank)</a>
+                <a href="sql-terra.html" style="background: var(--color-primary-highlight); font-weight: bold;">💾 SQL
+                    (terra-Datenbank)</a>
             </nav>
-            
+
             <button class="theme-toggle">
                 <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
             </button>
@@ -74,7 +90,8 @@
         <main class="content">
             <div class="eyebrow">Datenbanken & SQL</div>
             <h1 class="page-title">💾 SQL-Abfragen (terra.sachsen.schule)</h1>
-            <p class="page-subtitle">Lernübersicht für klassische Datenbankabfragen, Aggregatfunktionen und Tabellenverknüpfungen.</p>
+            <p class="page-subtitle">Lernübersicht für klassische Datenbankabfragen, Aggregatfunktionen und
+                Tabellenverknüpfungen.</p>
 
             <div class="tabs-container">
                 <div class="tabs-nav">
@@ -93,7 +110,8 @@
                             <code><strong>SELECT</strong> Spalte1, Spalte2</code> (Was möchte ich sehen?)<br>
                             <code><strong>FROM</strong> Tabellenname</code> (Woher kommen die Daten?)<br>
                             <code><strong>WHERE</strong> Bedingung</code> (Welcher Filter soll gelten?)<br>
-                            <code><strong>ORDER BY</strong> Spalte <strong>ASC / DESC</strong></code> (Wie soll sortiert werden?)
+                            <code><strong>ORDER BY</strong> Spalte <strong>ASC / DESC</strong></code> (Wie soll sortiert
+                            werden?)
                         </div>
                     </div>
 
@@ -102,13 +120,14 @@
                         <div class="grid-2">
                             <div class="card">
                                 <h3>Zahlen vergleichen</h3>
-                                <p>Nutzung der klassischen Vergleichsoperatoren (>, <, >=, <=, =, <>).</p>
+                                <p>Nutzung der klassischen Vergleichsoperatoren (>, <,>=, <=,=, <>).</p>
                                 <code>WHERE Einwohner > 1000000</code><br>
                                 <code>WHERE Flaeche <= 50000</code>
                             </div>
                             <div class="card">
                                 <h3>Texte suchen (LIKE)</h3>
-                                <p>Um nach Textmustern zu suchen, nutzen wir <code>LIKE</code> zusammen mit dem Platzhalter <code>%</code> (für beliebig viele Zeichen).</p>
+                                <p>Um nach Textmustern zu suchen, nutzen wir <code>LIKE</code> zusammen mit dem
+                                    Platzhalter <code>%</code> (für beliebig viele Zeichen).</p>
                                 <code>WHERE Name LIKE 'B%'</code> (Beginnt mit B)<br>
                                 <code>WHERE Name LIKE '%see%'</code> (Enthält "see")
                             </div>
@@ -117,10 +136,12 @@
 
                     <div class="panel">
                         <h2>3. Sortierung (ORDER BY)</h2>
-                        <p>Das Ergebnis kann aufsteigend (ASC - Standard) oder absteigend (DESC) sortiert werden. Man kann auch nach mehreren Spalten gleichzeitig sortieren.</p>
+                        <p>Das Ergebnis kann aufsteigend (ASC - Standard) oder absteigend (DESC) sortiert werden. Man
+                            kann auch nach mehreren Spalten gleichzeitig sortieren.</p>
                         <ul>
                             <li><code>ORDER BY Hoehe DESC</code> (Höchste Berge zuerst)</li>
-                            <li><code>ORDER BY Kontinent, Flaeche DESC</code> (Zuerst nach Kontinent alphabetisch, dann pro Kontinent nach Fläche absteigend)</li>
+                            <li><code>ORDER BY Kontinent, Flaeche DESC</code> (Zuerst nach Kontinent alphabetisch, dann
+                                pro Kontinent nach Fläche absteigend)</li>
                         </ul>
                     </div>
                 </div>
@@ -130,11 +151,14 @@
                     <div class="panel">
                         <div class="eyebrow">Wichtiger Hinweis aus dem Arbeitsblatt</div>
                         <h2>Daten über die FROM/WHERE-Syntax verbinden</h2>
-                        <p>In den Arbeitsblättern 2 und 4 wird ausdrücklich gefordert, <strong>keine JOIN-Schreibweise</strong> zu verwenden. Stattdessen verknüpfen wir die Tabellen über die <code>WHERE</code>-Klausel. Dies nennt man impliziten Join (oder Theta-Join).</p>
-                        
+                        <p>In den Arbeitsblättern 2 und 4 wird ausdrücklich gefordert, <strong>keine
+                                JOIN-Schreibweise</strong> zu verwenden. Stattdessen verknüpfen wir die Tabellen über
+                            die <code>WHERE</code>-Klausel. Dies nennt man impliziten Join (oder Theta-Join).</p>
+
                         <div class="callout warning">
                             <strong>Das Prinzip: Primärschlüssel = Fremdschlüssel</strong>
-                            <p>Wenn du Daten aus <code>STADT</code> und <code>LAND</code> brauchst, nennst du beide in der <code>FROM</code>-Klausel und verbindest sie in der <code>WHERE</code>-Klausel.</p>
+                            <p>Wenn du Daten aus <code>STADT</code> und <code>LAND</code> brauchst, nennst du beide in
+                                der <code>FROM</code>-Klausel und verbindest sie in der <code>WHERE</code>-Klausel.</p>
                             <code>SELECT STADT.Name, LAND.Name</code><br>
                             <code>FROM STADT, LAND</code><br>
                             <code>WHERE STADT.Land = LAND.LandKuerzel;</code> (Je nach Spaltennamen in der terra-DB)
@@ -151,10 +175,12 @@
                             <code>AND SEE.Tiefe > 500</code><br>
                             <code>ORDER BY SEE.Tiefe;</code>
                         </div>
-                        
+
                         <div class="card">
                             <h3>Beispiel: Benachbarte Länder (Self-Join)</h3>
-                            <p>Du willst zwei Länder finden, die benachbart sind. Dafür nutzt du oft eine Zwischentabelle wie <code>BENACHBART</code>, oder greifst zweimal auf <code>LAND</code> zu (mit Aliasnamen):</p>
+                            <p>Du willst zwei Länder finden, die benachbart sind. Dafür nutzt du oft eine
+                                Zwischentabelle wie <code>BENACHBART</code>, oder greifst zweimal auf <code>LAND</code>
+                                zu (mit Aliasnamen):</p>
                             <code>SELECT L1.Name, L2.Name</code><br>
                             <code>FROM LAND L1, LAND L2, BENACHBART B</code><br>
                             <code>WHERE L1.ID = B.Land1 </code><br>
@@ -167,7 +193,8 @@
                 <div id="funktionen" class="tab-pane">
                     <div class="panel">
                         <h2>1. Die 5 wichtigen Aggregatfunktionen</h2>
-                        <p>Mit diesen Funktionen werden Spaltenwerte zusammengefasst oder berechnet (Arbeitsblatt 3).</p>
+                        <p>Mit diesen Funktionen werden Spaltenwerte zusammengefasst oder berechnet (Arbeitsblatt 3).
+                        </p>
                         <div class="table-wrap">
                             <table>
                                 <tr>
@@ -206,8 +233,9 @@
 
                     <div class="panel">
                         <h2>2. Daten gruppieren (GROUP BY)</h2>
-                        <p>Sobald du eine Aggregatfunktion mit einer normalen Text-Spalte mischst (z. B. "Anzahl der Städte <strong>pro</strong> Land"), musst du nach der Text-Spalte gruppieren.</p>
-                        
+                        <p>Sobald du eine Aggregatfunktion mit einer normalen Text-Spalte mischst (z. B. "Anzahl der
+                            Städte <strong>pro</strong> Land"), musst du nach der Text-Spalte gruppieren.</p>
+
                         <div class="callout success">
                             <strong>Beispiel: Wie viele Städte sind in jedem Land erfasst?</strong><br>
                             <code>SELECT Land, COUNT(Name)</code><br>
@@ -218,8 +246,10 @@
 
                     <div class="panel">
                         <h2>3. Gruppierungen filtern (HAVING)</h2>
-                        <p>Das normale <code>WHERE</code> funktioniert nur vor dem Gruppieren. Willst du nach einer Aggregatfunktion filtern (z.B. "Nur Gebirge zeigen, die <strong>mehr als 5</strong> Berge haben"), benutzt du <code>HAVING</code>.</p>
-                        
+                        <p>Das normale <code>WHERE</code> funktioniert nur vor dem Gruppieren. Willst du nach einer
+                            Aggregatfunktion filtern (z.B. "Nur Gebirge zeigen, die <strong>mehr als 5</strong> Berge
+                            haben"), benutzt du <code>HAVING</code>.</p>
+
                         <code>SELECT Gebirge, COUNT(Name)</code><br>
                         <code>FROM BERG</code><br>
                         <code>GROUP BY Gebirge</code><br>
@@ -231,21 +261,35 @@
                 <div id="test" class="tab-pane">
                     <div class="panel">
                         <h2>Dein SQL-Übungstest</h2>
-                        <p>Wende dein Wissen aus den Arbeitsblättern 1 bis 4 direkt an. Beantworte zunächst die Multiple-Choice-Fragen (werden direkt vom System geprüft) und überprüfe danach deine selbst geschriebenen Abfragen über die "Lösung anzeigen"-Buttons.</p>
+                        <p>Wende dein Wissen aus den Arbeitsblättern 1 bis 4 direkt an. Beantworte zunächst die
+                            Multiple-Choice-Fragen (werden direkt vom System geprüft) und überprüfe danach deine selbst
+                            geschriebenen Abfragen über die "Lösung anzeigen"-Buttons.</p>
 
                         <!-- MULTIPLE CHOICE SECTION (GEPRÜFT) -->
-                        <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Teil 1: Multiple Choice</h3>
+                        <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Teil 1: Multiple
+                            Choice</h3>
 
                         <div class="quiz-card card" data-correct="1">
                             <h3>Frage 1: Aggregatfunktionen (aus Arbeitsblatt 3)</h3>
                             <p>Wie ermittelst du die <strong>durchschnittliche Einwohnerzahl</strong> aller Länder?</p>
-                            <div class="quiz-option" onclick="toggleOption(this)"><code>SELECT SUM(Einwohner) FROM LAND;</code></div>
-                            <div class="quiz-option" onclick="toggleOption(this)"><code>SELECT AVG(Einwohner) FROM LAND;</code></div>
-                            <div class="quiz-option" onclick="toggleOption(this)"><code>SELECT COUNT(Einwohner) FROM LAND;</code></div>
-                            <div class="quiz-option" onclick="toggleOption(this)"><code>SELECT MAX(Einwohner) FROM LAND;</code></div>
-                            <button class="btn-primary" style="margin-top: 1rem;" onclick="checkQuiz(this)">Auswerten</button>
+                            <div class="quiz-option" onclick="toggleOption(this)">
+                                <code>SELECT SUM(Einwohner) FROM LAND;</code>
+                            </div>
+                            <div class="quiz-option" onclick="toggleOption(this)">
+                                <code>SELECT AVG(Einwohner) FROM LAND;</code>
+                            </div>
+                            <div class="quiz-option" onclick="toggleOption(this)">
+                                <code>SELECT COUNT(Einwohner) FROM LAND;</code>
+                            </div>
+                            <div class="quiz-option" onclick="toggleOption(this)">
+                                <code>SELECT MAX(Einwohner) FROM LAND;</code>
+                            </div>
+                            <button class="btn-primary" style="margin-top: 1rem;"
+                                onclick="checkQuiz(this)">Auswerten</button>
                             <div class="solution">
-                                <strong>Richtig!</strong> <code>AVG()</code> berechnet den Mittelwert (Average). <code>SUM()</code> würde alle Einwohner addieren, <code>COUNT()</code> würde nur zählen, wie viele Zeilen es gibt.
+                                <strong>Richtig!</strong> <code>AVG()</code> berechnet den Mittelwert (Average).
+                                <code>SUM()</code> würde alle Einwohner addieren, <code>COUNT()</code> würde nur zählen,
+                                wie viele Zeilen es gibt.
                             </div>
                         </div>
 
@@ -253,33 +297,51 @@
                             <h3>Frage 2: Filter und Wildcards (aus Arbeitsblatt 1)</h3>
                             <p>Wie lautet die korrekte Bedingung für: "Alle Wüsten, deren Name mit 'E' beginnt"?</p>
                             <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE Name = 'E*'</code></div>
-                            <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE Name LIKE '%E'</code></div>
-                            <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE Name LIKE 'E%'</code></div>
-                            <button class="btn-primary" style="margin-top: 1rem;" onclick="checkQuiz(this)">Auswerten</button>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE Name LIKE '%E'</code>
+                            </div>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE Name LIKE 'E%'</code>
+                            </div>
+                            <button class="btn-primary" style="margin-top: 1rem;"
+                                onclick="checkQuiz(this)">Auswerten</button>
                             <div class="solution">
-                                <strong>Richtig!</strong> Das Prozentzeichen <code>%</code> steht für beliebig viele folgende Buchstaben. Bei <code>'E%'</code> muss das E am Anfang stehen.
+                                <strong>Richtig!</strong> Das Prozentzeichen <code>%</code> steht für beliebig viele
+                                folgende Buchstaben. Bei <code>'E%'</code> muss das E am Anfang stehen.
                             </div>
                         </div>
 
                         <div class="quiz-card card" data-correct="0">
                             <h3>Frage 3: Tabellenverknüpfung (aus Arbeitsblatt 2 & 4)</h3>
-                            <p>Die Aufgabe fordert ausdrücklich: "Nutzen Sie <strong>keine</strong> JOIN-Schreibweise". Du möchtest Stadt- und Ländernamen ausgeben. Wie sieht die richtige <code>WHERE</code>-Verknüpfung aus? (Angenommen die Fremdschlüsselspalte heißt 'Land_ID')</p>
-                            <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE STADT.Land_ID = LAND.ID</code></div>
-                            <div class="quiz-option" onclick="toggleOption(this)"><code>ON STADT.Land_ID = LAND.ID</code></div>
-                            <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE STADT.Name = LAND.Name</code></div>
-                            <button class="btn-primary" style="margin-top: 1rem;" onclick="checkQuiz(this)">Auswerten</button>
+                            <p>Die Aufgabe fordert ausdrücklich: "Nutzen Sie <strong>keine</strong> JOIN-Schreibweise".
+                                Du möchtest Stadt- und Ländernamen ausgeben. Wie sieht die richtige
+                                <code>WHERE</code>-Verknüpfung aus? (Angenommen die Fremdschlüsselspalte heißt
+                                'Land_ID')
+                            </p>
+                            <div class="quiz-option" onclick="toggleOption(this)">
+                                <code>WHERE STADT.Land_ID = LAND.ID</code>
+                            </div>
+                            <div class="quiz-option" onclick="toggleOption(this)">
+                                <code>ON STADT.Land_ID = LAND.ID</code>
+                            </div>
+                            <div class="quiz-option" onclick="toggleOption(this)">
+                                <code>WHERE STADT.Name = LAND.Name</code>
+                            </div>
+                            <button class="btn-primary" style="margin-top: 1rem;"
+                                onclick="checkQuiz(this)">Auswerten</button>
                             <div class="solution">
-                                <strong>Richtig!</strong> Um auf den expliziten <code>INNER JOIN</code> zu verzichten, setzt du Primär- und Fremdschlüssel in der <code>WHERE</code>-Klausel gleich.
+                                <strong>Richtig!</strong> Um auf den expliziten <code>INNER JOIN</code> zu verzichten,
+                                setzt du Primär- und Fremdschlüssel in der <code>WHERE</code>-Klausel gleich.
                             </div>
                         </div>
 
                         <!-- OPEN EXERCISES SECTION -->
-                        <h3 style="margin-top: 3rem; margin-bottom: 1rem; color: var(--color-primary);">Teil 2: Eigene SQL-Abfragen schreiben</h3>
+                        <h3 style="margin-top: 3rem; margin-bottom: 1rem; color: var(--color-primary);">Teil 2: Eigene
+                            SQL-Abfragen schreiben</h3>
                         <p>Notiere dir die Abfragen auf einem Zettel und vergleiche sie anschließend.</p>
 
                         <div class="exercise-card card">
                             <h3>Aufgabe 4 (aus Arbeitsblatt 1)</h3>
-                            <p>Geben Sie alle Flüsse (Tabelle FLUSS) mit einer Länge größer als 2000 km an, sortiert nach der Länge.</p>
+                            <p>Geben Sie alle Flüsse (Tabelle FLUSS) mit einer Länge größer als 2000 km an, sortiert
+                                nach der Länge.</p>
                             <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
                             <div class="solution">
                                 <code><strong>SELECT</strong> *</code><br>
@@ -303,29 +365,129 @@
 
                         <div class="exercise-card card">
                             <h3>Aufgabe 6 (aus Arbeitsblatt 2)</h3>
-                            <p>Geben Sie nur jene Länder an, die mindestens eine Stadt mit mehr als 1.000.000 Einwohnern haben. Geben Sie dabei die Stadt und das Land aus. (Nutze klassische FROM/WHERE-Syntax, keine JOINS).</p>
+                            <p>Geben Sie nur jene Länder an, die mindestens eine Stadt mit mehr als 1.000.000 Einwohnern
+                                haben. Geben Sie dabei die Stadt und das Land aus. (Nutze klassische FROM/WHERE-Syntax,
+                                keine JOINS).</p>
                             <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
                             <div class="solution">
                                 <code><strong>SELECT</strong> STADT.Name, LAND.Name</code><br>
                                 <code><strong>FROM</strong> STADT, LAND</code><br>
-                                <code><strong>WHERE</strong> STADT.Land = LAND.ID</code> (Die exakte Spaltenbezeichnung kann in der terra-DB abweichen)<br>
+                                <code><strong>WHERE</strong> STADT.Land = LAND.ID</code> (Die exakte Spaltenbezeichnung
+                                kann in der terra-DB abweichen)<br>
                                 <code><strong>AND</strong> STADT.Einwohner > 1000000;</code>
                             </div>
                         </div>
 
                         <div class="exercise-card card">
                             <h3>Aufgabe 7 (aus Arbeitsblatt 4)</h3>
-                            <p>Ermittle, wie viele Städte in jedem Land erfasst sind. Sortiere nach der Anzahl absteigend.</p>
+                            <p>Ermittle, wie viele Städte in jedem Land erfasst sind. Sortiere nach der Anzahl
+                                absteigend.</p>
                             <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
                             <div class="solution">
                                 <code><strong>SELECT</strong> Land, <strong>COUNT</strong>(Name)</code><br>
                                 <code><strong>FROM</strong> STADT</code><br>
                                 <code><strong>GROUP BY</strong> Land</code><br>
                                 <code><strong>ORDER BY COUNT</strong>(Name) <strong>DESC</strong>;</code><br>
-                                <em>(Alternativ kann auch ein Alias für COUNT(Name) genutzt und im ORDER BY angesprochen werden).</em>
+                                <em>(Alternativ kann auch ein Alias für COUNT(Name) genutzt und im ORDER BY angesprochen
+                                    werden).</em>
                             </div>
                         </div>
-                        
+                        <div class="exercise-card card">
+                            <h3>Zusatzaufgabe 1: Filter &amp; Sortierung</h3>
+                            <p>Geben Sie alle Städte aus Deutschland (<code>Land = 'D'</code>) an, deren Einwohnerzahl
+                                größer als 200.000 ist, sortiert nach Einwohnerzahl absteigend.</p>
+
+                            <textarea id="sql-input-extra-1" class="sql-textarea"
+                                placeholder="SELECT ... FROM ..."></textarea>
+
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button class="btn-primary" onclick="checkSqlAnswer('sql-input-extra-1', 'fb-extra-1', [
+                'SELECT * FROM STADT WHERE LAND = \'D\' AND EINWOHNER > 200000 ORDER BY EINWOHNER DESC',
+                'SELECT NAME, EINWOHNER FROM STADT WHERE LAND = \'D\' AND EINWOHNER > 200000 ORDER BY EINWOHNER DESC'
+            ])">⚡ Abfrage prüfen</button>
+                                <button class="btn-secondary" onclick="toggleSolution(this)">📖 Musterlösung
+                                    anzeigen</button>
+                            </div>
+
+                            <div id="fb-extra-1" style="display: none; margin-top: 0.8rem;"></div>
+                            <div class="solution">
+                                <code>SELECT * FROM STADT WHERE Land = 'D' AND Einwohner &gt; 200000 ORDER BY Einwohner DESC;</code>
+                            </div>
+                        </div>
+
+                        <!-- ZUSATZAUFGABE 2 -->
+                        <div class="exercise-card card">
+                            <h3>Zusatzaufgabe 2: Aggregatfunktionen (MAX &amp; MIN)</h3>
+                            <p>Ermitteln Sie die maximale und die minimale Höhe aller Berge in der Tabelle
+                                <code>BERG</code>.
+                            </p>
+
+                            <textarea id="sql-input-extra-2" class="sql-textarea"
+                                placeholder="SELECT ... FROM ..."></textarea>
+
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button class="btn-primary" onclick="checkSqlAnswer('sql-input-extra-2', 'fb-extra-2', [
+                'SELECT MAX(HOEHE), MIN(HOEHE) FROM BERG',
+                'SELECT MAX(HOEHE), MIN(HOEHE) FROM BERG'
+            ])">⚡ Abfrage prüfen</button>
+                                <button class="btn-secondary" onclick="toggleSolution(this)">📖 Musterlösung
+                                    anzeigen</button>
+                            </div>
+
+                            <div id="fb-extra-2" style="display: none; margin-top: 0.8rem;"></div>
+                            <div class="solution">
+                                <code>SELECT MAX(Hoehe), MIN(Hoehe) FROM BERG;</code>
+                            </div>
+                        </div>
+
+                        <!-- ZUSATZAUFGABE 3 -->
+                        <div class="exercise-card card">
+                            <h3>Zusatzaufgabe 3: Tabellenverknüpfung &amp; LIKE</h3>
+                            <p>Geben Sie die Namen aller Flüsse und das Land an, in dem sie fließen, für alle Flüsse,
+                                deren Name mit „R“ beginnt (keine JOIN-Schreibweise!).</p>
+
+                            <textarea id="sql-input-extra-3" class="sql-textarea"
+                                placeholder="SELECT ... FROM ..."></textarea>
+
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button class="btn-primary" onclick="checkSqlAnswer('sql-input-extra-3', 'fb-extra-3', [
+                'SELECT FLUSS.NAME, LAND.NAME FROM FLUSS, LAND WHERE FLUSS.LAND = LAND.ID AND FLUSS.NAME LIKE \'R%\''
+            ], { noJoin: true })">⚡ Abfrage prüfen</button>
+                                <button class="btn-secondary" onclick="toggleSolution(this)">📖 Musterlösung
+                                    anzeigen</button>
+                            </div>
+
+                            <div id="fb-extra-3" style="display: none; margin-top: 0.8rem;"></div>
+                            <div class="solution">
+                                <code>SELECT FLUSS.Name, LAND.Name FROM FLUSS, LAND WHERE FLUSS.Land = LAND.ID AND FLUSS.Name LIKE 'R%';</code>
+                            </div>
+                        </div>
+
+                        <!-- ZUSATZAUFGABE 4 -->
+                        <div class="exercise-card card">
+                            <h3>Zusatzaufgabe 4: Gruppierung mit HAVING</h3>
+                            <p>Ermitteln Sie alle Länder (Länderkürzel), in denen mehr als 3 Städte in der Tabelle
+                                <code>STADT</code> erfasst sind.
+                            </p>
+
+                            <textarea id="sql-input-extra-4" class="sql-textarea"
+                                placeholder="SELECT ... FROM ..."></textarea>
+
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button class="btn-primary" onclick="checkSqlAnswer('sql-input-extra-4', 'fb-extra-4', [
+                'SELECT LAND, COUNT(NAME) FROM STADT GROUP BY LAND HAVING COUNT(NAME) > 3',
+                'SELECT LAND, COUNT(*) FROM STADT GROUP BY LAND HAVING COUNT(*) > 3',
+                'SELECT LAND FROM STADT GROUP BY LAND HAVING COUNT(*) > 3'
+            ])">⚡ Abfrage prüfen</button>
+                                <button class="btn-secondary" onclick="toggleSolution(this)">📖 Musterlösung
+                                    anzeigen</button>
+                            </div>
+
+                            <div id="fb-extra-4" style="display: none; margin-top: 0.8rem;"></div>
+                            <div class="solution">
+                                <code>SELECT Land, COUNT(Name) FROM STADT GROUP BY Land HAVING COUNT(Name) &gt; 3;</code>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -334,4 +496,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
