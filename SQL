@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL & Datenbanken - Lern-Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .solution {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: color-mix(in srgb, var(--color-success) 10%, var(--color-surface));
+            border-left: 4px solid var(--color-success);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            animation: fadeIn 0.3s ease;
+        }
+        .solution.show {
+            display: block;
+        }
+        .exercise-card, .quiz-card {
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .exercise-card:last-child, .quiz-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="logo" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>Lern-Hub</h1>
+                        <p>Übersicht</p>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html">🏠 Home</a>
+                <a href="uml.html">🎯 UML-Aktivitätsdiagramm</a>
+                <a href="englisch.html">🎤 Englisch Präsentation</a>
+                <a href="weihnachtsroute.html">🎅 Weihnachtsmann Problem</a>
+                <a href="wirtschaft.html">💼 Wirtschaftskunde</a>
+                <a href="Normalisierung.html">🔡 Normalisierung</a>
+                <a href="java.html">☕ Java</a>
+                <a href="it-begriffe.html">📝 IT-Begriffe (Rechtschreibung)</a>
+                <a href="marktformen.html">📊 Marktformen & Unternehmen</a>
+                <a href="sql-terra.html" style="background: var(--color-primary-highlight); font-weight: bold;">💾 SQL (terra-Datenbank)</a>
+            </nav>
+            
+            <button class="theme-toggle">
+                <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
+
+        <main class="content">
+            <div class="eyebrow">Datenbanken & SQL</div>
+            <h1 class="page-title">💾 SQL-Abfragen (terra.sachsen.schule)</h1>
+            <p class="page-subtitle">Lernübersicht für klassische Datenbankabfragen, Aggregatfunktionen und Tabellenverknüpfungen.</p>
+
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-tab="basis">📖 Basis-Abfragen (SELECT)</button>
+                    <button class="tab-btn" data-tab="join">🔗 Mehrere Tabellen (Ohne JOIN)</button>
+                    <button class="tab-btn" data-tab="funktionen">🧮 Funktionen & Gruppierung</button>
+                    <button class="tab-btn" data-tab="test">🎯 Interaktiver Test</button>
+                </div>
+
+                <!-- TAB 1: BASIS & SELECT -->
+                <div id="basis" class="tab-pane active">
+                    <div class="panel">
+                        <h2>1. Der Grundaufbau einer Abfrage</h2>
+                        <p>Jede grundlegende SQL-Abfrage nach bestimmten Kriterien folgt demselben Raster:</p>
+                        <div class="callout">
+                            <code><strong>SELECT</strong> Spalte1, Spalte2</code> (Was möchte ich sehen?)<br>
+                            <code><strong>FROM</strong> Tabellenname</code> (Woher kommen die Daten?)<br>
+                            <code><strong>WHERE</strong> Bedingung</code> (Welcher Filter soll gelten?)<br>
+                            <code><strong>ORDER BY</strong> Spalte <strong>ASC / DESC</strong></code> (Wie soll sortiert werden?)
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h2>2. Filterbedingungen (WHERE)</h2>
+                        <div class="grid-2">
+                            <div class="card">
+                                <h3>Zahlen vergleichen</h3>
+                                <p>Nutzung der klassischen Vergleichsoperatoren (>, <, >=, <=, =, <>).</p>
+                                <code>WHERE Einwohner > 1000000</code><br>
+                                <code>WHERE Flaeche <= 50000</code>
+                            </div>
+                            <div class="card">
+                                <h3>Texte suchen (LIKE)</h3>
+                                <p>Um nach Textmustern zu suchen, nutzen wir <code>LIKE</code> zusammen mit dem Platzhalter <code>%</code> (für beliebig viele Zeichen).</p>
+                                <code>WHERE Name LIKE 'B%'</code> (Beginnt mit B)<br>
+                                <code>WHERE Name LIKE '%see%'</code> (Enthält "see")
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h2>3. Sortierung (ORDER BY)</h2>
+                        <p>Das Ergebnis kann aufsteigend (ASC - Standard) oder absteigend (DESC) sortiert werden. Man kann auch nach mehreren Spalten gleichzeitig sortieren.</p>
+                        <ul>
+                            <li><code>ORDER BY Hoehe DESC</code> (Höchste Berge zuerst)</li>
+                            <li><code>ORDER BY Kontinent, Flaeche DESC</code> (Zuerst nach Kontinent alphabetisch, dann pro Kontinent nach Fläche absteigend)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- TAB 2: MEHRERE TABELLEN VERKNÜPFEN (OHNE JOIN) -->
+                <div id="join" class="tab-pane">
+                    <div class="panel">
+                        <div class="eyebrow">Wichtiger Hinweis aus dem Arbeitsblatt</div>
+                        <h2>Daten über die FROM/WHERE-Syntax verbinden</h2>
+                        <p>In den Arbeitsblättern 2 und 4 wird ausdrücklich gefordert, <strong>keine JOIN-Schreibweise</strong> zu verwenden. Stattdessen verknüpfen wir die Tabellen über die <code>WHERE</code>-Klausel. Dies nennt man impliziten Join (oder Theta-Join).</p>
+                        
+                        <div class="callout warning">
+                            <strong>Das Prinzip: Primärschlüssel = Fremdschlüssel</strong>
+                            <p>Wenn du Daten aus <code>STADT</code> und <code>LAND</code> brauchst, nennst du beide in der <code>FROM</code>-Klausel und verbindest sie in der <code>WHERE</code>-Klausel.</p>
+                            <code>SELECT STADT.Name, LAND.Name</code><br>
+                            <code>FROM STADT, LAND</code><br>
+                            <code>WHERE STADT.Land = LAND.LandKuerzel;</code> (Je nach Spaltennamen in der terra-DB)
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3>Beispiel: Seen und Länder</h3>
+                            <p>Du willst alle Seen mit einer Tiefe > 500m und das dazugehörige Land anzeigen:</p>
+                            <code>SELECT SEE.Name, LAND.Name, SEE.Tiefe</code><br>
+                            <code>FROM SEE, LAND</code><br>
+                            <code>WHERE SEE.Land = LAND.ID </code><br>
+                            <code>AND SEE.Tiefe > 500</code><br>
+                            <code>ORDER BY SEE.Tiefe;</code>
+                        </div>
+                        
+                        <div class="card">
+                            <h3>Beispiel: Benachbarte Länder (Self-Join)</h3>
+                            <p>Du willst zwei Länder finden, die benachbart sind. Dafür nutzt du oft eine Zwischentabelle wie <code>BENACHBART</code>, oder greifst zweimal auf <code>LAND</code> zu (mit Aliasnamen):</p>
+                            <code>SELECT L1.Name, L2.Name</code><br>
+                            <code>FROM LAND L1, LAND L2, BENACHBART B</code><br>
+                            <code>WHERE L1.ID = B.Land1 </code><br>
+                            <code>AND L2.ID = B.Land2;</code>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: AGGREGATFUNKTIONEN -->
+                <div id="funktionen" class="tab-pane">
+                    <div class="panel">
+                        <h2>1. Die 5 wichtigen Aggregatfunktionen</h2>
+                        <p>Mit diesen Funktionen werden Spaltenwerte zusammengefasst oder berechnet (Arbeitsblatt 3).</p>
+                        <div class="table-wrap">
+                            <table>
+                                <tr>
+                                    <th>Funktion</th>
+                                    <th>Zweck</th>
+                                    <th>Beispiel</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>COUNT()</strong></td>
+                                    <td>Anzahl der Datensätze zählen</td>
+                                    <td><code>COUNT(*)</code> (Wie viele Länder gibt es?)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>SUM()</strong></td>
+                                    <td>Werte addieren</td>
+                                    <td><code>SUM(Flaeche)</code> (Gesamtfläche aller Länder)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>AVG()</strong></td>
+                                    <td>Durchschnitt berechnen</td>
+                                    <td><code>AVG(Hoehe)</code> (Durchschnittliche Berghöhe)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>MAX()</strong></td>
+                                    <td>Größter Wert</td>
+                                    <td><code>MAX(Einwohner)</code> (Höchste Einwohnerzahl)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>MIN()</strong></td>
+                                    <td>Kleinster Wert</td>
+                                    <td><code>MIN(Flaeche)</code> (Kleinste Fläche)</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h2>2. Daten gruppieren (GROUP BY)</h2>
+                        <p>Sobald du eine Aggregatfunktion mit einer normalen Text-Spalte mischst (z. B. "Anzahl der Städte <strong>pro</strong> Land"), musst du nach der Text-Spalte gruppieren.</p>
+                        
+                        <div class="callout success">
+                            <strong>Beispiel: Wie viele Städte sind in jedem Land erfasst?</strong><br>
+                            <code>SELECT Land, COUNT(Name)</code><br>
+                            <code>FROM STADT</code><br>
+                            <code>GROUP BY Land;</code>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h2>3. Gruppierungen filtern (HAVING)</h2>
+                        <p>Das normale <code>WHERE</code> funktioniert nur vor dem Gruppieren. Willst du nach einer Aggregatfunktion filtern (z.B. "Nur Gebirge zeigen, die <strong>mehr als 5</strong> Berge haben"), benutzt du <code>HAVING</code>.</p>
+                        
+                        <code>SELECT Gebirge, COUNT(Name)</code><br>
+                        <code>FROM BERG</code><br>
+                        <code>GROUP BY Gebirge</code><br>
+                        <code><strong>HAVING</strong> COUNT(Name) > 5;</code>
+                    </div>
+                </div>
+
+                <!-- TAB 4: TESTBEREICH -->
+                <div id="test" class="tab-pane">
+                    <div class="panel">
+                        <h2>Dein SQL-Übungstest</h2>
+                        <p>Wende dein Wissen aus den Arbeitsblättern 1 bis 4 direkt an. Beantworte zunächst die Multiple-Choice-Fragen (werden direkt vom System geprüft) und überprüfe danach deine selbst geschriebenen Abfragen über die "Lösung anzeigen"-Buttons.</p>
+
+                        <!-- MULTIPLE CHOICE SECTION (GEPRÜFT) -->
+                        <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--color-primary);">Teil 1: Multiple Choice</h3>
+
+                        <div class="quiz-card card" data-correct="1">
+                            <h3>Frage 1: Aggregatfunktionen (aus Arbeitsblatt 3)</h3>
+                            <p>Wie ermittelst du die <strong>durchschnittliche Einwohnerzahl</strong> aller Länder?</p>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>SELECT SUM(Einwohner) FROM LAND;</code></div>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>SELECT AVG(Einwohner) FROM LAND;</code></div>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>SELECT COUNT(Einwohner) FROM LAND;</code></div>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>SELECT MAX(Einwohner) FROM LAND;</code></div>
+                            <button class="btn-primary" style="margin-top: 1rem;" onclick="checkQuiz(this)">Auswerten</button>
+                            <div class="solution">
+                                <strong>Richtig!</strong> <code>AVG()</code> berechnet den Mittelwert (Average). <code>SUM()</code> würde alle Einwohner addieren, <code>COUNT()</code> würde nur zählen, wie viele Zeilen es gibt.
+                            </div>
+                        </div>
+
+                        <div class="quiz-card card" data-correct="2">
+                            <h3>Frage 2: Filter und Wildcards (aus Arbeitsblatt 1)</h3>
+                            <p>Wie lautet die korrekte Bedingung für: "Alle Wüsten, deren Name mit 'E' beginnt"?</p>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE Name = 'E*'</code></div>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE Name LIKE '%E'</code></div>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE Name LIKE 'E%'</code></div>
+                            <button class="btn-primary" style="margin-top: 1rem;" onclick="checkQuiz(this)">Auswerten</button>
+                            <div class="solution">
+                                <strong>Richtig!</strong> Das Prozentzeichen <code>%</code> steht für beliebig viele folgende Buchstaben. Bei <code>'E%'</code> muss das E am Anfang stehen.
+                            </div>
+                        </div>
+
+                        <div class="quiz-card card" data-correct="0">
+                            <h3>Frage 3: Tabellenverknüpfung (aus Arbeitsblatt 2 & 4)</h3>
+                            <p>Die Aufgabe fordert ausdrücklich: "Nutzen Sie <strong>keine</strong> JOIN-Schreibweise". Du möchtest Stadt- und Ländernamen ausgeben. Wie sieht die richtige <code>WHERE</code>-Verknüpfung aus? (Angenommen die Fremdschlüsselspalte heißt 'Land_ID')</p>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE STADT.Land_ID = LAND.ID</code></div>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>ON STADT.Land_ID = LAND.ID</code></div>
+                            <div class="quiz-option" onclick="toggleOption(this)"><code>WHERE STADT.Name = LAND.Name</code></div>
+                            <button class="btn-primary" style="margin-top: 1rem;" onclick="checkQuiz(this)">Auswerten</button>
+                            <div class="solution">
+                                <strong>Richtig!</strong> Um auf den expliziten <code>INNER JOIN</code> zu verzichten, setzt du Primär- und Fremdschlüssel in der <code>WHERE</code>-Klausel gleich.
+                            </div>
+                        </div>
+
+                        <!-- OPEN EXERCISES SECTION -->
+                        <h3 style="margin-top: 3rem; margin-bottom: 1rem; color: var(--color-primary);">Teil 2: Eigene SQL-Abfragen schreiben</h3>
+                        <p>Notiere dir die Abfragen auf einem Zettel und vergleiche sie anschließend.</p>
+
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 4 (aus Arbeitsblatt 1)</h3>
+                            <p>Geben Sie alle Flüsse (Tabelle FLUSS) mit einer Länge größer als 2000 km an, sortiert nach der Länge.</p>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <code><strong>SELECT</strong> *</code><br>
+                                <code><strong>FROM</strong> FLUSS</code><br>
+                                <code><strong>WHERE</strong> Laenge > 2000</code><br>
+                                <code><strong>ORDER BY</strong> Laenge;</code><br>
+                                <em>(Hinweis: Ohne ASC/DESC wird automatisch aufsteigend sortiert.)</em>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 5 (aus Arbeitsblatt 3)</h3>
+                            <p>Ermittle für jedes Gebirge, wie viele Berge in der Tabelle BERG eingetragen sind.</p>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <code><strong>SELECT</strong> Gebirge, <strong>COUNT</strong>(Name)</code><br>
+                                <code><strong>FROM</strong> BERG</code><br>
+                                <code><strong>GROUP BY</strong> Gebirge;</code>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 6 (aus Arbeitsblatt 2)</h3>
+                            <p>Geben Sie nur jene Länder an, die mindestens eine Stadt mit mehr als 1.000.000 Einwohnern haben. Geben Sie dabei die Stadt und das Land aus. (Nutze klassische FROM/WHERE-Syntax, keine JOINS).</p>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                   
