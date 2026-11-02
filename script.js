@@ -170,3 +170,42 @@ window.checkQuiz = function(btn) {
         solution.classList.add('show');
     }
 };
+function checkSqlAnswer(inputId, feedbackId, validQueries, options = {}) {
+    const inputEl = document.getElementById(inputId);
+    const feedbackEl = document.getElementById(feedbackId);
+    if (!inputEl || !feedbackEl) return;
+
+    const rawInput = inputEl.value.trim();
+
+    if (!rawInput) {
+        feedbackEl.className = 'callout warning';
+        feedbackEl.innerHTML = '⚠️ Bitte tippe zuerst eine SQL-Abfrage ein!';
+        feedbackEl.style.display = 'block';
+        return;
+    }
+
+    // Normalisierung: Semikolons entfernen, mehrfache Leerzeichen durch 1 Leerzeichen ersetzen, Großbuchstaben
+    const cleanInput = rawInput.replace(/;/g, '').replace(/\s+/g, ' ').toUpperCase();
+
+    // Check gegen erlaubte Musterlösungen
+    const isCorrect = validQueries.some(query => {
+        const cleanQuery = query.replace(/;/g, '').replace(/\s+/g, ' ').toUpperCase();
+        return cleanInput === cleanQuery;
+    });
+
+    if (isCorrect) {
+        feedbackEl.className = 'callout success';
+        feedbackEl.innerHTML = '<strong>✅ Richtig!</strong> Deine SQL-Abfrage ist korrekt formuliert.';
+    } else {
+        let hint = '';
+        if (options.noJoin && cleanInput.includes('JOIN')) {
+            hint = '<br>💡 <em>Hinweis: Verwechsle nicht die JOIN-Schreibweise – gefordert ist die klassische FROM/WHERE-Syntax!</em>';
+        } else if (!cleanInput.startsWith('SELECT')) {
+            hint = '<br>💡 <em>Hinweis: Jede Abfrage muss mit SELECT beginnen.</em>';
+        }
+
+        feedbackEl.className = 'callout warning';
+        feedbackEl.innerHTML = `<strong>❌ Noch nicht ganz richtig.</strong> Überprüfe Spaltennamen, Tabellen und Bedingungen.${hint}`;
+    }
+    feedbackEl.style.display = 'block';
+}
