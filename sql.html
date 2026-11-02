@@ -101,49 +101,131 @@
                     <button class="tab-btn" data-tab="test">🎯 Interaktiver Test</button>
                 </div>
 
-                <!-- TAB 1: BASIS & SELECT -->
+                <!-- TAB 1: BASIS & SELECT (ANSCHAULICH & PRAXISNAH) -->
                 <div id="basis" class="tab-pane active">
+
+                    <!-- 1. DER SQL-BAUKASTEN -->
                     <div class="panel">
-                        <h2>1. Der Grundaufbau einer Abfrage</h2>
-                        <p>Jede grundlegende SQL-Abfrage nach bestimmten Kriterien folgt demselben Raster:</p>
-                        <div class="callout">
-                            <code><strong>SELECT</strong> Spalte1, Spalte2</code> (Was möchte ich sehen?)<br>
-                            <code><strong>FROM</strong> Tabellenname</code> (Woher kommen die Daten?)<br>
-                            <code><strong>WHERE</strong> Bedingung</code> (Welcher Filter soll gelten?)<br>
-                            <code><strong>ORDER BY</strong> Spalte <strong>ASC / DESC</strong></code> (Wie soll sortiert
-                            werden?)
+                        <h2>1. Der SQL-Baukasten (Die 4 Grundfragen)</h2>
+                        <p>Stell dir eine SQL-Abfrage wie eine Bestellung beim Datenbank-Kellner vor. Du sagst ihm
+                            genau, <strong>was</strong> du sehen willst, <strong>woher</strong> es kommt und
+                            <strong>wie</strong> es gefiltert & sortiert werden soll:
+                        </p>
+
+                        <div class="callout"
+                            style="background: var(--color-surface); border-left: 4px solid var(--color-primary);">
+                            <p style="margin-bottom: 0.6rem;">
+                                <b style="color: var(--color-primary); font-size: 1.1em;">SELECT</b>
+                                <code>Name, Einwohner</code>
+                                <span style="color: var(--color-text-muted); font-size: 0.9em;">➔ <b>WAS</b> möchtest du
+                                    sehen? (Spaltenauswahl)</span>
+                            </p>
+                            <p style="margin-bottom: 0.6rem;">
+                                <b style="color: var(--color-primary); font-size: 1.1em;">FROM</b>
+                                <code>STADT</code>
+                                <span style="color: var(--color-text-muted); font-size: 0.9em;">➔ <b>WO</b> liegen die
+                                    Daten? (Tabellenname)</span>
+                            </p>
+                            <p style="margin-bottom: 0.6rem;">
+                                <b style="color: var(--color-primary); font-size: 1.1em;">WHERE</b>
+                                <code>Einwohner > 1000000</code>
+                                <span style="color: var(--color-text-muted); font-size: 0.9em;">➔ <b>WELCHE</b>
+                                    Datensätze bleiben übrig? (Filterbedingung)</span>
+                            </p>
+                            <p style="margin-bottom: 0;">
+                                <b style="color: var(--color-primary); font-size: 1.1em;">ORDER BY</b>
+                                <code>Einwohner DESC</code>
+                                <span style="color: var(--color-text-muted); font-size: 0.9em;">➔ <b>WIE</b> wird
+                                    sortiert? (Sortierreihenfolge)</span>
+                            </p>
+                        </div>
+
+                        <div class="callout warning" style="margin-top: 1rem;">
+                            <strong>💡 Merksatz für die Reihenfolge:</strong>
+                            <p style="margin-bottom: 0;">Die Reihenfolge im Befehl ist immer fest: <b>S</b>elect
+                                <b>F</b>rom <b>W</b>here <b>O</b>rder by (Eselsbrücke: <b>S</b>o <b>F</b>indet
+                                <b>M</b>an <b>O</b>rdnung).
+                            </p>
                         </div>
                     </div>
 
+                    <!-- 2. FILTERN MIT WHERE -->
                     <div class="panel">
-                        <h2>2. Filterbedingungen (WHERE)</h2>
+                        <h2>2. Gezieltes Filtern (WHERE-Klausel)</h2>
+                        <p>Mit <code>WHERE</code> sortierst du unpassende Datensätze aus. Je nach Datentyp nutzt du
+                            unterschiedliche Vergleiche:</p>
+
+                        <div class="grid-2">
+                            <!-- ZAHLEVERGLEICHE -->
+                            <div class="card">
+                                <h3>🔢 Zahlen vergleichen</h3>
+                                <p>Verwende die Standard-Operatoren (<code>&gt;</code>, <code>&lt;</code>,
+                                    <code>&gt;=</code>, <code>&lt;=</code>, <code>=</code>, <code>&lt;&gt;</code>):
+                                </p>
+                                <div
+                                    style="background: var(--color-surface); padding: 0.8rem; border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 0.9em;">
+                                    <span style="color: var(--color-text-muted);">// Alle Städte über 1 Mio.
+                                        Einwohner:</span><br>
+                                    WHERE Einwohner &gt; 1000000<br><br>
+                                    <span style="color: var(--color-text-muted);">// Kleine Länder unter 50.000
+                                        km²:</span><br>
+                                    WHERE Flaeche &lt;= 50000
+                                </div>
+                            </div>
+
+                            <!-- TEXTSUCHE UND WILDCARDS -->
+                            <div class="card">
+                                <h3>🔤 Textsuche mit Muster (LIKE &amp; %)</h3>
+                                <p>Das Prozentzeichen <code>%</code> dient als <b>Joker / Platzhalter</b> für beliebige
+                                    Zeichen:</p>
+                                <div
+                                    style="background: var(--color-surface); padding: 0.8rem; border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 0.9em;">
+                                    <span style="color: var(--color-text-muted);">// Beginnt mit 'B' (z.B. Berlin,
+                                        Bern):</span><br>
+                                    WHERE Name LIKE 'B%'<br><br>
+                                    <span style="color: var(--color-text-muted);">// Endet auf 'land' (z.B.
+                                        Deutschland):</span><br>
+                                    WHERE Name LIKE '%land'<br><br>
+                                    <span style="color: var(--color-text-muted);">// Enthält 'see' an beliebiger
+                                        Stelle:</span><br>
+                                    WHERE Name LIKE '%see%'
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. SORTIEREN DER ERGEBNISSE -->
+                    <div class="panel">
+                        <h2>3. Ergebnisse Sortieren (ORDER BY)</h2>
+                        <p>Ohne <code>ORDER BY</code> gibt die Datenbank die Ergebnisse in zufälliger Reihenfolge
+                            zurück.</p>
+
                         <div class="grid-2">
                             <div class="card">
-                                <h3>Zahlen vergleichen</h3>
-                                <p>Nutzung der klassischen Vergleichsoperatoren (>, <,>=, <=,=, <>).</p>
-                                <code>WHERE Einwohner > 1000000</code><br>
-                                <code>WHERE Flaeche <= 50000</code>
+                                <h3>⬆️ Aufsteigend (ASC)</h3>
+                                <p>Kleinste Zahlen zuerst oder A-Z (Standard, muss nicht zwingend angegeben werden).</p>
+                                <code>ORDER BY Hoehe ASC</code><br>
+                                <small style="color: var(--color-text-muted);">Ergebnis: 500m, 1200m, 4807m...</small>
                             </div>
+
                             <div class="card">
-                                <h3>Texte suchen (LIKE)</h3>
-                                <p>Um nach Textmustern zu suchen, nutzen wir <code>LIKE</code> zusammen mit dem
-                                    Platzhalter <code>%</code> (für beliebig viele Zeichen).</p>
-                                <code>WHERE Name LIKE 'B%'</code> (Beginnt mit B)<br>
-                                <code>WHERE Name LIKE '%see%'</code> (Enthält "see")
+                                <h3>⬇️ Absteigend (DESC)</h3>
+                                <p>Größte Zahlen zuerst oder Z-A.</p>
+                                <code>ORDER BY Hoehe DESC</code><br>
+                                <small style="color: var(--color-text-muted);">Ergebnis: 8848m, 4807m, 1200m...</small>
                             </div>
+                        </div>
+
+                        <div class="callout success" style="margin-top: 1rem;">
+                            <strong>Mehrfach-Sortierung:</strong>
+                            <p style="margin-bottom: 0;">Du kannst nach mehreren Spalten kommagetrennt sortieren. Zum
+                                Beispiel erst nach Kontinent (A-Z) und bei gleichem Kontinent nach Fläche (größtes Land
+                                zuerst):<br>
+                                <code>ORDER BY Kontinent ASC, Flaeche DESC</code>
+                            </p>
                         </div>
                     </div>
 
-                    <div class="panel">
-                        <h2>3. Sortierung (ORDER BY)</h2>
-                        <p>Das Ergebnis kann aufsteigend (ASC - Standard) oder absteigend (DESC) sortiert werden. Man
-                            kann auch nach mehreren Spalten gleichzeitig sortieren.</p>
-                        <ul>
-                            <li><code>ORDER BY Hoehe DESC</code> (Höchste Berge zuerst)</li>
-                            <li><code>ORDER BY Kontinent, Flaeche DESC</code> (Zuerst nach Kontinent alphabetisch, dann
-                                pro Kontinent nach Fläche absteigend)</li>
-                        </ul>
-                    </div>
                 </div>
 
                 <!-- TAB 2: MEHRERE TABELLEN VERKNÜPFEN (OHNE JOIN) -->
