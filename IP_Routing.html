@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netzwerke & Routing - Lern-Hub</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        .solution {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: color-mix(in srgb, var(--color-success) 10%, var(--color-surface));
+            border-left: 4px solid var(--color-success);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            animation: fadeIn 0.3s ease;
+        }
+        .solution.show {
+            display: block;
+        }
+        .exercise-card {
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-surface-2);
+            padding: var(--space-5);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        .input-field {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+            font-family: var(--font-mono);
+        }
+        .step-box {
+            background: var(--color-surface-offset);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--color-primary);
+        }
+        .code-box {
+            background: var(--color-surface);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        /* Table Wrap Fix for Mobile (wie bei den Marktformen) */
+        .table-wrap {
+            display: block !important;
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin-bottom: var(--space-6);
+        }
+        .table-wrap table {
+            width: 100%;
+            min-width: 600px !important;
+        }
+
+        @media print {
+            body * { visibility: hidden; }
+            #lernzettel, #lernzettel * { visibility: visible; }
+            #lernzettel { position: absolute; left: 0; top: 0; width: 100%; }
+            .sidebar, .tabs-nav, .theme-toggle, .btn-secondary, .mobile-menu-btn { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="logo" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>Lern-Hub</h1>
+                        <p>Netzwerktechnik</p>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html">🏠 Zurück zum Home</a>
+                <a href="netzwerke.html" style="background: var(--color-primary-highlight); font-weight: bold; color: var(--color-primary);">🌐 IPv6 & Routing</a>
+            </nav>
+            
+            <button class="theme-toggle">
+                <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
+
+        <main class="content">
+            <div class="eyebrow">Netzwerke & Routing</div>
+            <h1 class="page-title">🌐 IPv6, IPv4 & Wireshark</h1>
+            <p class="page-subtitle">Umfassende Theorie, Schritt-für-Schritt Subnetting und Trace-Analysen.</p>
+
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-tab="theorie-ipv6">📖 IPv6 Theorie & Subnetting</button>
+                    <button class="tab-btn" data-tab="theorie-ipv4">📖 IPv4 & Wireshark Trace</button>
+                    <button class="tab-btn" data-tab="test">🎯 Interaktiver Übungstest</button>
+                    <button class="tab-btn" data-tab="lernzettel">📄 Lernzettel (Druckversion)</button>
+                </div>
+
+                <!-- TAB 1: THEORIE IPv6 -->
+                <div id="theorie-ipv6" class="tab-pane active">
+                    
+                    <div class="panel card">
+                        <h2>1. IPv6 Grundlagen & Adressaufbau</h2>
+                        <p>IPv6 wurde entwickelt, weil der Adressraum von IPv4 (2011) praktisch aufgebraucht war und das "Internet of Things" (IoT) unzählige neue IP-Adressen fordert[cite: 7]. Zudem ist bei IPv6 kein NAT mehr zwingend notwendig[cite: 7].</p>
+                        
+                        <div class="grid-2">
+                            <div class="step-box">
+                                <h3>Format & Hextette</h3>
+                                <ul style="margin-bottom: 0;">
+                                    <li><strong>128 Bit großer Adressraum:</strong> Aufgeteilt in 8 Blöcke zu je 16 Bit[cite: 8].</li>
+                                    <li><strong>Hexadezimal:</strong> Jeder 16-Bit-Block (Hextett) wird in hexadezimaler Schreibweise dargestellt (Ziffern 0-9, a-f)[cite: 8]. Groß- und Kleinschreibung ist irrelevant[cite: 8].</li>
+                                </ul>
+                            </div>
+                            <div class="step-box">
+                                <h3>Aufbau (Global Unicast)</h3>
+                                <ul style="margin-bottom: 0;">
+                                    <li><strong>Global Routing Prefix:</strong> Die ersten z.B. 48 Bit, werden vom Provider vergeben[cite: 16].</li>
+                                    <li><strong>Subnet ID:</strong> Bildet das eigene, lokale Subnetz (z.B. 16 Bit bei einem /48 Präfix)[cite: 16].</li>
+                                    <li><strong>Interface ID:</strong> Die letzten 64 Bit identifizieren den Host (wie eine MAC-Adresse)[cite: 11, 16].</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 1.5rem;">Verkürzungsregeln (Compressed Format)</h3>
+                        <div class="callout">
+                            <ol>
+                                <li><strong>Führende Nullen</strong> pro 16-Bit Feld dürfen weggelassen werden (z. B. <code>0DB8</code> ➡️ <code>DB8</code>)[cite: 8].</li>
+                                <li><strong>Die :: Regel:</strong> Aufeinanderfolgende reine Null-Hextette dürfen durch <code>::</code> ersetzt werden. <strong>Achtung: Dies darf pro Adresse nur exakt 1x passieren!</strong>[cite: 8]. Sonst ist die Adresse nicht mehr eindeutig rekonstruierbar[cite: 9].</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>2. IPv6 Adresstypen (Das erste Hextett)</h2>
+                        <p>Bei IPv6 gibt es Unicast, Multicast und Anycast. <strong>Es gibt keinen Broadcast mehr!</strong>[cite: 10]</p>
+                        <div class="table-wrap">
+                            <table>
+                                <tr><th>Adresstyp</th><th>Bereich / Präfix</th><th>Einsatzzweck & Eigenschaften</th></tr>
+                                <tr>
+                                    <td><strong>Global Unicast</strong></td>
+                                    <td><code>2000::/3</code></td>
+                                    <td>Weltweit eindeutige, routingfähige öffentliche Internetadresse[cite: 14]. Derzeit wird nur der Bereich vergeben, der mit 2 oder 3 beginnt[cite: 14].</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Link-Local</strong></td>
+                                    <td><code>FE80::/10</code></td>
+                                    <td>Nur im eigenen, lokalen Netzwerksegment gültig, wird <strong>nie</strong> geroutet. Jedes aktivierte IPv6-Interface benötigt zwingend eine Link-Local-Adresse![cite: 13]</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Unique Local</strong></td>
+                                    <td><code>FC00::/7</code> bis <code>FDFF::/7</code></td>
+                                    <td>Private Netzwerke (vergleichbar mit den privaten IPv4-Adressen wie 192.168.x.x). Nicht im Internet routingfähig[cite: 12].</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Loopback</strong></td>
+                                    <td><code>::1/128</code></td>
+                                    <td>Zeigt auf das eigene Gerät (entspricht 127.0.0.1 bei IPv4)[cite: 9, 12].</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>3. Leitfaden: IPv6 Subnetzbildung berechnen</h2>
+                        <p>Wenn ein Unternehmen ein Präfix erhält (z.B. /52 oder /56), muss dieses auf Abteilungen oder Standorte aufgeteilt werden.</p>
+                        
+                        <div class="callout" style="border-left-color: var(--color-primary);">
+                            <h3>Beispielrechnung: Aufteilung von <code>...::/52</code> für 7 Abteilungen</h3>
+                            
+                            <ol>
+                                <li><strong>Bits leihen:</strong> Für 7 Netze suchen wir die nächste Zweierpotenz. 2<sup>2</sup> = 4 (zu wenig). 2<sup>3</sup> = 8 (passt). Wir leihen uns <strong>3 Bits</strong>.</li>
+                                <li><strong>Neuer Präfix:</strong> Alter Präfix 52 + 3 Bits = <strong>/55</strong>.</li>
+                                <li><strong>In welchem Hextett rechnen wir?</strong><br>
+                                    1. Hextett = 16 Bit, 2. = 32 Bit, 3. = 48 Bit, 4. = 64 Bit. Da wir uns im Bereich zwischen 48 und 64 befinden, verändern wir das <strong>4. Hextett</strong>.
+                                </li>
+                                <li><strong>Schrittweite (Dezimal zu Hexadezimal) ermitteln:</strong><br>
+                                    Ein Hextett hat 16 Bits. Vom Präfix /55 liegen genau 7 Bits im 4. Hextett (denn 55 - 48 = 7 belegte Bits).<br>
+                                    Freie Bits im 4. Hextett: 16 - 7 = <strong>9 Bits</strong>.<br>
+                                    Dezimale Schrittweite: 2<sup>9</sup> = <strong>512</strong>.<br>
+                                    Hexadezimale Schrittweite: Dezimal 512 entspricht <strong>0200 hexadezimal</strong>.
+                                </li>
+                                <li><strong>Subnetze aufstellen (Schrittweite +0200 im 4. Hextett):</strong><br>
+                                    Netz 1: <code>...:0000::/55</code> ➡️ Netz 2: <code>...:0200::/55</code> ➡️ Netz 3: <code>...:0400::/55</code> ➡️ Netz 4: <code>...:0600::/55</code> u.s.w.
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- TAB 2: THEORIE IPv4 & WIRESHARK -->
+                <div id="theorie-ipv4" class="tab-pane">
+                    
+                    <div class="panel card">
+                        <h2>1. IPv4 Subnetting & Koppelnetze</h2>
+                        <p>Beim IPv4-Subnetting "leihen" wir uns Bits aus dem Host-Anteil und wandeln sie in Netz-Bits um. Die Subnetzmaske wird dadurch größer.</p>
+                        
+                        <div class="grid-2">
+                            <div class="step-box">
+                                <h3>Beispiel: /18 auf /21 erweitern</h3>
+                                <p>Differenz: 21 - 18 = 3 Bits geliehen.<br>
+                                Mögliche Netze: 2<sup>3</sup> = <strong>8 Subnetze</strong>.<br>
+                                Da die 21. Stelle im 3. Oktett liegt (8+8+8=24), wird im 3. Oktett gerechnet.<br>
+                                Maske für /21 ist 255.255.248.0.<br>
+                                Schrittweite: 256 - 248 = <strong>8</strong>.<br>
+                                Wir zählen im 3. Oktett in 8er-Schritten hoch: .0.0, .8.0, .16.0 ...</p>
+                            </div>
+                            <div class="step-box">
+                                <h3>Router-Koppelnetze (/30)</h3>
+                                <p>Wenn Router direkt miteinander verbunden werden (z.B. Standort A nach Standort B), verschwendet man dafür keine großen Netze. Man nutzt exakt zugeschnittene <strong>/30 Netze</strong>.<br>
+                                Ein /30 bietet genau 4 IPs (2<sup>32-30</sup> = 4). Zieht man Netz-ID und Broadcast ab, bleiben exakt <strong>2 nutzbare IP-Adressen</strong> übrig – perfekt für die zwei Enden eines Kabels!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>2. Routing-Fehlersuche (Die Ping-Systematik)</h2>
+                        <p>Wenn ein System Administrator "Netzwerkprobleme" untersuchen muss, geht er systematisch von innen nach außen vor (Ping-Test):</p>
+                        <ol>
+                            <li><code>ping 127.0.0.1</code> ➡️ Prüft, ob der eigene TCP/IP-Stack (die Software-Schicht) funktioniert.</li>
+                            <li><code>ping [eigene IP]</code> ➡️ Prüft die physische Funktion der eigenen Netzwerkkarte (NIC).</li>
+                            <li><code>ping [Standard-Gateway]</code> ➡️ Prüft die LAN-Verbindung zum lokalen Router/Switch.</li>
+                            <li><code>ping 8.8.8.8</code> ➡️ Prüft das Routing ins öffentliche Internet.</li>
+                            <li><code>ping www.google.de</code> ➡️ Prüft, ob der DNS-Server Namen korrekt in IP-Adressen auflöst.</li>
+                        </ol>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>3. Wireshark Hex-Dump richtig lesen</h2>
+                        <p>Ein "Trace" (Netzwerk-Aufzeichnung) wird im Hexadezimal-Format dargestellt. Wenn du die Offsets (die Position der Bytes) kennst, kannst du die Header von Hand auslesen.</p>
+                        
+                        <div class="table-wrap">
+                            <table>
+                                <tr><th>Header / Schicht</th><th>Position (Offset)</th><th>Was steht dort?</th></tr>
+                                <tr>
+                                    <td><strong>Ethernet-Header</strong><br>(14 Bytes lang)</td>
+                                    <td>Startet bei <code>0x0000</code> bis <code>0x000D</code></td>
+                                    <td>Byte 0-5: Ziel-MAC (Empfänger)<br>Byte 6-11: Quell-MAC (Absender)<br>Byte 12-13: EtherType (z.B. 08 00 für IPv4).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>IPv4-Header</strong><br>(Meist 20 Bytes)</td>
+                                    <td>Startet bei <code>0x000E</code></td>
+                                    <td>Nach 12 Bytes innerhalb des IP-Headers (Offset <code>0x001A</code>) steht die <strong>Quell-IP</strong> (4 Bytes). Direkt danach (Offset <code>0x001E</code>) steht die <strong>Ziel-IP</strong> (4 Bytes).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TCP/UDP-Header</strong></td>
+                                    <td>Startet meist bei <code>0x0022</code></td>
+                                    <td>Die ersten 4 Bytes des TCP-Headers sind Quell-Port und Ziel-Port (je 2 Bytes hexadezimal, z.B. 00 50 = Port 80).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nutzdaten (Payload)</strong></td>
+                                    <td>Am Ende des Dumps</td>
+                                    <td>Die eigentlichen Anwendungsdaten. Wireshark decodiert diese auf der rechten Seite oft als ASCII-Text (z.B. "Hallo Welt").</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- TAB 3: ÜBUNGSTEST -->
+                <div id="test" class="tab-pane">
+                    
+                    <div style="margin-bottom: var(--space-6); display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn-primary" id="btn-test-ipv6" onclick="showTestTab('test-ipv6-content', 'btn-test-ipv6')">IPv6 Subnetting Aufgaben</button>
+                        <button class="btn-secondary" id="btn-test-ipv4" onclick="showTestTab('test-ipv4-content', 'btn-test-ipv4')">IPv4 & Wireshark Aufgaben</button>
+                    </div>
+
+                    <!-- TEST: IPv6 -->
+                    <div id="test-ipv6-content" style="display: block;">
+                        
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 1: IPv6 Präfixzuweisung (Standorte)</h3>
+                            <p>Sie haben das IPv6-Präfix <code>2001:0db8:3c4d:0015::/60</code> erhalten und sollen es auf <strong>4 verschiedene Standorte</strong> aufteilen. An allen Standorten sollen am Ende /64 Netze für die Clients vergeben werden.</p>
+                            
+                            <label><strong>1. Wie lautet das neue Präfix für die 4 Standorte?</strong></label>
+                            <input type="text" class="input-field" placeholder="Dein Präfix...">
+                            
+                            <label><strong>2. Wie viele /64 Netze kann jeder Standort vergeben?</strong></label>
+                            <input type="text" class="input-field" placeholder="Anzahl Netze...">
+
+                            <button class="btn-secondary" onclick="toggleSolution(this)" style="margin-top: 1rem;">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <p><strong>1. Neues Präfix:</strong> Um 4 Standorte zu adressieren, benötigen wir 2 Bits (2<sup>2</sup> = 4). Das neue Präfix lautet also 60 + 2 = <strong>/62</strong>.</p>
+                                <p><strong>2. Anzahl der /64 Netze:</strong> Der Standort hat ein /62 Präfix. Bis /64 bleiben 2 Bits (64 - 62 = 2). Jeder Standort kann also 2<sup>2</sup> = <strong>4 Subnetze</strong> (mit /64) vergeben.</p>
+                                
+                                <h4 style="margin-top: 1rem;">Zuordnungstabelle (Schrittweite im 4. Hextett)</h4>
+                                <p><em>Das 4. Hextett startet bei 0015. Wir rechnen im 4. Hextett. Von 62 bis 64 sind 2 Bits frei. Das gesamte 4. Hextett hat aber noch 16 - (62 - 48) = 2 freie Bits. Schrittweite ist 2<sup>2</sup> = 4 (Hex 0004).</em></p>
+                                <div class="table-wrap">
+                                    <table>
+                                        <tr><th>Standort</th><th>Netz-ID (/62)</th></tr>
+                                        <tr><td>1</td><td><code>2001:0db8:3c4d:0010::/62</code></td></tr>
+                                        <tr><td>2</td><td><code>2001:0db8:3c4d:0014::/62</code></td></tr>
+                                        <tr><td>3</td><td><code>2001:0db8:3c4d:0018::/62</code></td></tr>
+                                        <tr><td>4</td><td><code>2001:0db8:3c4d:001c::/62</code></td></tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 2: Subnetzbildung für Abteilungen</h3>
+                            <p>Das Unternehmen erhält das Präfix <code>2a00:1450:4001::/49</code>. Für verschiedene Netzsegmente benötigen Sie mindestens <strong>10 verschiedene Subnetze</strong>.</p>
+                            
+                            <label><strong>Ermitteln Sie die neue Präfixlänge und notieren Sie die Startadresse des ersten und zweiten Subnetzes.</strong></label>
+                            <input type="text" class="input-field" placeholder="Präfix, Netz 1, Netz 2...">
+                            
+                            <button class="btn-secondary" onclick="toggleSolution(this)" style="margin-top: 1rem;">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <p><strong>Präfixlänge:</strong> Für mindestens 10 Netze benötigen wir 4 Bits (2<sup>4</sup> = 16 mögliche Netze). Das neue Präfix ist 49 + 4 = <strong>/53</strong>.</p>
+                                <p><strong>Schrittweite ermitteln:</strong> Wir befinden uns im 4. Hextett (Bit 49 bis 64). Von /48 bis /53 sind 5 Bits belegt. Es bleiben 16 - 5 = 11 Bits frei. Die dezimale Schrittweite ist 2<sup>11</sup> = 2048. Hexadezimal entspricht das <strong>0800</strong>.</p>
+                                <ul>
+                                    <li>Netz 1: <code>2a00:1450:4001:0000::/53</code></li>
+                                    <li>Netz 2: <code>2a00:1450:4001:0800::/53</code></li>
+                                    <li>Netz 3: <code>2a00:1450:4001:1000::/53</code></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- TEST: IPv4 & WIRESHARK -->
+                    <div id="test-ipv4-content" style="display: none;">
+                        
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 3: IPv4 Subnetting & Koppelnetze</h3>
+                            <p>Das Basisnetzwerk <code>10.50.0.0/16</code> soll in <strong>/20-Subnetze</strong> für verschiedene Gebäude aufgeteilt werden. Zwischen den Routern der Gebäude sollen <strong>/30-Koppelnetze</strong> geplant werden.</p>
+                            
+                            <label><strong>1. Wie lauten die Netz-IDs der ersten drei /20-Gebäudenetze?</strong></label>
+                            <input type="text" class="input-field" placeholder="Netz 1, 2, 3...">
+
+                            <label><strong>2. Das vierte Gebäudenetz ist vergeben. Wie lautet die IP des ersten /30-Koppelnetzes, das direkt danach anschließt?</strong></label>
+                            <input type="text" class="input-field" placeholder="Koppelnetz-IP...">
+
+                            <button class="btn-secondary" onclick="toggleSolution(this)" style="margin-top: 1rem;">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <p><strong>Zu 1 (Gebäudenetze):</strong> Die Maske für /20 ist 255.255.240.0. Die Schrittweite im 3. Oktett ist 256 - 240 = <strong>16</strong>.</p>
+                                <ul>
+                                    <li>Gebäude 1: <strong>10.50.0.0/20</strong></li>
+                                    <li>Gebäude 2: <strong>10.50.16.0/20</strong></li>
+                                    <li>Gebäude 3: <strong>10.50.32.0/20</strong></li>
+                                </ul>
+                                <p><strong>Zu 2 (Koppelnetze):</strong> Das vierte Gebäudenetz ist <code>10.50.48.0/20</code>. Der Broadcast dieses Netzes ist 10.50.63.255. Das nächste freie Netz beginnt bei 10.50.64.0. Das erste /30-Koppelnetz lautet also <strong>10.50.64.0/30</strong>. Das nächste wäre 10.50.64.4/30.</p>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 4: Wireshark Hex-Trace Analyse</h3>
+                            <p>Du betrachtest einen Wireshark Hex-Dump eines UDP-Pakets. Der Dump beginnt wie folgt:</p>
+                            <pre style="background: var(--color-surface); padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.9em; margin-bottom: 1rem; border: 1px solid var(--color-border);">
+0000   bc 5f f4 8a 12 34 00 1a 2b 3c 4d 5e 08 00 45 00
+0010   00 3c 1a 2b 40 00 40 11 3a 4b c0 a8 01 0a 08 08
+0020   08 08 13 88 00 35 ...</pre>
+                            
+                            <label><strong>1. Wie lautet die Ziel-MAC-Adresse? (Tipp: Die ersten 6 Bytes)</strong></label>
+                            <input type="text" class="input-field" placeholder="MAC eintragen...">
+
+                            <label><strong>2. Welche IP-Adressen (Quell- und Ziel-IP) kommunizieren hier miteinander? (Tipp: IP-Header ab Offset 0x0e)</strong></label>
+                            <input type="text" class="input-field" placeholder="IPs umrechnen...">
+
+                            <button class="btn-secondary" onclick="toggleSolution(this)" style="margin-top: 1rem;">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <p><strong>Ziel-MAC-Adresse:</strong> Die ersten 6 Bytes des Ethernet-Frames: <strong>bc:5f:f4:8a:12:34</strong>.</p>
+                                <p><strong>IP-Adressen:</strong> Der IPv4-Header beginnt bei 08 00 (Byte 12/13) und 45 00 (Byte 14). Die Quell-IP startet nach 12 Bytes im IP-Header bei Offset 0x1A. <br>
+                                Quell-IP Hex: <code>c0 a8 01 0a</code> = Dezimal: <strong>192.168.1.10</strong>.<br>
+                                Ziel-IP Hex: <code>08 08 08 08</code> = Dezimal: <strong>8.8.8.8</strong>.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- TAB 4: LERNZETTEL -->
+                <div id="lernzettel" class="tab-pane">
+                    <div class="panel card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                            <h2>📄 Druck-Zusammenfassung (Netzwerk-Cheat-Sheet)</h2>
+                            <button class="btn-primary" onclick="window.print()">🖨️ PDF / Drucken</button>
+                        </div>
+                        
+                        <div class="grid-2">
+                            <div class="step-box">
+                                <h3>1. IPv6 Adresstypen</h3>
+                                <ul>
+                                    <li><strong>2000::/3</strong> = Global Unicast (Öffentliches Internet)[cite: 14].</li>
+                                    <li><strong>FE80::/10</strong> = Link-Local (LAN-intern, Pflicht für jedes Gerät, kein Routing)[cite: 13].</li>
+                                    <li><strong>FC00::/7</strong> = Unique Local (Private Netze)[cite: 12].</li>
+                                    <li><strong>::1/128</strong> = Loopback[cite: 12].</li>
+                                    <li><strong>Besonderheit:</strong> Es gibt bei IPv6 keinen Broadcast mehr (ersetzt durch Multicast)[cite: 10].</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="step-box">
+                                <h3>2. IPv4 Subnetting & Fehlersuche</h3>
+                                <ul>
+                                    <li><strong>Formeln:</strong> Netze = 2<sup>n</sup> (n = geliehene Bits). Hosts = 2<sup>h</sup> - 2.</li>
+                                    <li><strong>Koppelnetze:</strong> Für Point-to-Point-Routerlinks nutzt man immer ein <strong>/30 Netz</strong> (Maske 255.255.255.252), da es genau 2 nutzbare IP-Adressen liefert.</li>
+                                    <li><strong>Ping-Systematik:</strong> 127.0.0.1 (TCP/IP-Stack) ➡️ Eigene IP (NIC) ➡️ Gateway (LAN-Router) ➡️ 8.8.8.8 (Internet-Routing) ➡️ www.domain.de (DNS-Auflösung).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="step-box" style="margin-top: 1rem;">
+                            <h3>3. Hex-Dump Offsets (Wireshark Trace)</h3>
+                            <div class="table-wrap">
+                                <table>
+                                    <tr><th>Wo? (Byte-Nummer)</th><th>Feld</th><th>Bedeutung / Typischer Wert</th></tr>
+                                    <tr><td>Byte 0-5</td><td>Ziel-MAC</td><td>Physische Adresse Empfänger (z.B. bc 5f ...).</td></tr>
+                                    <tr><td>Byte 6-11</td><td>Quell-MAC</td><td>Physische Adresse Absender.</td></tr>
+                                    <tr><td>Byte 12-13</td><td>EtherType</td><td><code>08 00</code> bedeutet IPv4. <code>86 dd</code> bedeutet IPv6.</td></tr>
+                                    <tr><td>Byte 26-29 (Offset 0x1A)</td><td>Quell-IP (v4)</td><td>Z.B. <code>c0 a8 01 01</code> ➡️ 192.168.1.1.</td></tr>
+                                    <tr><td>Byte 30-33 (Offset 0x1E)</td><td>Ziel-IP (v4)</td><td>Z.B. <code>08 08 08 08</code> ➡️ 8.8.8.8.</td></tr>
+                                    <tr><td>Ab Byte 34 (Offset 0x22)</td><td>Ports & Payload</td><td>Quell- und Ziel-Port. Darauf folgend die Nutzdaten im ASCII-Klartext.</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Script für die Sub-Tabs im Übungstest
+        function showTestTab(contentId, btnId) {
+            // Alle Inhalte verstecken
+            document.getElementById('test-ipv6-content').style.display = 'none';
+            document.getElementById('test-ipv4-content').style.display = 'none';
+            
+            // Buttons zurücksetzen
+            document.getElementById('btn-test-ipv6').className = 'btn-secondary';
+            document.getElementById('btn-test-ipv4').className = 'btn-secondary';
+            
+            // Ausgewählten Tab anzeigen und Button hervorheben
+            document.getElementById(contentId).style.display = 'block';
+            document.getElementById(btnId).className = 'btn-primary';
+        }
+    </script>
+</body>
+</html>
