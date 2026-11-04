@@ -3,311 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netzwerke, IPv6/IPv4 & Routing - Lern-Hub</title>
+    <title>Netzwerke, IPv4, IPv6, Routing & Wireshark - Lern-Hub</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    
-    <style>
-        :root {
-            --eth: #f6dcc0; --eth-b: #c0712a;
-            --ip: #cfe9d7; --ip-b: #2c8a52;
-            --l4: #e1d6f3; --l4-b: #6f45b5;
-            --data: #f1f1ee; --data-b: #8a8a80;
-            --ok: #1f7a45; --ok-bg: #dff3e6;
-            --bad: #b3261e; --bad-bg: #fbe3e1;
-        }
-        [data-theme="dark"] {
-            --eth: #4a3220; --eth-b: #e0995a;
-            --ip: #1f3d2b; --ip-b: #5cc184;
-            --l4: #33284a; --l4-b: #a98be0;
-            --data: #262b31; --data-b: #9a9a90;
-            --ok: #6fd39a; --ok-bg: #183424;
-            --bad: #ff8a80; --bad-bg: #3d1c1a;
-        }
-
-        .solution {
-            display: none;
-            margin-top: 1rem;
-            padding: 1rem;
-            background: color-mix(in srgb, var(--color-success) 10%, var(--color-surface));
-            border-left: 4px solid var(--color-success);
-            border-radius: 0 var(--radius-md) var(--radius-md) 0;
-            animation: fadeIn 0.3s ease;
-        }
-        .solution.show {
-            display: block;
-        }
-        .exercise-card {
-            margin-bottom: var(--space-6);
-            padding-bottom: var(--space-4);
-            border-bottom: 1px solid var(--color-border);
-            background: var(--color-surface-2);
-            padding: var(--space-5);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-        }
-        .input-field {
-            width: 100%;
-            padding: 0.8rem;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--color-border);
-            background: var(--color-surface);
-            color: var(--color-text);
-            margin-bottom: 0.5rem;
-            font-family: var(--font-mono);
-            box-sizing: border-box;
-        }
-        .step-box {
-            background: var(--color-surface-offset);
-            padding: 1rem;
-            border-radius: var(--radius-md);
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--color-primary);
-        }
-        .code-box {
-            background: var(--color-surface);
-            padding: 1rem;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--color-border);
-            font-family: var(--font-mono);
-            font-size: 0.9em;
-            margin: 1rem 0;
-            overflow-x: auto;
-        }
-        
-        /* Table Wrap */
-        .table-wrap {
-            display: block !important;
-            width: 100% !important;
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-            margin-bottom: var(--space-6);
-        }
-        .table-wrap table {
-            width: 100%;
-            min-width: 600px !important;
-            border-collapse: collapse;
-        }
-        .table-wrap th, .table-wrap td {
-            border-bottom: 1px solid var(--color-border);
-            padding: 8px 12px;
-            text-align: left;
-            vertical-align: top;
-        }
-        .table-wrap th {
-            color: var(--color-text-muted);
-            font-weight: 600;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-        }
-        td.mono, th.mono {
-            font-family: var(--font-mono);
-        }
-
-        /* Trainer-Styles */
-        .task-box {
-            font-size: 1.05rem;
-            padding: 14px 16px;
-            border-left: 4px solid var(--color-primary);
-            background: var(--color-surface-offset);
-            border-radius: 0 var(--radius-md) var(--radius-md) 0;
-            margin: 12px 0;
-            line-height: 1.6;
-        }
-        .task-box code, .mono {
-            font-family: var(--font-mono);
-        }
-        .trainer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 12px;
-            margin: 14px 0;
-        }
-        .f-field label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-            margin-bottom: 4px;
-            font-weight: 600;
-        }
-        .f-field input, .f-field select {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-sm);
-            background: var(--color-surface);
-            color: var(--color-text);
-            font-family: var(--font-mono);
-            font-size: 0.95rem;
-            box-sizing: border-box;
-        }
-        .f-field input:focus, .f-field select:focus {
-            outline: 2px solid var(--color-primary);
-            border-color: var(--color-primary);
-        }
-        .f-field input.ok, .f-field select.ok {
-            border-color: var(--ok);
-            background: var(--ok-bg);
-        }
-        .f-field input.bad, .f-field select.bad {
-            border-color: var(--bad);
-            background: var(--bad-bg);
-        }
-        .f-field .exp {
-            font-family: var(--font-mono);
-            font-size: 0.82rem;
-            color: var(--bad);
-            min-height: 1.2em;
-            margin-top: 3px;
-        }
-        .score-display {
-            margin-left: auto;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--color-text-muted);
-            font-weight: 600;
-        }
-        .trainer-sol {
-            display: none;
-            margin-top: 14px;
-            padding: 14px 16px;
-            background: var(--color-surface-offset);
-            border-radius: var(--radius-md);
-            border: 1px dashed var(--color-border);
-        }
-        .trainer-sol.on {
-            display: block;
-        }
-        .trainer-sol ol {
-            margin: 6px 0;
-            padding-left: 20px;
-        }
-        .trainer-sol li {
-            margin-bottom: 6px;
-        }
-        .dump-box {
-            font-family: var(--font-mono);
-            font-size: 0.92rem;
-            line-height: 1.75;
-            white-space: pre;
-            overflow-x: auto;
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            padding: 12px 14px;
-            margin: 12px 0;
-        }
-        .dump-box .off {
-            color: var(--color-text-muted);
-            margin-right: 14px;
-        }
-        .dump-box .asc {
-            color: var(--color-text-muted);
-            margin-left: 16px;
-        }
-        .dump-box b {
-            font-weight: 400;
-            padding: 1px 0;
-        }
-        .colored .e {
-            background: var(--eth);
-            box-shadow: inset 0 -2px 0 var(--eth-b);
-        }
-        .colored .i {
-            background: var(--ip);
-            box-shadow: inset 0 -2px 0 var(--ip-b);
-        }
-        .colored .t {
-            background: var(--l4);
-            box-shadow: inset 0 -2px 0 var(--l4-b);
-        }
-        .colored .d {
-            background: var(--data);
-            box-shadow: inset 0 -2px 0 var(--data-b);
-        }
-        .dump-legend {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-            margin: 10px 0;
-        }
-        .dump-legend span::before {
-            content: "";
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 3px;
-            margin-right: 6px;
-            vertical-align: -1px;
-        }
-        .dump-legend .le::before { background: var(--eth); border: 1px solid var(--eth-b); }
-        .dump-legend .li::before { background: var(--ip); border: 1px solid var(--ip-b); }
-        .dump-legend .lt::before { background: var(--l4); border: 1px solid var(--l4-b); }
-        .dump-legend .ld::before { background: var(--data); border: 1px solid var(--data-b); }
-        .pill-badge {
-            display: inline-block;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 3px 10px;
-            border-radius: 99px;
-            background: var(--color-surface-offset);
-            border: 1px solid var(--color-border);
-            color: var(--color-text-muted);
-        }
-        .steps-list {
-            counter-reset: s;
-            list-style: none;
-            padding: 0;
-            margin: 10px 0;
-        }
-        .steps-list li {
-            counter-increment: s;
-            padding: 6px 0 6px 36px;
-            position: relative;
-            max-width: 75ch;
-        }
-        .steps-list li::before {
-            content: counter(s);
-            position: absolute;
-            left: 0;
-            top: 6px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--color-primary);
-            color: #fff;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: grid;
-            place-items: center;
-        }
-        .btn-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
-            margin: 10px 0;
-        }
-        .status-feedback {
-            font-weight: 600;
-            margin-left: 8px;
-        }
-        .status-feedback.ok { color: var(--color-success); }
-        .status-feedback.bad { color: var(--color-error); }
-
-        @media print {
-            body * { visibility: hidden; }
-            #lernzettel, #lernzettel * { visibility: visible; }
-            #lernzettel { position: absolute; left: 0; top: 0; width: 100%; }
-            .sidebar, .tabs-nav, .theme-toggle, .btn-secondary, .mobile-menu-btn, .btn-primary { display: none !important; }
-        }
-    </style>
+    <link rel="stylesheet" href="ip-routing.css">
 </head>
 <body>
     <div class="shell">
@@ -341,205 +43,667 @@
 
         <main class="content">
             <div class="eyebrow">Netzwerke & Routing</div>
-            <h1 class="page-title">🌐 IPv6, IPv4 & Wireshark</h1>
-            <p class="page-subtitle">Umfassende Theorie, Schritt-für-Schritt Subnetting, interaktive Trainer und Trace-Analysen.</p>
+            <h1 class="page-title">🌐 IPv4, IPv6, Routing &amp; Wireshark</h1>
+            <p class="page-subtitle">Vollständiger Lernpfad von den Binärgrundlagen über Routing und Trace-Analysen bis zu interaktiven Übungstrainern.</p>
 
             <div class="tabs-container">
-                <div class="tabs-nav">
-                    <button class="tab-btn active" data-tab="theorie-ipv6">📖 IPv6 Theorie & Subnetting</button>
-                    <button class="tab-btn" data-tab="theorie-ipv4">📖 IPv4 & Wireshark Trace</button>
-                    <button class="tab-btn" data-tab="trainer">🎮 Interaktive Trainer (LF10)</button>
-                    <button class="tab-btn" data-tab="unterricht">🏫 Unterricht (AB07 & Lab03)</button>
-                    <button class="tab-btn" data-tab="test">🎯 Feste Übungsaufgaben</button>
-                    <button class="tab-btn" data-tab="lernzettel">📄 Spickzettel & Druckversion</button>
+                <!-- Barrierefreie, horizontal scrollbare Tabs Navigation -->
+                <div class="tabs-nav tabs-nav-scrollable" role="tablist" aria-label="Themen- und Übungsbereiche">
+                    <button class="tab-btn active" data-tab="ipv4-grundlagen">📖 1. IPv4 &amp; Subnetting</button>
+                    <button class="tab-btn" data-tab="ipv6">🌐 2. IPv6</button>
+                    <button class="tab-btn" data-tab="routing">🔀 3. Routing &amp; Fehlersuche</button>
+                    <button class="tab-btn" data-tab="wireshark">🔍 4. Wireshark &amp; Traces</button>
+                    <button class="tab-btn" data-tab="ueben">🎮 5. Üben &amp; Trainieren</button>
+                    <button class="tab-btn" data-tab="unterricht">🏫 6. Unterricht (AB07 &amp; Lab03)</button>
+                    <button class="tab-btn" data-tab="lernzettel">📄 7. Spickzettel &amp; Druck</button>
                 </div>
 
-                <!-- TAB 1: THEORIE IPv6 -->
-                <div id="theorie-ipv6" class="tab-pane active">
+                <!-- =======================================================
+                     TAB 1: IPv4-GRUNDLAGEN & SUBNETTING
+                     ======================================================= -->
+                <div id="ipv4-grundlagen" class="tab-pane active">
                     
+                    <div class="learning-objectives">
+                        <h3>🎯 Das lernst du hier:</h3>
+                        <ul>
+                            <li>Binär- und Dezimalzahlen in 8-Bit-Oktetten sicher im Kopf umrechnen.</li>
+                            <li>Den Aufbau einer IPv4-Adresse mit Subnetzmaske und CIDR-Präfix verstehen.</li>
+                            <li>Das universelle 5-Schritte-Verfahren für Netzwerk-, Broadcast- und Hostberechnungen beherrschen.</li>
+                            <li>Netzwerke aufteilen (Subnetting), Koppelnetze (/30) und Hostbedarfe ermitteln.</li>
+                        </ul>
+                        <div class="prerequisites">Voraussetzungen: Grundrechenarten, Zweierpotenzen (2, 4, 8, 16, 32, 64, 128, 256).</div>
+                    </div>
+
                     <div class="panel card">
-                        <h2>1. IPv6 Grundlagen & Adressaufbau</h2>
-                        <p>IPv6 wurde entwickelt, weil der Adressraum von IPv4 (2011) praktisch aufgebraucht war und das "Internet of Things" (IoT) unzählige neue IP-Adressen fordert. Zudem ist bei IPv6 kein NAT mehr zwingend notwendig.</p>
+                        <h2>1. Dezimal ↔ Binär im 8-Bit-Oktett</h2>
+                        <p>Jede IPv4-Adresse besteht aus 32 Bits, unterteilt in vier 8-Bit-Blöcke (Oktette). Jedes Bit hat einen festen Stellenwert, der einer Zweierpotenz entspricht:</p>
                         
-                        <div class="grid-2">
-                            <div class="step-box">
-                                <h3>Format & Hextette</h3>
-                                <ul style="margin-bottom: 0;">
-                                    <li><strong>128 Bit großer Adressraum:</strong> Aufgeteilt in 8 Blöcke zu je 16 Bit.</li>
-                                    <li><strong>Hexadezimal:</strong> Jeder 16-Bit-Block (Hextett) wird in hexadezimaler Schreibweise dargestellt (Ziffern 0-9, a-f). Groß- und Kleinschreibung ist irrelevant.</li>
-                                </ul>
-                            </div>
-                            <div class="step-box">
-                                <h3>Aufbau (Global Unicast)</h3>
-                                <ul style="margin-bottom: 0;">
-                                    <li><strong>Global Routing Prefix:</strong> Die ersten z.B. 48 Bit, werden vom Provider vergeben.</li>
-                                    <li><strong>Subnet ID:</strong> Bildet das eigene, lokale Subnetz (z.B. 16 Bit bei einem /48 Präfix).</li>
-                                    <li><strong>Interface ID:</strong> Die letzten 64 Bit identifizieren den Host (wie eine MAC-Adresse).</li>
-                                </ul>
-                            </div>
+                        <div class="table-wrap">
+                            <table>
+                                <tr><th>Bit-Position</th><th>Bit 7</th><th>Bit 6</th><th>Bit 5</th><th>Bit 4</th><th>Bit 3</th><th>Bit 2</th><th>Bit 1</th><th>Bit 0</th><th>Summe</th></tr>
+                                <tr><td><strong>Zweierpotenz</strong></td><td>2<sup>7</sup></td><td>2<sup>6</sup></td><td>2<sup>5</sup></td><td>2<sup>4</sup></td><td>2<sup>3</sup></td><td>2<sup>2</sup></td><td>2<sup>1</sup></td><td>2<sup>0</sup></td><td>–</td></tr>
+                                <tr><td><strong>Wertigkeit</strong></td><td><b>128</b></td><td><b>64</b></td><td><b>32</b></td><td><b>16</b></td><td><b>8</b></td><td><b>4</b></td><td><b>2</b></td><td><b>1</b></td><td><b>255</b></td></tr>
+                            </table>
                         </div>
 
-                        <h3 style="margin-top: 1.5rem;">Verkürzungsregeln (Compressed Format)</h3>
-                        <div class="callout">
-                            <ol>
-                                <li><strong>Führende Nullen</strong> pro 16-Bit Feld dürfen weggelassen werden (z. B. <code>0DB8</code> ➡️ <code>DB8</code>).</li>
-                                <li><strong>Die :: Regel:</strong> Aufeinanderfolgende reine Null-Hextette dürfen durch <code>::</code> ersetzt werden. <strong>Achtung: Dies darf pro Adresse nur exakt 1x passieren!</strong> Sonst ist die Adresse nicht mehr eindeutig rekonstruierbar.</li>
-                            </ol>
+                        <div class="grid-2" style="margin-top: var(--space-4);">
+                            <div class="step-box">
+                                <h3>Beispiel 1: Dezimal 192 in Binär</h3>
+                                <p>Prüfe von links nach rechts, ob der Stellenwert hineinpasst:</p>
+                                <ul>
+                                    <li>192 ≥ 128? <b>Ja</b> → 1 (Rest 192 − 128 = 64)</li>
+                                    <li>64 ≥ 64? <b>Ja</b> → 1 (Rest 64 − 64 = 0)</li>
+                                    <li>Alle restlichen Bits (32, 16, 8, 4, 2, 1) werden <b>0</b>.</li>
+                                </ul>
+                                <p>Ergebnis: <code>192 = 11000000₂</code></p>
+                            </div>
+                            <div class="step-box">
+                                <h3>Beispiel 2: Dezimal 84 in Binär</h3>
+                                <p>Prüfe von links nach rechts:</p>
+                                <ul>
+                                    <li>84 ≥ 128? <b>Nein</b> → 0</li>
+                                    <li>84 ≥ 64? <b>Ja</b> → 1 (Rest 84 − 64 = 20)</li>
+                                    <li>20 ≥ 32? <b>Nein</b> → 0</li>
+                                    <li>20 ≥ 16? <b>Ja</b> → 1 (Rest 20 − 16 = 4)</li>
+                                    <li>4 ≥ 8? <b>Nein</b> → 0 | 4 ≥ 4? <b>Ja</b> → 1 (Rest 0)</li>
+                                </ul>
+                                <p>Ergebnis: <code>84 = 01010100₂</code></p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="panel card">
-                        <h2>2. IPv6 Adresstypen (Das erste Hextett)</h2>
-                        <p>Bei IPv6 gibt es Unicast, Multicast und Anycast. <strong>Es gibt keinen Broadcast mehr!</strong></p>
+                        <h2>2. Aufbau einer IPv4-Adresse &amp; die Subnetzmaske</h2>
+                        <p>Eine IPv4-Adresse erfüllt zwei Aufgaben: Sie identifiziert das <b>Netzwerk</b> (Netzanteil) und das <b>einzelne Gerät</b> in diesem Netz (Hostanteil). Wo die Grenze verläuft, bestimmt allein die <b>Subnetzmaske</b>.</p>
+                        
+                        <div class="callout">
+                            <strong>Die goldene Maskenregel:</strong>
+                            Überall dort, wo in der Maske eine binäre <b>1</b> steht, gehört das Bit zum <b>Netzanteil</b>. Wo eine binäre <b>0</b> steht, gehört es zum <b>Hostanteil</b>. Die 1er stehen immer lückenlos von links nach rechts.
+                        </div>
+
+                        <h3>Visualisierung: IP <code>192.168.1.130/26</code></h3>
+                        <p>Präfix <code>/26</code> bedeutet: Die ersten 26 Bits sind Netzanteil, die restlichen 6 Bits sind Hostanteil.</p>
+                        
+                        <div class="bit-legend">
+                            <div class="bit-legend-item"><div class="bit-legend-box net"></div><span>Netzanteil (26 Bits)</span></div>
+                            <div class="bit-legend-item"><div class="bit-legend-box host"></div><span>Hostanteil (6 Bits)</span></div>
+                        </div>
+
+                        <div class="bit-bar-wrap">
+                            <div class="bit-bar">
+                                <div class="bit-octet">
+                                    <div class="bit-cell net">1</div><div class="bit-cell net">1</div><div class="bit-cell net">0</div><div class="bit-cell net">0</div>
+                                    <div class="bit-cell net">0</div><div class="bit-cell net">0</div><div class="bit-cell net">0</div><div class="bit-cell net">0</div>
+                                </div>
+                                <span class="bit-dot">.</span>
+                                <div class="bit-octet">
+                                    <div class="bit-cell net">1</div><div class="bit-cell net">0</div><div class="bit-cell net">1</div><div class="bit-cell net">0</div>
+                                    <div class="bit-cell net">1</div><div class="bit-cell net">0</div><div class="bit-cell net">0</div><div class="bit-cell net">0</div>
+                                </div>
+                                <span class="bit-dot">.</span>
+                                <div class="bit-octet">
+                                    <div class="bit-cell net">0</div><div class="bit-cell net">0</div><div class="bit-cell net">0</div><div class="bit-cell net">0</div>
+                                    <div class="bit-cell net">0</div><div class="bit-cell net">0</div><div class="bit-cell net">0</div><div class="bit-cell net">1</div>
+                                </div>
+                                <span class="bit-dot">.</span>
+                                <div class="bit-octet">
+                                    <div class="bit-cell net">1</div><div class="bit-cell net bit-boundary">0</div><div class="bit-cell host">0</div><div class="bit-cell host">0</div>
+                                    <div class="bit-cell host">0</div><div class="bit-cell host">0</div><div class="bit-cell host">1</div><div class="bit-cell host">0</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="note" style="color:var(--color-text-muted);">Maske binär: <code>11111111.11111111.11111111.11000000</code> = <code>255.255.255.192</code>.</p>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>3. Private Adressbereiche (RFC 1918) &amp; Sondernetze</h2>
+                        <p>Private IP-Adressen werden im Internet nicht geroutet und dürfen in Firmen- und Heimnetzen frei genutzt werden:</p>
+                        
                         <div class="table-wrap">
                             <table>
-                                <tr><th>Adresstyp</th><th>Bereich / Präfix</th><th>Einsatzzweck & Eigenschaften</th></tr>
+                                <tr><th>Klasse</th><th>Netzbereich (CIDR)</th><th>Adressbereich</th><th>Typische Verwendung</th></tr>
+                                <tr><td><strong>Klasse A</strong></td><td><code>10.0.0.0/8</code></td><td>10.0.0.0 – 10.255.255.255</td><td>Großkonzerne, Schulnetze, Carrier-Grade</td></tr>
+                                <tr><td><strong>Klasse B</strong></td><td><code>172.16.0.0/12</code></td><td>172.16.0.0 – 172.31.255.255</td><td>Mittelständische Firmen, Labore (z. B. Lab03)</td></tr>
+                                <tr><td><strong>Klasse C</strong></td><td><code>192.168.0.0/16</code></td><td>192.168.0.0 – 192.168.255.255</td><td>Heimnetzwerke, FritzBox, Router</td></tr>
+                                <tr><td><strong>Loopback</strong></td><td><code>127.0.0.0/8</code></td><td>127.0.0.1 (Localhost)</td><td>Interner Software-Test des eigenen TCP/IP-Stacks</td></tr>
+                                <tr><td><strong>APIPA / Zeroconf</strong></td><td><code>169.254.0.0/16</code></td><td>169.254.0.1 – 169.254.255.254</td><td>Automatisch vergeben, wenn der DHCP-Server nicht erreichbar ist!</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>4. Das 5-Schritte-Verfahren zum Berechnen eines Subnetzes</h2>
+                        <p>Mit diesen 5 Schritten löst du jede Subnetting-Aufgabe schnell und sicher:</p>
+                        
+                        <ol class="steps-list">
+                            <li><b>Interessantes Oktett finden:</b> Das erste Oktett von links, dessen Maskenwert nicht 255 ist (bei /24 ist es das 4., bei /21 das 3., bei /12 das 2.).</li>
+                            <li><b>Blockgröße berechnen:</b> <code>Blockgröße = 256 − Maskenwert im interessanten Oktett</code>.</li>
+                            <li><b>Netzwerkadresse:</b> IP-Wert im interessanten Oktett auf das Vielfache der Blockgröße abrunden. Oktette davor bleiben unverändert, alle Oktette danach werden <b>0</b>.</li>
+                            <li><b>Broadcastadresse:</b> Interessantes Oktett = Netz-Wert + Blockgröße − 1. Alle Oktette danach werden <b>255</b>.</li>
+                            <li><b>Hostbereich &amp; Anzahl:</b> Erster Host = NW + 1. Letzter Host = BC − 1. Anzahl = <code>2<sup>Hostbits</sup> − 2</code>.</li>
+                        </ol>
+
+                        <div class="grid-2" style="margin-top: var(--space-4);">
+                            <div class="step-box">
+                                <h3>Beispiel 1: <code>192.168.1.130/26</code> (4. Oktett)</h3>
+                                <ul>
+                                    <li><b>1. Maske:</b> /26 → <code>255.255.255.192</code>. Interessantes Oktett: <b>4. Oktett</b>.</li>
+                                    <li><b>2. Blockgröße:</b> 256 − 192 = <b>64</b>.</li>
+                                    <li><b>3. Netzadresse:</b> 130 ÷ 64 = 2,03 → 2 × 64 = <b>128</b>.<br>→ NW = <b><code>192.168.1.128</code></b>.</li>
+                                    <li><b>4. Broadcast:</b> 128 + 64 − 1 = <b>191</b>.<br>→ BC = <b><code>192.168.1.191</code></b>.</li>
+                                    <li><b>5. Hosts:</b> <code>192.168.1.129</code> bis <code>192.168.1.190</code> (2<sup>6</sup> − 2 = <b>62 Hosts</b>).</li>
+                                </ul>
+                            </div>
+                            <div class="step-box">
+                                <h3>Beispiel 2: <code>172.20.10.50/21</code> (3. Oktett)</h3>
+                                <ul>
+                                    <li><b>1. Maske:</b> /21 → <code>255.255.248.0</code>. Interessantes Oktett: <b>3. Oktett</b>.</li>
+                                    <li><b>2. Blockgröße:</b> 256 − 248 = <b>8</b>.</li>
+                                    <li><b>3. Netzadresse:</b> 10 ÷ 8 = 1,25 → 1 × 8 = <b>8</b>.<br>→ NW = <b><code>172.20.8.0</code></b> (4. Oktett wird 0).</li>
+                                    <li><b>4. Broadcast:</b> 8 + 8 − 1 = <b>15</b>.<br>→ BC = <b><code>172.20.15.255</code></b> (4. Oktett wird 255).</li>
+                                    <li><b>5. Hosts:</b> <code>172.20.8.1</code> bis <code>172.20.15.254</code> (2<sup>11</sup> − 2 = <b>2046 Hosts</b>).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Interaktiver Schieberegler -->
+                        <div class="slider-widget">
+                            <label for="cidr-range">
+                                <span>⚡ Interaktiver Live-CIDR-Inspektor</span>
+                                <span id="slider-val-prefix" style="color:var(--color-primary); font-family:var(--font-mono); font-size:1.1rem;">/24</span>
+                            </label>
+                            <input type="range" id="cidr-range" min="8" max="32" value="24" step="1" aria-label="CIDR-Präfix Schieberegler">
+                            
+                            <div class="bit-bar-wrap" style="margin-top:10px;">
+                                <div class="bit-bar" id="slider-bit-bar"></div>
+                            </div>
+
+                            <div class="slider-stats">
+                                <div class="slider-stat-card">
+                                    <div class="slider-stat-label">Subnetzmaske</div>
+                                    <div class="slider-stat-value" id="slider-val-mask">255.255.255.0</div>
+                                </div>
+                                <div class="slider-stat-card">
+                                    <div class="slider-stat-label">Blockgröße</div>
+                                    <div class="slider-stat-value" id="slider-val-block">256</div>
+                                </div>
+                                <div class="slider-stat-card">
+                                    <div class="slider-stat-label">Nutzbare Hosts</div>
+                                    <div class="slider-stat-value" id="slider-val-hosts">254</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>5. Koppelnetze (/30) &amp; Punkt-zu-Punkt Links</h2>
+                        <p>Wenn zwei Router direkt über eine Standleitung oder ein Patchkabel verbunden werden, verschwendet man kein /24-Netz. Man nutzt ein exakt dimensioniertes <b>/30-Netz</b>:</p>
+                        
+                        <div class="diagram-container">
+                            <svg viewBox="0 0 700 160" width="100%" height="160" aria-label="Netzwerkskizze Koppelnetz zwischen Router 1 und Router 2">
+                                <title>Koppelnetz /30 zwischen zwei Routern</title>
+                                <!-- Router 1 -->
+                                <rect x="50" y="45" width="140" height="70" rx="8" fill="var(--color-surface-offset)" stroke="var(--color-primary)" stroke-width="2"/>
+                                <text x="120" y="75" text-anchor="middle" font-weight="bold" fill="var(--color-text)" font-family="sans-serif">Router 1 (R1)</text>
+                                <text x="120" y="95" text-anchor="middle" font-size="12" fill="var(--color-text-muted)" font-family="monospace">eth1: .56.129</text>
+
+                                <!-- Verbindungskabel -->
+                                <line x1="190" y1="80" x2="510" y2="80" stroke="var(--color-primary)" stroke-width="3" stroke-dasharray="6,4"/>
+                                <circle cx="350" cy="80" r="18" fill="var(--color-surface-2)" stroke="var(--color-border)"/>
+                                <text x="350" y="85" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--color-primary)" font-family="sans-serif">/30</text>
+
+                                <!-- Router 2 -->
+                                <rect x="510" y="45" width="140" height="70" rx="8" fill="var(--color-surface-offset)" stroke="var(--color-primary)" stroke-width="2"/>
+                                <text x="580" y="75" text-anchor="middle" font-weight="bold" fill="var(--color-text)" font-family="sans-serif">Router 2 (R2)</text>
+                                <text x="580" y="95" text-anchor="middle" font-size="12" fill="var(--color-text-muted)" font-family="monospace">eth1: .56.130</text>
+
+                                <!-- Subnetz Beschriftung -->
+                                <text x="350" y="125" text-anchor="middle" font-size="13" font-weight="600" fill="var(--color-text)" font-family="sans-serif">Transfernetz: 172.20.56.128/30 (Maske: 255.255.255.252)</text>
+                                <text x="350" y="145" text-anchor="middle" font-size="11" fill="var(--color-text-muted)" font-family="sans-serif">NW: .128 | R1: .129 | R2: .130 | BC: .131</text>
+                            </svg>
+                        </div>
+                        <p class="note" style="color:var(--color-text-muted);"><b>Hinweis zu /31 (RFC 3021):</b> Moderne Router unterstützen auf reinen Punkt-zu-Punkt-Links auch <code>/31</code> (Maske 255.255.255.254). Dort gibt es keine Netz- und Broadcastadresse, beide IPs werden für die zwei Router-Enden genutzt.</p>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>⚠️ Typische Prüfungsfehler</h2>
+                        <ul style="color:var(--color-text); line-height: 1.6;">
+                            <li><b>Netz- oder Broadcastadresse vergeben:</b> Einem Rechner darf niemals die Netzwerk-ID (z. B. .0 oder .128) oder die Broadcastadresse zugewiesen werden.</li>
+                            <li><b>Hostbedarf ohne "+2":</b> Wer für 60 Rechner plant, rechnet mit 62 Adressen (Netz + Broadcast). 2<sup>6</sup> − 2 = 62 reicht für 60 Rechner (/26).</li>
+                            <li><b>Falsches Oktett berechnet:</b> Bei /21 wird im <b>3. Oktett</b> gerechnet, das 4. Oktett wird bei der Netzadresse zu <b>0</b> und beim Broadcast zu <b>255</b>!</li>
+                        </ul>
+
+                        <h3 style="margin-top:var(--space-5);">💡 Kurz-Check: Teste dein Wissen</h3>
+                        <details class="quick-check">
+                            <summary>Frage 1: Wie lautet die Broadcastadresse von 192.168.10.77/27?</summary>
+                            <div class="details-content">
+                                <b>Antwort:</b> Maske /27 = 255.255.255.224. Blockgröße = 256 − 224 = <b>32</b>. Vielfache von 32: 0, 32, 64, 96. Die IP 77 liegt im Block ab 64. Broadcast = 64 + 32 − 1 = <b>192.168.10.95</b>.
+                            </div>
+                        </details>
+                        <details class="quick-check">
+                            <summary>Frage 2: Welches Präfix ist das kleinste für ein LAN mit 100 PCs?</summary>
+                            <div class="details-content">
+                                <b>Antwort:</b> 100 PCs + 2 Adressen = 102 Adressen benötigt. 2<sup>6</sup> − 2 = 62 (zu wenig). 2<sup>7</sup> − 2 = <b>126 Hosts</b> (reicht aus!). Hostbits = 7 → Präfix = 32 − 7 = <b>/25</b>.
+                            </div>
+                        </details>
+                    </div>
+
+                </div>
+
+                <!-- =======================================================
+                     TAB 2: IPv6
+                     ======================================================= -->
+                <div id="ipv6" class="tab-pane">
+                    
+                    <div class="learning-objectives">
+                        <h3>🎯 Das lernst du hier:</h3>
+                        <ul>
+                            <li>Aufbau und 128-Bit-Hexadezimalformat von IPv6-Adressen verstehen.</li>
+                            <li>Die beiden offiziellen Verkürzungsregeln (Führende Nullen &amp; exakt 1x ::) anwenden.</li>
+                            <li>Die vier wichtigsten IPv6-Adresstypen unterscheiden.</li>
+                            <li>Subnetzbildung im 4. Hextett hexadezimal schrittgenau berechnen.</li>
+                        </ul>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>1. Adressaufbau &amp; Hextette</h2>
+                        <p>IPv6 besitzt einen gigantischen 128-Bit-Adressraum (3,4 · 10<sup>38</sup> Adressen). Eine Adresse wird in <b>8 Blöcke zu je 16 Bit (Hextette)</b> aufgeteilt, die durch Doppelpunkte getrennt und hexadezimal (Ziffern 0–9, a–f) notiert werden.</p>
+                        
+                        <div class="diagram-container">
+                            <svg viewBox="0 0 720 140" width="100%" height="140" aria-label="Diagramm IPv6 Adressaufbau mit Global Routing Prefix, Subnet-ID und Interface-ID">
+                                <title>IPv6 Adressaufbau (Global Unicast)</title>
+                                <!-- Global Routing Prefix -->
+                                <rect x="20" y="30" width="260" height="55" rx="6" fill="var(--color-surface-offset)" stroke="var(--color-primary)" stroke-width="2"/>
+                                <text x="150" y="55" text-anchor="middle" font-weight="bold" fill="var(--color-text)" font-family="sans-serif">Global Routing Prefix</text>
+                                <text x="150" y="74" text-anchor="middle" font-size="12" fill="var(--color-primary)" font-family="sans-serif">48 Bits (vom Provider zugewiesen)</text>
+
+                                <!-- Subnet ID -->
+                                <rect x="290" y="30" width="130" height="55" rx="6" fill="var(--color-surface-offset)" stroke="var(--color-warning)" stroke-width="2"/>
+                                <text x="355" y="55" text-anchor="middle" font-weight="bold" fill="var(--color-text)" font-family="sans-serif">Subnet-ID</text>
+                                <text x="355" y="74" text-anchor="middle" font-size="12" fill="var(--color-warning)" font-family="sans-serif">16 Bits (Kunde)</text>
+
+                                <!-- Interface ID -->
+                                <rect x="430" y="30" width="270" height="55" rx="6" fill="var(--color-surface-offset)" stroke="var(--color-success)" stroke-width="2"/>
+                                <text x="565" y="55" text-anchor="middle" font-weight="bold" fill="var(--color-text)" font-family="sans-serif">Interface-ID (Host-Anteil)</text>
+                                <text x="565" y="74" text-anchor="middle" font-size="12" fill="var(--color-success)" font-family="sans-serif">64 Bits (Client / EUI-64)</text>
+
+                                <text x="360" y="115" text-anchor="middle" font-size="12" fill="var(--color-text-muted)" font-family="monospace">2001 : 0db8 : 3c4d : [ 0001 ] : 0000 : 0000 : 0000 : 000a</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>2. Die Verkürzungsregeln (Compressed Format)</h2>
+                        <p>Da 128 Bits sehr lang sind, gibt es zwei standardisierte Kürzungsregeln:</p>
+                        
+                        <div class="grid-2">
+                            <div class="step-box">
+                                <h3>Regel 1: Führende Nullen weglassen</h3>
+                                <p>In jedem einzelnen 16-Bit-Hextett dürfen führende Nullen entfallen:</p>
+                                <ul>
+                                    <li><code>0db8</code> → <code>db8</code></li>
+                                    <li><code>0001</code> → <code>1</code></li>
+                                    <li><code>0000</code> → <code>0</code> (mindestens eine Null bleibt stehen!)</li>
+                                </ul>
+                            </div>
+                            <div class="step-box">
+                                <h3>Regel 2: Der Doppel-Doppelpunkt (::)</h3>
+                                <p>Eine Folge aufeinanderfolgender Null-Hextette darf durch <code>::</code> ersetzt werden.</p>
+                                <div class="callout warning">
+                                    <strong>Achtung Prüfungsfalle:</strong>
+                                    Die <code>::</code>-Kürzung darf <b>pro Adresse exakt 1x</b> vorkommen! Bei zwei <code>::</code> wäre die Adresse mathematisch nicht mehr eindeutig rekonstruierbar.
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Durchgerechnetes Kürzungsbeispiel:</h3>
+                        <ol class="steps-list">
+                            <li>Ausgangsadresse: <code>2001:0db8:0000:0000:0008:0800:200c:417a</code></li>
+                            <li>Regel 1 (führende Nullen): <code>2001:db8:0:0:8:800:200c:417a</code></li>
+                            <li>Regel 2 (Nullen zusammenfassen): <b><code>2001:db8::8:800:200c:417a</code></b></li>
+                        </ol>
+                        <p><b>Gegenbeispiel (falsch!):</b> <code>2001::8::1</code> ist ungültig, da unklar ist, ob links 4 und rechts 2 Nullen fehlen oder umgekehrt.</p>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>3. Die 4 wichtigsten IPv6-Adresstypen</h2>
+                        <div class="table-wrap">
+                            <table>
+                                <tr><th>Adresstyp</th><th>Präfix</th><th>Gültigkeit &amp; Eigenschaften</th></tr>
                                 <tr>
                                     <td><strong>Global Unicast</strong></td>
                                     <td><code>2000::/3</code></td>
-                                    <td>Weltweit eindeutige, routingfähige öffentliche Internetadresse. Derzeit wird nur der Bereich vergeben, der mit 2 oder 3 beginnt.</td>
+                                    <td>Weltweit eindeutige, öffentlich im Internet routingfähige Adresse (beginnt mit 2 oder 3).</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Link-Local</strong></td>
                                     <td><code>FE80::/10</code></td>
-                                    <td>Nur im eigenen, lokalen Netzwerksegment gültig, wird <strong>nie</strong> geroutet. Jedes aktivierte IPv6-Interface benötigt zwingend eine Link-Local-Adresse!</td>
+                                    <td>Nur im lokalen Netzwerksegment (Layer 2) gültig. Wird <b>nie</b> geroutet. Jedes aktivierte IPv6-Interface benötigt zwingend eine Link-Local-Adresse (Autokonfiguration)!</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Unique Local</strong></td>
-                                    <td><code>FC00::/7</code> bis <code>FDFF::/7</code></td>
-                                    <td>Private Netzwerke (vergleichbar mit den privaten IPv4-Adressen wie 192.168.x.x). Nicht im Internet routingfähig.</td>
+                                    <td><strong>Unique Local (ULA)</strong></td>
+                                    <td><code>FC00::/7</code></td>
+                                    <td>Private Netze (wie 192.168.x.x bei IPv4). <em>Präzisierung:</em> In der Praxis wird <code>FD00::/8</code> mit zufälliger 40-Bit Global-ID verwendet. Nicht im Internet routingfähig.</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Loopback</strong></td>
                                     <td><code>::1/128</code></td>
-                                    <td>Zeigt auf das eigene Gerät (entspricht 127.0.0.1 bei IPv4).</td>
+                                    <td>Lokales Loopback auf das eigene Gerät (entspricht 127.0.0.1 bei IPv4).</td>
                                 </tr>
+                            </table>
+                        </div>
+                        <p class="note" style="color:var(--color-text-muted);"><b>Wichtig:</b> Bei IPv6 gibt es <b>keinen Broadcast</b> mehr! Stattdessen wird Multicast (<code>FF00::/8</code>) genutzt, was die Netzwerkbelastung drastisch senkt.</p>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>4. IPv6 Subnetzbildung berechnen</h2>
+                        <p>Im Firmennetzwerk erhält man meist ein <code>/48</code>- oder <code>/56</code>-Präfix vom Provider. Subnetze werden durch Ändern der Bits im 4. Hextett gebildet.</p>
+                        
+                        <div class="step-box">
+                            <h3>Beispiel 1: <code>2001:db8:acad::/48</code> für 7 Standorte aufteilen</h3>
+                            <ol class="steps-list">
+                                <li><b>Bits leihen:</b> Für 7 Standorte suchen wir die kleinste Zweierpotenz: 2<sup>3</sup> = 8 ≥ 7 → Wir leihen <b>3 Bits</b>.</li>
+                                <li><b>Neues Präfix:</b> 48 + 3 = <b>/51</b>.</li>
+                                <li><b>Hextett:</b> Bit 48 bis 64 liegen im <b>4. Hextett</b>. Vom 4. Hextett sind 3 Bits belegt (51 − 48 = 3), es bleiben 16 − 3 = <b>13 Bits frei</b>.</li>
+                                <li><b>Schrittweite:</b> Dezimal: 2<sup>13</sup> = 8192. Hexadezimal: 8192 = <b>2000 hex</b>.</li>
+                                <li><b>Subnetze aufstellen:</b><br>
+                                    Netz 1: <code>2001:db8:acad:0000::/51</code><br>
+                                    Netz 2: <code>2001:db8:acad:2000::/51</code><br>
+                                    Netz 3: <code>2001:db8:acad:4000::/51</code><br>
+                                    Netz 4: <code>2001:db8:acad:6000::/51</code>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="table-wrap">
+                            <h4 style="margin-top:14px;">Hexadezimale Schrittweiten-Referenz</h4>
+                            <table>
+                                <tr><th>Freie Bits im Hextett</th><td>1</td><td>2</td><td>3</td><td>4</td><td>8</td><td>12</td></tr>
+                                <tr><th>Schrittweite dezimal</th><td>2</td><td>4</td><td>8</td><td>16</td><td>256</td><td>4096</td></tr>
+                                <tr><th>Schrittweite hexadezimal</th><td><code>0002</code></td><td><code>0004</code></td><td><code>0008</code></td><td><code>0010</code></td><td><code>0100</code></td><td><code>1000</code></td></tr>
+                            </table>
+                        </div>
+
+                        <h3 style="margin-top:var(--space-5);">💡 Kurz-Check</h3>
+                        <details class="quick-check">
+                            <summary>Frage: Warum darf :: in einer IPv6-Adresse nur einmal verwendet werden?</summary>
+                            <div class="details-content">
+                                <b>Antwort:</b> Wenn <code>::</code> zweimal vorkäme (z. B. <code>2001::1::2</code>), wüsste der Rechner nicht, wie viele 16-Bit-Nullblöcke an welcher Stelle fehlen, um die 128 Bits aufzufüllen. Die Rekonstruktion wäre nicht eindeutig.
+                            </div>
+                        </details>
+                    </div>
+
+                </div>
+
+                <!-- =======================================================
+                     TAB 3: ROUTING & FEHLERSUCHE
+                     ======================================================= -->
+                <div id="routing" class="tab-pane">
+                    
+                    <div class="learning-objectives">
+                        <h3>🎯 Das lernst du hier:</h3>
+                        <ul>
+                            <li>Die Kernaufgabe eines Standard-Gateways und die Routing-Tabelle verstehen.</li>
+                            <li>Die logische Entscheidung "Paket lokal versenden oder an Router übergeben" nachvollziehen.</li>
+                            <li>Die systematische 5-Schritte-Ping-Reihe zur schnellen Fehlersuche anwenden.</li>
+                            <li>Klassische Netzwerkfehler aus Filius und Lab03 identifizieren und beheben.</li>
+                        </ul>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>1. Wie entscheidet ein Host: "Lokal oder Router"?</h2>
+                        <p>Bevor ein PC ein Paket absendet, vergleicht er die Ziel-IP mit seiner eigenen Subnetzmaske:</p>
+                        <div class="callout">
+                            <code>(Ziel-IP UND eigene Subnetzmaske) == eigene Netzwerkadresse?</code>
+                            <ul>
+                                <li><b>JA (Ziel ist im selben LAN):</b> Der PC sendet einen <b>ARP-Request</b> im lokalen Netz aus, um die MAC-Adresse des Empfängers zu ermitteln, und schickt den Frame direkt ab.</li>
+                                <li><b>NEIN (Ziel ist in einem fremden Netz):</b> Das Paket muss über das <b>Standard-Gateway (den Router)</b> geroutet werden. Der PC sendet das Paket an die <b>MAC-Adresse des Routers</b>!</li>
+                            </ul>
+                        </div>
+
+                        <div class="step-box" style="margin-top:var(--space-4);">
+                            <h3>Fehleranalyse aus Lab03: Warum scheitert der Ping nach Dresden?</h3>
+                            <p>In Lab03 hatten PC-L10 und PC-L11 versehentlich die Maske <code>/20</code> (255.255.240.0) statt <code>/21</code> (255.255.248.0) konfiguriert:</p>
+                            <ul>
+                                <li>Mit <code>/20</code> reicht das lokale Subnetz von <code>172.20.0.0</code> bis <code>172.20.15.255</code>!</li>
+                                <li>Dresden liegt im Netz <code>172.20.8.0/21</code>.</li>
+                                <li><b>Die Folge:</b> Der Rechner PC-L10 glaubt fälschlicherweise, dass Dresden im <b>eigenen lokalen LAN</b> liegt. Er schickt das Paket <i>nicht</i> an das Gateway, sondern sendet verzweifelt lokale ARP-Requests ins Leipziger LAN – der Ping schlägt fehl!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>2. Routing-Tabelle, Default-Route &amp; ARP in 3 Sätzen</h2>
+                        
+                        <div class="grid-2">
+                            <div class="step-box">
+                                <h3>Die Default-Route (0.0.0.0/0)</h3>
+                                <p>Wenn für ein Ziel kein spezifischer Routing-Eintrag existiert, greift die <b>Default-Route</b> (Gateway of Last Resort):</p>
+                                <code>Ziel: 0.0.0.0 | Maske: 0.0.0.0 | Gateway: [Router-IP des ISP]</code>
+                                <p style="margin-top:6px;">Fehlt diese Route auf dem Router, können keine Webseiten im Internet (z. B. 8.8.8.8) erreicht werden!</p>
+                            </div>
+                            <div class="step-box">
+                                <h3>ARP (Address Resolution Protocol)</h3>
+                                <ol class="steps-list" style="margin:0;">
+                                    <li><b>Aufgabe:</b> Findet zur bekannten IPv4-Adresse die zugehörige 48-Bit-MAC-Adresse des Geräts.</li>
+                                    <li><b>Ablauf:</b> Sendet einen Broadcast (<code>FF:FF:FF:FF:FF:FF</code>) ins LAN: <i>"Wer hat IP X? Antworte an MAC Y"</i>.</li>
+                                    <li><b>Cache:</b> Speichert das Ergebnis im lokalen ARP-Cache (sichtbar mit <code>arp -a</code>).</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel card">
+                        <h2>3. Die systematische Ping-Diagnosematrix</h2>
+                        <p>Bei Netzwerkstörungen arbeitet man sich immer von innen nach außen durch:</p>
+                        
+                        <div class="table-wrap">
+                            <table>
+                                <tr><th>Schritt</th><th>Befehl</th><th>Was wird getestet?</th><th>Mögliche Fehlerursache bei Timeout</th></tr>
+                                <tr><td>1</td><td><code>ping 127.0.0.1</code></td><td>Lokaler TCP/IP-Stack (Betriebssystem-Software)</td><td>TCP/IP-Protokollstack defekt oder deaktiviert.</td></tr>
+                                <tr><td>2</td><td><code>ping [eigene IP]</code></td><td>Eigene Netzwerkkarte (Treiber &amp; IP-Konfiguration)</td><td>Netzwerkadapter deaktiviert, falsche statische IP. <em>(Prüft nicht das physische Kabel!)</em></td></tr>
+                                <tr><td>3</td><td><code>ping [Gateway-IP]</code></td><td>LAN-Verbindung zum lokalen Router</td><td>Patchkabel ausgesteckt, Switch defekt, falsche Gateway-IP oder Subnetzmaske.</td></tr>
+                                <tr><td>4</td><td><code>ping 8.8.8.8</code></td><td>Routing ins öffentliche Internet (WAN)</td><td>Router hat keine Default-Route (0.0.0.0/0), ISP-Verbindung gestört.</td></tr>
+                                <tr><td>5</td><td><code>ping www.google.de</code></td><td>DNS-Namensauflösung</td><td>DNS-Server falsch eingetragen (z. B. FileServer statt DNS-Server wie in Lab03).</td></tr>
                             </table>
                         </div>
                     </div>
 
                     <div class="panel card">
-                        <h2>3. Leitfaden: IPv6 Subnetzbildung berechnen</h2>
-                        <p>Wenn ein Unternehmen ein Präfix erhält (z.B. /52 oder /56), muss dieses auf Abteilungen oder Standorte aufgeteilt werden.</p>
-                        
-                        <div class="callout" style="border-left-color: var(--color-primary);">
-                            <h3>Beispielrechnung: Aufteilung von <code>...::/52</code> für 7 Abteilungen</h3>
-                            
-                            <ol>
-                                <li><strong>Bits leihen:</strong> Für 7 Netze suchen wir die nächste Zweierpotenz. 2<sup>2</sup> = 4 (zu wenig). 2<sup>3</sup> = 8 (passt). Wir leihen uns <strong>3 Bits</strong>.</li>
-                                <li><strong>Neuer Präfix:</strong> Alter Präfix 52 + 3 Bits = <strong>/55</strong>.</li>
-                                <li><strong>In welchem Hextett rechnen wir?</strong><br>
-                                    1. Hextett = 16 Bit, 2. = 32 Bit, 3. = 48 Bit, 4. = 64 Bit. Da wir uns im Bereich zwischen 48 und 64 befinden, verändern wir das <strong>4. Hextett</strong>.
-                                </li>
-                                <li><strong>Schrittweite (Dezimal zu Hexadezimal) ermitteln:</strong><br>
-                                    Ein Hextett hat 16 Bits. Vom Präfix /55 liegen genau 7 Bits im 4. Hextett (denn 55 - 48 = 7 belegte Bits).<br>
-                                    Freie Bits im 4. Hextett: 16 - 7 = <strong>9 Bits</strong>.<br>
-                                    Dezimale Schrittweite: 2<sup>9</sup> = <strong>512</strong>.<br>
-                                    Hexadezimale Schrittweite: Dezimal 512 entspricht <strong>0200 hexadezimal</strong>.
-                                </li>
-                                <li><strong>Subnetze aufstellen (Schrittweite +0200 im 4. Hextett):</strong><br>
-                                    Netz 1: <code>...:0000::/55</code> ➡️ Netz 2: <code>...:0200::/55</code> ➡️ Netz 3: <code>...:0400::/55</code> ➡️ Netz 4: <code>...:0600::/55</code> u.s.w.
-                                </li>
-                            </ol>
+                        <h2>4. Fehlerbilder-Katalog (Prüfungsklassiker)</h2>
+                        <div class="table-wrap">
+                            <table>
+                                <tr><th>Fehlersymptom</th><th>Typische Ursache</th><th>Lösungsweg</th></tr>
+                                <tr>
+                                    <td>PC erreicht andere Standorte nicht, lokales LAN funktioniert</td>
+                                    <td>Falsche Subnetzmaske (zu groß, z. B. /20 statt /21)</td>
+                                    <td>Maske auf das korrekte Präfix anpassen, damit Fremdnetze über das Gateway geroutet werden.</td>
+                                </tr>
+                                <tr>
+                                    <td>Ping 8.8.8.8 geht, aber www.spiegel.de scheitert</td>
+                                    <td>Falscher oder nicht erreichbarer DNS-Server</td>
+                                    <td>In den Netzwerkeinstellungen die korrekte DNS-IP eintragen.</td>
+                                </tr>
+                                <tr>
+                                    <td>Host bekommt IP 169.254.x.x</td>
+                                    <td>DHCP-Server nicht erreichbar (APIPA greift)</td>
+                                    <td>DHCP-Server, Kabel zum Switch oder VLAN-Zuweisung prüfen.</td>
+                                </tr>
+                                <tr>
+                                    <td>Router verwirft Pakete ins Internet mit "Network unreachable"</td>
+                                    <td>Fehlende Default-Route 0.0.0.0/0</td>
+                                    <td>Default-Route zum Provider-Next-Hop eintragen.</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
 
                 </div>
 
-                <!-- TAB 2: THEORIE IPv4 & WIRESHARK -->
-                <div id="theorie-ipv4" class="tab-pane">
+                <!-- =======================================================
+                     TAB 4: WIRESHARK & TRACE-ANALYSE
+                     ======================================================= -->
+                <div id="wireshark" class="tab-pane">
                     
+                    <div class="learning-objectives">
+                        <h3>🎯 Das lernst du hier:</h3>
+                        <ul>
+                            <li>Wireshark Hex-Dumps Byte für Byte sicher ohne Software entschlüsseln.</li>
+                            <li>Die genauen Header-Grenzen (Ethernet, IPv4, TCP/UDP/ICMP, Nutzdaten) bestimmen.</li>
+                            <li>TCP-Flags (SYN, ACK, PSH, FIN, RST) im Byte 0x2F auslesen.</li>
+                            <li>Den TCP-3-Way-Handshake und das Echo-Protokoll (Port 7) analysieren.</li>
+                        </ul>
+                    </div>
+
                     <div class="panel card">
-                        <h2>1. IPv4 Subnetting & Koppelnetze</h2>
-                        <p>Beim IPv4-Subnetting "leihen" wir uns Bits aus dem Host-Anteil und wandeln sie in Netz-Bits um. Die Subnetzmaske wird dadurch größer.</p>
+                        <h2>1. Frame-Aufbau &amp; Offsets (Das Schichtenmodell im Trace)</h2>
+                        <p>Ein aufgezeichneter Frame enthält die Schichten 2 (Ethernet), 3 (IPv4), 4 (Transport) und 7 (Payload) nahtlos hintereinander:</p>
                         
-                        <div class="grid-2">
-                            <div class="step-box">
-                                <h3>Beispiel: /18 auf /21 erweitern</h3>
-                                <p>Differenz: 21 - 18 = 3 Bits geliehen.<br>
-                                Mögliche Netze: 2<sup>3</sup> = <strong>8 Subnetze</strong>.<br>
-                                Da die 21. Stelle im 3. Oktett liegt (8+8+8=24), wird im 3. Oktett gerechnet.<br>
-                                Maske für /21 ist 255.255.248.0.<br>
-                                Schrittweite: 256 - 248 = <strong>8</strong>.<br>
-                                Wir zählen im 3. Oktett in 8er-Schritten hoch: .0.0, .8.0, .16.0 ...</p>
-                            </div>
-                            <div class="step-box">
-                                <h3>Router-Koppelnetze (/30)</h3>
-                                <p>Wenn Router direkt miteinander verbunden werden (z.B. Standort A nach Standort B), verschwendet man dafür keine großen Netze. Man nutzt exakt zugeschnittene <strong>/30 Netze</strong>.<br>
-                                Ein /30 bietet genau 4 IPs (2<sup>32-30</sup> = 4). Zieht man Netz-ID und Broadcast ab, bleiben exakt <strong>2 nutzbare IP-Adressen</strong> übrig – perfekt für die zwei Enden eines Kabels!</p>
-                            </div>
+                        <div class="diagram-container">
+                            <svg viewBox="0 0 740 130" width="100%" height="130" aria-label="Aufbau-Diagramm der Header-Offsets im Frame">
+                                <title>Frame-Offsets im Wireshark Hex-Dump</title>
+                                <!-- Ethernet -->
+                                <rect x="20" y="25" width="160" height="60" rx="4" fill="var(--eth)" stroke="var(--eth-b)" stroke-width="2"/>
+                                <text x="100" y="52" text-anchor="middle" font-weight="bold" fill="var(--color-text)" font-family="sans-serif">Ethernet-Header</text>
+                                <text x="100" y="72" text-anchor="middle" font-size="12" fill="var(--color-text-muted)" font-family="monospace">0x00 – 0x0D (14 B)</text>
+
+                                <!-- IPv4 -->
+                                <rect x="180" y="25" width="200" height="60" rx="4" fill="var(--ip)" stroke="var(--ip-b)" stroke-width="2"/>
+                                <text x="280" y="52" text-anchor="middle" font-weight="bold" fill="var(--color-text)" font-family="sans-serif">IPv4-Header</text>
+                                <text x="280" y="72" text-anchor="middle" font-size="12" fill="var(--color-text-muted)" font-family="monospace">0x0E – 0x21 (20 B)</text>
+
+                                <!-- TCP / UDP -->
+                                <rect x="380" y="25" width="180" height="60" rx="4" fill="var(--l4)" stroke="var(--l4-b)" stroke-width="2"/>
+                                <text x="470" y="52" text-anchor="middle" font-weight="bold" fill="var(--color-text)" font-family="sans-serif">TCP / UDP / ICMP</text>
+                                <text x="470" y="72" text-anchor="middle" font-size="12" fill="var(--color-text-muted)" font-family="monospace">ab 0x22 (20–32 B / 8 B)</text>
+
+                                <!-- Nutzdaten -->
+                                <rect x="560" y="25" width="160" height="60" rx="4" fill="var(--data)" stroke="var(--data-b)" stroke-width="2"/>
+                                <text x="640" y="52" text-anchor="middle" font-weight="bold" fill="var(--color-text)" font-family="sans-serif">Nutzdaten</text>
+                                <text x="640" y="72" text-anchor="middle" font-size="12" fill="var(--color-text-muted)" font-family="monospace">Payload (ASCII)</text>
+                            </svg>
                         </div>
                     </div>
 
                     <div class="panel card">
-                        <h2>2. Routing-Fehlersuche (Die Ping-Systematik)</h2>
-                        <p>Wenn ein Systemadministrator Netzwerkprobleme untersuchen muss, geht er systematisch von innen nach außen vor:</p>
+                        <h2>2. Schritt-für-Schritt-Methode zum Lesen eines Hex-Dumps</h2>
+                        
+                        <div class="dump-legend">
+                            <span class="le">Ethernet-Header (14 Byte)</span>
+                            <span class="li">IPv4-Header (20 Byte)</span>
+                            <span class="lt">Transport-Header (TCP/UDP/ICMP)</span>
+                            <span class="ld">Nutzdaten</span>
+                        </div>
+
+                        <div class="dump-box colored"><span class="off">0000</span><b class="e">9c 4e 36 de 2c 3c</b> <b class="e">8c 73 6e ff 2c 67</b> <b class="e">08 00</b><b class="i">45</b> <b class="i">10</b> <span class="asc">.N6.,&lt;.sn.,g..E.</span>
+<span class="off">0010</span><b class="i">00 40</b> <b class="i">f3 bd</b> <b class="i">40 00</b> <b class="i">40</b> <b class="i">06</b> <b class="i">1e 35</b> <b class="i">0a 02 0a 5c</b> <b class="i">0a 02</b> <span class="asc">.@..@.@..5...\..</span>
+<span class="off">0020</span><b class="i">0a 56</b> <b class="t">9b ac</b> <b class="t">00 07</b> <b class="t">65 42 5c ca</b> <b class="t">68 e7 09 60</b> <b class="t">80</b> <b class="t">18</b> <span class="asc">.V....eB\.h..`..</span>
+<span class="off">0030</span><b class="t">01 f6</b> <b class="t">28 e8</b> <b class="t">00 00</b> <b class="t">01 01 08 0a e8 e6 9f 34 de d1</b> <span class="asc">..(............4..</span>
+<span class="off">0040</span><b class="t">9e 61</b> <b class="d">48 61 6c 6c 6f 20 57 65 6c 74 0d 0a</b>          <span class="asc">.aHallo Welt..</span></div>
+
                         <ol class="steps-list">
-                            <li><code>ping 127.0.0.1</code> ➡️ Prüft, ob der eigene TCP/IP-Stack (die Software-Schicht) funktioniert.</li>
-                            <li><code>ping [eigene IP]</code> ➡️ Prüft die physische Funktion der eigenen Netzwerkkarte (NIC).</li>
-                            <li><code>ping [Standard-Gateway]</code> ➡️ Prüft die LAN-Verbindung zum lokalen Router/Switch.</li>
-                            <li><code>ping 8.8.8.8</code> ➡️ Prüft das Routing ins öffentliche Internet.</li>
-                            <li><code>ping www.google.de</code> ➡️ Prüft, ob der DNS-Server Namen korrekt in IP-Adressen auflöst.</li>
+                            <li><b>Offset 0x00–0x05 (Ziel-MAC):</b> <code>9c:4e:36:de:2c:3c</code> (Empfänger steht immer vorne!).</li>
+                            <li><b>Offset 0x06–0x0B (Quell-MAC):</b> <code>8c:73:6e:ff:2c:67</code> (Absender).</li>
+                            <li><b>Offset 0x0C–0x0D (EtherType):</b> <code>08 00</code> bedeutet <b>IPv4</b>.</li>
+                            <li><b>Offset 0x0E (IP Version &amp; IHL):</b> <code>45</code> → 4 = IPv4, 5 = IHL (Headerlänge 5 × 4 = 20 Bytes). Der IPv4-Header reicht somit bis 0x21!</li>
+                            <li><b>Offset 0x10–0x11 (Gesamtlänge):</b> <code>00 40</code> hex = <b>64 Bytes</b> Gesamtpaketgröße.</li>
+                            <li><b>Offset 0x16 (TTL):</b> <code>40</code> hex = <b>64</b>.</li>
+                            <li><b>Offset 0x17 (Protokoll):</b> <code>06</code> = <b>TCP</b> (01 = ICMP, 11 hex = 17 dec = UDP).</li>
+                            <li><b>Offset 0x1A–0x1D (Quell-IP):</b> <code>0a 02 0a 5c</code> = <b>10.2.10.92</b>.</li>
+                            <li><b>Offset 0x1E–0x21 (Ziel-IP):</b> <code>0a 02 0a 56</code> = <b>10.2.10.86</b>.</li>
+                            <li><b>Offset 0x22–0x25 (Ports):</b> Quell-Port <code>9b ac</code> hex = <b>39852</b> (Client) → Ziel-Port <code>00 07</code> hex = <b>7</b> (Serverdienst: Echo).</li>
+                            <li><b>Offset 0x2E (TCP Header-Länge):</b> <code>80</code> → obere Ziffer 8 × 4 = <b>32 Bytes</b> (20 B Header + 12 B Timestamp-Optionen).</li>
+                            <li><b>Offset 0x2F (TCP-Flags):</b> <code>18</code> = <b>PSH, ACK</b> (Datenübertragung).</li>
+                            <li><b>Nutzdaten ab 0x42:</b> <code>48 61 6c 6c 6f 20 57 65 6c 74 0d 0a</code> = <b>„Hallo Welt\r\n“</b> (12 Bytes).</li>
                         </ol>
                     </div>
 
                     <div class="panel card">
-                        <h2>3. Wireshark Hex-Dump richtig lesen</h2>
-                        <p>Ein "Trace" (Netzwerk-Aufzeichnung) wird im Hexadezimal-Format dargestellt. Wenn du die Offsets (die Byte-Positionen) kennst, kannst du die Header von Hand auslesen.</p>
+                        <h2>3. TCP-3-Way-Handshake &amp; Flags-Referenz</h2>
                         
-                        <div class="table-wrap">
-                            <table>
-                                <tr><th>Header / Schicht</th><th>Position (Offset)</th><th>Was steht dort?</th></tr>
-                                <tr>
-                                    <td><strong>Ethernet-Header</strong><br>(14 Bytes lang)</td>
-                                    <td>Startet bei <code>0x0000</code> bis <code>0x000D</code></td>
-                                    <td>Byte 0-5: Ziel-MAC (Empfänger)<br>Byte 6-11: Quell-MAC (Absender)<br>Byte 12-13: EtherType (z.B. 08 00 für IPv4, 08 06 für ARP).</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>IPv4-Header</strong><br>(Meist 20 Bytes)</td>
-                                    <td>Startet bei <code>0x000E</code></td>
-                                    <td>Nach 12 Bytes innerhalb des IP-Headers (Offset <code>0x001A</code>) steht die <strong>Quell-IP</strong> (4 Bytes). Direkt danach (Offset <code>0x001E</code>) steht die <strong>Ziel-IP</strong> (4 Bytes).</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>TCP/UDP-Header</strong></td>
-                                    <td>Startet meist bei <code>0x0022</code></td>
-                                    <td>Die ersten 4 Bytes des TCP/UDP-Headers sind Quell-Port und Ziel-Port (je 2 Bytes hexadezimal, z.B. 00 50 = Port 80).</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Nutzdaten (Payload)</strong></td>
-                                    <td>Am Ende des Dumps</td>
-                                    <td>Die eigentlichen Anwendungsdaten. Wireshark decodiert diese auf der rechten Seite oft als ASCII-Text (z.B. "Hallo Welt").</td>
-                                </tr>
-                            </table>
+                        <div class="diagram-container">
+                            <svg viewBox="0 0 680 180" width="100%" height="180" aria-label="Sequenzdiagramm des TCP-3-Way-Handshake">
+                                <title>TCP 3-Way Handshake Sequenzdiagramm</title>
+                                <!-- Client & Server Linien -->
+                                <line x1="120" y1="30" x2="120" y2="160" stroke="var(--color-border)" stroke-width="2"/>
+                                <line x1="560" y1="30" x2="560" y2="160" stroke="var(--color-border)" stroke-width="2"/>
+                                <rect x="60" y="10" width="120" height="28" rx="4" fill="var(--color-surface-offset)" stroke="var(--color-primary)"/>
+                                <text x="120" y="28" text-anchor="middle" font-weight="bold" fill="var(--color-text)">Client</text>
+                                <rect x="500" y="10" width="120" height="28" rx="4" fill="var(--color-surface-offset)" stroke="var(--color-primary)"/>
+                                <text x="560" y="28" text-anchor="middle" font-weight="bold" fill="var(--color-text)">Server</text>
+
+                                <!-- Schritt 1: SYN -->
+                                <line x1="120" y1="60" x2="550" y2="75" stroke="var(--color-primary)" stroke-width="2" marker-end="url(#arrow)"/>
+                                <text x="340" y="62" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--color-primary)">1. SYN (Flag: 0x02, Seq = X)</text>
+
+                                <!-- Schritt 2: SYN, ACK -->
+                                <line x1="560" y1="95" x2="130" y2="110" stroke="var(--color-success)" stroke-width="2"/>
+                                <text x="340" y="98" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--color-success)">2. SYN, ACK (Flag: 0x12, Ack = X+1, Seq = Y)</text>
+
+                                <!-- Schritt 3: ACK -->
+                                <line x1="120" y1="130" x2="550" y2="145" stroke="var(--color-primary)" stroke-width="2"/>
+                                <text x="340" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--color-primary)">3. ACK (Flag: 0x10, Ack = Y+1)</text>
+                            </svg>
+                        </div>
+
+                        <div class="grid-2" style="margin-top:var(--space-4);">
+                            <div class="step-box">
+                                <h3>TCP-Flags in Byte 0x2F</h3>
+                                <div class="table-wrap">
+                                    <table>
+                                        <tr><th class="mono">Hex</th><th>Flags</th><th>Bedeutung</th></tr>
+                                        <tr><td class="mono">02</td><td>SYN</td><td>Verbindungsaufbau (Schritt 1)</td></tr>
+                                        <tr><td class="mono">12</td><td>SYN, ACK</td><td>Antwort Server (Schritt 2)</td></tr>
+                                        <tr><td class="mono">10</td><td>ACK</td><td>Bestätigung (Schritt 3)</td></tr>
+                                        <tr><td class="mono">18</td><td>PSH, ACK</td><td>Datenübertragung (Push)</td></tr>
+                                        <tr><td class="mono">11</td><td>FIN, ACK</td><td>Verbindungsabbau</td></tr>
+                                        <tr><td class="mono">04 / 14</td><td>RST / RST,ACK</td><td>Abbruch / Reset</td></tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="step-box">
+                                <h3>Wichtige Standard-Ports</h3>
+                                <div class="table-wrap">
+                                    <table>
+                                        <tr><th class="mono">Port</th><th>Dienst</th><th class="mono">Port</th><th>Dienst</th></tr>
+                                        <tr><td class="mono">7</td><td>Echo</td><td class="mono">53</td><td>DNS</td></tr>
+                                        <tr><td class="mono">21</td><td>FTP</td><td class="mono">67/68</td><td>DHCP</td></tr>
+                                        <tr><td class="mono">22</td><td>SSH</td><td class="mono">80</td><td>HTTP</td></tr>
+                                        <tr><td class="mono">23</td><td>Telnet</td><td class="mono">110</td><td>POP3</td></tr>
+                                        <tr><td class="mono">25</td><td>SMTP</td><td class="mono">443</td><td>HTTPS</td></tr>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
-                <!-- TAB 3: INTERAKTIVE TRAINER (LF10) -->
-                <div id="trainer" class="tab-pane">
-                    <p style="margin-bottom: var(--space-4); color: var(--color-text-muted);">
-                        Hier kannst du interaktiv für Arbeiten und Prüfungen üben. Alle Aufgaben werden zufällig erzeugt, damit du beliebig oft trainieren kannst!
-                    </p>
-
-                    <div style="margin-bottom: var(--space-5); display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <button type="button" class="btn-primary" id="btn-tr-sub" onclick="showTrainerSub('tr-subnetting', 'btn-tr-sub')">🧮 Subnetting-Aufgaben</button>
-                        <button type="button" class="btn-secondary" id="btn-tr-szenario" onclick="showTrainerSub('tr-szenario', 'btn-tr-szenario')">🏢 Standort-Szenario (Lab03)</button>
-                        <button type="button" class="btn-secondary" id="btn-tr-trace" onclick="showTrainerSub('tr-trace', 'btn-tr-trace')">🔍 Wireshark Trace-Trainer</button>
+                <!-- =======================================================
+                     TAB 5: ÜBEN & TRAINIEREN (INTERAKTIVE TRAINER)
+                     ======================================================= -->
+                <div id="ueben" class="tab-pane">
+                    
+                    <!-- Segmented Control Unter-Navigation -->
+                    <div class="segmented-nav" role="tablist" aria-label="Übungsbereiche">
+                        <button class="segmented-btn active" id="btn-seg-sub" role="tab" aria-selected="true" onclick="showPracticeSub('sub-tr-sub', 'btn-seg-sub')">🧮 1. Subnetting-Trainer</button>
+                        <button class="segmented-btn" id="btn-seg-szenario" role="tab" aria-selected="false" onclick="showPracticeSub('sub-tr-szenario', 'btn-seg-szenario')">🏢 2. Standort-Szenario</button>
+                        <button class="segmented-btn" id="btn-seg-trace" role="tab" aria-selected="false" onclick="showPracticeSub('sub-tr-trace', 'btn-seg-trace')">🔍 3. Trace-Trainer</button>
+                        <button class="segmented-btn" id="btn-seg-fixed" role="tab" aria-selected="false" onclick="showPracticeSub('sub-fixed', 'btn-seg-fixed')">✍️ 4. Feste Prüfungsaufgaben</button>
                     </div>
 
                     <!-- 1. SUB-TRAINER: SUBNETTING -->
-                    <div id="tr-subnetting" style="display: block;">
+                    <div id="sub-tr-sub" class="sub-pane active">
                         <div class="panel card">
-                            <h2 style="margin-top:0;">1. Subnetting-Trainer</h2>
-                            <p>Drei Aufgabentypen, wie sie in Arbeiten typisch drankommen. Antworten eintragen und auf <b>Prüfen</b> klicken. Bei Fehlern erst selbst nachrechnen, dann <b>Lösungsweg</b> öffnen.</p>
+                            <h2 style="margin-top:0;">Subnetting-Zufallstrainer</h2>
+                            <p>Wähle einen Aufgabentyp, berechne die Felder und überprüfe deine Lösung. Der <b>Lösungsweg</b> erklärt dir Schritt für Schritt das Zustandekommen jedes Werts.</p>
                             
                             <div class="btn-row" style="margin-top: 1rem;">
                                 <label class="f-field" style="min-width: 250px;">
                                     <select id="stype" aria-label="Aufgabentyp">
-                                        <option value="calc">A · Netz zu einer IP berechnen</option>
-                                        <option value="split">B · Netz in Subnetze aufteilen</option>
-                                        <option value="hosts">C · Präfix aus Host-Bedarf</option>
+                                        <option value="calc">Typ A · Netz zu einer IP berechnen</option>
+                                        <option value="split">Typ B · Netz in Subnetze aufteilen</option>
+                                        <option value="hosts">Typ C · Präfix aus Host-Bedarf</option>
                                     </select>
                                 </label>
                                 <button type="button" class="btn-primary" id="snew">🎲 Neue Aufgabe</button>
@@ -551,18 +715,18 @@
 
                             <div class="btn-row">
                                 <button type="button" class="btn-primary" id="scheck">✓ Prüfen</button>
-                                <button type="button" class="btn-secondary" id="ssol">📖 Lösungsweg</button>
-                                <span id="sfb" class="status-feedback"></span>
+                                <button type="button" class="btn-secondary" id="ssol" aria-expanded="false" aria-controls="ssolbox">📖 Lösungsweg</button>
+                                <span id="sfb" class="status-feedback" aria-live="polite"></span>
                             </div>
-                            <div class="trainer-sol" id="ssolbox"></div>
+                            <div class="trainer-sol" id="ssolbox" role="region" aria-label="Ausführlicher Lösungsweg"></div>
                         </div>
                     </div>
 
                     <!-- 2. SUB-TRAINER: SZENARIO -->
-                    <div id="tr-szenario" style="display: none;">
+                    <div id="sub-tr-szenario" class="sub-pane">
                         <div class="panel card">
-                            <h2 style="margin-top:0;">2. Standort-Szenario (wie Lab03 „Big IoT GmbH“)</h2>
-                            <p>Eine Firma bekommt einen großen Adressblock. Alle Standorte erhalten gleich große Netze. Die Router-Verbindungen sind /30-Transfernetze, die <b>vom Ende des Adressbereichs rückwärts</b> vergeben werden. Damit ist der letzte Standort-Block für Transfernetze reserviert.</p>
+                            <h2 style="margin-top:0;">Standort-Szenario Trainer (Lab03 „Big IoT GmbH“)</h2>
+                            <p>Eine Firma erhält einen großen IP-Block. Alle Standorte erhalten gleich große Netze. Die Router werden über <b>/30-Transfernetze</b> verbunden, die <b>vom Ende des Adressbereichs rückwärts</b> vergeben werden.</p>
                             
                             <div class="btn-row" style="margin-top: 1rem;">
                                 <button type="button" class="btn-primary" id="znew">🎲 Neues Szenario</button>
@@ -574,18 +738,18 @@
 
                             <div class="btn-row">
                                 <button type="button" class="btn-primary" id="zcheck">✓ Prüfen</button>
-                                <button type="button" class="btn-secondary" id="zsol">📖 Lösungsweg</button>
-                                <span id="zfb" class="status-feedback"></span>
+                                <button type="button" class="btn-secondary" id="zsol" aria-expanded="false" aria-controls="zsolbox">📖 Lösungsweg</button>
+                                <span id="zfb" class="status-feedback" aria-live="polite"></span>
                             </div>
-                            <div class="trainer-sol" id="zsolbox"></div>
+                            <div class="trainer-sol" id="zsolbox" role="region" aria-label="Ausführlicher Lösungsweg zum Szenario"></div>
                         </div>
                     </div>
 
                     <!-- 3. SUB-TRAINER: TRACE -->
-                    <div id="tr-trace" style="display: none;">
+                    <div id="sub-tr-trace" class="sub-pane">
                         <div class="panel card">
-                            <h2 style="margin-top:0;">3. Wireshark Trace-Trainer</h2>
-                            <p>Ein zufälliger Ethernet-Frame mit IPv4 und TCP, UDP oder ICMP, dargestellt wie im Arbeitsblatt 07. Zuerst auf Papier oder im Kopf die Header analysieren, dann mit <b>Bereiche zeigen</b> visuell kontrollieren.</p>
+                            <h2 style="margin-top:0;">Wireshark Trace-Trainer</h2>
+                            <p>Analysiere einen zufällig generierten Hex-Frame. Lies die Header-Felder heraus und kontrolliere mit <b>„Bereiche zeigen“</b> die Layer-Zuordnung.</p>
                             
                             <div class="btn-row" style="margin-top: 1rem;">
                                 <label class="f-field" style="min-width: 220px;">
@@ -614,311 +778,383 @@
 
                             <div class="btn-row">
                                 <button type="button" class="btn-primary" id="tcheck">✓ Prüfen</button>
-                                <button type="button" class="btn-secondary" id="tsol">📖 Lösungsweg</button>
-                                <span id="tfb" class="status-feedback"></span>
+                                <button type="button" class="btn-secondary" id="tsol" aria-expanded="false" aria-controls="tsolbox">📖 Lösungsweg</button>
+                                <span id="tfb" class="status-feedback" aria-live="polite"></span>
                             </div>
-                            <div class="trainer-sol" id="tsolbox"></div>
+                            <div class="trainer-sol" id="tsolbox" role="region" aria-label="Ausführlicher Lösungsweg zum Trace"></div>
                         </div>
                     </div>
-                </div>
 
-                <!-- TAB 4: UNTERRICHTSBLÄTTER & FILIUS -->
-                <div id="unterricht" class="tab-pane">
-                    <div class="panel card">
-                        <h2 style="margin-top:0;">Arbeitsblatt 07 · Wireshark Trace</h2>
-                        <p>Analyse des 5-teiligen Original-Traces (Echo-Kommunikation zwischen Client und Server).</p>
-                        
-                        <div class="dump-legend">
-                            <span class="le">Ethernet</span>
-                            <span class="li">IPv4</span>
-                            <span class="lt">TCP/UDP</span>
-                            <span class="ld">Daten</span>
-                        </div>
-                        
-                        <div id="ab07"></div>
-                        
-                        <h3 style="margin-top: 1.5rem;">Antworten zum Arbeitsblatt</h3>
-                        <ol class="steps-list">
-                            <li><b>Umrahmen:</b> Siehe Farben oben. Ethernet immer Byte 0x00–0x0D, IPv4 ab 0x0E (45 → 20 Byte), Transport ab 0x22. TCP-Header-Länge aus dem Byte bei 0x2E: <code class="mono">80</code> → 8 × 4 = 32 Byte (20 Byte Standard + 12 Byte Optionen/Timestamps).</li>
-                            <li><b>Echo-Kommunikation</b> (Port 7) läuft in Frame 2–5 zwischen:<br>
-                                • Client: <code class="mono">10.2.10.92</code>, MAC <code class="mono">8c:73:6e:ff:2c:67</code><br>
-                                • Echo-Server: <code class="mono">10.2.10.86</code>, MAC <code class="mono">9c:4e:36:de:2c:3c</code></li>
-                            <li><b>Gesendeter Text:</b> <code class="mono">48 61 6c 6c 6f 20 57 65 6c 74 0d 0a</code> = „Hallo Welt“ + CR LF (Zeilenumbruch). Der Server schickt in Frame 4 genau denselben Text zurück, das ist das Echo!</li>
-                            <li><b>Ports:</b> Client <code class="mono">0x9bac</code> = 39852 (dynamischer Port), Server <code class="mono">0x0007</code> = 7 (Echo).</li>
-                        </ol>
-
-                        <h3 style="margin-top: 1.5rem;">Was in den 5 Frames passiert</h3>
-                        <div class="table-wrap">
-                            <table>
-                                <tr><th>Frame</th><th>Von → Nach</th><th>Protokoll</th><th>Ports</th><th>Flags</th><th>Inhalt &amp; Bedeutung</th></tr>
-                                <tr><td>1</td><td class="mono">10.2.10.81 → 239.255.255.250</td><td>UDP, TTL 1</td><td class="mono">47010 → 51200</td><td>–</td><td>Multicast (Ziel-MAC 01:00:5e:…), hat mit dem Echo nichts zu tun</td></tr>
-                                <tr><td>2</td><td class="mono">.92 → .86</td><td>TCP</td><td class="mono">39852 → 7</td><td class="mono">18 = PSH, ACK</td><td>„Hallo Welt\r\n“ (12 Byte)</td></tr>
-                                <tr><td>3</td><td class="mono">.86 → .92</td><td>TCP</td><td class="mono">7 → 39852</td><td class="mono">10 = ACK</td><td>Bestätigung, keine Daten. Ack-Nr. = Seq 65425cca + 12 = 65425cd6</td></tr>
-                                <tr><td>4</td><td class="mono">.86 → .92</td><td>TCP</td><td class="mono">7 → 39852</td><td class="mono">18 = PSH, ACK</td><td>„Hallo Welt\r\n“ zurück (Echo vom Server)</td></tr>
-                                <tr><td>5</td><td class="mono">.92 → .86</td><td>TCP</td><td class="mono">39852 → 7</td><td class="mono">10 = ACK</td><td>Bestätigung durch Client, Ack-Nr. = 68e70960 + 12 = 68e7096c</td></tr>
-                            </table>
-                        </div>
-                        <p class="note" style="color: var(--color-text-muted); font-size: 0.9rem;">
-                            <strong>Kontrollrechnung Länge Frame 2:</strong> IP-Gesamtlänge 0x0040 = 64 Byte − 20 IP − 32 TCP = 12 Byte Daten. Passt exakt zu „Hallo Welt“ (10 Zeichen) + 0d 0a (2 Zeichen).
-                        </p>
-                    </div>
-
-                    <div class="panel card">
-                        <h2 style="margin-top:0;">Lab03 · Big IoT GmbH (172.20.0.0/18)</h2>
-                        
-                        <div class="grid-2">
-                            <div>
-                                <p><b>Adressbereich:</b> /18 → 3. Oktett hat Maske 192, Block 64 → <span class="mono">172.20.0.0 – 172.20.63.255</span>.</p>
-                                <p><b>Standortnetze /21:</b> Maske <span class="mono">255.255.248.0</span>, Block 8 im 3. Oktett, 2<sup>11</sup> − 2 = 2046 Hosts. Ein /18 passt 2<sup>3</sup> = 8-mal in /21.</p>
+                    <!-- 4. SUB-PANE: FESTE PRÜFUNGSAUFGABEN (MIT TOLERANTER LIVE-PRÜFUNG) -->
+                    <div id="sub-fixed" class="sub-pane">
+                        <div class="practice-progress">
+                            <span>Fortschritt feste Prüfungsaufgaben:</span>
+                            <div class="practice-progress-bar">
+                                <div class="practice-progress-fill" id="fixed-prog-fill"></div>
                             </div>
-                            <div class="table-wrap">
-                                <table>
-                                    <tr><th>Netz</th><th>NW-Adresse</th><th>Router (letzte IP)</th><th>Broadcast</th></tr>
-                                    <tr><td>Leipzig</td><td class="mono">172.20.0.0/21</td><td class="mono">172.20.7.254</td><td class="mono">172.20.7.255</td></tr>
-                                    <tr><td>Dresden</td><td class="mono">172.20.8.0/21</td><td class="mono">172.20.15.254</td><td class="mono">172.20.15.255</td></tr>
-                                    <tr><td>Chemnitz</td><td class="mono">172.20.16.0/21</td><td class="mono">172.20.23.254</td><td class="mono">172.20.23.255</td></tr>
-                                    <tr><td>Görlitz</td><td class="mono">172.20.24.0/21</td><td class="mono">172.20.31.254</td><td class="mono">172.20.31.255</td></tr>
-                                    <tr><td>frei</td><td class="mono">.32.0 / .40.0 / .48.0</td><td colspan="2">Reserve für neue Standorte</td></tr>
-                                    <tr><td>Transfer</td><td class="mono">172.20.56.0/21</td><td colspan="2">Block für /30-Koppelnetze</td></tr>
-                                </table>
-                            </div>
+                            <span id="fixed-prog-text">0 von 4 Aufgaben gelöst</span>
                         </div>
 
-                        <h3 style="margin-top: 1.5rem;">Die vier Fragen vom Aufgabenblatt</h3>
-                        <ol class="steps-list">
-                            <li><b>Transfernetze am Ende sinnvoll?</b> Ja. Sie kommen alle in den letzten /21-Block (172.20.56.0/21). Die Blöcke davor bleiben zusammenhängend frei, neue Standorte bekommen ohne Umplanung ein volles /21.</li>
-                            <li><b>Subnetzmaske Transfernetze:</b> <span class="mono">255.255.255.252</span> (/30): 4 Adressen, 2 nutzbar, genau eine pro Router-Interface.</li>
-                            <li><b>Letztes verwendetes Netz:</b> Mit dem vorgegebenen Start 172.20.56.128/30 (R1–R2) geht es weiter mit 56.132/30 (R2–R3), 56.136/30 (R3–R4), <span class="mono">172.20.56.140/30</span> (R4–R1, Leipzig–Görlitz). Bei den Standorten ist das letzte genutzte Netz Görlitz 172.20.24.0/21.</li>
-                            <li><b>Max. Standorte:</b> 8 Blöcke /21, einer geht an die Transfernetze → <b>7 Standorte</b>.</li>
-                        </ol>
-
-                        <h3 style="margin-top: 1.5rem;">Typische Fehler in der Filius-Datei</h3>
-                        <ol class="steps-list">
-                            <li><b>PC-L10 und PC-L11</b> haben die Maske <span class="mono">255.255.240.0</span> (/20) statt /21. Mit /20 halten sie 172.20.0.0–172.20.15.255 für lokal. Ein Ping nach Dresden (172.20.8.x) geht dann nicht über den Router, sondern per ARP ins eigene LAN und scheitert.</li>
-                            <li><b>PC-L10</b> hat als DNS-Server <span class="mono">172.20.7.240</span> eingetragen, das ist der FileServer. Richtig wäre der DNS-S <span class="mono">172.20.7.200</span>.</li>
-                            <li><b>ping 8.8.8.8:</b> R1 kennt nur die Route nach 172.20.8.0/21. Es fehlt eine Default-Route <span class="mono">0.0.0.0 / 0.0.0.0 → 200.10.10.2</span> (ISP). Außerdem hat der ISP-Rechner in der Datei nur die Adresse 200.10.10.2, 8.8.8.8 ist dort gar nicht konfiguriert.</li>
-                            <li><b>Dresden, Chemnitz, Görlitz</b> laufen noch im alten Schema (192.168.x.x, 172.16.x.x). PC30 hat zusätzlich den Tippfehler <span class="mono">192.169.2.62</span> als Gateway.</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <!-- TAB 5: FESTE ÜBUNGSAUFGABEN -->
-                <div id="test" class="tab-pane">
-                    
-                    <div style="margin-bottom: var(--space-5); display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <button class="btn-primary" id="btn-test-ipv6" onclick="showTestTab('test-ipv6-content', 'btn-test-ipv6')">IPv6 Subnetting Aufgaben</button>
-                        <button class="btn-secondary" id="btn-test-ipv4" onclick="showTestTab('test-ipv4-content', 'btn-test-ipv4')">IPv4 & Wireshark Aufgaben</button>
-                    </div>
-
-                    <!-- TEST: IPv6 -->
-                    <div id="test-ipv6-content" style="display: block;">
-                        
-                        <div class="exercise-card card">
+                        <!-- Aufgabe 1: IPv6 Präfixzuweisung (KORRIGIERT: 0010::/60) -->
+                        <div class="fixed-exercise">
                             <h3>Aufgabe 1: IPv6 Präfixzuweisung (Standorte)</h3>
-                            <p>Sie haben das IPv6-Präfix <code>2001:0db8:3c4d:0015::/60</code> erhalten und sollen es auf <strong>4 verschiedene Standorte</strong> aufteilen. An allen Standorten sollen am Ende /64 Netze für die Clients vergeben werden.</p>
+                            <p>Sie haben das IPv6-Präfix <code>2001:0db8:3c4d:0010::/60</code> erhalten und sollen es auf <strong>4 verschiedene Standorte</strong> aufteilen. An allen Standorten sollen am Ende /64-Netze für die Clients vergeben werden.</p>
                             
-                            <label><strong>1. Wie lautet das neue Präfix für die 4 Standorte?</strong></label>
-                            <input type="text" class="input-field" placeholder="Dein Präfix...">
-                            
-                            <label><strong>2. Wie viele /64 Netze kann jeder Standort vergeben?</strong></label>
-                            <input type="text" class="input-field" placeholder="Anzahl Netze...">
+                            <div class="trainer-grid">
+                                <div class="f-field">
+                                    <label for="fixed1-p1">1. Neues Präfix für die 4 Standorte (z. B. /62):</label>
+                                    <input type="text" id="fixed1-p1" placeholder="z. B. /62">
+                                </div>
+                                <div class="f-field">
+                                    <label for="fixed1-p2">2. Anzahl /64-Netze je Standort:</label>
+                                    <input type="text" id="fixed1-p2" placeholder="z. B. 4">
+                                </div>
+                            </div>
 
-                            <button class="btn-secondary" onclick="toggleSolution(this)" style="margin-top: 1rem;">📖 Lösung anzeigen</button>
+                            <div class="btn-row">
+                                <button type="button" class="btn-primary" onclick="checkFixed1()">✓ Eingabe prüfen</button>
+                                <button type="button" class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            </div>
+                            <div id="fixed1-fb" class="fixed-feedback" aria-live="polite"></div>
+
                             <div class="solution">
-                                <p><strong>1. Neues Präfix:</strong> Um 4 Standorte zu adressieren, benötigen wir 2 Bits (2<sup>2</sup> = 4). Das neue Präfix lautet also 60 + 2 = <strong>/62</strong>.</p>
-                                <p><strong>2. Anzahl der /64 Netze:</strong> Der Standort hat ein /62 Präfix. Bis /64 bleiben 2 Bits (64 - 62 = 2). Jeder Standort kann also 2<sup>2</sup> = <strong>4 Subnetze</strong> (mit /64) vergeben.</p>
-                                
-                                <h4 style="margin-top: 1rem;">Zuordnungstabelle (Schrittweite im 4. Hextett)</h4>
-                                <p><em>Das 4. Hextett startet bei 0015. Wir rechnen im 4. Hextett. Von 62 bis 64 sind 2 Bits frei. Das gesamte 4. Hextett hat aber noch 16 - (62 - 48) = 2 freie Bits. Schrittweite ist 2<sup>2</sup> = 4 (Hex 0004).</em></p>
+                                <p><strong>1. Neues Präfix:</strong> Um 4 Standorte zu adressieren, benötigen wir 2 Bits (2<sup>2</sup> = 4). Das neue Präfix lautet 60 + 2 = <strong>/62</strong>.</p>
+                                <p><strong>2. Anzahl der /64-Netze:</strong> Bis /64 bleiben 2 Bits (64 − 62 = 2). Jeder Standort kann 2<sup>2</sup> = <strong>4 Subnetze</strong> (mit /64) vergeben.</p>
+                                <h4>Zuordnungstabelle (Schrittweite im 4. Hextett):</h4>
+                                <p><em>Das 4. Hextett startet bei <code>0010</code>. Von Präfix /62 bis /64 sind 2 Bits frei. Im 4. Hextett (Bits 48 bis 64) sind 62 − 48 = 14 Bits belegt. Es verbleiben 16 − 14 = <b>2 freie Bits</b>. Schrittweite: 2<sup>2</sup> = 4 (hexadezimal: <code>0004</code>).</em></p>
                                 <div class="table-wrap">
                                     <table>
-                                        <tr><th>Standort</th><th>Netz-ID (/62)</th></tr>
-                                        <tr><td>1</td><td><code>2001:0db8:3c4d:0010::/62</code></td></tr>
-                                        <tr><td>2</td><td><code>2001:0db8:3c4d:0014::/62</code></td></tr>
-                                        <tr><td>3</td><td><code>2001:0db8:3c4d:0018::/62</code></td></tr>
-                                        <tr><td>4</td><td><code>2001:0db8:3c4d:001c::/62</code></td></tr>
+                                        <tr><th>Standort</th><th>Netz-ID (/62)</th><th>Mögliche /64-Subnetze</th></tr>
+                                        <tr><td>Standort 1</td><td><code>2001:0db8:3c4d:0010::/62</code></td><td>.0010::/64 bis .0013::/64</td></tr>
+                                        <tr><td>Standort 2</td><td><code>2001:0db8:3c4d:0014::/62</code></td><td>.0014::/64 bis .0017::/64</td></tr>
+                                        <tr><td>Standort 3</td><td><code>2001:0db8:3c4d:0018::/62</code></td><td>.0018::/64 bis .001b::/64</td></tr>
+                                        <tr><td>Standort 4</td><td><code>2001:0db8:3c4d:001c::/62</code></td><td>.001c::/64 bis .001f::/64</td></tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="exercise-card card">
+                        <!-- Aufgabe 2: Subnetzbildung für Abteilungen -->
+                        <div class="fixed-exercise">
                             <h3>Aufgabe 2: Subnetzbildung für Abteilungen</h3>
                             <p>Das Unternehmen erhält das Präfix <code>2a00:1450:4001::/49</code>. Für verschiedene Netzsegmente benötigen Sie mindestens <strong>10 verschiedene Subnetze</strong>.</p>
                             
-                            <label><strong>Ermitteln Sie die neue Präfixlänge und notieren Sie die Startadresse des ersten und zweiten Subnetzes.</strong></label>
-                            <input type="text" class="input-field" placeholder="Präfix, Netz 1, Netz 2...">
-                            
-                            <button class="btn-secondary" onclick="toggleSolution(this)" style="margin-top: 1rem;">📖 Lösung anzeigen</button>
+                            <div class="trainer-grid">
+                                <div class="f-field">
+                                    <label for="fixed2-p">Neues Präfix (z. B. /53):</label>
+                                    <input type="text" id="fixed2-p" placeholder="/53">
+                                </div>
+                                <div class="f-field">
+                                    <label for="fixed2-n1">Netzadresse 1. Subnetz:</label>
+                                    <input type="text" id="fixed2-n1" placeholder="2a00:1450:4001:0000::/53">
+                                </div>
+                                <div class="f-field">
+                                    <label for="fixed2-n2">Netzadresse 2. Subnetz:</label>
+                                    <input type="text" id="fixed2-n2" placeholder="2a00:1450:4001:0800::/53">
+                                </div>
+                            </div>
+
+                            <div class="btn-row">
+                                <button type="button" class="btn-primary" onclick="checkFixed2()">✓ Eingabe prüfen</button>
+                                <button type="button" class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            </div>
+                            <div id="fixed2-fb" class="fixed-feedback" aria-live="polite"></div>
+
                             <div class="solution">
-                                <p><strong>Präfixlänge:</strong> Für mindestens 10 Netze benötigen wir 4 Bits (2<sup>4</sup> = 16 mögliche Netze). Das neue Präfix ist 49 + 4 = <strong>/53</strong>.</p>
-                                <p><strong>Schrittweite ermitteln:</strong> Wir befinden uns im 4. Hextett (Bit 49 bis 64). Von /48 bis /53 sind 5 Bits belegt. Es bleiben 16 - 5 = 11 Bits frei. Die dezimale Schrittweite ist 2<sup>11</sup> = 2048. Hexadezimal entspricht das <strong>0800</strong>.</p>
+                                <p><strong>Präfixlänge:</strong> Für mindestens 10 Netze benötigen wir 4 Bits (2<sup>4</sup> = 16 mögliche Netze). Neues Präfix: 49 + 4 = <strong>/53</strong>.</p>
+                                <p><strong>Schrittweite:</strong> Im 4. Hextett (Bit 48 bis 64) sind 53 − 48 = 5 Bits belegt. Freie Bits: 16 − 5 = 11 Bits. Dezimale Schrittweite: 2<sup>11</sup> = 2048. Hexadezimal: <b>0800</b>.</p>
                                 <ul>
-                                    <li>Netz 1: <code>2a00:1450:4001:0000::/53</code></li>
+                                    <li>Netz 1: <code>2a00:1450:4001:0000::/53</code> (oder kurz: <code>2a00:1450:4001::/53</code>)</li>
                                     <li>Netz 2: <code>2a00:1450:4001:0800::/53</code></li>
                                     <li>Netz 3: <code>2a00:1450:4001:1000::/53</code></li>
                                 </ul>
                             </div>
                         </div>
 
-                    </div>
-
-                    <!-- TEST: IPv4 & WIRESHARK -->
-                    <div id="test-ipv4-content" style="display: none;">
-                        
-                        <div class="exercise-card card">
-                            <h3>Aufgabe 3: IPv4 Subnetting & Koppelnetze</h3>
-                            <p>Das Basisnetzwerk <code>10.50.0.0/16</code> soll in <strong>/20-Subnetze</strong> für verschiedene Gebäude aufgeteilt werden. Zwischen den Routern der Gebäude sollen <strong>/30-Koppelnetze</strong> geplant werden.</p>
+                        <!-- Aufgabe 3: IPv4 Gebäudenetze & Koppelnetze -->
+                        <div class="fixed-exercise">
+                            <h3>Aufgabe 3: IPv4 Subnetting &amp; Koppelnetze</h3>
+                            <p>Das Basisnetzwerk <code>10.50.0.0/16</code> soll in <strong>/20-Subnetze</strong> für Gebäude aufgeteilt werden. Direkt an das vierte Gebäudenetz anschließend sollen <strong>/30-Koppelnetze</strong> geplant werden.</p>
                             
-                            <label><strong>1. Wie lauten die Netz-IDs der ersten drei /20-Gebäudenetze?</strong></label>
-                            <input type="text" class="input-field" placeholder="Netz 1, 2, 3...">
+                            <div class="trainer-grid">
+                                <div class="f-field">
+                                    <label for="fixed3-v1">1. Netz-IDs der ersten drei /20-Netze (Kommagetrennt):</label>
+                                    <input type="text" id="fixed3-v1" placeholder="10.50.0.0, 10.50.16.0, 10.50.32.0">
+                                </div>
+                                <div class="f-field">
+                                    <label for="fixed3-v2">2. Erstes /30-Koppelnetz nach Gebäude 4:</label>
+                                    <input type="text" id="fixed3-v2" placeholder="10.50.64.0/30">
+                                </div>
+                            </div>
 
-                            <label><strong>2. Das vierte Gebäudenetz ist vergeben. Wie lautet die IP des ersten /30-Koppelnetzes, das direkt danach anschließt?</strong></label>
-                            <input type="text" class="input-field" placeholder="Koppelnetz-IP...">
+                            <div class="btn-row">
+                                <button type="button" class="btn-primary" onclick="checkFixed3()">✓ Eingabe prüfen</button>
+                                <button type="button" class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            </div>
+                            <div id="fixed3-fb" class="fixed-feedback" aria-live="polite"></div>
 
-                            <button class="btn-secondary" onclick="toggleSolution(this)" style="margin-top: 1rem;">📖 Lösung anzeigen</button>
                             <div class="solution">
-                                <p><strong>Zu 1 (Gebäudenetze):</strong> Die Maske für /20 ist 255.255.240.0. Die Schrittweite im 3. Oktett ist 256 - 240 = <strong>16</strong>.</p>
+                                <p><strong>Zu 1 (Gebäudenetze):</strong> Maske für /20 = 255.255.240.0. Blockgröße im 3. Oktett: 256 − 240 = <b>16</b>.</p>
                                 <ul>
-                                    <li>Gebäude 1: <strong>10.50.0.0/20</strong></li>
-                                    <li>Gebäude 2: <strong>10.50.16.0/20</strong></li>
-                                    <li>Gebäude 3: <strong>10.50.32.0/20</strong></li>
+                                    <li>Gebäude 1: <code>10.50.0.0/20</code></li>
+                                    <li>Gebäude 2: <code>10.50.16.0/20</code></li>
+                                    <li>Gebäude 3: <code>10.50.32.0/20</code></li>
+                                    <li>Gebäude 4: <code>10.50.48.0/20</code> (Broadcast: 10.50.63.255)</li>
                                 </ul>
-                                <p><strong>Zu 2 (Koppelnetze):</strong> Das vierte Gebäudenetz ist <code>10.50.48.0/20</code>. Der Broadcast dieses Netzes ist 10.50.63.255. Das nächste freie Netz beginnt bei 10.50.64.0. Das erste /30-Koppelnetz lautet also <strong>10.50.64.0/30</strong>. Das nächste wäre 10.50.64.4/30.</p>
+                                <p><strong>Zu 2 (Koppelnetze):</strong> Direkt nach 10.50.63.255 beginnt der Adressbereich 10.50.64.0. Das erste /30-Koppelnetz lautet <b><code>10.50.64.0/30</code></b> (Nutzbare Router-IPs: 10.50.64.1 und 10.50.64.2).</p>
                             </div>
                         </div>
 
-                        <div class="exercise-card card">
+                        <!-- Aufgabe 4: Wireshark Trace (KORRIGIERT: Offset 0x0E IPv4) -->
+                        <div class="fixed-exercise">
                             <h3>Aufgabe 4: Wireshark Hex-Trace Analyse</h3>
-                            <p>Du betrachtest einen Wireshark Hex-Dump eines UDP-Pakets. Der Dump beginnt wie folgt:</p>
-                            <pre style="background: var(--color-surface); padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.9em; margin-bottom: 1rem; border: 1px solid var(--color-border);">
-0000   bc 5f f4 8a 12 34 00 1a 2b 3c 4d 5e 08 00 45 00
+                            <p>Analysiere den folgenden Dump-Ausschnitt eines UDP-Pakets:</p>
+                            <pre class="dump-box" style="margin:8px 0;">0000   bc 5f f4 8a 12 34 00 1a 2b 3c 4d 5e 08 00 45 00
 0010   00 3c 1a 2b 40 00 40 11 3a 4b c0 a8 01 0a 08 08
 0020   08 08 13 88 00 35 ...</pre>
                             
-                            <label><strong>1. Wie lautet die Ziel-MAC-Adresse? (Tipp: Die ersten 6 Bytes)</strong></label>
-                            <input type="text" class="input-field" placeholder="MAC eintragen...">
+                            <div class="trainer-grid">
+                                <div class="f-field">
+                                    <label for="fixed4-mac">Ziel-MAC-Adresse:</label>
+                                    <input type="text" id="fixed4-mac" placeholder="bc:5f:f4:8a:12:34">
+                                </div>
+                                <div class="f-field">
+                                    <label for="fixed4-ip">Kommunizierende IP-Adressen (Quell- und Ziel-IP):</label>
+                                    <input type="text" id="fixed4-ip" placeholder="192.168.1.10 und 8.8.8.8">
+                                </div>
+                            </div>
 
-                            <label><strong>2. Welche IP-Adressen (Quell- und Ziel-IP) kommunizieren hier miteinander? (Tipp: IP-Header ab Offset 0x0e)</strong></label>
-                            <input type="text" class="input-field" placeholder="IPs umrechnen...">
+                            <div class="btn-row">
+                                <button type="button" class="btn-primary" onclick="checkFixed4()">✓ Eingabe prüfen</button>
+                                <button type="button" class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            </div>
+                            <div id="fixed4-fb" class="fixed-feedback" aria-live="polite"></div>
 
-                            <button class="btn-secondary" onclick="toggleSolution(this)" style="margin-top: 1rem;">📖 Lösung anzeigen</button>
                             <div class="solution">
-                                <p><strong>Ziel-MAC-Adresse:</strong> Die ersten 6 Bytes des Ethernet-Frames: <strong>bc:5f:f4:8a:12:34</strong>.</p>
-                                <p><strong>IP-Adressen:</strong> Der IPv4-Header beginnt bei 08 00 (Byte 12/13) und 45 00 (Byte 14). Die Quell-IP startet nach 12 Bytes im IP-Header bei Offset 0x1A. <br>
-                                Quell-IP Hex: <code>c0 a8 01 0a</code> = Dezimal: <strong>192.168.1.10</strong>.<br>
-                                Ziel-IP Hex: <code>08 08 08 08</code> = Dezimal: <strong>8.8.8.8</strong>.</p>
+                                <p><strong>Ziel-MAC-Adresse:</strong> Die ersten 6 Bytes des Frames: <b><code>bc:5f:f4:8a:12:34</code></b>.</p>
+                                <p><strong>Header-Grenzen:</strong> Byte 12/13 (<code>08 00</code>) ist der <b>EtherType</b> (definiert IPv4). Der eigentliche IPv4-Header beginnt bei <b>Offset 0x0E</b> mit dem Byte <code>45</code>!</p>
+                                <p><strong>IP-Adressen:</strong> Nach 12 Bytes im IP-Header (Offset 0x1A) beginnt die Quell-IP:</p>
+                                <ul>
+                                    <li>Quell-IP: <code>c0 a8 01 0a</code> = <b>192.168.1.10</b></li>
+                                    <li>Ziel-IP (Offset 0x1E): <code>08 08 08 08</code> = <b>8.8.8.8</b> (Google DNS)</li>
+                                </ul>
                             </div>
                         </div>
 
                     </div>
-
                 </div>
 
-                <!-- TAB 6: LERNZETTEL & SPICKZETTEL (DRUCKVERSION) -->
-                <div id="lernzettel" class="tab-pane">
-                    <div class="panel card">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px;">
-                            <h2>📄 Druck-Zusammenfassung (Netzwerk-Cheat-Sheet)</h2>
-                            <button class="btn-primary" onclick="window.print()">🖨️ PDF / Drucken</button>
-                        </div>
-                        
-                        <div class="grid-2">
-                            <div class="step-box">
-                                <h3>1. IPv6 Adresstypen</h3>
-                                <ul>
-                                    <li><strong>2000::/3</strong> = Global Unicast (Öffentliches Internet).</li>
-                                    <li><strong>FE80::/10</strong> = Link-Local (LAN-intern, Pflicht für jedes Gerät, kein Routing).</li>
-                                    <li><strong>FC00::/7</strong> = Unique Local (Private Netze).</li>
-                                    <li><strong>::1/128</strong> = Loopback.</li>
-                                    <li><strong>Besonderheit:</strong> Es gibt bei IPv6 keinen Broadcast mehr (ersetzt durch Multicast).</li>
-                                </ul>
-                            </div>
+                <!-- =======================================================
+                     TAB 6: UNTERRICHTSBLÄTTER & FILIUS (AB07 & LAB03)
+                     ======================================================= -->
+                <div id="unterricht" class="tab-pane">
+                    
+                    <div class="learning-objectives">
+                        <h3>🎯 Unterrichtsdokumentation &amp; Musterlösungen</h3>
+                        <p style="margin:0;">Vollständige Lösungen zu Arbeitsblatt 07 (Wireshark Echo-Trace) und Lab03 (Big IoT GmbH Multi-Site Ring-Netzwerk mit Filius-Fehleranalyse).</p>
+                    </div>
+
+                    <!-- AB07 -->
+                    <details class="deep-dive" open>
+                        <summary>📄 Arbeitsblatt 07 · Wireshark Trace &amp; Echo-Protokoll</summary>
+                        <div class="details-content">
+                            <p>Analyse der 5 Original-Frames der Echo-Kommunikation (Port 7):</p>
                             
-                            <div class="step-box">
-                                <h3>2. IPv4 Subnetting & Fehlersuche</h3>
-                                <ul>
-                                    <li><strong>Formeln:</strong> Netze = 2<sup>n</sup> (n = geliehene Bits). Hosts = 2<sup>h</sup> - 2.</li>
-                                    <li><strong>Koppelnetze:</strong> Für Point-to-Point-Routerlinks nutzt man immer ein <strong>/30 Netz</strong> (Maske 255.255.255.252), da es genau 2 nutzbare IP-Adressen liefert.</li>
-                                    <li><strong>Ping-Systematik:</strong> 127.0.0.1 (TCP/IP-Stack) ➡️ Eigene IP (NIC) ➡️ Gateway (LAN-Router) ➡️ 8.8.8.8 (Internet-Routing) ➡️ www.domain.de (DNS-Auflösung).</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="grid-2" style="margin-top: 1rem;">
-                            <div class="step-box">
-                                <h3>3. Subnetting in 5 Schritten</h3>
-                                <ol class="steps-list">
-                                    <li><b>Interessantes Oktett</b> finden: das Oktett, in dem das Präfix endet (/21 → 3. Oktett, /27 → 4. Oktett).</li>
-                                    <li><b>Blockgröße</b> = 256 − Maskenwert in diesem Oktett (/21 → 248 → Block 8).</li>
-                                    <li><b>Netzadresse:</b> IP-Wert im Oktett auf das Vielfache der Blockgröße abrunden, dahinter alles 0.</li>
-                                    <li><b>Broadcast:</b> nächstes Netz − 1 (im Oktett NW + Block − 1, dahinter alles 255).</li>
-                                    <li><b>Hosts:</b> 2<sup>(32 − Präfix)</sup> − 2. Erster Host NW + 1, letzter Host BC − 1 (oft Router).</li>
-                                </ol>
-                                <h4 style="margin-top: 0.8rem;">Formeln zum Aufteilen &amp; Bedarf</h4>
-                                <p style="font-size: 0.9rem;">
-                                    • <b>n Subnetze</b> → Präfix + ⌈log₂ n⌉ Bits (z.B. 5 Subnetze brauchen 3 Bits).<br>
-                                    • <b>Bedarf h Hosts</b> → kleinstes x mit 2<sup>x</sup> − 2 ≥ h, Präfix = 32 − x (z.B. 500 Hosts → x=9 → /23).
-                                </p>
+                            <div class="dump-legend">
+                                <span class="le">Ethernet-Header</span>
+                                <span class="li">IPv4-Header</span>
+                                <span class="lt">TCP/UDP-Header</span>
+                                <span class="ld">Nutzdaten</span>
                             </div>
 
-                            <div class="step-box">
-                                <h3>4. Präfix-Tabelle (/16 bis /30)</h3>
-                                <div class="table-wrap">
-                                    <table id="ptab-lernzettel">
-                                        <tr><th>Präfix</th><th>Maske</th><th>Block</th><th>Hosts</th></tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                            <div id="ab07"></div>
 
-                        <div class="step-box" style="margin-top: 1rem;">
-                            <h3>5. Byte-Positionen im Trace (Ethernet + IPv4)</h3>
+                            <h3 style="margin-top:1.5rem;">Detaillierte Antworten zu den Fragen auf dem Blatt</h3>
+                            <ol class="steps-list">
+                                <li><b>Umrahmen der Header:</b> Siehe die Farben oben. Ethernet belegt stets Byte 0x00–0x0D (14 Bytes). IPv4 beginnt bei 0x0E (45 → 20 Bytes Header). Transport-Header beginnt bei 0x22. TCP-Header-Länge aus Byte 0x2E: <code>80</code> hex = 8 × 4 = <b>32 Bytes</b> (20 B Header + 12 B Optionen).</li>
+                                <li><b>Echo-Kommunikation:</b> Läuft in Frame 2 bis 5 zwischen:<br>
+                                    • Client: <code>10.2.10.92</code> (MAC: <code>8c:73:6e:ff:2c:67</code>)<br>
+                                    • Echo-Server: <code>10.2.10.86</code> (MAC: <code>9c:4e:36:de:2c:3c</code>)</li>
+                                <li><b>Gesendeter Text:</b> <code>48 61 6c 6c 6f 20 57 65 6c 74 0d 0a</code> = <b>„Hallo Welt\r\n“</b>. In Frame 4 schickt der Server exakt denselben Text als Echo zurück.</li>
+                                <li><b>Ports:</b> Client: <code>0x9bac</code> = <b>39852</b> (dynamisch), Server: <code>0x0007</code> = <b>7</b> (Echo).</li>
+                            </ol>
+
+                            <h3 style="margin-top:1.5rem;">Was in den 5 Frames passiert (Übersicht)</h3>
                             <div class="table-wrap">
                                 <table>
-                                    <tr><th class="mono">Offset</th><th>Länge</th><th>Feld</th><th>Merkhilfe / Bedeutung</th></tr>
-                                    <tr><td class="mono">0x00</td><td>6</td><td>Ziel-MAC</td><td>Ziel steht <b>vor</b> der Quelle! <span class="mono">ff:ff:ff:ff:ff:ff</span> = Broadcast, <span class="mono">01:00:5e</span> = IPv4-Multicast</td></tr>
-                                    <tr><td class="mono">0x06</td><td>6</td><td>Quell-MAC</td><td>Absender-Hardwareadresse</td></tr>
-                                    <tr><td class="mono">0x0C</td><td>2</td><td>EtherType</td><td><span class="mono">08 00</span> = IPv4 · <span class="mono">08 06</span> = ARP · <span class="mono">86 dd</span> = IPv6</td></tr>
-                                    <tr><td class="mono">0x0E</td><td>1</td><td>Version + IHL</td><td><span class="mono">45</span> → IPv4, 5 × 4 = 20 Byte Standard-Header</td></tr>
-                                    <tr><td class="mono">0x0F</td><td>1</td><td>TOS / DSCP</td><td>Type of Service / Quality of Service</td></tr>
-                                    <tr><td class="mono">0x10</td><td>2</td><td>Gesamtlänge</td><td>IP-Header + Transport + Daten (ohne Ethernet) in Bytes</td></tr>
-                                    <tr><td class="mono">0x12</td><td>2</td><td>Identifikation</td><td>Paket-ID für Fragmentierung</td></tr>
-                                    <tr><td class="mono">0x14</td><td>2</td><td>Flags + Fragment-Offset</td><td><span class="mono">40 00</span> = Don't Fragment (DF)</td></tr>
-                                    <tr><td class="mono">0x16</td><td>1</td><td>TTL</td><td>Time to Live: 64 = Linux/Mac · 128 = Windows · 255 = Router</td></tr>
-                                    <tr><td class="mono">0x17</td><td>1</td><td>Protokoll</td><td><span class="mono">01</span> = ICMP (Ping) · <span class="mono">06</span> = TCP · <span class="mono">11</span> (Hex 11 = 17) = UDP</td></tr>
-                                    <tr><td class="mono">0x18</td><td>2</td><td>Header-Prüfsumme</td><td>Prüfsumme für den IP-Header</td></tr>
-                                    <tr><td class="mono">0x1A</td><td>4</td><td>Quell-IP</td><td>Absender-IP (jedes Byte in Dezimal)</td></tr>
-                                    <tr><td class="mono">0x1E</td><td>4</td><td>Ziel-IP</td><td>Empfänger-IP (reicht über die Zeile: 0x1E, 0x1F | 0x20, 0x21)</td></tr>
-                                    <tr><td class="mono">0x22</td><td>2 + 2</td><td>Quell-Port, Ziel-Port</td><td>Gleich bei TCP und UDP (2 Bytes Quell-Port, 2 Bytes Ziel-Port)</td></tr>
-                                    <tr><td class="mono">0x26</td><td>–</td><td>UDP-Header</td><td>Länge (2 Byte), Prüfsumme (2 Byte). UDP-Header ist immer 8 Byte lang, Daten ab <b>0x2A</b></td></tr>
-                                    <tr><td class="mono">0x26</td><td>–</td><td>TCP-Header</td><td>Seq (4), Ack (4), Header-Länge (0x2E), Flags (0x2F), Fenster, Prüfsumme. 0x2E: Erste Ziffer × 4 = Länge (<span class="mono">50</span> = 20 Byte, <span class="mono">80</span> = 32 Byte)</td></tr>
-                                    <tr><td class="mono">0x22</td><td>–</td><td>ICMP-Header</td><td>Typ (1), Code (1), Prüfsumme, ID, Seq. Typ <span class="mono">08</span> = Echo Request · <span class="mono">00</span> = Echo Reply (keine Ports!)</td></tr>
+                                    <tr><th>Frame</th><th>Von → Nach</th><th>Protokoll</th><th>Ports</th><th>Flags</th><th>Inhalt &amp; Funktion</th></tr>
+                                    <tr><td>1</td><td class="mono">10.2.10.81 → 239.255.255.250</td><td>UDP, TTL 1</td><td class="mono">47010 → 51200</td><td>–</td><td>Multicast (UPnP/SSDP), gehört nicht zum Echo</td></tr>
+                                    <tr><td>2</td><td class="mono">.92 → .86</td><td>TCP</td><td class="mono">39852 → 7</td><td class="mono">18 (PSH, ACK)</td><td>Client sendet „Hallo Welt\r\n“ (12 Bytes)</td></tr>
+                                    <tr><td>3</td><td class="mono">.86 → .92</td><td>TCP</td><td class="mono">7 → 39852</td><td class="mono">10 (ACK)</td><td>Server bestätigt Empfang (Ack = 65425cd6)</td></tr>
+                                    <tr><td>4</td><td class="mono">.86 → .92</td><td>TCP</td><td class="mono">7 → 39852</td><td class="mono">18 (PSH, ACK)</td><td>Server sendet „Hallo Welt\r\n“ zurück (Echo)</td></tr>
+                                    <tr><td>5</td><td class="mono">.92 → .86</td><td>TCP</td><td class="mono">39852 → 7</td><td class="mono">10 (ACK)</td><td>Client bestätigt das Echo (Ack = 68e7096c)</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- LAB03 -->
+                    <details class="deep-dive" open style="margin-top:var(--space-4);">
+                        <summary>🏢 Lab03 · Big IoT GmbH (172.20.0.0/18 Ring-Netzwerk)</summary>
+                        <div class="details-content">
+                            <p><b>Gesamtnetz:</b> <code>172.20.0.0/18</code> (Adressbereich <code>172.20.0.0</code> bis <code>172.20.63.255</code>). Standorte erhalten jeweils ein <code>/21</code> (Maske 255.255.248.0, 2046 Hosts).</p>
+
+                            <!-- Inline-SVG Netzdiagramm Ring -->
+                            <div class="diagram-container">
+                                <svg viewBox="0 0 700 240" width="100%" height="240" aria-label="Netzwerktopologie Lab03 mit 4 Standorten im Ring und ISP">
+                                    <title>Topologie Lab03 Ring-Netzwerk</title>
+                                    <!-- Ring-Leitungen -->
+                                    <polygon points="180,70 520,70 520,180 180,180" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-dasharray="6,4"/>
+                                    
+                                    <!-- Standorte / Router -->
+                                    <circle cx="180" cy="70" r="32" fill="var(--color-surface-offset)" stroke="var(--color-primary)" stroke-width="2"/>
+                                    <text x="180" y="66" text-anchor="middle" font-size="11" font-weight="bold" fill="var(--color-text)">Leipzig (R1)</text>
+                                    <text x="180" y="80" text-anchor="middle" font-size="9" fill="var(--color-text-muted)">.0.0/21</text>
+
+                                    <circle cx="520" cy="70" r="32" fill="var(--color-surface-offset)" stroke="var(--color-primary)" stroke-width="2"/>
+                                    <text x="520" y="66" text-anchor="middle" font-size="11" font-weight="bold" fill="var(--color-text)">Dresden (R2)</text>
+                                    <text x="520" y="80" text-anchor="middle" font-size="9" fill="var(--color-text-muted)">.8.0/21</text>
+
+                                    <circle cx="520" cy="180" r="32" fill="var(--color-surface-offset)" stroke="var(--color-primary)" stroke-width="2"/>
+                                    <text x="520" y="176" text-anchor="middle" font-size="11" font-weight="bold" fill="var(--color-text)">Chemnitz (R3)</text>
+                                    <text x="520" y="190" text-anchor="middle" font-size="9" fill="var(--color-text-muted)">.16.0/21</text>
+
+                                    <circle cx="180" cy="180" r="32" fill="var(--color-surface-offset)" stroke="var(--color-primary)" stroke-width="2"/>
+                                    <text x="180" y="176" text-anchor="middle" font-size="11" font-weight="bold" fill="var(--color-text)">Görlitz (R4)</text>
+                                    <text x="180" y="190" text-anchor="middle" font-size="9" fill="var(--color-text-muted)">.24.0/21</text>
+
+                                    <!-- Transfernetze Labels -->
+                                    <rect x="300" y="58" width="100" height="24" rx="4" fill="var(--color-surface-2)" stroke="var(--color-border)"/>
+                                    <text x="350" y="74" text-anchor="middle" font-size="10" font-family="monospace" fill="var(--color-primary)">.56.128/30</text>
+
+                                    <rect x="470" y="113" width="100" height="24" rx="4" fill="var(--color-surface-2)" stroke="var(--color-border)"/>
+                                    <text x="520" y="129" text-anchor="middle" font-size="10" font-family="monospace" fill="var(--color-primary)">.56.132/30</text>
+
+                                    <rect x="300" y="168" width="100" height="24" rx="4" fill="var(--color-surface-2)" stroke="var(--color-border)"/>
+                                    <text x="350" y="184" text-anchor="middle" font-size="10" font-family="monospace" fill="var(--color-primary)">.56.136/30</text>
+
+                                    <rect x="130" y="113" width="100" height="24" rx="4" fill="var(--color-surface-2)" stroke="var(--color-border)"/>
+                                    <text x="180" y="129" text-anchor="middle" font-size="10" font-family="monospace" fill="var(--color-primary)">.56.140/30</text>
+
+                                    <!-- ISP Anbindung -->
+                                    <line x1="180" y1="38" x2="180" y2="10" stroke="var(--color-text-muted)" stroke-width="2"/>
+                                    <rect x="130" y="2" width="100" height="20" rx="3" fill="var(--color-surface-2)" stroke="var(--color-border)"/>
+                                    <text x="180" y="15" text-anchor="middle" font-size="10" font-weight="bold" fill="var(--color-text)">ISP (200.10.10.2)</text>
+                                </svg>
+                            </div>
+
+                            <div class="table-wrap">
+                                <table>
+                                    <tr><th>Netz</th><th>NW-Adresse</th><th>Hostbereich</th><th>Router-IP (letzte)</th><th>Broadcast</th></tr>
+                                    <tr><td>Leipzig</td><td class="mono">172.20.0.0/21</td><td class="mono">172.20.0.1 – 172.20.7.253</td><td class="mono">172.20.7.254</td><td class="mono">172.20.7.255</td></tr>
+                                    <tr><td>Dresden</td><td class="mono">172.20.8.0/21</td><td class="mono">172.20.8.1 – 172.20.15.253</td><td class="mono">172.20.15.254</td><td class="mono">172.20.15.255</td></tr>
+                                    <tr><td>Chemnitz</td><td class="mono">172.20.16.0/21</td><td class="mono">172.20.16.1 – 172.20.23.253</td><td class="mono">172.20.23.254</td><td class="mono">172.20.23.255</td></tr>
+                                    <tr><td>Görlitz</td><td class="mono">172.20.24.0/21</td><td class="mono">172.20.24.1 – 172.20.31.253</td><td class="mono">172.20.31.254</td><td class="mono">172.20.31.255</td></tr>
+                                    <tr><td>Reserve</td><td class="mono">.32.0 / .40.0 / .48.0</td><td colspan="3">3 freie /21-Blöcke für künftige Standorte</td></tr>
+                                    <tr><td>Transfer</td><td class="mono">172.20.56.0/21</td><td colspan="3">Letzter /21-Block reserviert für alle /30-Koppelnetze</td></tr>
+                                </table>
+                            </div>
+
+                            <h3 style="margin-top:1.5rem;">Die 4 Fragen vom Aufgabenblatt</h3>
+                            <ol class="steps-list">
+                                <li><b>Transfernetze am Ende sinnvoll?</b> Ja. Da sie alle in den letzten Block (172.20.56.0/21) gelegt werden, bleiben die Blöcke davor (.32, .40, .48) zusammenhängend frei. Neue Standorte bekommen ohne Adresskonflikte ein volles /21.</li>
+                                <li><b>Subnetzmaske der Transfernetze:</b> <code>255.255.255.252</code> (/30). Bietet 4 IPs, genau 2 nutzbar für die beiden Router-Enden.</li>
+                                <li><b>Letztes genutztes Netz:</b> Im Ring: Leipzig–Görlitz mit <code>172.20.56.140/30</code>. Bei den Standorten: Görlitz mit <code>172.20.24.0/21</code>.</li>
+                                <li><b>Maximale Standortanzahl:</b> 8 Blöcke /21 minus 1 Block für Transfernetze = <b>7 Standorte</b>.</li>
+                            </ol>
+
+                            <h3 style="margin-top:1.5rem;">Die 4 Fehler in der Filius-Datei</h3>
+                            <ol class="steps-list">
+                                <li><b>PC-L10 &amp; PC-L11 (Maskenfehler):</b> Eingetragen war <code>255.255.240.0</code> (/20) statt /21. Dadurch hält der PC Dresden für lokal und schickt ARP statt an den Router.</li>
+                                <li><b>DNS-Server falsch:</b> PC-L10 hatte <code>172.20.7.240</code> (FileServer) als DNS eingetragen. Richtig ist der DNS-Server <code>172.20.7.200</code>.</li>
+                                <li><b>ping 8.8.8.8 scheitert:</b> Auf Router R1 fehlte die Default-Route <code>0.0.0.0 / 0.0.0.0 → 200.10.10.2</code> (ISP). Zudem war auf dem ISP-Rechner die 8.8.8.8 nicht konfiguriert.</li>
+                                <li><b>Altes Adressschema &amp; Gateway-Tippfehler:</b> Dresden, Chemnitz und Görlitz liefen noch mit alten 192.168-Adressen. PC30 hatte den Tippfehler <code>192.169.2.62</code> als Gateway.</li>
+                            </ol>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- =======================================================
+                     TAB 7: SPICKZETTEL & DRUCKVERSION
+                     ======================================================= -->
+                <div id="lernzettel" class="tab-pane">
+                    <div class="panel card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:10px;">
+                            <h2 style="margin:0;">📄 Netzwerk-Cheat-Sheet &amp; Spickzettel</h2>
+                            <button type="button" class="btn-primary" onclick="window.print()">🖨️ Drucken / PDF Export</button>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="step-box">
+                                <h3>1. Subnetting in 5 Schritten</h3>
+                                <ol class="steps-list" style="margin:0;">
+                                    <li><b>Interessantes Oktett:</b> Erstes Oktett von links, dessen Maskenwert nicht 255 ist. <em>(Endet das Präfix bei /8, /16 oder /24 auf einer Grenze, ist es das nachfolgende Oktett mit Maskenwert 0.)</em></li>
+                                    <li><b>Blockgröße:</b> <code>256 − Maskenwert im interessanten Oktett</code>.</li>
+                                    <li><b>Netzadresse:</b> IP-Wert auf Vielfaches der Blockgröße abrunden, danach alles <b>0</b>.</li>
+                                    <li><b>Broadcast:</b> Netz-Wert + Blockgröße − 1, danach alles <b>255</b>.</li>
+                                    <li><b>Nutzbare Hosts:</b> <code>2<sup>(32 − Präfix)</sup> − 2</code> (NW + 1 bis BC − 1).</li>
+                                </ol>
+                            </div>
+                            <div class="step-box">
+                                <h3>2. IPv6 Adresstypen &amp; Regeln</h3>
+                                <ul>
+                                    <li><b>2000::/3</b> = Global Unicast (Öffentliches Internet)</li>
+                                    <li><b>FE80::/10</b> = Link-Local (LAN-intern, Pflicht, kein Routing)</li>
+                                    <li><b>FC00::/7</b> (Praxis: <b>FD00::/8</b>) = Unique Local (Private Netze)</li>
+                                    <li><b>::1/128</b> = Loopback (Localhost)</li>
+                                    <li><b>FF00::/8</b> = Multicast (Kein Broadcast bei IPv6!)</li>
+                                    <li><b>Regeln:</b> Führende Nullen weglassen, <code>::</code> exakt 1x pro Adresse!</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="step-box" style="margin-top:var(--space-4);">
+                            <h3>3. Vollständige Präfixtabelle (/8 bis /32)</h3>
+                            <div class="table-wrap">
+                                <table id="ptab-lernzettel">
+                                    <tr><th>Präfix</th><th>Subnetzmaske</th><th>Blockgröße</th><th>Nutzbare Hosts</th></tr>
                                 </table>
                             </div>
                         </div>
 
-                        <div class="grid-2" style="margin-top: 1rem;">
+                        <div class="step-box" style="margin-top:var(--space-4);">
+                            <h3>4. Byte-Positionen im Frame (Wireshark-Offsets)</h3>
+                            <div class="table-wrap">
+                                <table>
+                                    <tr><th class="mono">Offset</th><th>Länge</th><th>Feld</th><th>Merkhilfe / Bedeutung</th></tr>
+                                    <tr><td class="mono">0x00</td><td>6 B</td><td>Ziel-MAC</td><td>Ziel steht <b>vor</b> der Quelle! <span class="mono">ff:ff:ff:ff:ff:ff</span> = Broadcast</td></tr>
+                                    <tr><td class="mono">0x06</td><td>6 B</td><td>Quell-MAC</td><td>Absender-Hardwareadresse</td></tr>
+                                    <tr><td class="mono">0x0C</td><td>2 B</td><td>EtherType</td><td><span class="mono">08 00</span> = IPv4 · <span class="mono">08 06</span> = ARP · <span class="mono">86 dd</span> = IPv6</td></tr>
+                                    <tr><td class="mono">0x0E</td><td>1 B</td><td>Version + IHL</td><td><span class="mono">45</span> → IPv4, 5 × 4 = 20 Bytes Standard-IP-Header</td></tr>
+                                    <tr><td class="mono">0x10</td><td>2 B</td><td>Gesamtlänge</td><td>IP-Header + Transport + Daten (ohne Ethernet) in Bytes</td></tr>
+                                    <tr><td class="mono">0x16</td><td>1 B</td><td>TTL</td><td>64 = Linux/Mac · 128 = Windows · 255 = Router</td></tr>
+                                    <tr><td class="mono">0x17</td><td>1 B</td><td>Protokoll</td><td><span class="mono">01</span> = ICMP (Ping) · <span class="mono">06</span> = TCP · <span class="mono">11 hex (17)</span> = UDP</td></tr>
+                                    <tr><td class="mono">0x1A</td><td>4 B</td><td>Quell-IP</td><td>Absender-IPv4</td></tr>
+                                    <tr><td class="mono">0x1E</td><td>4 B</td><td>Ziel-IP</td><td>Empfänger-IPv4 (reicht über die Zeile: 0x1E, 0x1F | 0x20, 0x21)</td></tr>
+                                    <tr><td class="mono">0x22</td><td>2+2 B</td><td>Ports</td><td>Quell-Port (0x22) und Ziel-Port (0x24)</td></tr>
+                                    <tr><td class="mono">0x2E</td><td>1 B</td><td>TCP-Headerlänge</td><td>Obere 4 Bits × 4 = Headerlänge (50 → 20 B, 80 → 32 B)</td></tr>
+                                    <tr><td class="mono">0x2F</td><td>1 B</td><td>TCP-Flags</td><td>02 SYN · 12 SYN,ACK · 10 ACK · 18 PSH,ACK · 11 FIN,ACK</td></tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="grid-2" style="margin-top:var(--space-4);">
                             <div class="step-box">
-                                <h3>6. TCP-Flags (Byte 0x2F)</h3>
+                                <h3>5. TCP-Flags (Byte 0x2F)</h3>
                                 <div class="table-wrap">
                                     <table>
                                         <tr><th class="mono">Hex</th><th>Bedeutung</th></tr>
                                         <tr><td class="mono">02</td><td>SYN (Verbindungsaufbau)</td></tr>
-                                        <tr><td class="mono">12</td><td>SYN, ACK (Bestätigung Handshake)</td></tr>
+                                        <tr><td class="mono">12</td><td>SYN, ACK (Handshake Bestätigung)</td></tr>
                                         <tr><td class="mono">10</td><td>ACK (Reine Bestätigung)</td></tr>
                                         <tr><td class="mono">18</td><td>PSH, ACK (Daten senden)</td></tr>
                                         <tr><td class="mono">11</td><td>FIN, ACK (Verbindungsabbau)</td></tr>
                                         <tr><td class="mono">04 / 14</td><td>RST / RST, ACK (Reset)</td></tr>
                                     </table>
                                 </div>
-                                <p style="font-size: 0.85rem; color: var(--color-text-muted);">
-                                    <b>Bit-Werte:</b> 01 FIN · 02 SYN · 04 RST · 08 PSH · 10 ACK · 20 URG
-                                </p>
                             </div>
-
                             <div class="step-box">
-                                <h3>7. Wichtige Ports &amp; Hex-Hilfen</h3>
+                                <h3>6. Wichtige Ports &amp; Hex-Hilfen</h3>
                                 <div class="table-wrap">
                                     <table>
                                         <tr><th class="mono">Port</th><th>Dienst</th><th class="mono">Port</th><th>Dienst</th></tr>
@@ -927,12 +1163,10 @@
                                         <tr><td class="mono">22</td><td>SSH</td><td class="mono">80</td><td>HTTP</td></tr>
                                         <tr><td class="mono">23</td><td>Telnet</td><td class="mono">110</td><td>POP3</td></tr>
                                         <tr><td class="mono">25</td><td>SMTP</td><td class="mono">443</td><td>HTTPS</td></tr>
-                                        <tr><td class="mono">514</td><td>Syslog</td><td class="mono">≥ 49152</td><td>Dynamisch (Client)</td></tr>
                                     </table>
                                 </div>
-                                <p style="font-size: 0.85rem; color: var(--color-text-muted);">
-                                    <b>Häufige Bytes:</b> <span class="mono">0a</span>=10 · <span class="mono">14</span>=20 · <span class="mono">40</span>=64 · <span class="mono">80</span>=128 · <span class="mono">ac</span>=172 · <span class="mono">a8</span>=168 · <span class="mono">c0</span>=192 · <span class="mono">ff</span>=255<br>
-                                    <b>ASCII:</b> <span class="mono">20</span>=Leerzeichen · <span class="mono">30-39</span>=0-9 · <span class="mono">41-5a</span>=A-Z · <span class="mono">61-7a</span>=a-z · <span class="mono">0d 0a</span>=\r\n
+                                <p style="font-size:0.85rem; color:var(--color-text-muted); margin-top:6px;">
+                                    <b>Häufige Bytes:</b> <span class="mono">0a</span>=10 · <span class="mono">14</span>=20 · <span class="mono">40</span>=64 · <span class="mono">80</span>=128 · <span class="mono">ac</span>=172 · <span class="mono">a8</span>=168 · <span class="mono">c0</span>=192 · <span class="mono">ff</span>=255
                                 </p>
                             </div>
                         </div>
@@ -944,524 +1178,8 @@
         </main>
     </div>
 
+    <!-- Globale Skripte & Seiten-Logik -->
     <script src="script.js"></script>
-    <script>
-        // Script für Sub-Tabs im Übungstest
-        function showTestTab(contentId, btnId) {
-            document.getElementById('test-ipv6-content').style.display = 'none';
-            document.getElementById('test-ipv4-content').style.display = 'none';
-            
-            document.getElementById('btn-test-ipv6').className = 'btn-secondary';
-            document.getElementById('btn-test-ipv4').className = 'btn-secondary';
-            
-            document.getElementById(contentId).style.display = 'block';
-            document.getElementById(btnId).className = 'btn-primary';
-        }
-
-        // Script für Sub-Tabs im Trainer
-        function showTrainerSub(contentId, btnId) {
-            document.getElementById('tr-subnetting').style.display = 'none';
-            document.getElementById('tr-szenario').style.display = 'none';
-            document.getElementById('tr-trace').style.display = 'none';
-            
-            document.getElementById('btn-tr-sub').className = 'btn-secondary';
-            document.getElementById('btn-tr-szenario').className = 'btn-secondary';
-            document.getElementById('btn-tr-trace').className = 'btn-secondary';
-            
-            document.getElementById(contentId).style.display = 'block';
-            document.getElementById(btnId).className = 'btn-primary';
-        }
-
-        /* ==========================================================================
-           LF10 Interaktiver Subnetting- & Trace-Engine
-           ========================================================================== */
-        (function() {
-            "use strict";
-
-            const $ = id => document.getElementById(id);
-            const R = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
-            const pick = a => a[Math.floor(Math.random() * a.length)];
-            const ip2i = s => s.split('.').reduce((a, o) => a * 256 + (+o), 0);
-            const i2ip = n => [n >>> 24, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join('.');
-            const maskI = p => p === 0 ? 0 : (0xFFFFFFFF << (32 - p)) >>> 0;
-            const nw = (ip, p) => (ip & maskI(p)) >>> 0;
-            const bc = (ip, p) => (nw(ip, p) + Math.pow(2, 32 - p) - 1) >>> 0;
-            const hostsOf = p => p >= 31 ? 0 : Math.pow(2, 32 - p) - 2;
-            const fmt = n => n.toLocaleString('de-DE');
-            const hex2 = n => n.toString(16).padStart(2, '0');
-
-            function normIp(s) {
-                const p = String(s).trim().replace(/\s/g, '').replace(/^\//, '').split('/')[0].split('.');
-                if (p.length !== 4 || p.some(x => x === '' || isNaN(+x) || +x < 0 || +x > 255)) return null;
-                return p.map(x => +x).join('.');
-            }
-            function normNum(s) {
-                const t = String(s).trim().replace(/[.\s]/g, '').replace(/^\//, '');
-                if (t === '') return null;
-                return /^\d+$/.test(t) ? String(+t) : null;
-            }
-            function normMac(s) {
-                const t = String(s).toLowerCase().replace(/[^0-9a-f]/g, '');
-                return t.length === 12 ? t : null;
-            }
-            function normText(s) {
-                return String(s).replace(/\\r|\\n|␍|␊/g, '').trim().toLowerCase();
-            }
-            const NORM = { ip: normIp, num: normNum, mac: normMac, text: normText, sel: x => x };
-
-            function buildForm(form, fields, prefix) {
-                form.innerHTML = '';
-                fields.forEach((f, i) => {
-                    const id = prefix + '_' + i;
-                    const w = document.createElement('div');
-                    w.className = 'f-field';
-                    let ctl;
-                    if (f.type === 'sel') {
-                        ctl = `<select id="${id}"><option value="">– wählen –</option>${f.opts.map(o => `<option>${o}</option>`).join('')}</select>`;
-                    } else {
-                        ctl = `<input id="${id}" autocomplete="off" spellcheck="false" ${f.disabled ? 'disabled placeholder="entfällt"' : ''} placeholder="${f.ph || ''}">`;
-                    }
-                    w.innerHTML = `<label for="${id}">${f.label}</label>${ctl}<div class="exp" id="${id}_x"></div>`;
-                    form.appendChild(w);
-                });
-                form.onsubmit = e => e.preventDefault();
-                form.onkeydown = e => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        if (prefix === 'sf') $('scheck').click();
-                        else if (prefix === 'zf') $('zcheck').click();
-                        else if (prefix === 'tf') $('tcheck').click();
-                    }
-                };
-            }
-
-            function checkForm(fields, prefix, scoreObj, scoreEl, fbEl) {
-                let ok = 0, tot = 0;
-                fields.forEach((f, i) => {
-                    if (f.disabled) return;
-                    const el = $(prefix + '_' + i), x = $(prefix + '_' + i + '_x');
-                    const n = NORM[f.type];
-                    const got = n(el.value);
-                    const want = n(String(f.ans));
-                    tot++;
-                    el.classList.remove('ok', 'bad');
-                    if (got !== null && got === want) {
-                        el.classList.add('ok');
-                        x.textContent = '';
-                        ok++;
-                    } else {
-                        el.classList.add('bad');
-                        x.textContent = '→ ' + (f.show || f.ans);
-                    }
-                });
-                scoreObj.ok += ok;
-                scoreObj.tot += tot;
-                scoreEl.textContent = `${scoreObj.ok} / ${scoreObj.tot} Felder richtig`;
-                fbEl.textContent = ok === tot ? 'Alles richtig!' : `${ok} von ${tot} richtig`;
-                fbEl.className = 'status-feedback ' + (ok === tot ? 'ok' : 'bad');
-            }
-
-            function octetInfo(p) {
-                if (p % 8 === 0) return null;
-                const k = Math.floor(p / 8);
-                const m = (maskI(p) >>> (24 - 8 * k)) & 255;
-                return { k: k + 1, m, block: 256 - m };
-            }
-
-            /* ---------- Subnetting ---------- */
-            const S = { fields: [], sol: '', score: { ok: 0, tot: 0 } };
-
-            function randPrivate() {
-                const t = R(0, 2);
-                if (t === 0) return ip2i(`10.${R(0, 255)}.${R(0, 255)}.${R(1, 254)}`);
-                if (t === 1) return ip2i(`172.${R(16, 31)}.${R(0, 255)}.${R(1, 254)}`);
-                return ip2i(`192.168.${R(0, 255)}.${R(1, 254)}`);
-            }
-
-            function calcWay(ip, p) {
-                const oi = octetInfo(p);
-                const o = i2ip(ip).split('.');
-                let s = '<ol>';
-                s += `<li>Maske /${p} = <span class="mono">${i2ip(maskI(p))}</span></li>`;
-                if (oi) {
-                    const v = +o[oi.k - 1];
-                    const base = Math.floor(v / oi.block) * oi.block;
-                    s += `<li>Interessantes Oktett: ${oi.k}. Oktett, Maskenwert ${oi.m} → Blockgröße 256 − ${oi.m} = <b>${oi.block}</b></li>`;
-                    s += `<li>IP-Wert im ${oi.k}. Oktett: ${v}. Abrunden auf Vielfaches von ${oi.block}: ${Math.floor(v / oi.block)} × ${oi.block} = <b>${base}</b>, dahinter alles 0</li>`;
-                    s += `<li>Broadcast: ${base} + ${oi.block} − 1 = <b>${base + oi.block - 1}</b>, dahinter alles 255</li>`;
-                } else {
-                    s += `<li>Präfix endet auf einer Oktettgrenze: die ersten ${p / 8} Oktette bleiben, Rest 0 (NW) bzw. 255 (BC)</li>`;
-                }
-                s += `<li>NW <span class="mono">${i2ip(nw(ip, p))}</span> · erster Host <span class="mono">${i2ip(nw(ip, p) + 1)}</span> · letzter Host <span class="mono">${i2ip(bc(ip, p) - 1)}</span> · BC <span class="mono">${i2ip(bc(ip, p))}</span></li>`;
-                s += `<li>Hosts: 2<sup>${32 - p}</sup> − 2 = <b>${fmt(hostsOf(p))}</b></li></ol>`;
-                return s;
-            }
-
-            function newS() {
-                const t = $('stype').value;
-                let task, f, sol;
-                if (t === 'calc') {
-                    const p = pick([17, 18, 19, 20, 21, 22, 22, 23, 23, 24, 25, 26, 26, 27, 27, 28, 29, 30]);
-                    const ip = randPrivate();
-                    task = `Host-IP <code>${i2ip(ip)}/${p}</code>. Bestimme Subnetzmaske, Netzadresse, ersten und letzten Host, Broadcast und Anzahl nutzbarer Hosts.`;
-                    f = [
-                        { label: 'Subnetzmaske', type: 'ip', ans: i2ip(maskI(p)) },
-                        { label: 'Netzadresse', type: 'ip', ans: i2ip(nw(ip, p)) },
-                        { label: 'Erster Host', type: 'ip', ans: i2ip(nw(ip, p) + 1) },
-                        { label: 'Letzter Host', type: 'ip', ans: i2ip(bc(ip, p) - 1) },
-                        { label: 'Broadcast', type: 'ip', ans: i2ip(bc(ip, p)) },
-                        { label: 'Nutzbare Hosts', type: 'num', ans: hostsOf(p), show: fmt(hostsOf(p)) }
-                    ];
-                    sol = calcWay(ip, p);
-                } else if (t === 'split') {
-                    const p = pick([16, 18, 19, 20, 21, 22, 23, 24, 24, 25]);
-                    const n = pick([2, 3, 4, 5, 6, 8, 10, 12, 16]);
-                    const bits = Math.ceil(Math.log2(n));
-                    const np = p + bits;
-                    const base = nw(randPrivate(), p);
-                    const size = Math.pow(2, 32 - np);
-                    const k = Math.min(n, R(2, 4));
-                    const subK = base + (k - 1) * size;
-                    const last = base + (Math.pow(2, bits) - 1) * size;
-                    task = `Das Netz <code>${i2ip(base)}/${p}</code> soll in mindestens <b>${n}</b> gleich große Subnetze aufgeteilt werden.`;
-                    f = [
-                        { label: 'Neues Präfix (z. B. 26)', type: 'num', ans: np, show: '/' + np },
-                        { label: 'Neue Subnetzmaske', type: 'ip', ans: i2ip(maskI(np)) },
-                        { label: 'Hosts pro Subnetz', type: 'num', ans: hostsOf(np), show: fmt(hostsOf(np)) },
-                        { label: `Netzadresse ${k}. Subnetz`, type: 'ip', ans: i2ip(subK) },
-                        { label: `Broadcast ${k}. Subnetz`, type: 'ip', ans: i2ip(subK + size - 1) },
-                        { label: 'Netzadresse letztes mögliches Subnetz', type: 'ip', ans: i2ip(last) }
-                    ];
-                    const oi = octetInfo(np);
-                    sol = `<ol><li>${n} Subnetze → 2<sup>x</sup> ≥ ${n} → x = <b>${bits}</b> Bit${bits > 1 ? 's' : ''} (${Math.pow(2, bits)} Subnetze möglich)</li>
-                        <li>Neues Präfix: /${p} + ${bits} = <b>/${np}</b> → Maske <span class="mono">${i2ip(maskI(np))}</span></li>
-                        <li>${oi ? `Blockgröße im ${oi.k}. Oktett: 256 − ${oi.m} = <b>${oi.block}</b>` : `Subnetze springen um ${fmt(size)} Adressen`}</li>
-                        <li>Subnetze: ${Array.from({ length: Math.min(Math.pow(2, bits), 4) }, (_, i) => `<span class="mono">${i2ip(base + i * size)}</span>`).join(', ')}${Math.pow(2, bits) > 4 ? ' …' : ''}</li>
-                        <li>${k}. Subnetz: <span class="mono">${i2ip(subK)}</span> bis <span class="mono">${i2ip(subK + size - 1)}</span> (Basis + ${k - 1} × Block)</li>
-                        <li>Letztes Subnetz: <span class="mono">${i2ip(last)}</span>, Hosts je Subnetz 2<sup>${32 - np}</sup> − 2 = ${fmt(hostsOf(np))}</li></ol>`;
-                } else {
-                    const h = pick([10, 14, 25, 30, 50, 60, 62, 100, 120, 126, 200, 250, 300, 500, 510, 700, 1000, 1022, 1500, 2000, 3000, 4000]);
-                    let x = 2;
-                    while (Math.pow(2, x) - 2 < h) x++;
-                    const np = 32 - x;
-                    task = `Ein Netz muss Platz für mindestens <b>${fmt(h)}</b> Hosts bieten. Welches Präfix ist das kleinstmögliche passende Netz?`;
-                    f = [
-                        { label: 'Präfix (z. B. 24)', type: 'num', ans: np, show: '/' + np },
-                        { label: 'Subnetzmaske', type: 'ip', ans: i2ip(maskI(np)) },
-                        { label: 'Nutzbare Hosts in diesem Netz', type: 'num', ans: hostsOf(np), show: fmt(hostsOf(np)) }
-                    ];
-                    sol = `<ol><li>Gesucht: kleinstes x mit 2<sup>x</sup> − 2 ≥ ${fmt(h)}</li>
-                        <li>2<sup>${x - 1}</sup> − 2 = ${fmt(Math.pow(2, x - 1) - 2)} reicht nicht, 2<sup>${x}</sup> − 2 = <b>${fmt(Math.pow(2, x) - 2)}</b> reicht aus</li>
-                        <li>Präfix = 32 − ${x} = <b>/${np}</b> → Maske: <span class="mono">${i2ip(maskI(np))}</span></li></ol>`;
-                }
-                S.fields = f;
-                $('stask').innerHTML = task;
-                buildForm($('sform'), f, 'sf');
-                $('ssolbox').innerHTML = sol;
-                $('ssolbox').classList.remove('on');
-                $('sfb').textContent = '';
-            }
-
-            $('snew').onclick = newS;
-            $('stype').onchange = newS;
-            $('scheck').onclick = () => checkForm(S.fields, 'sf', S.score, $('sscore'), $('sfb'));
-            $('ssol').onclick = () => $('ssolbox').classList.toggle('on');
-
-            /* ---------- Szenario (Lab03) ---------- */
-            const Z = { fields: [], score: { ok: 0, tot: 0 } };
-
-            function newZ() {
-                const cfg = pick([[16, 19], [16, 20], [17, 20], [18, 21], [18, 21], [18, 22], [19, 22], [20, 23], [20, 24], [22, 25]]);
-                const P = cfg[0], Sp = cfg[1];
-                let base;
-                const t = R(0, 2);
-                if (t === 0) base = nw(ip2i(`10.${R(1, 250)}.${R(0, 255)}.0`), P);
-                else base = nw(ip2i(`172.${R(16, 31)}.${R(0, 255)}.0`), P);
-
-                const names = pick([
-                    ['Leipzig', 'Dresden', 'Chemnitz', 'Görlitz'],
-                    ['Berlin', 'Hamburg', 'München', 'Köln'],
-                    ['Halle', 'Erfurt', 'Jena', 'Zwickau'],
-                    ['Frankfurt', 'Stuttgart', 'Nürnberg', 'Augsburg']
-                ]);
-                const blocks = Math.pow(2, Sp - P), size = Math.pow(2, 32 - Sp);
-                const site = i => base + i * size;
-                const end = bc(base, P);
-                const tr = i => end - 3 - 4 * i;
-
-                Z.fields = [
-                    { label: 'Maske der Standortnetze', type: 'ip', ans: i2ip(maskI(Sp)) },
-                    { label: 'Nutzbare Hosts je Standort', type: 'num', ans: hostsOf(Sp), show: fmt(hostsOf(Sp)) },
-                    { label: `NW-Adresse ${names[1]} (2. Standort)`, type: 'ip', ans: i2ip(site(1)) },
-                    { label: `Broadcast ${names[1]}`, type: 'ip', ans: i2ip(site(1) + size - 1) },
-                    { label: `Router-IP ${names[2]} (letzte nutzbare)`, type: 'ip', ans: i2ip(site(2) + size - 2) },
-                    { label: `NW-Adresse ${names[3]} (4. Standort)`, type: 'ip', ans: i2ip(site(3)) },
-                    { label: 'Maske der Transfernetze', type: 'ip', ans: '255.255.255.252' },
-                    { label: 'NW-Adresse 1. Transfernetz', type: 'ip', ans: i2ip(tr(0)) },
-                    { label: 'Router-IP im 1. Transfernetz (kleinere der beiden)', type: 'ip', ans: i2ip(tr(0) + 1) },
-                    { label: 'NW-Adresse 4. Transfernetz', type: 'ip', ans: i2ip(tr(3)) },
-                    { label: 'Max. Anzahl Standorte', type: 'num', ans: blocks - 1 }
-                ];
-
-                $('ztask').innerHTML = `Die Firma erhält den Block <code>${i2ip(base)}/${P}</code>. Die Standorte ${names.join(', ')} erhalten jeweils ein <b>/${Sp}</b> (in dieser Reihenfolge, ab dem Anfang des Bereichs). Die vier Router werden im Ring über /30-Transfernetze verbunden. Das 1. Transfernetz liegt ganz am Ende des Bereichs, jedes weitere direkt davor.`;
-                buildForm($('zform'), Z.fields, 'zf');
-                const oi = octetInfo(Sp), oiP = octetInfo(P);
-                $('zsolbox').innerHTML = `<ol>
-                    <li>Bereich: <span class="mono">${i2ip(base)}</span> bis <span class="mono">${i2ip(end)}</span>${oiP ? ` (/${P}: Block ${oiP.block} im ${oiP.k}. Oktett)` : ''}</li>
-                    <li>/${Sp}: Maske <span class="mono">${i2ip(maskI(Sp))}</span>${oi ? `, Block ${oi.block} im ${oi.k}. Oktett` : ''}, Hosts 2<sup>${32 - Sp}</sup> − 2 = ${fmt(hostsOf(Sp))}</li>
-                    <li>Standorte: ${names.map((n, i) => `${n} <span class="mono">${i2ip(site(i))}/${Sp}</span>`).join(' · ')}</li>
-                    <li>${names[1]}: BC = nächstes Netz − 1 = <span class="mono">${i2ip(site(1) + size - 1)}</span>. Router ${names[2]}: BC − 1 = <span class="mono">${i2ip(site(2) + size - 2)}</span></li>
-                    <li>Transfernetze /30 = <span class="mono">255.255.255.252</span>, je 4 Adressen, rückwärts ab Ende: ${[0, 1, 2, 3].map(i => `<span class="mono">${i2ip(tr(i))}</span>`).join(', ')}. Im 1. Netz bekommen die Router <span class="mono">${i2ip(tr(0) + 1)}</span> und <span class="mono">${i2ip(tr(0) + 2)}</span>.</li>
-                    <li>/${P} enthält 2<sup>${Sp}−${P}</sup> = ${blocks} Blöcke /${Sp}. Der letzte ist durch die Transfernetze belegt → <b>${blocks - 1} Standorte</b> maximal möglich.</li></ol>`;
-                $('zsolbox').classList.remove('on');
-                $('zfb').textContent = '';
-            }
-
-            $('znew').onclick = newZ;
-            $('zcheck').onclick = () => checkForm(Z.fields, 'zf', Z.score, $('zscore'), $('zfb'));
-            $('zsol').onclick = () => $('zsolbox').classList.toggle('on');
-
-            /* ---------- Trace-Rendering ---------- */
-            function parseFrame(b) {
-                const reg = new Array(b.length).fill('d');
-                for (let i = 0; i < 14 && i < b.length; i++) reg[i] = 'e';
-                if (b[12] === 0x08 && b[13] === 0x00 && b.length >= 34) {
-                    const ihl = (b[14] & 15) * 4;
-                    for (let i = 14; i < 14 + ihl && i < b.length; i++) reg[i] = 'i';
-                    const l4 = 14 + ihl, pr = b[23];
-                    let l4len = 0;
-                    if (pr === 6 && b.length >= l4 + 13) l4len = (b[l4 + 12] >> 4) * 4;
-                    else if (pr === 17) l4len = 8;
-                    else if (pr === 1) l4len = 8;
-                    for (let i = l4; i < l4 + l4len && i < b.length; i++) reg[i] = 't';
-                }
-                return reg;
-            }
-
-            function renderDump(bytes) {
-                const reg = parseFrame(bytes);
-                let out = '';
-                for (let r = 0; r < bytes.length; r += 16) {
-                    let line = `<span class="off">${r.toString(16).padStart(4, '0')}</span>`;
-                    let asc = '';
-                    for (let c = 0; c < 16; c++) {
-                        const i = r + c;
-                        if (i < bytes.length) {
-                            line += `<b class="${reg[i]}">${hex2(bytes[i])}</b>${c < 15 && i + 1 < bytes.length && reg[i + 1] === reg[i] ? `<b class="${reg[i]}"> </b>` : ' '}`;
-                            const v = bytes[i];
-                            asc += (v >= 32 && v < 127) ? (v === 60 ? '&lt;' : v === 62 ? '&gt;' : v === 38 ? '&amp;' : String.fromCharCode(v)) : '.';
-                        } else {
-                            line += '   ';
-                        }
-                    }
-                    out += line + `<span class="asc">${asc}</span>\n`;
-                }
-                return out;
-            }
-
-            const hexToBytes = s => s.trim().split(/\s+/).map(h => parseInt(h, 16));
-
-            /* ---------- Trace-Generator ---------- */
-            const T = { fields: [], score: { ok: 0, tot: 0 }, colored: false, bytes: [] };
-
-            function randMac() {
-                const m = [R(0, 255) & 0xfc];
-                for (let i = 0; i < 5; i++) m.push(R(0, 255));
-                return m;
-            }
-            const macStr = m => m.map(hex2).join(':');
-
-            function ipCsum(h) {
-                let s = 0;
-                for (let i = 0; i < h.length; i += 2) s += (h[i] << 8) + h[i + 1];
-                while (s >> 16) s = (s & 0xffff) + (s >> 16);
-                return (~s) & 0xffff;
-            }
-
-            const u16 = n => [(n >> 8) & 255, n & 255];
-            const u32 = n => [(n >>> 24) & 255, (n >>> 16) & 255, (n >>> 8) & 255, n & 255];
-            const txt = s => Array.from(s).map(c => c.charCodeAt(0));
-            const FLAGNAMES = { 0x02: 'SYN', 0x12: 'SYN, ACK', 0x10: 'ACK', 0x18: 'PSH, ACK', 0x11: 'FIN, ACK' };
-
-            function newT() {
-                let kind = $('tkind').value;
-                if (kind === 'mix') kind = pick(['tcpdata', 'tcpdata', 'tcpsyn', 'udp', 'icmp']);
-                const net = pick([[10, R(0, 255), R(0, 255)], [192, 168, R(0, 255)], [172, R(16, 31), R(0, 255)]]);
-                const cIP = [...net, R(2, 253)];
-                let sIP = [...net, R(2, 253)];
-                while (sIP[3] === cIP[3]) sIP = [...net, R(2, 253)];
-                const cMAC = randMac(), sMAC = randMac();
-                const cPort = R(49152, 65535);
-
-                let svc, payload = [], l4 = [], proto, flags = null, toServer = true, text = '', ttl = pick([64, 64, 128, 128, 255]);
-
-                if (kind === 'tcpdata' || kind === 'tcpsyn') {
-                    proto = 6;
-                    svc = pick([
-                        { p: 7, n: 'Echo', t: ['Hallo Welt\r\n', 'Test 123\r\n', 'Ping Pong\r\n'] },
-                        { p: 23, n: 'Telnet', t: ['admin\r\n', 'ls -l\r\n'] },
-                        { p: 21, n: 'FTP', t: ['USER max\r\n', 'PASS geheim\r\n'] },
-                        { p: 80, n: 'HTTP', t: ['GET / HTTP/1.1\r\n', 'GET /index.html\r\n'] },
-                        { p: 25, n: 'SMTP', t: ['HELO bfw.de\r\n'] },
-                        { p: 110, n: 'POP3', t: ['USER anna\r\n'] }
-                    ]);
-                    const opts = kind === 'tcpsyn' ? [0x02, 0x04, 0x05, 0xb4] : (Math.random() < .6 ? [1, 1, 8, 10, ...u32(R(1, 2e9)), ...u32(R(1, 2e9))] : []);
-                    const doff = (20 + opts.length) / 4;
-                    if (kind === 'tcpsyn') {
-                        flags = 0x02;
-                        toServer = true;
-                    } else {
-                        flags = 0x18;
-                        text = pick(svc.t);
-                        payload = txt(text);
-                        toServer = svc.p === 7 ? Math.random() < .5 : true;
-                    }
-                    const sp = toServer ? cPort : svc.p, dp = toServer ? svc.p : cPort;
-                    l4 = [...u16(sp), ...u16(dp), ...u32(R(1, 4e9)), ...u32(kind === 'tcpsyn' ? 0 : R(1, 4e9)), (doff << 4), flags, ...u16(R(200, 65000)), ...u16(R(0, 65535)), 0, 0, ...opts];
-                } else if (kind === 'udp') {
-                    proto = 17;
-                    svc = pick([
-                        { p: 7, n: 'Echo', t: ['Hallo Welt', 'UDP Test'] },
-                        { p: 514, n: 'Syslog', t: ['<34>login failed', '<13>backup ok'] },
-                        { p: 69, n: 'TFTP', t: [] }
-                    ]);
-                    if (svc.p === 69) {
-                        text = '\u0000\u0001config.txt\u0000octet\u0000';
-                        payload = txt(text);
-                        text = 'config.txt (RRQ)';
-                    } else {
-                        text = pick(svc.t);
-                        payload = txt(text);
-                    }
-                    toServer = true;
-                    l4 = [...u16(cPort), ...u16(svc.p), ...u16(8 + payload.length), ...u16(R(0, 65535))];
-                } else {
-                    proto = 1;
-                    svc = { p: null, n: 'Ping' };
-                    text = 'abcdefghijklmnopqrstuvwabcdefghi';
-                    payload = txt(text);
-                    toServer = true;
-                    ttl = pick([64, 128]);
-                    l4 = [8, 0, ...u16(R(0, 65535)), ...u16(R(1, 20)), ...u16(R(1, 200))];
-                }
-
-                const srcIP = toServer ? cIP : sIP, dstIP = toServer ? sIP : cIP;
-                const srcMAC = toServer ? cMAC : sMAC, dstMAC = toServer ? sMAC : cMAC;
-                const tos = pick([0, 0, 0x10]);
-                const total = 20 + l4.length + payload.length;
-                let iph = [0x45, tos, ...u16(total), ...u16(R(0, 65535)), 0x40, 0, ttl, proto, 0, 0, ...srcIP, ...dstIP];
-                const cs = ipCsum(iph);
-                iph[10] = cs >> 8;
-                iph[11] = cs & 255;
-                const bytes = [...dstMAC, ...srcMAC, 0x08, 0x00, ...iph, ...l4, ...payload];
-                T.bytes = bytes;
-
-                const protoName = { 1: 'ICMP', 6: 'TCP', 17: 'UDP' }[proto];
-                const sp = proto === 1 ? null : (l4[0] << 8) + l4[1];
-                const dp = proto === 1 ? null : (l4[2] << 8) + l4[3];
-                const textShow = proto === 1 ? text : (text === '' ? '– (keine Daten)' : text.replace(/\r/g, '\\r').replace(/\n/g, '\\n'));
-
-                T.fields = [
-                    { label: 'Ziel-MAC', type: 'mac', ans: macStr(dstMAC), ph: 'aa:bb:cc:dd:ee:ff' },
-                    { label: 'Quell-MAC', type: 'mac', ans: macStr(srcMAC) },
-                    { label: 'Quell-IP', type: 'ip', ans: srcIP.join('.') },
-                    { label: 'Ziel-IP', type: 'ip', ans: dstIP.join('.') },
-                    { label: 'TTL (dezimal)', type: 'num', ans: ttl },
-                    { label: 'Transportprotokoll', type: 'sel', opts: ['TCP', 'UDP', 'ICMP'], ans: protoName },
-                    { label: 'Quell-Port', type: 'num', ans: sp ?? '', disabled: proto === 1 },
-                    { label: 'Ziel-Port', type: 'num', ans: dp ?? '', disabled: proto === 1 },
-                    { label: 'Dienst / Anwendung', type: 'sel', opts: ['Echo', 'Telnet', 'FTP', 'HTTP', 'SMTP', 'POP3', 'Syslog', 'TFTP', 'Ping'], ans: svc.n },
-                    { label: 'TCP-Flags', type: 'sel', opts: ['SYN', 'SYN, ACK', 'ACK', 'PSH, ACK', 'FIN, ACK'], ans: flags !== null ? FLAGNAMES[flags] : '', disabled: proto !== 6 },
-                    { label: 'Nutzdaten als Text', type: 'text', ans: (kind === 'tcpsyn' ? '' : (svc.p === 69 ? 'config.txt' : text)), show: textShow, disabled: kind === 'tcpsyn', ph: 'ohne \\r\\n' }
-                ];
-
-                T.fields.forEach(f => { if (f.type === 'sel' && f.ans === '') f.disabled = true; });
-                buildForm($('tform'), T.fields, 'tf');
-                T.fields.forEach((f, i) => {
-                    if (f.disabled && f.type === 'sel') {
-                        const el = $('tf_' + i);
-                        el.disabled = true;
-                        el.innerHTML = '<option>entfällt</option>';
-                    }
-                });
-                T.colored = false;
-                drawT();
-
-                const l4s = 34;
-                let w = '<ol>';
-                w += `<li>Byte 0x00–0x05 Ziel-MAC <span class="mono">${macStr(dstMAC)}</span>, 0x06–0x0B Quell-MAC <span class="mono">${macStr(srcMAC)}</span>, 0x0C–0x0D <span class="mono">08 00</span> → IPv4</li>`;
-                w += `<li>0x0E <span class="mono">45</span> → IPv4, 20 Byte Header. Gesamtlänge 0x10–0x11 <span class="mono">${hex2(total >> 8)} ${hex2(total & 255)}</span> = ${total} Byte</li>`;
-                w += `<li>TTL bei 0x16: <span class="mono">${hex2(ttl)}</span> = ${ttl}. Protokoll bei 0x17: <span class="mono">${hex2(proto)}</span> = ${protoName}</li>`;
-                w += `<li>Quell-IP 0x1A–0x1D: <span class="mono">${srcIP.map(hex2).join(' ')}</span> = ${srcIP.join('.')}. Ziel-IP 0x1E–0x21: <span class="mono">${dstIP.map(hex2).join(' ')}</span> = ${dstIP.join('.')}</li>`;
-                if (proto !== 1) {
-                    w += `<li>Ports ab 0x22: <span class="mono">${hex2(l4[0])}${hex2(l4[1])}</span> = ${sp} → <span class="mono">${hex2(l4[2])}${hex2(l4[3])}</span> = ${dp}. Der bekannte/kleine Port ist der Serverdienst (${svc.n})${svc.p === dp ? ', also geht der Frame vom Client zum Server' : ', also antwortet hier der Server dem Client'}.</li>`;
-                }
-                if (proto === 6) {
-                    const doff = l4[12] >> 4;
-                    w += `<li>0x2E <span class="mono">${hex2(l4[12])}</span> → TCP-Header ${doff} × 4 = ${doff * 4} Byte. Flags 0x2F <span class="mono">${hex2(flags)}</span> = ${FLAGNAMES[flags]}</li>`;
-                }
-                if (proto === 17) {
-                    w += `<li>UDP-Header 8 Byte, Länge-Feld <span class="mono">${hex2(l4[4])}${hex2(l4[5])}</span> = ${8 + payload.length} (Header + Daten)</li>`;
-                }
-                if (proto === 1) {
-                    w += `<li>ICMP ab 0x22: Typ <span class="mono">08</span> = Echo Request (Ping), keine Ports. Die Daten <i>abcdefghijklmnopqrstuvwabcdefghi</i> sind typisch für Windows-Ping.</li>`;
-                }
-                if (payload.length) {
-                    w += `<li>Daten ab Byte 0x${(l4s + l4.length).toString(16)}: ${payload.length} Byte = „${textShow}“. Kontrolle: ${total} − 20 − ${l4.length} = ${payload.length}</li>`;
-                } else {
-                    w += `<li>Keine Nutzdaten: ${total} − 20 − ${l4.length} = 0. Beim SYN steht nur die Option MSS (<span class="mono">02 04 05 b4</span> = 1460) im Header.</li>`;
-                }
-                w += '</ol>';
-                $('tsolbox').innerHTML = w;
-                $('tsolbox').classList.remove('on');
-                $('tfb').textContent = '';
-            }
-
-            function drawT() {
-                const d = $('tdump');
-                d.innerHTML = renderDump(T.bytes);
-                d.classList.toggle('colored', T.colored);
-                $('tcolor').textContent = T.colored ? 'Ausblenden' : '🎨 Bereiche zeigen';
-            }
-
-            $('tnew').onclick = newT;
-            $('tkind').onchange = newT;
-            $('tcolor').onclick = () => { T.colored = !T.colored; drawT(); };
-            $('tcheck').onclick = () => checkForm(T.fields, 'tf', T.score, $('tscore'), $('tfb'));
-            $('tsol').onclick = () => $('tsolbox').classList.toggle('on');
-
-            /* ---------- AB07 Originaltraces ---------- */
-            const AB07 = [
-                `01 00 5e 7f ff fa 24 7d 4d 82 f4 9c 08 00 45 00 01 4c 00 00 40 00 01 11 74 54 0a 02 0a 51 ef ff ff fa b7 a2 c8 00 01 38 fe 78 d9 90 2a d3 2f 7e 3f 1e 6b 8d ff 51 30 98 1d ac 9b 80 07 13 f4 dd 52 d1 14 58 db c2 62 66 e3 c9 c5 6e 03 f6 97 cd 99 80 89 d9 b5 5d 93 91 98 75 ae 76 3f ce 83 5a 22 42 52 85 a0 9c e8 ec ad 5c 98 55 c0 45 19 1b 18 b0 ea fd de 17 85 76 cb 8e bf ab 4d a3 e2 4c b9 f3 d8 2d 80 02 92 a0 0f 7e cd 4f d6 6b 22 80 42 39 64 e8 95 dd 1f c3 6a 87 b9 56 ae 4f 37 d2 5e 6c 12 47 a4 43 87 d2 cd 1f 6b 61 ae 8e 78 ee bf 92 81 86 e5 37 2c b3 0e bc 44 45 dc ac f9 34 12 fa 6e eb 4e 70 36 07 ab fb b6 1c d7 11 96 41 70 8f c7 93 e8 de c1 af 73 26 98 fc e2 42 d2 30 d6 ee 1f 10 ef e2 11 0e 41 c2 85 5b 5e 52 94 c0 bf aa a0 39 07 cc e6 75 5d 54 30 48 73 51 a7 32 ef ea be 66 29 12 a7 5c de 7b 6d ff 3e 5d 54 5a cf e2 82 28 26 d4 33 5b 43 6c 6d 55 ba 51 08 81 5b 75 d0 56 25 29 c2 a7 ac a3 6b 53 08 68 45 90 41 83 f2 81 6d 8e d4 f0 bf 89 f8 35 d2 8c 62 0d dc ee 99 a2 74 bc 46 78 89 ac 8e 26 20 1b de be 14 69 84 98 7d 51 1c 74 c7 34`,
-                `9c 4e 36 de 2c 3c 8c 73 6e ff 2c 67 08 00 45 10 00 40 f3 bd 40 00 40 06 1e 35 0a 02 0a 5c 0a 02 0a 56 9b ac 00 07 65 42 5c ca 68 e7 09 60 80 18 01 f6 28 e8 00 00 01 01 08 0a e8 e6 9f 34 de d1 9e 61 48 61 6c 6c 6f 20 57 65 6c 74 0d 0a`,
-                `8c 73 6e ff 2c 67 9c 4e 36 de 2c 3c 08 00 45 00 00 34 f6 28 40 00 40 06 1b e6 0a 02 0a 56 0a 02 0a 5c 00 07 9b ac 68 e7 09 60 65 42 5c d6 80 10 01 fd 64 fa 00 00 01 01 08 0a de d6 b0 0a e8 e6 9f 34`,
-                `8c 73 6e ff 2c 67 9c 4e 36 de 2c 3c 08 00 45 00 00 40 f6 29 40 00 40 06 1b d9 0a 02 0a 56 0a 02 0a 5c 00 07 9b ac 68 e7 09 60 65 42 5c d6 80 18 01 fd 70 14 00 00 01 01 08 0a de d6 b0 0a e8 e6 9f 34 48 61 6c 6c 6f 20 57 65 6c 74 0d 0a`,
-                `9c 4e 36 de 2c 3c 8c 73 6e ff 2c 67 08 00 45 10 00 34 f3 be 40 00 40 06 1e 40 0a 02 0a 5c 0a 02 0a 56 9b ac 00 07 65 42 5c d6 68 e7 09 6c 80 10 01 f6 28 dc 00 00 01 01 08 0a e8 e6 9f 40 de d6 b0 0a`
-            ];
-
-            const ab07El = $('ab07');
-            if (ab07El) {
-                ab07El.innerHTML = AB07.map((h, i) =>
-                    `<div style="margin: 12px 0 4px;"><span class="pill-badge">Frame ${i + 1}</span></div><div class="dump-box colored">${renderDump(hexToBytes(h))}</div>`
-                ).join('');
-            }
-
-            /* ---------- Präfixtabelle für Spickzettel ---------- */
-            const ptabEl = $('ptab-lernzettel');
-            if (ptabEl) {
-                let pt = '';
-                for (let p = 16; p <= 30; p++) {
-                    const oi = octetInfo(p);
-                    pt += `<tr><td class="mono">/${p}</td><td class="mono">${i2ip(maskI(p))}</td><td class="mono">${oi ? oi.block + ' im ' + oi.k + '.' : '1 im ' + (p / 8) + '.'}</td><td class="mono">${fmt(hostsOf(p))}</td></tr>`;
-                }
-                ptabEl.insertAdjacentHTML('beforeend', pt);
-            }
-
-            // Initiale Aufgaben generieren
-            newS();
-            newZ();
-            newT();
-        })();
-    </script>
+    <script src="ip-routing.js"></script>
 </body>
 </html>
