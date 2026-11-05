@@ -812,3 +812,47 @@ pre code {
     min-width: 540px; 
     border-collapse: collapse;
 }
+
+/* ==========================================================================
+   Formula Boxes & Math Typography
+   ========================================================================== */
+.formula-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface-2));
+    border: 1px solid color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1.25rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0.75rem 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.formula-box strong {
+    color: var(--color-primary);
+}
+
+.math-frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0 0.35rem;
+    line-height: 1.15;
+    font-size: 0.95em;
+}
+
+.math-num {
+    border-bottom: 2px solid currentColor;
+    padding-bottom: 2px;
+}
+
+.math-den {
+    padding-top: 2px;
+}

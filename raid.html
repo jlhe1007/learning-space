@@ -47,6 +47,14 @@
             border-collapse: collapse;
         }
     </style>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
     <div class="shell">
@@ -124,21 +132,21 @@
                                         <td>Mirroring (Spiegelung)</td>
                                         <td>2</td>
                                         <td>Hoch (Festplatten sind 1:1 Kopien)</td>
-                                        <td>50 % ($\frac{N}{2}$)</td>
+                                        <td>50 % (<span class="math-frac"><span class="math-num">N</span><span class="math-den">2</span></span>)</td>
                                     </tr>
                                     <tr>
                                         <td><strong>RAID 5</strong></td>
                                         <td>Striping + verteilte Parität</td>
                                         <td>3</td>
                                         <td>Genau 1 Festplatte darf ausfallen</td>
-                                        <td>$N - 1$ Festplatten</td>
+                                        <td>(N - 1) &times; Kapazität</td>
                                     </tr>
                                     <tr>
                                         <td><strong>RAID 6</strong></td>
                                         <td>Striping + doppelte Parität</td>
                                         <td>4</td>
                                         <td>Genau 2 Festplatten dürfen ausfallen</td>
-                                        <td>$N - 2$ Festplatten</td>
+                                        <td>(N - 2) &times; Kapazität</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -186,26 +194,26 @@
                             <div class="card">
                                 <h3>RAID 1 (Spiegelung)</h3>
                                 <p>Die Gesamtkapazität wird exakt halbiert, da alles doppelt geschrieben wird.</p>
-                                <code>Nettokapazität = $\frac{Anzahl}{2} \times Kapazität$</code>
+                                <div class="formula-box"><strong>Nettokapazität</strong> = <span class="math-frac"><span class="math-num">Anzahl</span><span class="math-den">2</span></span> &times; Kapazität</div>
                                 <p style="margin-top: 0.5rem; font-size: 0.9em; color: var(--color-text-muted);"><em>(Gilt für klassisches RAID 10 oder Multi-Disk RAID 1).</em></p>
                             </div>
                             
                             <div class="card">
                                 <h3>RAID 5 (Einfache Parität)</h3>
                                 <p>Der Speicherplatz von genau einer Festplatte geht für die Paritätsdaten (Prüfsummen) verloren.</p>
-                                <code>Nettokapazität = $(Anzahl - 1) \times Kapazität$</code>
+                                <div class="formula-box"><strong>Nettokapazität</strong> = (Anzahl - 1) &times; Kapazität</div>
                             </div>
 
                             <div class="card">
                                 <h3>RAID 6 (Doppelte Parität)</h3>
                                 <p>Der Speicherplatz von exakt zwei Festplatten geht für die doppelten Prüfsummen verloren.</p>
-                                <code>Nettokapazität = $(Anzahl - 2) \times Kapazität$</code>
+                                <div class="formula-box"><strong>Nettokapazität</strong> = (Anzahl - 2) &times; Kapazität</div>
                             </div>
                             
                             <div class="card">
                                 <h3>Kostenberechnung</h3>
                                 <p>Die Kosten beziehen sich immer auf die <strong>Brutto-Kapazität</strong> (also alle Platten, die du kaufst), auch wenn ein Teil davon für Parität/Spiegelung "verloren" geht.</p>
-                                <code>Gesamtpreis = $Anzahl \times Stückpreis$</code>
+                                <div class="formula-box"><strong>Gesamtpreis</strong> = Anzahl &times; Stückpreis</div>
                             </div>
                         </div>
                     </div>
@@ -287,12 +295,12 @@
                                 
                                 <strong>Nettokapazität RAID 1 (Spiegelung):</strong><br>
                                 Die Nutzkapazität wird halbiert (Die Hälfte der Platten ist die Spiegelung).<br>
-                                $\frac{4}{2}$ Platten = 2 nutzbare Platten. <br>
+                                <span class="math-frac"><span class="math-num">4</span><span class="math-den">2</span></span> Platten = 2 nutzbare Platten. <br>
                                 2 × 4 TB = <strong>8 TB Nettokapazität</strong><br><br>
                                 
                                 <strong>Nettokapazität RAID 6 (Doppelte Parität):</strong><br>
-                                Der Speicherplatz von genau 2 Platten geht für die doppelten Prüfsummen verloren ($N - 2$).<br>
-                                $4 - 2$ Platten = 2 nutzbare Platten. <br>
+                                Der Speicherplatz von genau 2 Platten geht für die doppelten Prüfsummen verloren (N - 2).<br>
+                                4 - 2 Platten = 2 nutzbare Platten. <br>
                                 2 × 4 TB = <strong>8 TB Nettokapazität</strong>
                             </div>
                         </div>
