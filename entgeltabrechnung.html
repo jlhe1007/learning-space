@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entgeltabrechnung - Lern-Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="entgelt.css">
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="logo" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>Lern-Hub</h1>
+                        <p>Wirtschaftskunde</p>
+                    </div>
+                </div>
+                <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html">🏠 Home</a>
+                <a href="wirtschaft.html">💼 Wirtschaftskunde</a>
+                <a href="Marktformen.html">📊 Marktformen &amp; Unternehmen</a>
+                <a href="entgeltabrechnung.html" style="background: var(--color-primary-highlight); font-weight: bold; color: var(--color-primary);" aria-current="page">💶 Entgeltabrechnung</a>
+            </nav>
+            
+            <button type="button" class="theme-toggle">
+                <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
+
+        <main class="content">
+            <div class="eyebrow">Wirtschaft &amp; Soziales (WiSo)</div>
+            <h1 class="page-title">💶 Entgeltabrechnung &amp; Sozialversicherung</h1>
+            <p class="page-subtitle">Lohnformen, Steuern, SV-Beiträge und das Abrechnungsschema verständlich erklärt.</p>
+
+            <div class="tabs-container">
+                <div class="tabs-nav" role="tablist" aria-label="Lernthemen">
+                    <button type="button" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-ueberblick" id="btn-ueberblick" tabindex="0">📋 Überblick &amp; Lernplan</button>
+                    <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-lohnformen" id="btn-lohnformen" tabindex="-1">💰 Lohnformen</button>
+                    <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-sv" id="btn-sv" tabindex="-1">🏥 Sozialversicherung</button>
+                    <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-beitraege" id="btn-beitraege" tabindex="-1">📊 Beiträge &amp; Grenzen</button>
+                    <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-steuern" id="btn-steuern" tabindex="-1">⚖️ Steuern &amp; Klassen</button>
+                </div>
+
+                <!-- TAB 1: ÜBERBLICK & LERNPLAN -->
+                <div id="tab-ueberblick" class="tab-pane active" role="tabpanel" aria-labelledby="btn-ueberblick">
+                    <div class="panel">
+                        <h2>Was im Test dran sein kann</h2>
+                        <p>Die Klausur deckt typischerweise folgende Schwerpunkte ab:</p>
+                        <ul>
+                            <li><strong>Lohnformen:</strong> Unterschiede, Vor-/Nachteile, Anwendungsgebiete.</li>
+                            <li><strong>Sozialversicherung:</strong> Die 5 Säulen, Träger, Leistungen und Pflichtgrenzen.</li>
+                            <li><strong>Beitragssätze 2026:</strong> Prozentwerte, Arbeitgeber-/Arbeitnehmer-Anteile und Sonderregeln (Kinder, Sachsen).</li>
+                            <li><strong>Steuerklassen:</strong> Zuordnungskriterien und Freibeträge.</li>
+                            <li><strong>Rechnen:</strong> Vom Brutto zum Überweisungsbetrag (Abrechnungsschema anwenden).</li>
+                        </ul>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3>✅ Checkliste: Das musst du können</h3>
+                            <progress id="learning-progress" value="0" max="100" style="width: 100%; margin-bottom: 1rem;"></progress>
+                            <div class="checklist">
+                                <label><input type="checkbox" class="progress-check"> Lohnformen unterscheiden</label><br>
+                                <label><input type="checkbox" class="progress-check"> SV-Träger &amp; Leistungen kennen</label><br>
+                                <label><input type="checkbox" class="progress-check"> Beitragssätze 2026 auswendig wissen</label><br>
+                                <label><input type="checkbox" class="progress-check"> BBMG und VPG unterscheiden</label><br>
+                                <label><input type="checkbox" class="progress-check"> Steuerklassen I–VI zuordnen</label><br>
+                                <label><input type="checkbox" class="progress-check"> Abrechnungsschema rechnen</label>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>📖 Mini-Glossar</h3>
+                            <ul style="font-size: 0.9em; padding-left: 1.2rem;">
+                                <li><strong>Brutto:</strong> Gehalt VOR Abzügen.</li>
+                                <li><strong>Netto:</strong> Gehalt NACH Steuern &amp; SV-Abzügen.</li>
+                                <li><strong>SV-pflichtiges Entgelt:</strong> Bemessungsgrundlage für die SV (Brutto + geldwerter Vorteil + vL).</li>
+                                <li><strong>BBMG (Beitragsbemessungsgrenze):</strong> Einkommen darüber bleibt beitragsfrei.</li>
+                                <li><strong>VPG (Versicherungspflichtgrenze):</strong> Einkommen darüber erlaubt Wechsel in private KV.</li>
+                                <li><strong>vL:</strong> Vermögenswirksame Leistungen (Geld vom AG zum Sparen).</li>
+                                <li><strong>Geldwerter Vorteil:</strong> Sachbezug (z. B. Firmenwagen). Zählt als Einkommen.</li>
+                                <li><strong>Entgeltfortzahlung:</strong> Gehalt bei Krankheit (AG zahlt 6 Wochen, danach KV).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: LOHNFORMEN -->
+                <div id="tab-lohnformen" class="tab-pane" role="tabpanel" aria-labelledby="btn-lohnformen" hidden>
+                    <div class="panel">
+                        <h2>Lohnformen im Vergleich</h2>
+                        <div class="table-wrap">
+                            <table class="responsive-table">
+                                <thead>
+                                    <tr>
+                                        <th>Lohnform</th>
+                                        <th>Berechnung</th>
+                                        <th>Leistungsanreiz</th>
+                                        <th>Kontrolle</th>
+                                        <th>Geeignet für</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="Lohnform"><strong>Zeitlohn</strong></td>
+                                        <td data-label="Berechnung">Lohnsatz × Arbeitszeit</td>
+                                        <td data-label="Leistungsanreiz">Gering</td>
+                                        <td data-label="Kontrolle">Arbeitskontrollen nötig</td>
+                                        <td data-label="Geeignet für">Kreative, gefährliche Arbeiten, hohe Qualitätsanforderungen</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Lohnform"><strong>Akkordlohn</strong></td>
+                                        <td data-label="Berechnung">Leistungsmenge (Geld-/Zeitakkord)</td>
+                                        <td data-label="Leistungsanreiz">Sehr hoch</td>
+                                        <td data-label="Kontrolle">Qualitätskontrollen nötig</td>
+                                        <td data-label="Geeignet für">Gleichförmige, messbare Routinearbeiten</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Lohnform"><strong>Prämienlohn</strong></td>
+                                        <td data-label="Berechnung">Grundlohn + Prämie (Menge, Qualität, Ersparnis, Nutzung)</td>
+                                        <td data-label="Leistungsanreiz">Hoch</td>
+                                        <td data-label="Kontrolle">Teils-Teils</td>
+                                        <td data-label="Geeignet für">Wenn Qualität UND Leistung gesteigert werden sollen</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Lohnform"><strong>Beteiligungslohn</strong></td>
+                                        <td data-label="Berechnung">Normalvergütung + Anteil am Gewinn/Erfolg</td>
+                                        <td data-label="Leistungsanreiz">Mittel (langfristig)</td>
+                                        <td data-label="Kontrolle">Gering</td>
+                                        <td data-label="Geeignet für">Führungskräfte, starke Mitarbeiterbindung</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3>Zeitlohn vs. Akkordlohn</h3>
+                            <p><strong>Zeitlohn:</strong><br>
+                            ➕ Weniger Stress/Druck<br>
+                            ➕ Lohnabrechnung ist einfach<br>
+                            ➕ Höhere Qualität der Arbeit<br>
+                            ➖ Geringer Leistungsanreiz<br>
+                            ➖ Arbeitskontrollen nötig<br>
+                            ➖ Lohnkosten schwer kalkulierbar</p>
+                            
+                            <p><strong>Akkordlohn:</strong><br>
+                            ➕ Hoher Leistungsanreiz<br>
+                            ➕ Leistungsgerechte Bezahlung<br>
+                            ➕ Lohnkosten exakt kalkulierbar<br>
+                            ➖ Hoher Stress (Gesundheitsrisiko)<br>
+                            ➖ Qualitätsverlust möglich<br>
+                            ➖ Qualitätskontrollen zwingend nötig</p>
+                        </div>
+                        <div class="card">
+                            <h3>Beteiligungslohn</h3>
+                            <p><strong>Vorteile für Arbeitgeber:</strong><br>
+                            - Mitarbeiter denken unternehmerisch (Kostenbewusstsein).<br>
+                            - Höhere Motivation und Identifikation.<br>
+                            - Geringere Fluktuation (Mitarbeiterbindung).</p>
+                            
+                            <p><strong>Vorteile für Arbeitnehmer:</strong><br>
+                            - Mehreinkommen bei wirtschaftlichem Erfolg.<br>
+                            - Einblick in die Unternehmensentwicklung.<br>
+                            - Mehr Lohngerechtigkeit empfunden.</p>
+                            
+                            <div class="callout" style="margin-top: 1rem;">
+                                <strong>💡 Merkhilfe</strong><br>
+                                Zeitlohn = Bezahlung nach Anwesenheit.<br>
+                                Akkordlohn = Bezahlung nach Stückzahl.<br>
+                                Prämienlohn = Bezahlung nach Zielerreichung.<br>
+                                Beteiligungslohn = Bezahlung nach Unternehmenserfolg.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: SOZIALVERSICHERUNG -->
+                <div id="tab-sv" class="tab-pane" role="tabpanel" aria-labelledby="btn-sv" hidden>
+                    <div class="panel">
+                        <div class="eyebrow">Merkregel "Wer ist zuständig?"</div>
+                        <p><strong>Arbeits- und Wegeunfall</strong> ➔ Unfallversicherung.<br>
+                        <strong>Freizeitunfall und Krankheit</strong> ➔ Krankenversicherung.<br>
+                        <strong>Jobverlust und Insolvenz</strong> ➔ Arbeitsförderung.<br>
+                        <strong>Alter, Erwerbsminderung und Tod</strong> ➔ Rentenversicherung.<br>
+                        <strong>Pflegebedürftigkeit</strong> ➔ Pflegeversicherung.</p>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="card sv-card">
+                            <h3>Krankenversicherung (KV)</h3>
+                            <ul>
+                                <li><strong>(T) Träger:</strong> Krankenkassen (AOK, TK, Barmer...).</li>
+                                <li><strong>(V) Pflicht für:</strong> AN bis zur Pflichtgrenze, Azubis, Rentner, ALG-I, Studierende.</li>
+                                <li><strong>(L) Leistungen:</strong> Krankenbehandlung, Krankengeld (ab 7. Woche, 70% Brutto/max 90% Netto), Vorsorge (z. B. Krebsvorsorge ab best. Alter), Mutterschaft.</li>
+                            </ul>
+                        </div>
+                        <div class="card sv-card">
+                            <h3>Pflegeversicherung (PV)</h3>
+                            <ul>
+                                <li><strong>(T) Träger:</strong> Pflegekassen (bei den Krankenkassen).</li>
+                                <li><strong>(V) Pflicht für:</strong> Alle in der GKV Versicherten (Pflege folgt Kranken).</li>
+                                <li><strong>(L) Leistungen:</strong> Pflegegeld, Pflegesachleistungen, Pflegegrade 1–5, Heim-/Tagespflege.</li>
+                            </ul>
+                        </div>
+                        <div class="card sv-card">
+                            <h3>Rentenversicherung (RV)</h3>
+                            <ul>
+                                <li><strong>(T) Träger:</strong> Deutsche Rentenversicherung.</li>
+                                <li><strong>(V) Pflicht für:</strong> Arbeitnehmer und Azubis.</li>
+                                <li><strong>(L) Leistungen:</strong> Altersrente (Grenze stufenweise auf 67 Jahre bis 2029), Erwerbsminderungsrente, Hinterbliebenenrente, Rehabilitation (Reha).</li>
+                            </ul>
+                        </div>
+                        <div class="card sv-card">
+                            <h3>Arbeitslosenversicherung (AV)</h3>
+                            <ul>
+                                <li><strong>(T) Träger:</strong> Bundesagentur für Arbeit.</li>
+                                <li><strong>(V) Pflicht für:</strong> Arbeitnehmer und Azubis.</li>
+                                <li><strong>(L) Leistungen:</strong> Arbeitslosengeld I (60%, mit Kind 67% vom pauschalierten Netto), Insolvenzgeld, Kurzarbeitergeld, Vermittlung, Weiterbildung.</li>
+                            </ul>
+                        </div>
+                        <div class="card sv-card" style="border-left: 4px solid var(--color-warning);">
+                            <h3>Unfallversicherung (UV)</h3>
+                            <ul>
+                                <li><strong>(T) Träger:</strong> Berufsgenossenschaften und Unfallkassen.</li>
+                                <li><strong>(V) Pflicht für:</strong> Beschäftigte, Azubis, Schüler, Studierende, Kita-Kinder. <em>Beitrag zahlt NUR der AG!</em></li>
+                                <li><strong>(L) Leistungen:</strong> Heilbehandlung, Verletztengeld, Unfallrente (ab 20% Minderung der Erwerbsfähigkeit), Reha, Hinterbliebenenrente. <strong>Auch Wegeunfälle!</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: BEITRÄGE & GRENZEN 2026 -->
+                <div id="tab-beitraege" class="tab-pane" role="tabpanel" aria-labelledby="btn-beitraege" hidden>
+                    <div class="panel">
+                        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; align-items: center;">
+                            <h2>Beiträge &amp; Grenzen (Stand 2026)</h2>
+                            <button type="button" id="btn-self-fill" class="btn-primary" aria-pressed="false">Tabelle selbst ausfüllen</button>
+                        </div>
+                        
+                        <div class="table-wrap">
+                            <table class="responsive-table data-table" id="sv-table">
+                                <thead>
+                                    <tr>
+                                        <th>Abgabe / Steuer</th>
+                                        <th>Arbeitnehmer trägt</th>
+                                        <th>Arbeitgeber trägt</th>
+                                        <th>Gesamt</th>
+                                        <th>Beitragsbemessungsgrenze (BBMG)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Steuern -->
+                                    <tr>
+                                        <td data-label="Abgabe"><strong>Lohnsteuer</strong></td>
+                                        <td data-label="AN"><span class="val">Höhe nach Steuerklasse</span><input class="fill-input" type="text" data-answer="Höhe nach Steuerklasse"></td>
+                                        <td data-label="AG"><span class="val">-</span><input class="fill-input" type="text" data-answer="-"></td>
+                                        <td data-label="Gesamt"><span class="val">-</span><input class="fill-input" type="text" data-answer="-"></td>
+                                        <td data-label="BBMG"><span class="val">-</span><input class="fill-input" type="text" data-answer="-"></td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Abgabe"><strong>Soli</strong></td>
+                                        <td data-label="AN"><span class="val">5,5 % (oft 0,00 €)</span><input class="fill-input" type="text" data-answer="5,5"></td>
+                                        <td data-label="AG"><span class="val">-</span><input class="fill-input" type="text" data-answer="-"></td>
+                                        <td data-label="Gesamt"><span class="val">-</span><input class="fill-input" type="text" data-answer="-"></td>
+                                        <td data-label="BBMG"><span class="val">Grenze: 20.350 € LSt/Jahr</span><input class="fill-input" type="text" data-answer="20350"></td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Abgabe"><strong>Kirchensteuer</strong></td>
+                                        <td data-label="AN"><span class="val">9 % (BY/BW 8 %)</span><input class="fill-input" type="text" data-answer="9"></td>
+                                        <td data-label="AG"><span class="val">-</span><input class="fill-input" type="text" data-answer="-"></td>
+                                        <td data-label="Gesamt"><span class="val">-</span><input class="fill-input" type="text" data-answer="-"></td>
+                                        <td data-label="BBMG"><span class="val">-</span><input class="fill-input" type="text" data-answer="-"></td>
+                                    </tr>
+                                    <!-- SV -->
+                                    <tr>
+                                        <td data-label="Abgabe"><strong>Krankenversicherung</strong></td>
+                                        <td data-label="AN"><span class="val">7,3 % + halber Zusatzbeitrag</span><input class="fill-input" type="text" data-answer="7,3"></td>
+                                        <td data-label="AG"><span class="val">7,3 % + halber Zusatzbeitrag</span><input class="fill-input" type="text" data-answer="7,3"></td>
+                                        <td data-label="Gesamt"><span class="val">14,6 % + Zusatzbeitrag</span><input class="fill-input" type="text" data-answer="14,6"></td>
+                                        <td data-label="BBMG"><span class="val">5.812,50 € / Monat</span><input class="fill-input" type="text" data-answer="5812,50"></td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Abgabe"><strong>Pflegeversicherung</strong> (Standard)</td>
+                                        <td data-label="AN"><span class="val">1,8 %</span><input class="fill-input" type="text" data-answer="1,8"></td>
+                                        <td data-label="AG"><span class="val">1,8 %</span><input class="fill-input" type="text" data-answer="1,8"></td>
+                                        <td data-label="Gesamt"><span class="val">3,6 %</span><input class="fill-input" type="text" data-answer="3,6"></td>
+                                        <td data-label="BBMG"><span class="val">5.812,50 € / Monat</span><input class="fill-input" type="text" data-answer="5812,50"></td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Abgabe"><strong>PV</strong> (Kinderlos ab 23)</td>
+                                        <td data-label="AN"><span class="val">2,4 % (1,8 + 0,6)</span><input class="fill-input" type="text" data-answer="2,4"></td>
+                                        <td data-label="AG"><span class="val">1,8 %</span><input class="fill-input" type="text" data-answer="1,8"></td>
+                                        <td data-label="Gesamt"><span class="val">4,2 %</span><input class="fill-input" type="text" data-answer="4,2"></td>
+                                        <td data-label="BBMG"><span class="val">5.812,50 € / Monat</span><input class="fill-input" type="text" data-answer="5812,50"></td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Abgabe"><strong>Rentenversicherung</strong></td>
+                                        <td data-label="AN"><span class="val">9,3 %</span><input class="fill-input" type="text" data-answer="9,3"></td>
+                                        <td data-label="AG"><span class="val">9,3 %</span><input class="fill-input" type="text" data-answer="9,3"></td>
+                                        <td data-label="Gesamt"><span class="val">18,6 %</span><input class="fill-input" type="text" data-answer="18,6"></td>
+                                        <td data-label="BBMG"><span class="val">8.450,00 € / Monat</span><input class="fill-input" type="text" data-answer="8450"></td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Abgabe"><strong>Arbeitslosenversicherung</strong></td>
+                                        <td data-label="AN"><span class="val">1,3 %</span><input class="fill-input" type="text" data-answer="1,3"></td>
+                                        <td data-label="AG"><span class="val">1,3 %</span><input class="fill-input" type="text" data-answer="1,3"></td>
+                                        <td data-label="Gesamt"><span class="val">2,6 %</span><input class="fill-input" type="text" data-answer="2,6"></td>
+                                        <td data-label="BBMG"><span class="val">8.450,00 € / Monat</span><input class="fill-input" type="text" data-answer="8450"></td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Abgabe"><strong>Unfallversicherung</strong></td>
+                                        <td data-label="AN"><span class="val">0 %</span><input class="fill-input" type="text" data-answer="0"></td>
+                                        <td data-label="AG"><span class="val">100 % (Gefahrklasse)</span><input class="fill-input" type="text" data-answer="100"></td>
+                                        <td data-label="Gesamt"><span class="val">Voll vom AG</span><input class="fill-input" type="text" data-answer="-"></td>
+                                        <td data-label="BBMG"><span class="val">-</span><input class="fill-input" type="text" data-answer="-"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div id="table-feedback" aria-live="polite" class="feedback-msg"></div>
+                            
+                            <p style="font-size: 0.85em; margin-top: 1rem; color: var(--color-text-muted);">
+                                <strong>Besonderheit Abschlag PV:</strong> Ab 2 Kindern (unter 25 J.) sinkt der AN-Anteil um 0,25 % je weiteres Kind (AG bleibt bei 1,8 %).<br>
+                                <strong>Besonderheit Sachsen PV:</strong> AN zahlt 2,3 %, AG zahlt 1,3 % (Kinderlos AN: 2,9 %)*<br>
+                                <em>*Anmerkung: Exakte Berechnung Sachsen mit mehreren Kindern bitte prüfen, Grundverteilung ist korrekt.</em>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="callout warning">
+                            <strong>Typische Verwechslungen!</strong>
+                            <ul>
+                                <li>KV und RV haben <strong>NICHT</strong> dieselbe Grenze!</li>
+                                <li>BBMG ist <strong>NICHT</strong> gleich VPG!</li>
+                                <li>Zusatzbeitrag KV wird <strong>hälftig</strong> geteilt (nicht nur AN).</li>
+                                <li>Unfallversicherung zahlt <strong>NUR</strong> der Arbeitgeber.</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>BBMG vs. Pflichtgrenze</h3>
+                            <p><strong>Beitragsbemessungsgrenze (BBMG):</strong> Einkommen, das über dieser Grenze liegt, bleibt beitragsfrei. Man zahlt max. für die BBMG Beiträge.</p>
+                            <p><strong>Versicherungspflichtgrenze (VPG):</strong> (6.450 € im Jahr 2026). Wer darüber verdient, darf sich privat krankenversichern und verlässt die gesetzliche Pflicht.</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1rem;">
+                        <h3>Zeitsprung: 2025 vs. 2026 (Nicht verwechseln!)</h3>
+                        <p><strong>Grenzen 2025:</strong> KV/PV 5.512,50 € | RV/AV 8.050,00 € | VPG 6.150,00 €<br>
+                        <strong>Grenzen 2026:</strong> KV/PV 5.812,50 € | RV/AV 8.450,00 € | VPG 6.450,00 €</p>
+                    </div>
+                </div>
+
+                <!-- TAB 5: STEUERN & KLASSEN -->
+                <div id="tab-steuern" class="tab-pane" role="tabpanel" aria-labelledby="btn-steuern" hidden>
+                    <div class="panel">
+                        <h2>Lohnsteuerklassen I bis VI</h2>
+                        <div class="table-wrap">
+                            <table class="responsive-table">
+                                <thead>
+                                    <tr>
+                                        <th>Klasse</th>
+                                        <th>Kriterien / Zielgruppe</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td data-label="Klasse"><strong>I</strong></td><td data-label="Kriterien">Ledig, verwitwet oder geschieden (ohne Kinder/ohne Entlastung).</td></tr>
+                                    <tr><td data-label="Klasse"><strong>II</strong></td><td data-label="Kriterien">Wie I, aber <strong>mit</strong> Entlastungsbetrag für Alleinerziehende.</td></tr>
+                                    <tr><td data-label="Klasse"><strong>III</strong></td><td data-label="Kriterien">Verheiratet, Ehegatte bezieht kein oder geringeres Entgelt (Partner in V).</td></tr>
+                                    <tr><td data-label="Klasse"><strong>IV</strong></td><td data-label="Kriterien">Verheiratet, etwa gleiches Einkommen (Gilt "von Amts wegen" ab Heirat).</td></tr>
+                                    <tr><td data-label="Klasse"><strong>V</strong></td><td data-label="Kriterien">Verheiratet, Ehegatte verdient mehr (Partner in III).</td></tr>
+                                    <tr><td data-label="Klasse"><strong>VI</strong></td><td data-label="Kriterien">Arbeitnehmer mit mehreren Arbeitgebern (gilt für das zweite/weitere Arbeitsverhältnis). Hohe Abzüge.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="callout">
+                            <strong>Kinderfreibeträge</strong>
+                            <p>Gibt es nur in den Klassen I bis IV. Wichtig: Im Lohnsteuerabzug mindern sie <strong>nicht</strong> die Lohnsteuer selbst, sondern dienen als Freibetrag für die Berechnung von <strong>Solidaritätszuschlag und Kirchensteuer</strong>!</p>
+                        </div>
+                        <div class="card">
+                            <h3>Freibeträge 2026</h3>
+                            <ul>
+                                <li><strong>Grundfreibetrag:</strong> 12.348 €. Bis hierhin zahlt man keine Einkommensteuer.</li>
+                                <li><strong>Arbeitnehmer-Pauschbetrag:</strong> 1.230 € (Werbungskostenpauschale).</li>
+                                <li>In den Steuerklassen I und IV sind diese Freibeträge identisch eingearbeitet.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h2>Mini-Übung: Welche Steuerklasse?</h2>
+                        <div class="quiz-container">
+                            <!-- JS generiert hier die Fälle und Antwortoptionen -->
+                        </div>
+                        <div id="quiz-feedback" aria-live="polite" style="margin-top: 1rem; font-weight: bold;"></div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <p style="text-align: center; font-size: 0.8em; color: var(--color-text-muted); margin-top: 2rem;">Werte Stand 2026, Fallwerte aus dem Skript. Fehler vorbehalten.</p>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="entgelt.js"></script>
+</body>
+</html>
