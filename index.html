@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meine Lernseiten</title>
+    <title>Lern-Hub • Übersicht aller Module</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="nav.css?v=2">
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
@@ -29,7 +31,7 @@
                         <p>Übersicht</p>
                     </div>
                 </div>
-                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false" type="button">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -39,113 +41,352 @@
                 </button>
             </div>
 
+            <!-- Wird dynamisch durch nav.js befüllt; statischer Fallback bleibt erhalten -->
             <nav class="nav" id="sidebar-nav">
-                <a href="index.html">🏠 Home</a>
-                <a href="uml.html">🎯 UML-Aktivitätsdiagramm</a>
-                <a href="englisch.html">🎤 Englisch Präsentation</a>
-                <a href="weihnachtsroute.html">🎅 Weihnachtsmann Problem</a>
-                <a href="wirtschaft.html">💼 Wirtschaftskunde</a>
-                <a href="Normalisierung.html">🔡 Normalisierung</a>
+                <a href="index.html" class="nav-active" aria-current="page">🏠 Startseite</a>
                 <a href="java.html">☕ Java</a>
-                <a href="it-begriffe.html">🔤 IT-Begriffe</a>
-                <a href="Marktformen.html">📊 Marktformen</a>
-                <a href="USV.html">🔌 USV</a>
-                <a href="sql.html">🔡 SQL </a>
+                <a href="uml.html">🎯 UML-Aktivitätsdiagramm</a>
+                <a href="Normalisierung.html">🧩 Normalisierung</a>
+                <a href="sql.html">🗄️ SQL</a>
                 <a href="IP_Routing.html">🌐 IP-Routing</a>
+                <a href="raid.html">💽 RAID &amp; Speicher</a>
+                <a href="usv.html">🔌 USV</a>
+                <a href="weihnachtsroute.html">🎅 Weihnachtsmann-Problem</a>
+                <a href="wirtschaft.html">💼 Wirtschaftskunde</a>
+                <a href="Marktformen.html">📊 Marktformen</a>
                 <a href="entgeltabrechnung.html">💶 Entgeltabrechnung</a>
-                <a href="raid.html">💽 RAID & Speicher</a>
+                <a href="englisch.html">🎤 Englisch Präsentation</a>
+                <a href="it-begriffe.html">🔤 IT-Begriffe</a>
             </nav>
 
-            <button class="theme-toggle">
+            <button class="theme-toggle" type="button">
                 <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
             </button>
         </aside>
 
         <main class="content">
-            <h1 class="page-title">📚 Meine Lernseiten</h1>
-            <p class="page-subtitle">Willkommen in deinem persönlichen Lernbereich. Wähle ein Thema aus, um zu starten.
-            </p>
+            <!-- Hero Header -->
+            <header class="index-hero">
+                <div class="eyebrow">✨ Lern-Hub • Übersicht</div>
+                <h1>Deine Wissens- &amp; Prüfungswelt</h1>
+                <p>13 fundierte Lernmodule mit Theorie, Beispielen, interaktiven Trainern und Prüfungsaufgaben für Fachinformatiker und kaufmännische Fächer.</p>
+                <div class="hero-stats">
+                    <span class="stat-pill"><span class="dot"></span> 13 Module</span>
+                    <span class="stat-pill"><span class="dot"></span> Interaktive Trainer &amp; Rechner</span>
+                    <span class="stat-pill"><span class="dot"></span> Prüfungsorientiert</span>
+                </div>
+            </header>
 
-            <div class="grid-auto">
-                <a href="uml.html" class="card card-hover index-card">
-                    <div class="emoji">🎯</div>
-                    <h2>UML-Aktivitätsdiagramm</h2>
-                    <p>Grundlagen, Elemente, Beispiele & Checkliste für deine Prüfung</p>
-                </a>
+            <!-- Such- und Filterleiste -->
+            <section class="filter-toolbar" aria-label="Module filtern">
+                <div class="search-box">
+                    <span class="search-icon" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </span>
+                    <input type="search" id="module-search" class="search-input" placeholder="Thema oder Stichwort suchen (z. B. Subnetting, SQL, KLR, RAID...)" aria-label="Module durchsuchen">
+                </div>
 
-                <a href="englisch.html" class="card card-hover index-card">
-                    <div class="emoji">🎤</div>
-                    <h2>Englisch Präsentation</h2>
-                    <p>Tipps zu Folien, Linking Phrases & Vokabeln</p>
-                </a>
+                <div class="filter-chips" role="group" aria-label="Nach Fachbereich filtern">
+                    <button type="button" class="filter-chip active" data-filter="all">Alle Module (13)</button>
+                    <button type="button" class="filter-chip" data-filter="informatik">💻 Informatik (8)</button>
+                    <button type="button" class="filter-chip" data-filter="wirtschaft">📊 Wirtschaft (3)</button>
+                    <button type="button" class="filter-chip" data-filter="sprache">🗣️ Sprache (2)</button>
+                </div>
+            </section>
 
-                <a href="weihnachtsroute.html" class="card card-hover index-card">
-                    <div class="emoji">🎅</div>
-                    <h2>Weihnachtsmann Problem</h2>
-                    <p>Logistik, Mathematik & optimale Lösung</p>
-                </a>
+            <!-- Kategorie 1: Informatik -->
+            <section class="category-section" data-category="informatik" aria-labelledby="cat-informatik">
+                <div class="category-header">
+                    <h2 class="category-title" id="cat-informatik">
+                        <span>💻</span> Informatik &amp; Systemtechnik
+                    </h2>
+                    <span class="category-count">8 Module</span>
+                </div>
 
-                <a href="wirtschaft.html" class="card card-hover index-card">
-                    <div class="emoji">💼</div>
-                    <h2>Wirtschaftskunde</h2>
-                    <p>Wirtschaftssysteme, Märkte & grundlegende Konzepte</p>
-                </a>
+                <div class="module-grid">
+                    <a href="java.html" class="module-card" data-category="informatik" data-tags="java oop programmierung objektorientierung algorithmen methoden">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">☕</div>
+                            <span class="module-tag">Programmierung</span>
+                        </div>
+                        <h3>Java</h3>
+                        <p>Objektorientierung (OOP), Klassen, Vererbung, Polymorphismus, Arrays &amp; Listen, Algorithmen und strukturierte Fehlerbehandlung.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
 
-                <a href="Normalisierung.html" class="card card-hover index-card">
-                    <div class="emoji">🔡</div>
-                    <h2>Normalisierung</h2>
-                    <p>Tabellen Normalisieren können</p>
-                </a>
+                    <a href="uml.html" class="module-card" data-category="informatik" data-tags="uml aktivitätsdiagramm aktivitaetsdiagramm diagramm modellierung schule pruefung">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">🎯</div>
+                            <span class="module-tag">Modellierung</span>
+                        </div>
+                        <h3>UML-Aktivitätsdiagramm</h3>
+                        <p>Aktionen, Entscheidungen, Verzweigungen, Parallelisierungen (Forks/Joins), Swimlanes &amp; Checkliste für deine Prüfung.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
 
-                <a href="java.html" class="card card-hover index-card">
-                    <div class="emoji">☕</div>
-                    <h2>Java</h2>
-                    <p>Java Programmierung</p>
-                </a>
-                <a href="it-begriffe.html" class="card card-hover index-card">
-                    <div class="emoji">🔤</div>
-                    <h2>IT-Begriffe</h2>
-                    <p>Rechtschreibung, Bindestriche & Duden-Regeln</p>
-                </a>
+                    <a href="Normalisierung.html" class="module-card" data-category="informatik" data-tags="normalisierung datenbanken 1nf 2nf 3nf schluessel sql redundanz anomalien">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">🧩</div>
+                            <span class="module-tag">Datenbanken</span>
+                        </div>
+                        <h3>Normalisierung</h3>
+                        <p>1. bis 3. Normalform (1NF, 2NF, 3NF), funktionale Abhängigkeiten, Primär- &amp; Fremdschlüssel und Vermeidung von Anomalien.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
 
-                <a href="Marktformen.html" class="card card-hover index-card">
-                    <div class="emoji">📊</div>
-                    <h2>Marktformen</h2>
-                    <p>Polypol, Monopol, Oligopol, Preisbildung &amp; Share-/Stakeholder</p>
-                </a>
-                <a href="usv.html" class="card card-hover index-card">
-                    <div class="emoji">🔌</div>
-                    <h2>USV</h2>
-                    <p>Strom und sowas ykr</p>
-                </a>
+                    <a href="sql.html" class="module-card" data-category="informatik" data-tags="sql abfragen select join where group by order by terra datenbank">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">🗄️</div>
+                            <span class="module-tag">Datenbanken</span>
+                        </div>
+                        <h3>SQL-Abfragen</h3>
+                        <p>Klassische SELECT-Abfragen, Tabellenverknüpfungen (JOINs), Aggregatfunktionen, Gruppierungen &amp; Übungen zur terra-Datenbank.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
 
-                <a href="sql.html" class="card card-hover index-card">
-                    <div class="emoji">🔡</div>
-                    <h2>SQL Abragen</h2>
-                    <p>SQL Abfragen und so</p>
-                </a>
+                    <a href="IP_Routing.html" class="module-card" data-category="informatik" data-tags="ip routing ipv4 ipv6 subnetting maske prefix wireshark netzwerk trace">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">🌐</div>
+                            <span class="module-tag">Netzwerke</span>
+                        </div>
+                        <h3>IP-Routing &amp; Subnetting</h3>
+                        <p>IPv4, IPv6, Subnetzberechnungen, interaktive Trainer (Typ A/B/C), Standort-Szenarien &amp; Wireshark-Trace-Analysen.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
 
-                <a href="IP_Routing.html" class="card card-hover index-card">
-                    <div class="emoji">🌐</div>
-                    <h2>IP-Routing</h2>
-                    <p>IPv6, IPv4, Subnetting &amp; Wireshark Trace-Analysen</p>
-                </a>
+                    <a href="raid.html" class="module-card" data-category="informatik" data-tags="raid speicher festplatten parity spiegelung striping smart controller">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">💽</div>
+                            <span class="module-tag">Hardware &amp; Storage</span>
+                        </div>
+                        <h3>RAID &amp; Speicher</h3>
+                        <p>RAID-Level (0, 1, 5, 6, 10), Controller, Datensicherheit, Ausfallsicherheit, S.M.A.R.T. &amp; Kapazitätsberechnungen.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
 
-                <a href="entgeltabrechnung.html" class="card card-hover index-card">
-                    <div class="emoji">💶</div>
-                    <h2>Entgeltabrechnung</h2>
-                    <p>Lohnformen, Sozialversicherung, Beiträge 2026 &amp; Steuerklassen</p>
-                </a>
+                    <a href="usv.html" class="module-card" data-category="informatik" data-tags="usv strom va watt scheinleistung wirkleistung vfd vi vfi netzstoerung akku">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">🔌</div>
+                            <span class="module-tag">Hardware &amp; Energie</span>
+                        </div>
+                        <h3>USV-Systeme</h3>
+                        <p>USV-Klassifizierungen (VFD, VI, VFI), Leistungsberechnungen (Watt vs. VA), Überbrückungszeiten &amp; Netzstörungen.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
 
-                <a href="raid.html" class="card card-hover index-card">
-                    <div class="emoji">💽</div>
-                    <h2>RAID & Speicher</h2>
-                    <p>Datensicherheit, Controller, S.M.A.R.T. und Kapazitätsberechnungen</p>
-                </a>
-                </a>
+                    <a href="weihnachtsroute.html" class="module-card" data-category="informatik" data-tags="weihnachtsmann tsp travelling salesperson problem optimierung graphen logistik">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">🎅</div>
+                            <span class="module-tag">Algorithmen &amp; Logistik</span>
+                        </div>
+                        <h3>Weihnachtsmann-Problem</h3>
+                        <p>Das Rundreiseproblem (TSP): Graphentheorie, kombinatorische Explosion, Heuristiken &amp; interaktiver Routenplaner.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Kategorie 2: Wirtschaft -->
+            <section class="category-section" data-category="wirtschaft" aria-labelledby="cat-wirtschaft">
+                <div class="category-header">
+                    <h2 class="category-title" id="cat-wirtschaft">
+                        <span>📊</span> Wirtschaft &amp; Soziales (WiSo)
+                    </h2>
+                    <span class="category-count">3 Module</span>
+                </div>
+
+                <div class="module-grid">
+                    <a href="wirtschaft.html" class="module-card" data-category="wirtschaft" data-tags="wirtschaft klr kosten leistungsrechnung fixkosten variable break even deckungsbeitrag bw7">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">💼</div>
+                            <span class="module-tag">Rechnungswesen</span>
+                        </div>
+                        <h3>Wirtschaftskunde (BW7)</h3>
+                        <p>Kosten- &amp; Leistungsrechnung (KLR), Fix- und variable Kosten, Deckungsbeitragsrechnung &amp; Break-Even-Analyse.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
+
+                    <a href="Marktformen.html" class="module-card" data-category="wirtschaft" data-tags="marktformen polypol monopol oligopol preisbildung elastizitaet stakeholder shareholder">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">📊</div>
+                            <span class="module-tag">VWL &amp; BWL</span>
+                        </div>
+                        <h3>Marktformen &amp; Unternehmen</h3>
+                        <p>Vollkommener Markt, Polypol, Oligopol, Monopol, Preiselastizität der Nachfrage sowie Shareholder vs. Stakeholder.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
+
+                    <a href="entgeltabrechnung.html" class="module-card" data-category="wirtschaft" data-tags="entgelt entgeltabrechnung lohn gehalt lohnformen sozialversicherung steuerklassen bbmg">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">💶</div>
+                            <span class="module-tag">Personal &amp; Steuern</span>
+                        </div>
+                        <h3>Entgeltabrechnung</h3>
+                        <p>Lohnformen, 5 Säulen der Sozialversicherung, Beitragssätze 2026, Steuerklassen I–VI &amp; interaktives Abrechnungsschema.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Kategorie 3: Sprache -->
+            <section class="category-section" data-category="sprache" aria-labelledby="cat-sprache">
+                <div class="category-header">
+                    <h2 class="category-title" id="cat-sprache">
+                        <span>🗣️</span> Sprache &amp; Fachkommunikation
+                    </h2>
+                    <span class="category-count">2 Module</span>
+                </div>
+
+                <div class="module-grid">
+                    <a href="englisch.html" class="module-card" data-category="sprache" data-tags="englisch praesentation presentation linking phrases vokabeln tipps fachvokabular">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">🎤</div>
+                            <span class="module-tag">Englisch</span>
+                        </div>
+                        <h3>Englisch-Präsentation</h3>
+                        <p>Tipps für überzeugende Folien, nützliche Linking Phrases, Fachbegriffe &amp; interaktives Präsentations- und Vokabelquiz.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
+
+                    <a href="it-begriffe.html" class="module-card" data-category="sprache" data-tags="it begriffe rechtschreibung duden bindestrich anglizismen zusammensetzungen">
+                        <div class="module-card-header">
+                            <div class="module-icon-wrap" aria-hidden="true">🔤</div>
+                            <span class="module-tag">Rechtschreibung</span>
+                        </div>
+                        <h3>IT-Begriffe &amp; Rechtschreibung</h3>
+                        <p>Duden-Regeln, Bindestrich-Schreibweise bei englischen Fachbegriffen, Groß-/Kleinschreibung &amp; Übungsquiz.</p>
+                        <div class="module-card-footer">
+                            <span>Thema lernen</span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Zustand wenn keine Suche trefft -->
+            <div id="no-results" class="no-results" aria-live="polite">
+                <div class="emoji" aria-hidden="true">🔍</div>
+                <h3>Keine passenden Lernmodule gefunden</h3>
+                <p>Versuche es mit einem anderen Begriff wie „Subnetting“, „SQL“, „KLR“ oder wähle einen anderen Fachbereich.</p>
             </div>
         </main>
     </div>
+
+    <!-- Client-seitiger interaktiver Filter & Suche -->
+    <script>
+        (function() {
+            var searchInput = document.getElementById('module-search');
+            var filterChips = document.querySelectorAll('.filter-chip');
+            var sections = document.querySelectorAll('.category-section');
+            var cards = document.querySelectorAll('.module-card');
+            var noResults = document.getElementById('no-results');
+            var currentFilter = 'all';
+
+            function filterModules() {
+                var query = (searchInput.value || '').trim().toLowerCase();
+                var visibleTotal = 0;
+
+                sections.forEach(function(section) {
+                    var sectionCategory = section.getAttribute('data-category');
+                    var categoryMatchesFilter = (currentFilter === 'all' || currentFilter === sectionCategory);
+                    var visibleInSection = 0;
+
+                    var sectionCards = section.querySelectorAll('.module-card');
+                    sectionCards.forEach(function(card) {
+                        var title = (card.querySelector('h3').textContent || '').toLowerCase();
+                        var text = (card.querySelector('p').textContent || '').toLowerCase();
+                        var tags = (card.getAttribute('data-tags') || '').toLowerCase();
+
+                        var matchesQuery = !query || 
+                            title.indexOf(query) !== -1 || 
+                            text.indexOf(query) !== -1 || 
+                            tags.indexOf(query) !== -1;
+
+                        if (categoryMatchesFilter && matchesQuery) {
+                            card.style.display = '';
+                            visibleInSection++;
+                            visibleTotal++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    // Aktualisiere Sektions-Zähler
+                    var countBadge = section.querySelector('.category-count');
+                    if (countBadge) {
+                        countBadge.textContent = visibleInSection + (visibleInSection === 1 ? ' Modul' : ' Module');
+                    }
+
+                    // Blende Sektion aus, falls keine Karten sichtbar
+                    if (visibleInSection > 0) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+
+                if (noResults) {
+                    if (visibleTotal === 0) {
+                        noResults.classList.add('visible');
+                    } else {
+                        noResults.classList.remove('visible');
+                    }
+                }
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', filterModules);
+            }
+
+            filterChips.forEach(function(chip) {
+                chip.addEventListener('click', function() {
+                    filterChips.forEach(function(c) { c.classList.remove('active'); });
+                    chip.classList.add('active');
+                    currentFilter = chip.getAttribute('data-filter') || 'all';
+                    filterModules();
+                });
+            });
+        })();
+    </script>
 
     <script src="nav.js"></script>
     <script src="script.js"></script>
