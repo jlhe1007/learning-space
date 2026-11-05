@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAID & Speichersysteme - Lern-Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .solution {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: color-mix(in srgb, var(--color-success) 10%, var(--color-surface));
+            border-left: 4px solid var(--color-success);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            animation: fadeIn 0.3s ease;
+        }
+        .solution.show {
+            display: block;
+        }
+        .exercise-card {
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .exercise-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .table-wrap {
+            display: block !important;
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            margin-bottom: var(--space-6);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+        }
+        .table-wrap table {
+            width: 100% !important;
+            min-width: 650px !important;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar" aria-label="Seitennavigation">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="logo" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>Lern-Hub</h1>
+                        <p>Übersicht</p>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menü öffnen">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="nav" id="sidebar-nav">
+                <a href="index.html">🏠 Home</a>
+                <a href="uml.html">🎯 UML-Aktivitätsdiagramm</a>
+                <a href="wirtschaft.html">💼 Wirtschaftskunde</a>
+                <a href="sql-terra.html">💾 SQL (terra-Datenbank)</a>
+                <a href="raid.html" style="background: var(--color-primary-highlight); font-weight: bold;">💽 RAID & Speicher</a>
+            </nav>
+            
+            <button class="theme-toggle">
+                <span aria-hidden="true">◐</span><span>Hell/Dunkel</span>
+            </button>
+        </aside>
+
+        <main class="content">
+            <div class="eyebrow">Hardware & Netzwerke</div>
+            <h1 class="page-title">💽 RAID-Systeme & S.M.A.R.T.</h1>
+            <p class="page-subtitle">Grundlagen der Datensicherheit, Kapazitätsberechnungen und RAID-Controller.</p>
+
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-tab="theorie">📖 RAID-Level</button>
+                    <button class="tab-btn" data-tab="controller">⚙️ Controller & SMART</button>
+                    <button class="tab-btn" data-tab="berechnung">🧮 Formeln & Berechnung</button>
+                    <button class="tab-btn" data-tab="test">🎯 Übungstest (Klausurfragen)</button>
+                </div>
+
+                <!-- TAB 1: RAID GRUNDLAGEN -->
+                <div id="theorie" class="tab-pane active">
+                    <div class="panel">
+                        <h2>Was ist RAID?</h2>
+                        <p><strong>R</strong>edundant <strong>A</strong>rray of <strong>I</strong>ndependent <strong>D</strong>isks. Es verbindet mehrere physische Festplatten zu einem logischen Laufwerk, um die <strong>Ausfallsicherheit (Redundanz)</strong> und/oder die <strong>Geschwindigkeit</strong> zu erhöhen.</p>
+                        
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr style="background-color: var(--color-surface-alt);">
+                                        <th>Level</th>
+                                        <th>Verfahren</th>
+                                        <th>Min. Disks</th>
+                                        <th>Ausfallsicherheit</th>
+                                        <th>Nettokapazität</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>RAID 0</strong></td>
+                                        <td>Striping (Datenaufteilung)</td>
+                                        <td>2</td>
+                                        <td><span style="color: var(--color-error); font-weight: bold;">Keine</span> (Fällt eine aus, ist alles weg)</td>
+                                        <td>100 % ($N \times \text{Kapazität}$)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>RAID 1</strong></td>
+                                        <td>Mirroring (Spiegelung)</td>
+                                        <td>2</td>
+                                        <td>Hoch (Festplatten sind 1:1 Kopien)</td>
+                                        <td>50 % ($\frac{N}{2}$)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>RAID 5</strong></td>
+                                        <td>Striping + verteilte Parität</td>
+                                        <td>3</td>
+                                        <td>Genau 1 Festplatte darf ausfallen</td>
+                                        <td>$N - 1$ Festplatten</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>RAID 6</strong></td>
+                                        <td>Striping + doppelte Parität</td>
+                                        <td>4</td>
+                                        <td>Genau 2 Festplatten dürfen ausfallen</td>
+                                        <td>$N - 2$ Festplatten</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="callout warning">
+                            <strong>Wichtiger Merksatz</strong>
+                            <p style="margin-bottom: 0;">Ein RAID ersetzt niemals ein externes Backup! Es schützt nur vor Hardwareausfällen, nicht aber vor versehentlichem Löschen, Ransomware oder Brandschäden.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: CONTROLLER & SMART -->
+                <div id="controller" class="tab-pane">
+                    <div class="grid-2">
+                        <div class="panel">
+                            <h2>Der Hardware-RAID-Controller</h2>
+                            <p>Ein dedizierter Controller steuert die Festplatten unabhängig vom Betriebssystem. Das bringt erhebliche Vorteile gegenüber Software-RAIDs mit sich:</p>
+                            <ul>
+                                <li><strong>Eigener Prozessor (XOR-Engine):</strong> Übernimmt die komplexen Berechnungen für Paritätsdaten (besonders bei RAID 5/6) und entlastet so die Haupt-CPU des Servers.</li>
+                                <li><strong>Eigener Cache (Zwischenspeicher):</strong> Beschleunigt Lese- und Schreibvorgänge extrem, da Daten erst in den schnellen RAM des Controllers fließen.</li>
+                                <li><strong>BBU (Battery Backup Unit):</strong> Eine Pufferbatterie auf dem Controller. Bei Stromausfall hält sie den Cache am Leben, bis der Strom zurück ist, damit noch nicht geschriebene Daten nicht verloren gehen.</li>
+                            </ul>
+                        </div>
+
+                        <div class="panel">
+                            <h2>S.M.A.R.T. Technologie</h2>
+                            <p>S.M.A.R.T. steht für <strong>S</strong>elf-<strong>M</strong>onitoring, <strong>A</strong>nalysis and <strong>R</strong>eporting <strong>T</strong>echnology.</p>
+                            <div class="callout">
+                                <strong>Funktion & Nutzen:</strong>
+                                <p>S.M.A.R.T. ist ein Industriestandard, der in fast jede moderne Festplatte integriert ist. Die Technologie überwacht im Hintergrund fortlaufend Sensordaten und Fehlerquoten (z.B. Temperatur, fehlerhafte Sektoren, Lese-/Schreibfehler).<br><br>
+                                <strong>Ziel:</strong> Das System warnt den Administrator vor einem unmittelbar bevorstehenden Festplattendefekt (Predictive Failure Analysis), sodass das Laufwerk präventiv getauscht werden kann, bevor ein Datenverlust eintritt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: BERECHNUNGEN -->
+                <div id="berechnung" class="tab-pane">
+                    <div class="panel">
+                        <h2>🧮 Kapazitätsberechnung leicht gemacht</h2>
+                        <p>In der Prüfung geht man für Berechnungen fast immer davon aus, dass <strong>alle Festplatten gleich groß</strong> sind. (Werden unterschiedlich große Platten verbaut, richtet sich das Array nach der kleinsten Platte!)</p>
+                        
+                        <div class="grid-2">
+                            <div class="card">
+                                <h3>RAID 1 (Spiegelung)</h3>
+                                <p>Die Gesamtkapazität wird exakt halbiert, da alles doppelt geschrieben wird.</p>
+                                <code>Nettokapazität = $\frac{Anzahl}{2} \times Kapazität$</code>
+                                <p style="margin-top: 0.5rem; font-size: 0.9em; color: var(--color-text-muted);"><em>(Gilt für klassisches RAID 10 oder Multi-Disk RAID 1).</em></p>
+                            </div>
+                            
+                            <div class="card">
+                                <h3>RAID 5 (Einfache Parität)</h3>
+                                <p>Der Speicherplatz von genau einer Festplatte geht für die Paritätsdaten (Prüfsummen) verloren.</p>
+                                <code>Nettokapazität = $(Anzahl - 1) \times Kapazität$</code>
+                            </div>
+
+                            <div class="card">
+                                <h3>RAID 6 (Doppelte Parität)</h3>
+                                <p>Der Speicherplatz von exakt zwei Festplatten geht für die doppelten Prüfsummen verloren.</p>
+                                <code>Nettokapazität = $(Anzahl - 2) \times Kapazität$</code>
+                            </div>
+                            
+                            <div class="card">
+                                <h3>Kostenberechnung</h3>
+                                <p>Die Kosten beziehen sich immer auf die <strong>Brutto-Kapazität</strong> (also alle Platten, die du kaufst), auch wenn ein Teil davon für Parität/Spiegelung "verloren" geht.</p>
+                                <code>Gesamtpreis = $Anzahl \times Stückpreis$</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: KLAUSURTEST -->
+                <div id="test" class="tab-pane">
+                    <div class="panel">
+                        <h2>🎯 Der große Übungstest (Prüfungsfragen)</h2>
+                        <p>Bearbeite die Aufgaben, die genau so im Test drankommen, und überprüfe deine Antworten über den Lösungs-Button.</p>
+
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 1: RAID Zuordnung</h3>
+                            <p>Ordne die folgenden Aussagen exakt einem RAID-Level (RAID 0, RAID 1 oder RAID 5) zu:</p>
+                            <ol>
+                                <li>"Verteilt Daten blockweise über alle Festplatten und bietet keine Redundanz."</li>
+                                <li>"Nutzt verteilte Paritätsdaten. Das Array toleriert den Ausfall von genau einer Festplatte."</li>
+                                <li>"Spiegelt alle Daten komplett 1:1, was die Nutzkapazität halbiert."</li>
+                            </ol>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <strong>Lösung:</strong>
+                                <ol>
+                                    <li>RAID 0</li>
+                                    <li>RAID 5</li>
+                                    <li>RAID 1</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 2: S.M.A.R.T. übersetzen</h3>
+                            <p>Was bedeutet das Akronym S.M.A.R.T. und was ist – grob ins Deutsche übersetzt – die primäre Funktion dieser Technologie in Festplatten?</p>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <strong>Lösung:</strong><br>
+                                <strong>S.M.A.R.T.</strong> = Self-Monitoring, Analysis and Reporting Technology (Selbstüberwachungs-, Analyse- und Statusmeldetechnologie).<br><br>
+                                <strong>Funktion:</strong> Die Festplatte überwacht ihre eigenen Zustandswerte (Temperatur, fehlerhafte Sektoren etc.) selbst. Der Zweck ist es, einen drohenden Hardwaredefekt frühzeitig zu erkennen und das System zu warnen, noch bevor es zu einem echten Ausfall und Datenverlust kommt.
+                            </div>
+                        </div>
+
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 3: RAID-Controller</h3>
+                            <p>Nenne 2 typische Eigenschaften eines dedizierten (Hardware-) RAID-Controllers und nenne jeweils den Vorteil/Nutzen (Beispiel) dazu.</p>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <strong>Lösung (Zwei von den folgenden):</strong>
+                                <ul>
+                                    <li><strong>Eigener Prozessor (XOR-Prozessor):</strong> Berechnet Paritätsdaten selbst und entlastet somit die Haupt-CPU (Prozessor) des Servers.</li>
+                                    <li><strong>Cache (RAM-Speicher):</strong> Ein Pufferspeicher auf der Karte, der Schreib- und Lesezugriffe deutlich beschleunigt.</li>
+                                    <li><strong>BBU (Battery Backup Unit):</strong> Eine kleine Batterie, die bei einem plötzlichen Stromausfall den Cache mit Energie versorgt. So gehen ungeschriebene Daten nicht verloren.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 4: Aussage bewerten</h3>
+                            <p>Bewerte die folgende Aussage und begründe deine Antwort kurz: <em>"RAID 0 ist kein wirkliches RAID."</em></p>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <strong>Lösung:</strong><br>
+                                Die Aussage ist <strong>richtig</strong>.<br>
+                                <strong>Begründung:</strong> Das "R" in RAID steht für "Redundant" (ausfallsicher). Da bei RAID 0 die Daten nur in Streifen aufgeteilt (Striping) werden und weder gespiegelt noch mit Paritätsdaten versehen sind, bietet es <strong>keine</strong> Redundanz. Fällt bei RAID 0 eine Festplatte aus, ist das gesamte Array kaputt und alle Daten sind verloren.
+                            </div>
+                        </div>
+
+                        <div class="exercise-card card">
+                            <h3>Aufgabe 5: Berechnungen</h3>
+                            <p>Ein Server soll mit <strong>4 Festplatten</strong> ausgestattet werden. Der Preis pro Festplatte beträgt <strong>230,00 €</strong>. Gehe davon aus, dass jede Festplatte eine Kapazität von <strong>4 TB</strong> besitzt.</p>
+                            <p>Berechne für ein <strong>RAID 1</strong> und ein <strong>RAID 6</strong> jeweils:<br>
+                            a) Die Nettokapazität (nutzbarer Speicher).<br>
+                            b) Die Gesamtkosten für den Kauf der Festplatten.</p>
+                            <button class="btn-secondary" onclick="toggleSolution(this)">📖 Lösung anzeigen</button>
+                            <div class="solution">
+                                <strong>Lösung:</strong><br><br>
+                                <strong>Gesamtkosten (für beide RAID-Level gleich!):</strong><br>
+                                Da physisch 4 Festplatten gekauft werden müssen, berechnet sich der Preis aus:<br>
+                                4 × 230,00 € = <strong>920,00 €</strong><br><br>
+                                
+                                <strong>Nettokapazität RAID 1 (Spiegelung):</strong><br>
+                                Die Nutzkapazität wird halbiert (Die Hälfte der Platten ist die Spiegelung).<br>
+                                $\frac{4}{2}$ Platten = 2 nutzbare Platten. <br>
+                                2 × 4 TB = <strong>8 TB Nettokapazität</strong><br><br>
+                                
+                                <strong>Nettokapazität RAID 6 (Doppelte Parität):</strong><br>
+                                Der Speicherplatz von genau 2 Platten geht für die doppelten Prüfsummen verloren ($N - 2$).<br>
+                                $4 - 2$ Platten = 2 nutzbare Platten. <br>
+                                2 × 4 TB = <strong>8 TB Nettokapazität</strong>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Einfache Tab-Umschaltlogik als Fallback (falls script.js das nicht abdeckt)
+        document.querySelectorAll('.tabs-nav .tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tabs-nav .tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tabs-container .tab-pane').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+        
+        // Lösung einblenden Funktion (Fallback)
+        if (typeof toggleSolution !== "function") {
+            function toggleSolution(btn) {
+                const solutionDiv = btn.nextElementSibling;
+                if (solutionDiv && solutionDiv.classList.contains('solution')) {
+                    solutionDiv.classList.toggle('show');
+                    btn.textContent = solutionDiv.classList.contains('show') ? "📖 Lösung ausblenden" : "📖 Lösung anzeigen";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
