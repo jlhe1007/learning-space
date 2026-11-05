@@ -73,6 +73,8 @@
 
 html {
     scroll-behavior: smooth;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -83,6 +85,9 @@ body {
     background: var(--color-bg);
     color: var(--color-text);
     transition: background-color 0.3s ease, color 0.3s ease;
+    max-width: 100%;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 img, svg {
@@ -117,6 +122,8 @@ p {
     display: grid;
     grid-template-columns: 300px minmax(0, 1fr);
     min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
 }
 
 .shell.no-sidebar {
@@ -243,6 +250,9 @@ p {
 .content {
     padding: var(--space-8) min(4vw, var(--space-10)) var(--space-16);
     max-width: 100%;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .content-centered {
@@ -406,9 +416,8 @@ p {
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px;
     text-align: left;
-
+    max-width: 100%;
 }
 
 th, td {
@@ -428,6 +437,13 @@ tr:last-child td {
 }
 
 /* Code Blocks */
+pre, .formula, pre[class*="language-"] {
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 pre[class*="language-"] {
     border-radius: var(--radius-lg);
     margin: var(--space-4) 0 !important;
@@ -452,12 +468,21 @@ pre code {
 }
 
 /* Tabs Navigation */
+.tabs-container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
 .tabs-nav {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
     margin-bottom: var(--space-6);
     border-bottom: 2px solid var(--color-border);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .tab-btn {
@@ -580,38 +605,87 @@ pre code {
    ========================================================================== */
 @media (max-width: 1040px) {
     .shell {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
     }
     
     .sidebar {
-        position: relative;
+        position: sticky;
+        top: 0;
         height: auto;
         border-right: none;
         border-bottom: 1px solid var(--color-border);
-        padding: var(--space-4) var(--space-5);
+        padding: 0.65rem 1rem;
+        background: var(--color-surface);
+        box-shadow: var(--shadow-sm);
+        z-index: 100;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0;
+        width: 100%;
+    }
+
+    .brand {
+        gap: 0.65rem;
+    }
+
+    .brand .logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+    }
+
+    .brand .logo svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .brand h1 {
+        font-size: 1.15rem;
+    }
+
+    .brand p {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        padding: 0;
     }
 
     .nav {
         display: none; /* Hidden by default on mobile */
         padding-top: var(--space-4);
+        padding-bottom: var(--space-3);
     }
     
     .nav.active {
         display: grid;
     }
 
-    .sidebar-header {
-        margin-bottom: 0;
-    }
-
-    .mobile-menu-btn {
-        display: block;
-    }
-
     .theme-toggle {
-        margin-top: var(--space-4);
+        display: none;
+        margin-top: var(--space-2);
         width: 100%;
         justify-content: center;
+    }
+
+    .nav.active ~ .theme-toggle {
+        display: inline-flex;
     }
 
     .grid-3 {
@@ -619,31 +693,99 @@ pre code {
     }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
     .content {
-        padding: var(--space-5);
+        padding: var(--space-4) var(--space-3) var(--space-12);
+    }
+
+    .page-title {
+        font-size: clamp(1.4rem, 1.15rem + 1.8vw, 1.85rem);
+        margin-bottom: var(--space-2);
+        word-break: break-word;
+    }
+
+    .page-subtitle {
+        font-size: var(--text-sm);
+        margin-bottom: var(--space-4);
+    }
+
+    .eyebrow {
+        font-size: 0.72rem;
+        padding: 0.35rem 0.65rem;
+        margin-bottom: var(--space-2);
     }
 
     .grid-2, .grid-3 {
         grid-template-columns: 1fr;
+        gap: var(--space-3);
     }
 
+    .grid-auto {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+
+    .panel, .card, .quiz-card {
+        padding: var(--space-4);
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--space-4);
+    }
+
+    /* Horizontale Wisch-Navigation fÃ¼r Tabs auf MobilgerÃ¤ten */
     .tabs-nav {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding-bottom: 4px;
+        gap: 0.35rem;
+        border-bottom: 1px solid var(--color-border);
+        margin-bottom: var(--space-5);
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .tabs-nav::-webkit-scrollbar {
+        display: none;
     }
 
     .tab-btn {
-        width: 100%;
-        text-align: left;
-        border-bottom: none;
-        border-left: 3px solid transparent;
+        flex: 0 0 auto;
+        width: auto;
+        white-space: nowrap;
+        padding: 0.6rem 0.9rem;
+        font-size: 0.88rem;
+        text-align: center;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        background: transparent;
         margin-bottom: 0;
     }
 
     .tab-btn.active {
-        border-bottom: none;
-        border-left-color: var(--color-primary);
-        background: var(--color-surface);
+        border-left: none;
+        border-bottom-color: var(--color-primary);
+        background: transparent;
+        color: var(--color-primary);
+    }
+
+    /* Tabellen ohne Wrapper scrollbar machen */
+    table:not(.table-wrap table):not(.responsive-table) {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table-wrap table.responsive-table,
+    table.responsive-table {
+        min-width: 0 !important;
+        width: 100% !important;
     }
 }
 
@@ -655,16 +797,18 @@ pre code {
 /* --- Responsive Tabellen (Scrollbar auf Mobile) --- */
 .table-wrap {
     width: 100%;
-    overflow-x: auto; /* Aktiviert horizontales Scrollen, wenn nötig */
-    -webkit-overflow-scrolling: touch; /* Sorgt für flüssiges Wischen auf iPhones/iPads */
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     margin-bottom: var(--space-6);
     border-radius: var(--radius-md);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
 }
 
 .table-wrap table {
     width: 100%;
-    /* Diese Mindestbreite zwingt die Tabelle, breit genug zu bleiben. 
-       Auf dem Handy muss man dann wischen, auf dem PC passt sie komplett rein: */
-    min-width: 650px; 
+    min-width: 540px; 
     border-collapse: collapse;
 }
